@@ -1,9 +1,3 @@
----
-active_crumb: Docs
-layout: documentation
-id: getting_started
----
-
 <!--
  Licensed to the Apache Software Foundation (ASF) under one or more
  contributor license agreements.  See the NOTICE file distributed with
@@ -21,56 +15,12 @@ id: getting_started
  limitations under the License.
 -->
 
-<div class="col-md-8 second-column">
-    <section id="getting-started">
-        <h2 class="section-title">Getting Started</h2>
-        <p>
-            In this section we'll take a quick 10 minutes look at running and
-            testing <a href="https://github.com/apache/incubator-nlpcraft/tree/master/src/main/scala/org/apache/nlpcraft/examples" target="github">examples</a>
-            shipped with NLPCraft along with
-            running the main components of NLPCraft - data probe and REST server. We assume the following:
-        </p>
-        <ul>
-            <li>You <a href="/download.html">downloaded</a> NLPCraft {{site.latest_version}} as a ZIP archive.</li>
-            <li>You followed <a href="/installation.html">installation</a> instructions.</li>
-            <li>You are using Mac OS/Linux environment.</li>
-        </ul>
-    </section>
-    <section id="probe-server">
-        <h2 class="section-title">Data Probe <span class="amp">&amp;</span> REST Server</h2>
-        <p>
-            Data probes are used to deploy and host data model, while REST server (or a
-            cluster of servers) is used to accept client REST calls and route them to the data model deployed on data probes.
-        </p>
-        <p>
-            Both data probe and the REST server start the same way. NLPCraft ships with all-inclusive
-            single executable JAR file. We'll use command line to start the both.
-            Open two console windows and start server first and then data probe by typing these commands:
-        </p>
-        <nav>
-            <div class="nav nav-tabs" role="tablist">
-                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-srv-start" role="tab" aria-controls="nav-home" aria-selected="true">REST Server</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-probe-start" role="tab" aria-controls="nav-home" aria-selected="true">Data Probe</a>
-            </div>
-        </nav>
-        <div class="tab-content">
-            <div class="tab-pane fade show active" id="nav-srv-start" role="tabpanel">
-                <pre class="brush: plain">
+<!doctype html><html lang="en"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="description" content="An open source API to convert natural language into actions."><meta name="author" content="NLPCraft."><title>Apache NLPCraft - Natural Language Interface</title><link href="//netdna.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet"><link href="//use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" rel="stylesheet" crossorigin="anonymous"><link href="/ext/syntaxhighlighter/styles/shCoreNLPCraft.css" rel="stylesheet" type="text/css"><link href="/ext/syntaxhighlighter/styles/shThemeNLPCraft.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Amatic+SC|Roboto+Mono" rel="stylesheet"> <script src="/ext/syntaxhighlighter/scripts/XRegExp.js" type="text/javascript"></script> <script src="/ext/syntaxhighlighter/scripts/shCore.js" type="text/javascript"></script> <script src="/ext/syntaxhighlighter/scripts/shBrushXml.js" type="text/javascript"></script> <script src="/ext/syntaxhighlighter/scripts/shBrushPlain.js" type="text/javascript"></script> <script src="/ext/syntaxhighlighter/scripts/shBrushJava.js" type="text/javascript"></script> <script src="/ext/syntaxhighlighter/scripts/shBrushScala.js" type="text/javascript"></script> <script src="/ext/syntaxhighlighter/scripts/shBrushPython.js" type="text/javascript"></script> <script src="/ext/syntaxhighlighter/scripts/shBrushJScript.js" type="text/javascript"></script> <script async defer src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" type="text/css" href="/assets/css/style.css"/> <script type="text/javascript" src="//use.typekit.net/pso2adz.js"></script> <script type="text/javascript"> try { Typekit.load(); } catch(e) { // Ignore. } </script><nav class="navbar navbar-expand-lg navbar-light bg-light" id="top-header"> <a class="navbar-brand mr-4" href="/index.html"> <img src="/images/nlpcraft_logo_white.gif" height="24px"> </a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button><div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav mr-auto"><li class="nav-item"> <a class="nav-link" href="/index.html#features">Features</a><li class="nav-item"> <a class="nav-link" href="/docs.html">Docs</a><li class="nav-item"> <a class="nav-link" href="/download.html">Downloads <i class="fas fa-download"></i></a><li class="nav-item"> <a class="nav-link" href="/community.html">Community</a><li class="nav-item"> <a class="nav-link" href="/use-cases.html">Use Cases</a></ul><ul class="navbar-nav ml-auto"><li class="nav-item mr-2"> <a class="nav-link" href="/download.html">v.0.5.0</a><li class="nav-item"> <a class="nav-link fork-link" target="github" href="https://github.com/apache/incubator-nlpcraft">GitHub <img height="20px" src="/images/github_logo_white.png"></a></ul></div></nav><div class="container-fluid"><div class="navbar-aligned"><ol class="breadcrumb"><li class="mr-1"><a href="/index.html">Home</a><li class="mr-1 active">Docs</ol><h1 class="page-title"> <span><i class="fas fa-fw fa-book"></i> Docs</span></h1><div class="three-cols-container"><div class="col-md-2 first-column"><ul class="side-nav"><li class="side-nav-title">Introduction<li> <a href="/docs.html">Overview</a><li> <a href="/installation.html">Installation</a><li> <a class="active" href="/getting-started.html">Getting Started</a><li class="side-nav-title">Developer Guide<li> <a href="/basic-concepts.html">Basic Concepts</a><li> <a href="/first-example.html">First Example</a><li> <a href="/data-model.html">Data Model</a><li> <a href="/intent-matching.html">Intent Matching</a><li> <a href="/using-rest.html">REST API</a><li> <a href="/server-and-probe.html">Server <span class="amp">&amp;</span> Probe</a><li> <a href="/metrics-and-tracing.html">Metrics <span class="amp">&amp;</span> Tracing</a><li> <a href="/integrations.html">Integrations</a><li class="side-nav-title">Examples<li> <a href="/examples/alarm_clock.html">Alarm Clock</a><li> <a href="/examples/light_switch.html">Light Switch</a></ul></div><div class="col-md-8 second-column"><section id="getting-started"><h2 class="section-title">Getting Started</h2><p> In this section we'll take a quick 10 minutes look at running and testing <a href="https://github.com/apache/incubator-nlpcraft/tree/master/src/main/scala/org/apache/nlpcraft/examples" target="github">examples</a> shipped with NLPCraft along with running the main components of NLPCraft - data probe and REST server. We assume the following:</p><ul><li>You <a href="/download.html">downloaded</a> NLPCraft 0.5.0 as a ZIP archive.<li>You followed <a href="/installation.html">installation</a> instructions.<li>You are using Mac OS/Linux environment.</ul></section><section id="probe-server"><h2 class="section-title">Data Probe <span class="amp">&amp;</span> REST Server</h2><p> Data probes are used to deploy and host data model, while REST server (or a cluster of servers) is used to accept client REST calls and route them to the data model deployed on data probes.</p><p> Both data probe and the REST server start the same way. NLPCraft ships with all-inclusive single executable JAR file. We'll use command line to start the both. Open two console windows and start server first and then data probe by typing these commands:</p><nav><div class="nav nav-tabs" role="tablist"> <a class="nav-item nav-link active" data-toggle="tab" href="#nav-srv-start" role="tab" aria-controls="nav-home" aria-selected="true">REST Server</a> <a class="nav-item nav-link" data-toggle="tab" href="#nav-probe-start" role="tab" aria-controls="nav-home" aria-selected="true">Data Probe</a></div></nav><div class="tab-content"><div class="tab-pane fade show active" id="nav-srv-start" role="tabpanel"><pre class="brush: plain">
                     $ cd build
-                    $ java -jar apache-nlpcraft-{{site.latest_version}}-all-deps.jar -server
-                </pre>
-                <p>
-                    You can can also start it via Docker:
-                </p>
-                <pre class="brush: plain">
-                    $ docker run -m 8G -p 8081:8081 -p 8201:8201 -p 8202:8202 nlpcraftserver/server:{{site.latest_version}}
-                </pre>
-                <p>
-                    REST server starts with default configuration (<code>nlpcraft.conf</code> and
-                    <code>ignite.xml</code> files located in the same folder as <code>apache-nlpcraft-{{site.latest_version}}-all-deps.jar</code>
-                    file). You should see the output similar to this:
-                </p>
-                <pre class="brush: plain">
+                    $ java -jar apache-nlpcraft-0.5.0-all-deps.jar -server
+                </pre><p> You can can also start it via Docker:</p><pre class="brush: plain">
+                    $ docker run -m 8G -p 8081:8081 -p 8201:8201 -p 8202:8202 nlpcraftserver/server:0.5.0
+                </pre><p> REST server starts with default configuration (<code>nlpcraft.conf</code> and <code>ignite.xml</code> files located in the same folder as <code>apache-nlpcraft-0.5.0-all-deps.jar</code> file). You should see the output similar to this:</p><pre class="brush: plain">
                         _   ____      ______           ______
                        / | / / /___  / ____/________ _/ __/ /_
                       /  |/ / / __ \/ /   / ___/ __ `/ /_/ __/
@@ -79,7 +29,7 @@ id: getting_started
                            /_/
 
                     Server
-                    Version: {{site.latest_version}}
+                    Version: 0.5.0
                     Copyright (C) 2020 Apache Software Foundation.
 
                     ...
@@ -90,19 +40,10 @@ id: getting_started
 
 
                     Mar-11 23:21:04 [INFO ] REST server is listening on 'localhost:8081'.
-                </pre>
-            </div>
-            <div class="tab-pane fade show" id="nav-probe-start" role="tabpanel">
-                <pre class="brush: plain">
+                </pre></div><div class="tab-pane fade show" id="nav-probe-start" role="tabpanel"><pre class="brush: plain">
                     $ cd build
-                    $ java -jar apache-nlpcraft-{{site.latest_version}}-all-deps.jar -probe
-                </pre>
-                <p>
-                    Data probe starts with default configuration (file <code>nlpcraft.conf</code> located in the same folder
-                    as <code>apache-nlpcraft-{{site.latest_version}}-all-deps.jar</code> file) that deploys
-                    all example models shipped with NLPCraft. You should see the output similar to this:
-                </p>
-                <pre class="brush: plain">
+                    $ java -jar apache-nlpcraft-0.5.0-all-deps.jar -probe
+                </pre><p> Data probe starts with default configuration (file <code>nlpcraft.conf</code> located in the same folder as <code>apache-nlpcraft-0.5.0-all-deps.jar</code> file) that deploys all example models shipped with NLPCraft. You should see the output similar to this:</p><pre class="brush: plain">
                     _   ____      ______           ______
                    / | / / /___  / ____/________ _/ __/ /_
                   /  |/ / / __ \/ /   / ___/ __ `/ /_/ __/
@@ -111,14 +52,14 @@ id: getting_started
                        /_/
 
                 Data Probe
-                Version: {{site.latest_version}}
+                Version: 0.5.0
                 Copyright (C) 2020 Apache Software Foundation.
 
                 Mar-11 23:25:52 [INFO ] Probe Configuration:
                 +----------------------------------------------------------------------+
                 | Probe ID        | all.examples                                       |
                 | Probe Token     | 3141592653589793                                   |
-                | API Version     | {{site.latest_version}}, 2019-04-16                                  |
+                | API Version     | 0.5.0, 2019-04-16                                  |
                 | Down-Link       | localhost:8202                                     |
                 | Up-Link         | localhost:8201                                     |
                 +-----------------+----------------------------------------------------+
@@ -156,65 +97,15 @@ id: getting_started
                 ...
 
                 Mar-11 23:25:58 [INFO ] Server connection established.
-                </pre>
-            </div>
-        </div>
-        <p>
-            At this point you have both the data probe and the REST server started and connected to each other.
-            We are ready to start calling REST API to use natural language to query our example models.
-        </p>
-    </section>
-    <section id="querying">
-        <h2 class="section-title">Weather Forecast</h2>
-        <p>
-            We'll be testing <a target="github" href="https://github.com/apache/incubator-nlpcraft/tree/master/src/main/scala/org/apache/nlpcraft/examples/weather">Weather Example</a>
-            to ask questions about weather forecast using REST APIs. This example returns a comprehensive JSON weather
-            data for variety of different inquiries about the past, present or future weather conditions.
-        </p>
-        <p>
-            There are <a target=_ href="https://medium.com/@alicealdaine/top-10-api-testing-tools-rest-soap-services-5395cb03cfa9">many ways</a> to issue
-            and test REST calls - for our examples we'll use standard
-            <a target="wiki" href="https://en.wikipedia.org/wiki/CURL">cURL</a> utility which you can simply use from the
-            command line in any OS.
-            NLPCraft comes with a convenient wrapper script <code>bin/nccurl.sh</code> that shortens
-            command line of the standard <code>cURL</code>. Note also that we'll be using Python to pretty format
-            cURL JSON responses.
-        </p>
-        <h3 class="section-title">Sign In</h3>
-        <p>
-            First, we need to sign in and obtain <b>access token</b>. We'll use <code>/signin</code>
-            REST call for that. When REST server starts
-            for the first time it creates a default user with email <code>admin@admin.com</code> and
-            <code>admin</code> password. Open new command line terminal and let's use these default credentials for sing in:
-        </p>
-        <pre class="brush: js; highlight: [3]">
+                </pre></div></div><p> At this point you have both the data probe and the REST server started and connected to each other. We are ready to start calling REST API to use natural language to query our example models.</p></section><section id="querying"><h2 class="section-title">Weather Forecast</h2><p> We'll be testing <a target="github" href="https://github.com/apache/incubator-nlpcraft/tree/master/src/main/scala/org/apache/nlpcraft/examples/weather">Weather Example</a> to ask questions about weather forecast using REST APIs. This example returns a comprehensive JSON weather data for variety of different inquiries about the past, present or future weather conditions.</p><p> There are <a target=_ href="https://medium.com/@alicealdaine/top-10-api-testing-tools-rest-soap-services-5395cb03cfa9">many ways</a> to issue and test REST calls - for our examples we'll use standard <a target="wiki" href="https://en.wikipedia.org/wiki/CURL">cURL</a> utility which you can simply use from the command line in any OS. NLPCraft comes with a convenient wrapper script <code>bin/nccurl.sh</code> that shortens command line of the standard <code>cURL</code>. Note also that we'll be using Python to pretty format cURL JSON responses.</p><h3 class="section-title">Sign In</h3><p> First, we need to sign in and obtain <b>access token</b>. We'll use <code>/signin</code> REST call for that. When REST server starts for the first time it creates a default user with email <code>admin@admin.com</code> and <code>admin</code> password. Open new command line terminal and let's use these default credentials for sing in:</p><pre class="brush: js; highlight: [3]">
             $ nccurl.sh signin '{"email": "admin@admin.com", "passwd": "admin"}' | python -m json.tool
             {
                 "acsTok": "KMGWMQJ44",
                 "status": "API_OK"
             }
-        </pre>
-        <p>
-            Note the returned access token <code>KMGWMQJ44</code> which we'll use in subsequent operations. Keep in mind that you
-            will get different access tokens and IDs when you are performing these steps by yourself.
-        </p>
-        <h3 class="section-title"><b>Query</b></h3>
-        <p>
-            Now that we have signed in (access token <code>KMGWMQJ44</code>) we can go ahead and start asking natural language
-            questions against our data model (<code>nlpcraft.weather.ex</code>). For this example we'll use
-            <a target=apiary href="https://nlpcraft.docs.apiary.io/#reference/asking"><code>/ask/sync</code></a> REST call - a
-            call that submit the request and waits for its completion before returning the result.
-        </p>
-        <p>
-            <b>Q: What is the current forecast for Chicago?</b>
-        </p>
-        <pre class="brush: js highlight: [2, 3, 4, 5]">
+        </pre><p> Note the returned access token <code>KMGWMQJ44</code> which we'll use in subsequent operations. Keep in mind that you will get different access tokens and IDs when you are performing these steps by yourself.</p><h3 class="section-title"><b>Query</b></h3><p> Now that we have signed in (access token <code>KMGWMQJ44</code>) we can go ahead and start asking natural language questions against our data model (<code>nlpcraft.weather.ex</code>). For this example we'll use <a target=apiary href="https://nlpcraft.docs.apiary.io/#reference/asking"><code>/ask/sync</code></a> REST call - a call that submit the request and waits for its completion before returning the result.</p><p> <b>Q: What is the current forecast for Chicago?</b></p><pre class="brush: js highlight: [2, 3, 4, 5]">
             $ nccurl.sh ask/sync '{"acsTok": "KMGWMQJ44", "txt": "What is the current forecast for Chicago?", "mdlId": "nlpcraft.weather.ex"}' | python -m json.tool
-        </pre>
-        <p>
-            And we get a full 5-day forecast for Chicago:
-        </p>
-        <pre class="brush: js">
+        </pre><p> And we get a full 5-day forecast for Chicago:</p><pre class="brush: js">
         {
             "state": [
                 {
@@ -256,17 +147,9 @@ id: getting_started
             ],
             "status": "API_OK"
         }
-        </pre>
-        <p>
-            <b>Q: Any chance of snow today in Moscow?</b>
-        </p>
-        <pre class="brush: js highlight: [2, 3, 4, 5]">
+        </pre><p> <b>Q: Any chance of snow today in Moscow?</b></p><pre class="brush: js highlight: [2, 3, 4, 5]">
             $ nccurl.sh ask/sync '{"acsTok": "KMGWMQJ44", "txt": "Any chance of snow today in Moscow?", "mdlId": "nlpcraft.weather.ex"}' | python -m json.tool
-        </pre>
-        <p>
-            And we get today's Moscow weather report:
-        </p>
-        <pre class="brush: js">
+        </pre><p> And we get today's Moscow weather report:</p><pre class="brush: js">
             {
                 "states": [
                     {
@@ -330,28 +213,9 @@ id: getting_started
                 ],
                 "status": "API_OK"
             }
-        </pre>
-        <h3 class="section-title">Sign Out</h3>
-        <p>
-            Once we enjoyed our conversation about the weather we sign out:
-        </p>
-        <pre class="brush: js highlight: [3]">
+        </pre><h3 class="section-title">Sign Out</h3><p> Once we enjoyed our conversation about the weather we sign out:</p><pre class="brush: js highlight: [3]">
             $ nccurl.sh signout '{"acsTok": "KMGWMQJ44"}' | python -m json.tool
             {
                 "status": "API_OK"
             }
-        </pre>
-    </section>
-</div>
-<div class="col-md-2 third-column">
-    <ul class="side-nav">
-        <li class="side-nav-title">On This Page</li>
-        <li><a href="#getting-started">Getting Started</a></li>
-        <li><a href="#probe-server">Data Probe <span class="amp">&amp;</span> Server</a></li>
-        <li><a href="#querying">Using REST API</a></li>
-        {% include quick-links.html %}
-    </ul>
-</div>
-
-
-
+        </pre></section></div><div class="col-md-2 third-column"><ul class="side-nav"><li class="side-nav-title">On This Page<li><a href="#getting-started">Getting Started</a><li><a href="#probe-server">Data Probe <span class="amp">&amp;</span> Server</a><li><a href="#querying">Using REST API</a><li class="side-nav-title">Quick Links<li> <i class="fab fa-fw fa-github mr-2"></i><a target="github" href="https://github.com/apache/incubator-nlpcraft/tree/master/src/main/scala/org/apache/nlpcraft/examples">Examples</a><li> <i class="fab fa-fw fa-java mr-2"></i><a target="_" href="/apis/latest/index.html">Javadoc</a><li> <i class="fas fa-fw fa-code mr-2"></i><a href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml" target="github">REST API</a><li> <i class="fas fa-fw fa-download mr-2"></i><a href="/download.html">Download</a><li class="side-nav-title">Support<li> <nobr> <i class="fab fa-fw fa-jira mr-2"></i><a target="jira" href="https://issues.apache.org/jira/projects/NLPCRAFT/issues">JIRA</a> </nobr><li> <nobr> <i class="far fa-fw fa-envelope mr-2"></i><a href="http://mail-archives.apache.org/mod_mbox/nlpcraft-dev/">Dev List</a> </nobr><li> <nobr> <i class="fab fa-fw fa-stack-overflow mr-2"></i><a target="so" href="https://stackoverflow.com/questions/ask">Stack Overflow</a> </nobr><li> <nobr> <i class="fab fa-fw fa-github mr-2"></i><a target="github" href="https://github.com/apache/incubator-nlpcraft">GitHub</a> </nobr></ul></div></div></div></div><div id="footer"><div class="container"><div class="text-muted text-center"> <span>Copyright &copy; 2020 Apache Software Foundation</span> <span> <a target=_new href="https://apache.org"><img alt="asf" src="/images/asf_logo.png" height="24px"></a> </span> <a href="/index.html#news" class="btn btn-link ml-4">News</a> <span class="sep">•</span> <a href="/docs.html" class="btn btn-link">Docs</a> <span class="ml-4">release: <a href="/download.html"><code>0.5.0</code></a></span> <span class="ml-2"> <a target="jenkins" href="https://builds.apache.org/view/Incubator%20Projects/job/incubator-nlpcraft/"><img src="https://img.shields.io/jenkins/build?jobUrl=https%3A%2F%2Fbuilds.apache.org%2Fview%2FIncubator%2520Projects%2Fjob%2Fincubator-nlpcraft%2F"></a> <a target=_ href="https://gitter.im/apache-nlpcraft/community"><img alt="Gitter" src="https://badges.gitter.im/apache-nlpcraft/community.svg"></a> </span></div></div></div><script src="//code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script> <script src="//stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script> <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js" type="text/javascript" ></script> <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js" type="text/javascript" ></script> <script src="//cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.5/moment-timezone-with-data.min.js" type="text/javascript" ></script> <script type="text/javascript"> SyntaxHighlighter.defaults["auto-links"] = false; SyntaxHighlighter.defaults["tab-size"] = 2; SyntaxHighlighter.all(); </script>
