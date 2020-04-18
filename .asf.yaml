@@ -37,17 +37,11 @@ github:
 jenkins:
   github_whitelist:
     - aradzinski
-
-# Jekyll build.
-jekyll:
-  whoami: master
-  target: asf-site
-  output: /
   
 # Website staging and publishing.
 staging:
   profile: ~
-  whoami: master
+  whoami: web-staging
 
 publish:
   whoami: web-site
