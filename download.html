@@ -43,6 +43,14 @@ layout: interior
                 <li>
                     <a target=_new href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">Java SE Runtime Environment</a>
                     (JRE) or <a target=_new href="https://openjdk.java.net/">OpenJDK</a> ver. 8 or later installed.
+                    <ul>
+                        <li>
+                            Java 8 and Scala 2.11 are required to build NLPCraft (Java 11 is NOT supported).
+                        </li>
+                        <li>
+                            For runtime Java 8 or later is supported.
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     Latest versions of <a target=_ href="https://git-scm.com/downloads">Git</a> and
@@ -177,101 +185,64 @@ layout: interior
                 To build binaries from the source release download the <a href="#src">source release</a> and run
                 the following commands:
             </p>
-            <pre class="brush: plain, highlight: [2,3,6]">
-                # Unpack the source package.
+            <b>Unpack the source package:</b>
+            <pre class="brush: plain">
                 $ unzip -q apache-nlpcraft-{{site.latest_version}}-src.zip
                 $ cd apache-nlpcraft-{{site.latest_version}}-src
-
-                # Build NLPCraft.
+            </pre>
+            <b>Build NLPCraft:</b>
+            <pre class="brush: plain">
                 $ mvn clean package -DskipTests
             </pre>
+            <p>
+                Built JARs and Javadoc will be located in <code>target</code> sub-folder.
+            </p>
         </section>
         <section id="verification">
             <h2 class="section-title">Release Verification</h2>
             <p>
                 We highly recommend to verify the integrity and authenticity of the ZIP archive by comparing cryptographic
-                signatures.
-            </p>
-            <div class="bq warn">
-                <p>
-                    <b>NOTE:</b> <code>MD5</code> and <code>SHA1</code> signatures provided only for
-                    rare backward compatibility as they are not cryptographically strong and generally
-                    not recommended. In most cases you should only trust to <code>PGP</code> or <code>SHA256</code>
-                    signatures.
-                </p>
-            </div>
-            <p>
-                Following instructions assume binary release on Mac OS/Linux environment but the verification steps are
-                similar for Windows. Note that you can also verify signatures online at
-                <a target=_ href="https://md5file.com/calculator">File Hash Online Calculator</a> or
-                <a target=_ href="http://onlinemd5.com/">Online MD5</a>.
+                signatures.Following instructions assume binary release on Mac OS/Linux environment but the verification steps are
+                similar for Windows. 
             </p>
             <h3 class="section-title">Mac OS</h3>
             <nav>
                 <div class="nav nav-tabs" role="tablist">
-                    <a class="nav-item nav-link active" data-toggle="tab" href="#nav-macos-md5" role="tab" aria-controls="nav-home" aria-selected="true">MD5</a>
-                    <a class="nav-item nav-link" data-toggle="tab" href="#nav-macos-sha1" role="tab" aria-controls="nav-home" aria-selected="true">SHA1</a>
-                    <a class="nav-item nav-link" data-toggle="tab" href="#nav-macos-sha256" role="tab" aria-controls="nav-home" aria-selected="true">SHA256</a>
+                    <a class="nav-item nav-link active" data-toggle="tab" href="#nav-macos-sha256" role="tab" aria-controls="nav-home" aria-selected="true">SHA256</a>
                     <a class="nav-item nav-link" data-toggle="tab" href="#nav-macos-pgp" role="tab" aria-controls="nav-home" aria-selected="true">PGP</a>
                 </div>
             </nav>
             <div class="tab-content">
-                <div class="tab-pane fade show active" id="nav-macos-md5" role="tabpanel">
-                <pre class="brush: plain">
-                    # Run these two commands and compare generated hashes:
-                    $ openssl dgst -md5 apache-nlpcraft-{{site.latest_version}}.zip
-                    $ cat apache-nlpcraft-{{site.latest_version}}.zip.md5
-                </pre>
-                </div>
-                <div class="tab-pane fade show" id="nav-macos-sha256" role="tabpanel">
-                <pre class="brush: plain">
+                <div class="tab-pane fade show active" id="nav-macos-sha256" role="tabpanel">
+                <pre class="brush: plain, highlight: [2,3]">
                     # Run these two commands and compare generated hashes:
                     $ openssl dgst -sha256 apache-nlpcraft-{{site.latest_version}}.zip
                     $ cat apache-nlpcraft-{{site.latest_version}}.zip.sha256
                 </pre>
                 </div>
-                <div class="tab-pane fade show" id="nav-macos-sha1" role="tabpanel">
-                <pre class="brush: plain">
-                    # Run these two commands and compare generated hashes:
-                    $ openssl dgst -sha1 apache-nlpcraft-{{site.latest_version}}.zip
-                    $ cat apache-nlpcraft-{{site.latest_version}}.zip.sha1
-                </pre>
-                </div>
                 <div class="tab-pane fade show" id="nav-macos-pgp" role="tabpanel">
-                <pre class="brush: plain">
+                <pre class="brush: plain, highlight: [2]">
                     # NOTE: make sure to have GPGTools (gpgtools.org) installed.
-                    $ gpg --verify apache-nlpcraft-{{site.latest_version}}.zip.sig apache-nlpcraft-{{site.latest_version}}.zip
+                    $ gpg --verify apache-nlpcraft-{{site.latest_version}}.zip.asc apache-nlpcraft-{{site.latest_version}}.zip
                 </pre>
                 </div>
             </div>
             <h3 class="section-title">Linux</h3>
             <nav>
                 <div class="nav nav-tabs" role="tablist">
-                    <a class="nav-item nav-link active" data-toggle="tab" href="#nav-linux-md5" role="tab" aria-controls="nav-home" aria-selected="true">MD5</a>
-                    <a class="nav-item nav-link" data-toggle="tab" href="#nav-linux-sha1" role="tab" aria-controls="nav-home" aria-selected="true">SHA1</a>
-                    <a class="nav-item nav-link" data-toggle="tab" href="#nav-linux-sha256" role="tab" aria-controls="nav-home" aria-selected="true">SHA256</a>
+                    <a class="nav-item nav-link active" data-toggle="tab" href="#nav-linux-sha256" role="tab" aria-controls="nav-home" aria-selected="true">SHA256</a>
                     <a class="nav-item nav-link" data-toggle="tab" href="#nav-linux-pgp" role="tab" aria-controls="nav-home" aria-selected="true">PGP</a>
                 </div>
             </nav>
             <div class="tab-content">
-                <div class="tab-pane fade show active" id="nav-linux-md5" role="tabpanel">
-                <pre class="brush: plain">
-                    $ md5sum --check apache-nlpcraft-{{site.latest_version}}.zip.md5
-                </pre>
-                </div>
-                <div class="tab-pane fade show" id="nav-linux-sha256" role="tabpanel">
-                <pre class="brush: plain">
+                <div class="tab-pane fade show active" id="nav-linux-sha256" role="tabpanel">
+                <pre class="brush: plain, highlight: [1]">
                     $ sha256sum --check apache-nlpcraft-{{site.latest_version}}.zip.sha256
                 </pre>
                 </div>
-                <div class="tab-pane fade show" id="nav-linux-sha1" role="tabpanel">
-                <pre class="brush: plain">
-                    $ sha1sum --check apache-nlpcraft-{{site.latest_version}}.zip.sha1
-                </pre>
-                </div>
                 <div class="tab-pane fade show" id="nav-linux-pgp" role="tabpanel">
-                <pre class="brush: plain">
-                    $ gpg --verify apache-nlpcraft-{{site.latest_version}}.zip.sig apache-nlpcraft-{{site.latest_version}}.zip
+                <pre class="brush: plain, highlight: [1]">
+                    $ gpg --verify apache-nlpcraft-{{site.latest_version}}.zip.asc apache-nlpcraft-{{site.latest_version}}.zip
                 </pre>
                 </div>
             </div>

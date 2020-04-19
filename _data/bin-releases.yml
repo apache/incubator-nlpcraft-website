@@ -22,6 +22,6 @@
   sha256_url: https://github.com/apache/incubator-nlpcraft/releases/download/0.5.0/apache-nlpcraft-0.5.0.zip.sha256
   pgp_url: https://github.com/apache/incubator-nlpcraft/releases/download/0.5.0/apache-nlpcraft-0.5.0.zip.sig
   github_link: https://github.com/apache/incubator-nlpcraft/tree/0.5.0
-  dockerhub_link: https://hub.docker.com/r/nlpcraftserver/server
+#  dockerhub_link: https://hub.docker.com/r/nlpcraftserver/server
   backward_compatible: yes
 
