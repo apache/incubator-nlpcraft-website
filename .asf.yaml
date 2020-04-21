@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-# Metadata.
+# Project metadata.
 github:
   description: "Apache NLPCraft - API to convert natural language into actions."
   homepage: https://nlpcraft.apache.org/
