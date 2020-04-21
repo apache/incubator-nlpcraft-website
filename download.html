@@ -187,8 +187,8 @@ layout: interior
             </p>
             <b>Unpack the source package:</b>
             <pre class="brush: plain">
-                $ unzip -q apache-nlpcraft-{{site.latest_version}}-src.zip
-                $ cd apache-nlpcraft-{{site.latest_version}}-src
+                $ unzip -q apache-nlpcraft-incubating-{{site.latest_version}}.zip
+                $ cd apache-nlpcraft-incubating-{{site.latest_version}}
             </pre>
             <b>Build NLPCraft:</b>
             <pre class="brush: plain">
@@ -216,14 +216,14 @@ layout: interior
                 <div class="tab-pane fade show active" id="nav-macos-sha256" role="tabpanel">
                 <pre class="brush: plain, highlight: [2,3]">
                     # Run these two commands and compare generated hashes:
-                    $ openssl dgst -sha256 apache-nlpcraft-{{site.latest_version}}.zip
-                    $ cat apache-nlpcraft-{{site.latest_version}}.zip.sha256
+                    $ openssl dgst -sha256 apache-nlpcraft-incubating-{{site.latest_version}}.zip
+                    $ cat apache-nlpcraft-incubating-{{site.latest_version}}.zip.sha256
                 </pre>
                 </div>
                 <div class="tab-pane fade show" id="nav-macos-pgp" role="tabpanel">
                 <pre class="brush: plain, highlight: [2]">
                     # NOTE: make sure to have GPGTools (gpgtools.org) installed.
-                    $ gpg --verify apache-nlpcraft-{{site.latest_version}}.zip.asc apache-nlpcraft-{{site.latest_version}}.zip
+                    $ gpg --verify apache-nlpcraft-incubating-{{site.latest_version}}.zip.asc apache-nlpcraft-incubating-{{site.latest_version}}.zip
                 </pre>
                 </div>
             </div>
@@ -237,12 +237,12 @@ layout: interior
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="nav-linux-sha256" role="tabpanel">
                 <pre class="brush: plain, highlight: [1]">
-                    $ sha256sum --check apache-nlpcraft-{{site.latest_version}}.zip.sha256
+                    $ sha256sum --check apache-nlpcraft-incubating-{{site.latest_version}}.zip.sha256
                 </pre>
                 </div>
                 <div class="tab-pane fade show" id="nav-linux-pgp" role="tabpanel">
                 <pre class="brush: plain, highlight: [1]">
-                    $ gpg --verify apache-nlpcraft-{{site.latest_version}}.zip.asc apache-nlpcraft-{{site.latest_version}}.zip
+                    $ gpg --verify apache-nlpcraft-incubating-{{site.latest_version}}.zip.asc apache-nlpcraft-incubating-{{site.latest_version}}.zip
                 </pre>
                 </div>
             </div>
