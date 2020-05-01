@@ -42,7 +42,6 @@ jenkins:
 staging:
   profile: ~
   whoami: web-staging
-
 publish:
   whoami: web-site
 
