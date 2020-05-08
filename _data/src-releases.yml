@@ -18,9 +18,9 @@
 - version: 0.5.0
   date: Apr 29, 2020
   zip_name: apache-nlpcraft-incubating-0.5.0.zip
-  zip_url: https://dist.apache.org/repos/dist/release/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.5.0.zip
-  sha256_url: https://dist.apache.org/repos/dist/release/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.5.0.zip.sha256
-  pgp_url: https://dist.apache.org/repos/dist/release/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.5.0.zip.asc
+  zip_url: https://www.apache.org/dyn/closer.cgi?filename=incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.5.0.zip&action=download
+  sha256_url: https://downloads.apache.org/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.5.0.zip.sha256
+  pgp_url: https://downloads.apache.org/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.5.0.zip.asc
   github_link: https://github.com/apache/incubator-nlpcraft/tree/v0.5.0
   backward_compatible: yes
 
