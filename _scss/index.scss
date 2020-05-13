@@ -272,6 +272,14 @@ div.quick-link {
     border-radius: 2px;
     background-color: $color-magnolia;
 
+    .txt {
+        font-size: 90%;
+    }
+
+    .sep {
+        color: #cecab2;
+    }
+
     img.quick-link-img {
         height: 32px;
         margin-right: 10px;
