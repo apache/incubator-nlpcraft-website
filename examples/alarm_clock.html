@@ -237,7 +237,7 @@ public class AlarmModel extends NCModelFileAdapter {
                 public void run() {
                     System.out.println(
                         "BEEP BEEP BEEP for: " +
-                            ctx.getQueryContext().getRequest().getNormalizedText() + ""
+                            ctx.getContext().getRequest().getNormalizedText() + ""
                     );
                 }
             },
