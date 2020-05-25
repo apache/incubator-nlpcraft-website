@@ -105,6 +105,28 @@ layout: interior
                 <a href="/integrations.html">Integrations</a>
                 {% endif %}
             </li>
+            <li class="side-nav-title">Tools</li>
+            <li>
+                {% if page.id == "alarm_clock" %}
+                <a class="active" href="/tools/test_framework.html">Test Framework</a>
+                {% else %}
+                <a href="/tools/test_framework.html">Test Framework</a>
+                {% endif %}
+            </li>
+            <li>
+                {% if page.id == "embedded_probe" %}
+                <a class="active" href="/tools/embedded_probe.html">Embedded Probe</a>
+                {% else %}
+                <a href="/tools/embedded_probe.html">Embedded Probe</a>
+                {% endif %}
+            </li>
+            <li>
+                {% if page.id == "sql_model_gen" %}
+                <a class="active" href="/tools/sql_model_gen.html">SQL Model Generator</a>
+                {% else %}
+                <a href="/tools/sql_model_gen.html">SQL Model Generator</a>
+                {% endif %}
+            </li>
             <li class="side-nav-title">Examples</li>
             <li>
                 {% if page.id == "alarm_clock" %}

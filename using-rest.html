@@ -35,20 +35,6 @@ id: rest
             data models. The result of data model processing travels all the way through the same chain of components
             back to the user application that made the original call.
         </p>
-        <p>
-            In this chapter we'll provide an overview on using REST API. Note that the full REST API specification
-            is hosted on <a href="https://nlpcraft.docs.apiary.io" target="apiary">apiary.io</a> where you can review
-            it and test with it against your localhost or remote NLPCraft installation.
-        </p>
-        <div class="bq warn">
-            <p>
-                <b>apiary.io <span class="amp">&amp;</span> localhost</b>
-            </p>
-            <p>
-                If you are using <a href="https://nlpcraft.docs.apiary.io" target="apiary">apiary.io</a> to test REST API against localhost make sure
-                to install Chrome Apiary extension. Note that this will only work in Chrome browser.
-            </p>
-        </div>
         <div class="bq info">
             <p>
                 If you downloaded ZIP archive the REST API specification is also available in
@@ -65,7 +51,7 @@ id: rest
         </p>
         <ul>
             <li>Maven/Grape/Gradle/SBT <a href="download.html#java-client">instructions</a></li>
-            <li>Latest <a target=_ href="https://apache.github.io/incubator-nlpcraft-java-client/apis/latest/index.html">Javadoc</a></li>
+            <li>Latest <a target=_ href="https://nlpcraft.apache.org/apis/java-client/latest/index.html">Javadoc</a></li>
             <li>Watch, star or fork <a target="github" href="https://github.com/apache/incubator-nlpcraft-java-client">GitHub Project</a></li>
         </ul>
 
@@ -152,11 +138,11 @@ id: rest
             </thead>
             <tbody>
                 <tr>
-                    <td><a target=apiary href="https://nlpcraft.docs.apiary.io/#reference/authentication"><nobr><code>/signin</code></nobr></a></td>
+                    <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/signin</code></nobr></a></td>
                     <td>Sign in and obtain <b>access token</b>.</td>
                 </tr>
                 <tr>
-                    <td><a target=apiary href="https://nlpcraft.docs.apiary.io/#reference/authentication"><nobr><code>/signout</code></nobr></a></td>
+                    <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/signout</code></nobr></a></td>
                     <td>Sign out and invalidate previously obtained <b>access token</b>.</td>
                 </tr>
             </tbody>
@@ -194,31 +180,31 @@ id: rest
             </thead>
             <tbody>
             <tr>
-                <td><a target=apiary href="https://nlpcraft.docs.apiary.io/#reference/asking"><nobr><code>/ask</code></nobr></a></td>
+                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/ask</code></nobr></a></td>
                 <td>Submit the sentence to be processed <b>asynchronously</b>.</td>
             </tr>
             <tr>
-                <td><a target=apiary href="https://nlpcraft.docs.apiary.io/#reference/asking"><nobr><code>/ask/sync</code></nobr></a></td>
+                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/ask/sync</code></nobr></a></td>
                 <td>Submit the sentence to be processed <b>synchronously</b>. </td>
             </tr>
             <tr>
-                <td><a target=apiary href="https://nlpcraft.docs.apiary.io/#reference/asking"><nobr><code>/check</code></nobr></a></td>
+                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/check</code></nobr></a></td>
                 <td>Get statuses and results for previously submitted <code>/ask</code> requests.</td>
             </tr>
             <tr>
-                <td><a target=apiary href="https://nlpcraft.docs.apiary.io/#reference/asking"><nobr><code>/cancel</code></nobr></a></td>
+                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/cancel</code></nobr></a></td>
                 <td>
                     Remove results from the server memory.
                 </td>
             </tr>
             <tr>
-                <td><a target=apiary href="https://nlpcraft.docs.apiary.io/#reference/asking"><nobr><code>/clear/conversation</code></nobr></a></td>
+                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/clear/conversation</code></nobr></a></td>
                 <td>
                     Clear the conversation STM for current user and data model.
                 </td>
             </tr>
             <tr>
-                <td><a target=apiary href="https://nlpcraft.docs.apiary.io/#reference/asking"><nobr><code>/clear/dialog</code></nobr></a></td>
+                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/clear/dialog</code></nobr></a></td>
                 <td>
                     Clear the dialog flow for current user and data model.
                 </td>
@@ -240,23 +226,23 @@ id: rest
             </thead>
             <tbody>
             <tr>
-                <td><a target=apiary href="https://nlpcraft.docs.apiary.io/#reference/users"><nobr><code>/company/get</code></nobr></a></td>
+                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/company/get</code></nobr></a></td>
                 <td>Gets current user company.</td>
             </tr>
             <tr>
-                <td><a target=apiary href="https://nlpcraft.docs.apiary.io/#reference/users"><nobr><code>/company/add</code></nobr></a></td>
+                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/company/add</code></nobr></a></td>
                 <td>Add new company.</td>
             </tr>
             <tr>
-                <td><a target=apiary href="https://nlpcraft.docs.apiary.io/#reference/users"><nobr><code>/company/update</code></nobr></a></td>
+                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/company/update</code></nobr></a></td>
                 <td>Update company information.</td>
             </tr>
             <tr>
-                <td><a target=apiary href="https://nlpcraft.docs.apiary.io/#reference/users"><nobr><code>/company/delete</code></nobr></a></td>
+                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/company/delete</code></nobr></a></td>
                 <td>Delete company.</td>
             </tr>
             <tr>
-                <td><a target=apiary href="https://nlpcraft.docs.apiary.io/#reference/users"><nobr><code>/company/token/reset</code></nobr></a></td>
+                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/company/token/reset</code></nobr></a></td>
                 <td>Reset company's authentication token.</td>
             </tr>
             </tbody>
@@ -276,31 +262,31 @@ id: rest
             </thead>
             <tbody>
             <tr>
-                <td><a target=apiary href="https://nlpcraft.docs.apiary.io/#reference/users"><nobr><code>/user/get</code></nobr></a></td>
+                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/user/get</code></nobr></a></td>
                 <td>Get current user information.</td>
             </tr>
             <tr>
-                <td><a target=apiary href="https://nlpcraft.docs.apiary.io/#reference/users"><nobr><code>/user/all</code></nobr></a></td>
+                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/user/all</code></nobr></a></td>
                 <td>Get all users.</td>
             </tr>
             <tr>
-                <td><a target=apiary href="https://nlpcraft.docs.apiary.io/#reference/users"><nobr><code>/user/add</code></nobr></a></td>
+                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/user/add</code></nobr></a></td>
                 <td>Add new user.</td>
             </tr>
             <tr>
-                <td><a target=apiary href="https://nlpcraft.docs.apiary.io/#reference/users"><nobr><code>/user/update</code></nobr></a></td>
+                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/user/update</code></nobr></a></td>
                 <td>Update user information.</td>
             </tr>
             <tr>
-                <td><a target=apiary href="https://nlpcraft.docs.apiary.io/#reference/users"><nobr><code>/user/delete</code></nobr></a></td>
+                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/user/delete</code></nobr></a></td>
                 <td>Delete user.</td>
             </tr>
             <tr>
-                <td><a target=apiary href="https://nlpcraft.docs.apiary.io/#reference/users"><nobr><code>/user/admin</code></nobr></a></td>
+                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/user/admin</code></nobr></a></td>
                 <td>Change user administrative privileges.</td>
             </tr>
             <tr>
-                <td><a target=apiary href="https://nlpcraft.docs.apiary.io/#reference/users"><nobr><code>/user/passwd/reset</code></nobr></a></td>
+                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/user/passwd/reset</code></nobr></a></td>
                 <td>
                     Reset the current user password.
                 </td>
@@ -322,7 +308,7 @@ id: rest
             </thead>
             <tbody>
             <tr>
-                <td><a target=apiary href="https://nlpcraft.docs.apiary.io/#reference/data-probes"><nobr><code>/probes/all</code></nobr></a></td>
+                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/probes/all</code></nobr></a></td>
                 <td>Get information about connected probes.</td>
             </tr>
             </tbody>
