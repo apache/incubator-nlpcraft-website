@@ -24,12 +24,127 @@ id: test_framework
 <div class="col-md-8 second-column">
     <section id="overview">
         <h2 class="section-title">Overview</h2>
+        <p>
+            NLPCraft comes built-in with a simple to use testing framework that can be easily used with any
+            popular unit testing JVM frameworks such as <a href="https://testng.org">TestNG</a> or
+            <a href="https://junit.org">JUnit</a>. Test framework is essentially a simplified implementation
+            of the REST client tailor made for model unit testing.
+        </p>
+        <p>
+            Test framework consists of the following types in <code>org.apache.nlpcraft.model.tools.test</code> package:
+        </p>
+        <ul>
+            <li>
+                <a
+                    target="javadoc"
+                    href="https://javadoc.io/static/org.apache.nlpcraft/nlpcraft/0.5.0/org/apache/nlpcraft/model/tools/test/NCTestClient.html">
+                    NCTestClient
+                </a> - main model test client interface.
+            </li>
+            <li>
+                <a
+                    target="javadoc"
+                    href="https://javadoc.io/static/org.apache.nlpcraft/nlpcraft/0.5.0/org/apache/nlpcraft/model/tools/test/NCTestClientBuilder.html">
+                    NCTestClientBuilder
+                </a> - builder for <code>NCTestClient</code> instances.
+            </li>
+            <li>
+                <a
+                    target="javadoc"
+                    href="https://javadoc.io/static/org.apache.nlpcraft/nlpcraft/0.5.0/org/apache/nlpcraft/model/tools/test/NCTestClientResult.html">
+                    NCTestClientResult
+                </a> - result holder of the test sentence processing.
+            </li>
+            <li>
+                <a
+                    target="javadoc"
+                    href="https://javadoc.io/static/org.apache.nlpcraft/nlpcraft/0.5.0/org/apache/nlpcraft/model/tools/test/NCTestClientException.html">
+                    NCTestClientException
+                </a> - exception used by the test framework.
+            </li>
+        </ul>
+    </section>
+    <section id="usage">
+        <h2 class="section-title">Usage</h2>
+        <p>
+            Here's an code snippet from <a target="javadoc" href="https://github.com/apache/incubator-nlpcraft/blob/master/src/main/scala/org/apache/nlpcraft/examples/alarm/AlarmTest.java">Alarm Clock</a>
+            example illustrating the usage of test framework together with JUnit 5:
+        </p>
+            <pre class="brush: java, highlight: [8, 10, 16, 24, 25, 26]">
+public class AlarmTest {
+    private NCTestClient cli;
+
+    &#64;BeforeEach
+    void setUp() throws NCException, IOException {
+        NCEmbeddedProbe.start(AlarmModel.class);
+
+        cli = new NCTestClientBuilder().newBuilder().build();
+
+        cli.open("nlpcraft.alarm.ex");
+    }
+
+    &#64;AfterEach
+    void tearDown() throws NCException, IOException {
+        if (cli != null)
+            cli.close();
+
+        NCEmbeddedProbe.stop();
+    }
+
+    &#64;Test
+    public void test() throws NCException, IOException {
+        // Should be passed.
+        assertTrue(cli.ask("Ping me in 3 minutes").isOk());
+        assertTrue(cli.ask("Buzz me in an hour and 15mins").isOk());
+        assertTrue(cli.ask("Set my alarm for 30s").isOk());
+    }
+}
+        </pre>
+        <p>
+            Few notes:
+        </p>
+        <ul>
+            <li>
+                Before each unit test execution on line 8 we create new instance of <code>NCTestClient</code> using
+                client builder with default configuration. On line 10 we open test client connection for model
+                with ID <code>nlpcraft.alarm.ex</code>.
+            </li>
+            <li>
+                After each test execution we close test client connection on line 16.
+            </li>
+            <li>
+                On lines 24-26 we submit ("ask") test sentences to our model and check for succesfull processing.
+            </li>
+        </ul>
+        <div class="bq info">
+            <p>
+                <b>Embedded Probe</b>
+            </p>
+            <p>
+                Note that this example (lines 6 and 18), as all other examples shipped with NLPCraft, uses
+                <a href="embedded_probe.html">Embedded Probe</a>.
+            </p>
+            <p>
+                Typically, data probes are launched in their own independent JVMs. However, in some
+                cases - e.g. during unit testing - it is more convenient for model implementation or preferable
+                for performance reasons to host a data model (and hence the data probe) in the same JVM.
+            </p>
+        </div>
+    </section>
+    <section id="examples">
+        <h2 class="section-title">Examples</h2>
+        <p>
+            All <a target="github" href="https://github.com/apache/incubator-nlpcraft/tree/master/src/main/scala/org/apache/nlpcraft/examples">examples</a>
+            shipped with NLPCraft utilize the test framework in their unit tests.
+        </p>
     </section>
 </div>
 <div class="col-md-2 third-column">
     <ul class="side-nav">
         <li class="side-nav-title">On This Page</li>
         <li><a href="#overview">Overview</a></li>
+        <li><a href="#usage">Usage</a></li>
+        <li><a href="#examples">Examples</a></li>
         {% include quick-links.html %}
     </ul>
 </div>
