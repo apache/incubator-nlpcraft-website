@@ -105,7 +105,8 @@ id: light_switch
     <section id="model">
         <h3 class="section-title">Data Model</h3>
         <p>
-            We are going to start with declaring our semantic model using YAML. Create new <code>lightswitch_model.yaml</code>
+            We are going to start with declaring the static part of our semantic model using YAML which we will later load using
+            <code>NCModelFileAdapter</code> in our Sccla-based model implementation. Create new <code>lightswitch_model.yaml</code>
             file and add the following model declaration into it:
         </p>
         <pre class="brush: js, highlight: [10, 19, 26, 34, 42]">
@@ -229,7 +230,7 @@ class LightSwitchModel extends NCModelFileAdapter("org/apache/nlpcraft/examples/
             </li>
         </ul>
     </section>
-    <section>
+    <section id="start_probe">
         <h3 class="section-title">Start Data Probe</h3>
         <p>
             NLPCraft data models get deployed into data probe. Let's start data probe with our newly
@@ -244,7 +245,7 @@ class LightSwitchModel extends NCModelFileAdapter("org/apache/nlpcraft/examples/
                 <b>VM arguments:</b> <code>-Dconfig.override_with_env_vars=true</code>
             </li>
             <li>
-                <b>Environment variable:</b> <code>CONFIG_FORCE_nlpcraft_probe_models.0=path.to.LightSwitchModel</code>
+                <b>Environment variable:</b> <code>CONFIG_FORCE_nlpcraft_probe_models.0=org.apache.nlpcraft.examples.lightswitch.LightSwitchModel</code>
             </li>
             <li>
                 <b>Program arguments: </b> <code>-probe</code>
@@ -262,7 +263,7 @@ class LightSwitchModel extends NCModelFileAdapter("org/apache/nlpcraft/examples/
             has been successfully loaded and probe started.
         </p>
     </section>
-    <section>
+    <section id="start_server">
         <h3 class="section-title">Start REST Server</h3>
         <p>
             REST server listens for requests from client applications and routes them to the requested data models
@@ -283,14 +284,14 @@ class LightSwitchModel extends NCModelFileAdapter("org/apache/nlpcraft/examples/
         </p>
         <p>
             At this point we've developed our data model, deployed it into the data probe, and started the REST server.
-            To test it, we'll use the built-in <a href="/testing-data-model.html">test framework</a>
+            To test it, we'll use the built-in <a href="/tools/test_framework.html">test framework</a>
             that allows you to write convenient unit tests against your data model.
         </p>
     </section>
-    <section>
+    <section id="testing">
         <h3 class="section-title">Testing</h3>
         <p>
-            NLPCraft comes with easy to use <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/test/package-summary.html">test framework</a> for
+            NLPCraft comes with easy to use <a href="/tools/test_framework.html">test framework</a> for
             data models that can be used with
             any unit testing framework like JUnit or ScalaTest. It is essentially a simplified
             version of Java REST client that is custom designed for data model testing.
@@ -383,6 +384,13 @@ class LightSwitchTest {
     <ul class="side-nav">
         <li class="side-nav-title">On This Page</li>
         <li><a href="#overview">Overview</a></li>
+        <li><a href="#new_project">New Project</a></li>
+        <li><a href="#add_nlpcraft">Add NLPCraft</a></li>
+        <li><a href="#model">Data Model</a></li>
+        <li><a href="#code">Model Class</a></li>
+        <li><a href="#start_probe">Start Probe</a></li>
+        <li><a href="#start_server">Start Server</a></li>
+        <li><a href="#testing">Testing</a></li>
         {% include quick-links.html %}
     </ul>
 </div>
