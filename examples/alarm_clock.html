@@ -255,31 +255,42 @@ public class AlarmModel extends NCModelFileAdapter {
         </p>
         <ul>
             <li>
-                On <code>line 1</code> our class extends <code>NCModelFileAdapter</code> that allows us to load most
-                of the model declaration from the external JSON or YAML file (<code>line 10</code>) and only provide functionality that we
+                On line 9 our class extends <code>NCModelFileAdapter</code> that allows us to load most
+                of the model declaration from the external JSON or YAML file (line 18) and only provide functionality that we
                 couldn't express in declarative portion in JSON.
             </li>
             <li>
-                <code>Lines 13-16</code> define method <code>onMatch</code> as a callback for intent <code>alarm</code>
+                Lines 21-24 define method <code>onMatch</code> as a callback for intent <code>alarm</code>
                 when it is detected in the user input. Method parameter <code>numToks</code> will get up to 7 tokens
                 of type <code>nlpcraft:num</code> (see intent definition above).
             </li>
             <li>
                 The rest of the method <code>onMatch</code> implementation is a relatively straight forward Java code
-                that calculates timer delay from multiple numeric units and their types. In the end (<code>line 60</code>)
+                that calculates timer delay from multiple numeric units and their types. In the end (line 68)
                 it schedules a timer to print "BEEP BEEP BEEP" at calculated time. For simplicity, this message will
                 be printed right in the data probe console.
             </li>
             <li>
-                On the <code>line 73</code> the intent callback simply returns a confirmation message telling
+                On the line 81 the intent callback simply returns a confirmation message telling
                 for what actual time the alarm clock was set.
             </li>
         </ul>
     </section>
     <section id="start_probe">
-        <h3 class="section-title">Start Data Probe</h3>
+        <h3 class="section-title">Start Data Probe <sub>optional</sub></h3>
+        <div class="bq warn">
+            <p><b>Embedded Probe</b></p>
+            <p>
+                If you are using the <a href="#testing">unit test</a> that comes with this example you <b>do not</b>
+                need to start the data probe standalone as this unit test uses embedded probe mode. In this mode, the unit
+                test will be automatically start and stop the data probe from within the test itself.
+            </p>
+            <p>
+                <b>If using <a href="#testing">unit test</a> below - skip this step, you only need to start the server.</b>
+            </p>
+        </div>
         <p>
-            NLPCraft data models get deployed into data probe. Let's start data probe with our newly
+            NLPCraft data models get deployed into data probe. Let's start a standalone data probe with our newly
             created data model. To start data probe we need to configure Run Configuration in IDEA with
             the following parameters:
         </p>
@@ -352,28 +363,39 @@ public class AlarmModel extends NCModelFileAdapter {
         <p>
             Let's create new Java class <code>AlarmTest.java</code> with the following code:
         </p>
-        <pre class="brush: java, highlight: [16, 26, 27, 28]">
-import org.junit.jupiter.api.*;
+        <pre class="brush: java, highlight: [20, 24, 32, 37, 38, 39]">
+package org.apache.nlpcraft.examples.alarm;
+
 import org.apache.nlpcraft.common.NCException;
-import org.apache.nlpcraft.model.tools.test.*;
+import org.apache.nlpcraft.model.tools.test.NCTestClient;
+import org.apache.nlpcraft.model.tools.test.NCTestClientBuilder;
+import org.apache.nlpcraft.probe.embedded.NCEmbeddedProbe;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class AlarmTest {
-    private NCTestClient cli;
+    static private NCTestClient cli;
 
-    @BeforeEach
-    void setUp() throws NCException, IOException {
+    @BeforeAll
+    static void setUp() throws NCException, IOException {
+        NCEmbeddedProbe.start(AlarmModel.class);
+
         cli = new NCTestClientBuilder().newBuilder().build();
 
         cli.open("nlpcraft.alarm.ex"); // See alarm_model.json
     }
 
-    @AfterEach
-    void tearDown() throws NCException, IOException {
-        cli.close();
+    @AfterAll
+    static void tearDown() throws NCException, IOException {
+        if (cli != null)
+            cli.close();
+
+        NCEmbeddedProbe.stop();
     }
 
     @Test
@@ -382,21 +404,33 @@ class AlarmTest {
         assertTrue(cli.ask("Buzz me in an hour and 15mins").isOk());
         assertTrue(cli.ask("Set my alarm for 30s").isOk());
     }
-}        </pre>
+}
+
+        </pre>
         <p>
             This test is pretty straight forward:
         </p>
         <ul>
             <li>
-                On <code>line 16</code> we open the test client with the model ID (see <code>alarm_model.json</code>
+                On line 24 we open the test client with the model ID (see <code>alarm_model.json</code>
                 file for where we declared it).
             </li>
             <li>
-                <code>Line 26, 27, and 28</code> is where we issue our test sentences and we should see
+                Line 37, 38, and 39 is where we issue our test sentences and we should see
                 the confirmation messages and eventually "BEEP BEEP BEEP" print outs in the data probe
                 console.
             </li>
         </ul>
+        <div class="bq info">
+            <p><b>Embedded Prove</b></p>
+            <p>
+                This test uses <a href="/tools/embedded_probe.html">embedded probe</a> which automatically
+                start and stops the data probe from within the tests itself. See lines 20 and 32 for details.
+            </p>
+            <p>
+                <b>NOTE:</b> when using test you don't need to start data probe standalone in a previous step.
+            </p>
+        </div>
         <p>
             Right click on this class in the project view and run it. You should be getting standard output in
             JUnit panel as well as the output in the data probe console.
@@ -418,7 +452,7 @@ class AlarmTest {
         <li><a href="#add_nlpcraft">Add NLPCraft</a></li>
         <li><a href="#model">Data Model</a></li>
         <li><a href="#code">Model Class</a></li>
-        <li><a href="#start_probe">Start Probe</a></li>
+        <li><a href="#start_probe">Start Probe <sub>opt</sub></a></li>
         <li><a href="#start_server">Start Server</a></li>
         {% include quick-links.html %}
     </ul>

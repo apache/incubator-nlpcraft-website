@@ -269,7 +269,7 @@ id: weather_bot
                             <li>
                                 Two optional terms (their IDs are <code>city</code> and <code>date</code>) define
                                 optional city and date for the weather report. If not provided, their will be taken
-                                from either conversation context or assume the default value (current geo location
+                                from either conversation context or assume the default value (current IP geo location
                                 and current time, if available).
                             </li>
                         </ul>
@@ -310,9 +310,20 @@ id: weather_bot
         </ul>
     </section>
     <section id="start_probe">
-        <h3 class="section-title">Start Data Probe</h3>
+        <h3 class="section-title">Start Data Probe <sub>optional</sub></h3>
+        <div class="bq warn">
+            <p><b>Embedded Probe</b></p>
+            <p>
+                If you are using the <a href="#testing">unit test</a> that comes with this example you <b>do not</b>
+                need to start the data probe standalone as this unit test uses embedded probe mode. In this mode, the unit
+                test will be automatically start and stop the data probe from within the test itself.
+            </p>
+            <p>
+                <b>If using <a href="#testing">unit test</a> below - skip this step, you only need to start the server.</b>
+            </p>
+        </div>
         <p>
-            NLPCraft data models get deployed into data probe. Let's start data probe with our newly
+            NLPCraft data models get deployed into data probe. Let's start a standalone data probe with our newly
             created data model. To start data probe we need to configure Run Configuration in IDEA with
             the following parameters:
         </p>
@@ -387,7 +398,7 @@ id: weather_bot
         <p>
             Let's create new Java class <code>WeatherTest.java</code> with the following code:
         </p>
-        <pre class="brush: java, highlight: [15, 24]">
+        <pre class="brush: java, highlight: [47, 43, 55, 59]">
 package org.apache.nlpcraft.examples.weather;
 
 import com.google.gson.Gson;
@@ -472,14 +483,24 @@ class WeatherTest {
         </p>
         <ul>
             <li>
-                On <code>line 15</code> we open the test client with the model ID (see <code>lightswitch_model.yaml</code>
+                On line 47 we open the test client with the model ID (see <code>weather_model.yaml</code>
                 file for where we declared it).
             </li>
             <li>
-                Test on <code>line 24</code> is where we issue our test sentences and we should see
+                Test on line 59 is where we issue our test sentences and we should see
                 the confirmation messages in our test console output.
             </li>
         </ul>
+        <div class="bq info">
+            <p><b>Embedded Prove</b></p>
+            <p>
+                This test uses <a href="/tools/embedded_probe.html">embedded probe</a> which automatically
+                start and stops the data probe from within the tests itself. See lines 43 and 55 for details.
+            </p>
+            <p>
+                <b>NOTE:</b> when using test you don't need to start data probe standalone in a previous step.
+            </p>
+        </div>
         <p>
             Right click on this class in the project view and run it. You should be getting standard output in
             JUnit panel as well as the output in the data probe console.
@@ -502,7 +523,7 @@ class WeatherTest {
         <li><a href="#model">Data Model</a></li>
         <li><a href="#code">Model Class</a></li>
         <li><a href="#tools">External Tools</a></li>
-        <li><a href="#start_probe">Start Probe</a></li>
+        <li><a href="#start_probe">Start Probe <sub>opt</sub></a></li>
         <li><a href="#start_server">Start Server</a></li>
         <li><a href="#testing">Testing</a></li>
         {% include quick-links.html %}
