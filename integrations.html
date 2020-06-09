@@ -392,7 +392,7 @@ id: integrations
                 </table>
             </li>
             <li>
-                See <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#opennlp">NCToken</a>
+                See <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html">NCToken</a>
                 documentation for token properties.
             </li>
             <li>
@@ -433,7 +433,7 @@ id: integrations
                 for more details on supported tokens.
             </li>
             <li>
-                See <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#google">NCToken</a> documentation for token properties.
+                See <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html">NCToken</a> documentation for token properties.
             </li>
             <li>
                 Make sure to enable this token provider <code>google</code> in REST server configuration
@@ -450,10 +450,19 @@ id: integrations
         <p>
             <a href="https://stanfordnlp.github.io/CoreNLP">Stanford CoreNLP</a> is a set of human language technology tools.
         </p>
-        <h3 class="section-title">Base NLP Engine</h3>
         <p>
-            You can set Stanford CoreNLP as a base NLP engine. Note that due to licensing you need to add Stanford CoreNLP
-            dependencies separately and make it available to NLPCraft:
+            Note that due to the fact that Stanford CoreNLP
+            is licensed under <a target=_ href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU General Public License v3</a> you need to add Stanford CoreNLP
+            dependencies separately and make it available to NLPCraft.
+        </p>
+        <p>
+            Default <code>pom.xml</code> shipped with NLPCraft release contains Stanford CoreNLP dependency in a separate
+            <code>stanford-corenlp</code> profile. To use this, you need to enable this profile when building the project
+            from sources, i.e. <code>mvn clean package -P stanford-corenlp</code>, or enable this profile in IDE maven
+            configuration.
+        </p>
+        <p>
+            If you are using your own <code>pom.xml</code> you need to manually add the following dependencies:
         </p>
         <nav>
             <div class="nav nav-tabs" role="tablist">
@@ -465,40 +474,44 @@ id: integrations
         </nav>
         <div class="tab-content">
             <div class="tab-pane fade show active" id="nav-stanfordnlp-maven" role="tabpanel">
-                    <pre class="brush: xml, highlight: 4">
+                <pre class="brush: xml, highlight: 4">
                     &lt;dependency&gt;
                         &lt;groupId&gt;edu.stanford.nlp&lt;/groupId&gt;
                         &lt;artifactId&gt;stanford-corenlp&lt;/artifactId&gt;
                         &lt;version&gt;3.9.2&lt;/version&gt;
                     &lt;/dependency&gt;
-                    </pre>
+                </pre>
             </div>
             <div class="tab-pane fade" id="nav-stanfordnlp-grape" role="tabpanel">
-                    <pre class="brush: java">
+                <pre class="brush: java">
                     @Grab ('edu.stanford.nlp:stanford-corenlp:3.9.2')
-                    </pre>
+                </pre>
             </div>
             <div class="tab-pane fade" id="nav-stanfordnlp-gradle" role="tabpanel">
-                    <pre class="brush: java">
+                <pre class="brush: java">
                     dependencies {
                         runtime group: 'edu.stanford.nlp', name: 'stanford-corenlp', version: '3.9.2'
                     }
-                    </pre>
+                </pre>
             </div>
             <div class="tab-pane fade" id="nav-stanfordnlp-sbt" role="tabpanel">
-                    <pre class="brush: scala">
+                <pre class="brush: scala">
                     libraryDependencies += "mysql" % "stanford-corenlp" % "3.9.2"
-                    </pre>
+                </pre>
             </div>
         </div>
         <p>
-            Comments:
+            Note that you can also <a target=_ href="https://stanfordnlp.github.io/CoreNLP/">download</a>
+            Stanford CoreNLP as a separate JAR file and add it to your
+            project classpath if you are not using, or instead of, build tools.
+        </p>
+        <h3 class="section-title">Base NLP Engine</h3>
+        <p>
+            You can set Stanford CoreNLP as a base NLP engine:
         </p>
         <ul>
             <li>
-                Stanford CoreNLP is licensed under
-                <a target=_ href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU General Public License v3</a> - make
-                sure your usage is compliant with this license.
+                Set configuration property <code>nlpcraft.nlpEngine=stanford</code>
             </li>
             <li>
                 Stanford CoreNLP library must be available <b>on both</b> the REST server and the data probe.
@@ -506,75 +519,17 @@ id: integrations
             <li>
                 Make sure to change <code>3.9.2</code> version to the latest or required one.
             </li>
-            <li>
-                Set configuration property <code>nlpcraft.nlpEngine=stanford</code>
-            </li>
-            <li>
-                Note that you can also <a target=_ href="https://stanfordnlp.github.io/CoreNLP/">download</a>
-                Stanford CoreNLP as a separate JAR file and add it to your
-                project classpath if you are not using, or instead of, build tools.
-            </li>
         </ul>
         <h3 class="section-title">Token Provider</h3>
         <p>
-            Stanford CoreNLP can be used as a token provider independently from base NLP engine.
-            Due to licensing you need to add Stanford CoreNLP dependencies separately and make it available to NLPCraft:
-        </p>
-        <nav>
-            <div class="nav nav-tabs" role="tablist">
-                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-stanfordnlp-maven2" role="tab" aria-controls="nav-home" aria-selected="true">Maven <sup>Java</sup></a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-stanfordnlp-grape2" role="tab" aria-controls="nav-profile" aria-selected="false">Grape <sup>Groovy</sup></a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-stanfordnlp-gradle2" role="tab" aria-controls="nav-profile" aria-selected="false">Gradle <sup>Kotlin</sup></a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-stanfordnlp-sbt2" role="tab" aria-controls="nav-contact" aria-selected="false">SBT <sup>Scala</sup></a>
-            </div>
-        </nav>
-        <div class="tab-content">
-            <div class="tab-pane fade show active" id="nav-stanfordnlp-maven2" role="tabpanel">
-                    <pre class="brush: xml, highlight: 4">
-                    &lt;dependency&gt;
-                        &lt;groupId&gt;edu.stanford.nlp&lt;/groupId&gt;
-                        &lt;artifactId&gt;stanford-corenlp&lt;/artifactId&gt;
-                        &lt;version&gt;3.9.2&lt;/version&gt;
-                    &lt;/dependency&gt;
-                    </pre>
-            </div>
-            <div class="tab-pane fade" id="nav-stanfordnlp-grape2" role="tabpanel">
-                    <pre class="brush: java">
-                    @Grab ('edu.stanford.nlp:stanford-corenlp:3.9.2')
-                    </pre>
-            </div>
-            <div class="tab-pane fade" id="nav-stanfordnlp-gradle2" role="tabpanel">
-                    <pre class="brush: java">
-                    dependencies {
-                        runtime group: 'edu.stanford.nlp', name: 'stanford-corenlp', version: '3.9.2'
-                    }
-                    </pre>
-            </div>
-            <div class="tab-pane fade" id="nav-stanfordnlp-sbt2" role="tabpanel">
-                    <pre class="brush: scala">
-                    libraryDependencies += "mysql" % "stanford-corenlp" % "3.9.2"
-                    </pre>
-            </div>
-        </div>
+            Stanford CoreNLP can be used as a token provider independently from base NLP engine:
         <p>
-            Comments:
-        </p>
         <ul>
-            <li>
-                Stanford CoreNLP is licensed under
-                <a target=_ href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU General Public License v3</a> - make
-                sure your usage is compliant with this license.
-            </li>
             <li>
                 Stanford CoreNLP library should <b>only</b> be available on the data probe.
             </li>
             <li>
                 Make sure to change <code>3.9.2</code> version to the latest or required one.
-            </li>
-            <li>
-                Note that you can also <a target=_ href="https://stanfordnlp.github.io/CoreNLP/">download</a>
-                Stanford CoreNLP as a separate JAR file and add it to your
-                project classpath if you are not using, or instead of, build tools.
             </li>
         </ul>
         <p>
@@ -591,7 +546,7 @@ id: integrations
                 for more details on supported token types.
             </li>
             <li>
-                See <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#stanford">NCToken</a>
+                See <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html">NCToken</a>
                 documentation for token properties.
             </li>
             <li>
@@ -719,7 +674,7 @@ if __name__ == '__main__':
                 for more details on supported token types.
             </li>
             <li>
-                See <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#stanford">NCToken</a>
+                See <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html">NCToken</a>
                 documentation for token properties.
             </li>
             <li>
