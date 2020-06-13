@@ -31,7 +31,7 @@ This repo is for Apache NLPCraft [website](https://nlpcraft.apache.org/).
 NLPCraft is free and easy to use, it securely works with any private data source, and has no hardware or software 
 lock-in:
 
- * View & run [examples](https://github.com/apache/incubator-nlpcraft/tree/master/src/main/scala/org/apache/nlpcraft/examples)
+ * View & run [examples](https://github.com/apache/incubator-nlpcraft/tree/master/nlpcraft/src/main/scala/org/apache/nlpcraft/examples)
  * Latest [Javadoc](https://github.com/apache/incubator-nlpcraft/apis/latest/index.html) and [REST APIs](https://nlpcraft.apache.org/using-rest.html)
  * Download & Maven/Grape/Gradle/SBT [instructions](https://nlpcraft.apache.org/download.html)
  * File a bug or improvement in [JIRA](https://issues.apache.org/jira/projects/NLPCRAFT)
