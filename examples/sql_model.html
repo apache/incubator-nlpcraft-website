@@ -25,13 +25,51 @@ id: sql_model
     <section id="overview">
         <h2 class="section-title">Overview</h2>
         <p>
-            This example demonstrates relatively complete NLI-based weather service with JSON output and a non-trivial
-            intent matching logic. It uses Apple's <a target="new" href="https://darksky.net">DarkSky</a>
-            REST service for the actual weather information.
+            This example demonstrates a relatively complete implementation of natural language interface to a
+            SQL database. This is a non-trivial example, spanning over a  thousand lines of code, and it can
+            act as a basis for production-ready implementation.
+        </p>
+        <p>
+            Note that a significant part of the implementation is not directly related to NLPCraft but rather deals
+            with SQL statement construction. We specifically decided not to use any 3rd party libraries for it to
+            show what can be done "from scratch".
         </p>
         <p>
             Complexity: <span class="complexity-three-star"><i class="fas fa-gem"></i> <i class="fas fa-gem"></i> <i class="fas fa-gem"></i></span><br/>
-            Source code: <a target="github" href="https://github.com/apache/incubator-nlpcraft/tree/master/nlpcraft/src/main/scala/org/apache/nlpcraft/examples/weather">GitHub</a>
+            Source code: <a target="github" href="https://github.com/apache/incubator-nlpcraft/tree/master/nlpcraft/src/main/scala/org/apache/nlpcraft/examples/sql">GitHub</a>
+        </p>
+    </section>
+    <section id="background">
+        <h2 class="section-title">Background</h2>
+        <p>
+            Many (if not most) of modern existing natural language-to-SQL implementations use variations of
+            deep learning approach where you first train the neural network on a pre-created training set and
+            then get to use the trained network to provide (infer) probabilistic answers for the new sentences. Although the latest
+            attempts to implement this approach are getting into 90% percentile of accuracy - they remain largely
+            unusable for the vast swath of enterprise applications where non-deterministic nature of such systems
+            renders them useless. The apparent problem with non-deterministic systems like that is that the user
+            never knows whether a given answer is correct or incorrect, and they can't tolerate the fact that
+            in 5-10% of the cases the answer will be invalid. Try that for you HR or revenue reporting system,
+            prescriptive analytics systems, and so on...
+        </p>
+        <p>
+            It's important to note, however, that for many non-mission-critical systems such non-determinism does
+            not pose a significant problem. We happily accept such imprecision when asking for direction on our
+            mobile devices, unlock our phones using face or fingerprint recognition, when performing sentiment
+            analysis or trying to detect faces of our friends across thousands of photographs. Cost of retries,
+            as well as the cost of initial errors, is insignificant in these cases.
+        </p>
+        <p>
+            As you may have learned already, NLPCraft uses a <i>fully deterministic approach</i> in an attempt to
+            match the user input with a defined set of intents. If it finds the matching intent - it guarantees that
+            match for a given intent declaration. If no matching intent can be found - it always returns the negative
+            result without any ambiguity. In other words, if the answer is given, it is guaranteed to be correct.
+        </p>
+        <p>
+            One of the downsides of such an approach in general is the need to have a domain-specific semantic model
+            for each SQL database (when building natural language interface to SQL databases). Building such a
+            model can be a non-trivial experience. That is where, luckily, NLPCraft brings a lot of built-in tooling
+            and machinery to simplify this task dramatically.
         </p>
     </section>
     <section id="new_project">
@@ -518,6 +556,7 @@ class WeatherTest {
     <ul class="side-nav">
         <li class="side-nav-title">On This Page</li>
         <li><a href="#overview">Overview</a></li>
+        <li><a href="#background">Background</a></li>
         <li><a href="#new_project">New Project</a></li>
         <li><a href="#add_nlpcraft">Add NLPCraft</a></li>
         <li><a href="#model">Data Model</a></li>
