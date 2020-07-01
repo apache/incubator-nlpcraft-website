@@ -876,14 +876,14 @@ if __name__ == '__main__':
         <p>
             NLPCraft server is running on top of <a target="_" href="https://ignite.apache.org/">Apache Ignite</a>.
             <a target="_" href="https://www.gridgain.com/">GridGain Systems</a> develops enterprise in-memory computing
-            platform that is based on Apache Ignite. GridGain develops the <a target="_" href="https://www.gridgain.com/products/software/control-center">GridGain Control Center</a> that support Apache Ignite
+            platform that is based on Apache Ignite. GridGain also develops the <a target="_" href="https://www.gridgain.com/products/software/control-center">GridGain Control Center</a> that support Apache Ignite
             and is available for free for Apache Ignite users. In order to use GridGain Control Center to manage and monitor
             NLPCraft server internals you need to have <a target="_" href="https://www.gridgain.com/resources/download#controlcenter">GridGain Web Agent</a> installed and available on the classpath for NLPCraft server.
         </p>
         <p>
             NLPCraft <code>pom.xml</code> comes with necessary dependencies that are located in a separate
-            <code>gridgain-agent</code> Maven profile. To enable GridGain Web Agent you need to manually enable this profile
-            when running NLPCraft server.
+            <code>gridgain-agent</code> Maven profile. To enable GridGain Web Agent you need to manually enable this Maven profile
+            when building NLPCraft from source code.
         </p>
         <div class="bq warn">
             <p><b>GridGain Control Center</b></p>
