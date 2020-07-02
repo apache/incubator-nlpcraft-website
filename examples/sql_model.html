@@ -42,14 +42,15 @@ id: sql_model
     <section id="background">
         <h2 class="section-title">Background</h2>
         <p>
-            Many (if not most) of modern existing natural language-to-SQL implementations use variations of
+            Many of modern existing natural language-to-SQL implementations use variations of
             deep learning approach where you first train the neural network on a pre-created training set and
-            then get to use the trained network to provide (infer) probabilistic answers for the new sentences. Although the latest
+            then get to use the trained network to provide (infer) probabilistic answers for the new input sentences. Although the latest
             attempts to implement this approach are getting into 90% percentile of accuracy - they remain largely
             unusable for the vast swath of enterprise applications where non-deterministic nature of such systems
-            renders them useless. The apparent problem with non-deterministic systems like that is that the user
-            never knows whether a given answer is correct or incorrect, and they can't tolerate the fact that
-            in 5-10% of the cases the answer will be invalid. Try that for you HR or revenue reporting system,
+            renders them practically useless. The apparent problem with non-deterministic systems like that is that the user
+            never knows whether a given answer is correct or incorrect. In these business and enterprise
+            use cases users can't tolerate the fact that
+            in 5-10% of the cases the answer will be invalid. Try that for your HR or revenue reporting system,
             prescriptive analytics systems, and so on...
         </p>
         <p>
@@ -57,18 +58,24 @@ id: sql_model
             not pose a significant problem. We happily accept such imprecision when asking for direction on our
             mobile devices, unlock our phones using face or fingerprint recognition, when performing sentiment
             analysis or trying to detect faces of our friends across thousands of photographs. Cost of retries,
-            as well as the cost of initial errors, is insignificant in these cases.
+            as well as the cost of initial errors, is insignificant in these cases. The same cost, however, in many business
+            and enterprise applications can be too significant to tolerate.
         </p>
         <p>
-            As you may have learned already, NLPCraft uses a <i>fully deterministic approach</i> in an attempt to
-            match the user input with a defined set of intents. If it finds the matching intent - it guarantees that
-            match for a given intent declaration. If no matching intent can be found - it always returns the negative
+            As you may have learned by now, NLPCraft uses a <i>fully deterministic approach</i> in an attempt to
+            match the user input against a defined set of intents. If it finds the matching intent - it guarantees that
+            match for a given intent declaration. If no matching intent can be found - it returns the negative
             result without any ambiguity. In other words, if the answer is given, it is guaranteed to be correct.
+            Another positive side-effect of this approach is the fact that such matching logic is easily traceable, i.e.
+            the user can easily see why given user input was matched against a certain intent (and not any other). Such
+            traceability of the comprehension logic (or explainability vs "black box" approach resulting from deep
+            learning techniques) is often critical for many real-life business applications.
         </p>
         <p>
-            One of the downsides of such an approach in general is the need to have a domain-specific semantic model
-            for each SQL database (when building natural language interface to SQL databases). Building such a
-            model can be a non-trivial experience. That is where, luckily, NLPCraft brings a lot of built-in tooling
+            On the flip side, one of the downsides of such an approach in general is the need to have a detailed,
+            domain-specific semantic model
+            for each SQL database (when dealing with SQL databases). Building such a
+            model can be a non-trivial and time consuming experience. That is where NLPCraft brings a lot of built-in tooling
             and machinery to simplify this task dramatically.
         </p>
     </section>
