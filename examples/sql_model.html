@@ -171,6 +171,39 @@ id: sql_model
     </section>
     <section id="model">
         <h3 class="section-title">Data Model</h3>
+        <p>
+            Creating data model manually for the existing SQL schema can be a daunting task. NLPCraft provides the tool
+            that can scan SQL schema and create working stub of such model automatically. All you have to do then is to
+            add any necessary modifications to it.
+        </p>
+        <p>
+            <a href="/tools/sql_model_gen.html">SQL Model Generation</a> is a Java-based utility that takes
+            JDBC configuration, reads database schema using it and creates initial JSON or YAML stub for the
+            data model. This stub then can be used as is or be extended further. Read more about this tool
+            <a href="/tools/sql_model_gen.html">here</a>.
+        </p>
+        <p>
+            Although the example already comes with pre-generated file, you can run this utility yourself
+            by starting H2 database (using <code>db/SqlServer.java</code> application)
+            and running SQL Model Generator as follows:
+        </p>
+        <pre class="brush: plain">
+            java -cp apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar org.apache.nlpcraft.model.tools.sqlgen.NCSqlModelGenerator -r jdbc:h2:tcp://localhost:9092/nlp2sql -d org.h2.Driver -s PUBLIC -o src/main/scala/org/apache/nlpcraft/examples/sql/sql_model_init.yaml
+        </pre>
+        <p>
+            Examples comes with two pre-generated files:
+        </p>
+        <ul>
+            <li>
+                <code>sql_model_init.yaml</code> - the initial file that was generated straight out of
+                SQL Model Generator (see above for the instructions).
+            </li>
+            <li>
+                <code>sql_model.yaml</code> - the modified version of the same file. It is recommended to run
+                a diff utility of some sort to see the difference between two files which will indicate the necessary
+                changes that were made to the auto-generated <code>sql_model_init.yaml</code> file.
+            </li>
+        </ul>
     </section>
     <section>
         <h2 class="section-title">Done! 👌</h2>
