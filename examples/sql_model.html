@@ -184,7 +184,7 @@ id: sql_model
         </p>
         <p>
             Although the example already comes with pre-generated file, you can run this utility yourself
-            by starting H2 database (using <code>db/SqlServer.java</code> application)
+            by starting H2 database (using <code>SqlServerRunner</code> application in <code>db/SqlServer.java</code> file)
             and running SQL Model Generator as follows:
         </p>
         <pre class="brush: plain">
@@ -204,6 +204,150 @@ id: sql_model
                 changes that were made to the auto-generated <code>sql_model_init.yaml</code> file.
             </li>
         </ul>
+    </section>
+    <section>
+        <h2 class="section-title">Implementation</h2>
+        <p>
+            Implementation mainly consists of two main files:
+        </p>
+        <ul>
+            <li>
+                <code>SqlModel.java</code> - the code behind the data model that loads YAML-defined model and
+                defines all intents.
+            </li>
+            <li>
+                <code>db/Builder.java</code> - the main utility that takes object model provided by
+                <a href="/tools/sql_model_gen.html">SQL Model Generation</a>
+                and builds a SQL query to execute. Note that we elected to build this functionality
+                from scratch to illustrate how it can be done. You are free, of course, to use many
+                of the existing libraries to help achieve this goal.
+            </li>
+        </ul>
+    </section>
+    <section id="start_probe">
+        <h3 class="section-title">Start Data Probe <sub>optional</sub></h3>
+        <div class="bq warn">
+            <p><b>Embedded Probe</b></p>
+            <p>
+                If you are using the <a href="#testing">unit test</a> that comes with this example you <b>do not</b>
+                need to start the data probe standalone as this unit test uses embedded probe mode. In this mode, the unit
+                test will automatically start and stop the data probe from within the test itself.
+            </p>
+            <p>
+                <b>If using <a href="#testing">unit test</a> below - skip this step, you only need to start the server.</b>
+            </p>
+        </div>
+        <p>
+            NLPCraft data models get deployed into data probe. Let's start data probe with our newly
+            created data model. To start data probe we need to configure Run Configuration in IDEA with
+            the following parameters:
+        </p>
+        <ul>
+            <li>
+                <b>Main class:</b> <code>org.apache.nlpcraft.NCStart</code>
+            </li>
+            <li>
+                <b>VM arguments:</b> <code>-Dconfig.override_with_env_vars=true</code>
+            </li>
+            <li>
+                <b>Environment variable:</b> <code>CONFIG_FORCE_nlpcraft_probe_models.0=org.apache.nlpcraft.examples.sql.SqlModel</code>
+            </li>
+            <li>
+                <b>Program arguments: </b> <code>-probe</code>
+            </li>
+        </ul>
+        <div class="bq info">
+            <p>
+                <b>NOTE:</b> instead of supplying a <a href="/server-and-probe.html">full configuration file</a> we just
+                use the default configuration and override one configuration property using
+                configuration override via environment variables.
+            </p>
+        </div>
+        <p>
+            Start this run configuration and make sure you have positive console output indicating that our model
+            has been successfully loaded and probe started.
+        </p>
+    </section>
+    <section id="start_h2">
+        <h3 class="section-title">Start H2 Database <sub>optional</sub></h3>
+        <div class="bq warn">
+            <p><b>Autostart</b></p>
+            <p>
+                If you are using the <a href="#testing">unit test</a> that comes with this example you <b>do not</b>
+                need to start the H2 database standalone as this unit test will start it automatically.
+            </p>
+            <p>
+                <b>If using <a href="#testing">unit test</a> below - skip this step, you only need to start the server.</b>
+            </p>
+        </div>
+        <p>
+            To start H2 database server we need to configure Run Configuration in IDEA with
+            the following parameters:
+        </p>
+        <ul>
+            <li>
+                <b>Main class:</b> <code>org.apache.nlpcraft.examples.sql.db.SqlServerRunner</code>
+            </li>
+        </ul>
+        <p>
+            Start this run configuration and make sure you have positive console output indicating H2
+            database server is running:
+        </p>
+        <pre class="brush: plain">
+Jul-05|08:40:47|INFO | H2 server start parameters: -baseDir /Users/minkovski/nlpcraft-examples/h2 -tcpPort 9092 -tcpAllowOthers
+Jul-05|08:40:47|INFO | H2 server status: TCP server running at tcp://localhost:9092 (others can connect)
+Jul-05|08:40:47|INFO | Database 'jdbc:h2:tcp://localhost:9092/nlp2sql' is NOT initialized because data already exists. To re-initialize - delete files in '/Users/minkovski/nlpcraft-examples/h2' folder and start again.
+        </pre>
+    </section>
+    <section id="start_server">
+        <h3 class="section-title">Start REST Server</h3>
+        <p>
+            REST server listens for requests from client applications and routes them to the requested data models
+            via connected data probes. REST server starts the same way as the data probe. Configure new
+            Run Configuration in IDEA with the following parameters:
+        </p>
+        <ul>
+            <li>
+                <b>Main class:</b> <code>org.apache.nlpcraft.NCStart</code>
+            </li>
+            <li>
+                <b>Program arguments: </b> <code>-server</code>
+            </li>
+        </ul>
+        <p>
+            Once started ensure that your REST server console output shows that data probe is connected and the
+            REST server is listening on the default <code>localhost:8081</code> endpoint.
+        </p>
+        <p>
+            At this point we've developed our data model, deployed it into the data probe, and started the REST server.
+            To test it, we'll use the built-in <a href="/tools/test_framework.html">test framework</a>
+            that allows you to write convenient unit tests against your data model.
+        </p>
+    </section>
+    <section id="testing">
+        <h3 class="section-title">Testing</h3>
+        <p>
+            NLPCraft comes with easy to use <a href="/tools/test_framework.html">test framework</a> for
+            data models that can be used with
+            any unit testing framework like JUnit or ScalaTest. It is essentially a simplified
+            version of Java REST client that is custom designed for data model testing.
+        </p>
+        <p>
+            Unit test for this example available in <code>SqlTest.java</code> file. Note that this test
+            provides additional utility of testing each input sentence against the result SQL statement.
+        </p>
+        <div class="bq info">
+            <p><b>Embedded Prove & H2 Autostart</b></p>
+            <p>
+                This test uses <a href="/tools/embedded_probe.html">embedded probe</a> which automatically
+                start and stops the data probe from within the tests itself. This test also starts H2 database
+                automatically.
+            </p>
+            <p>
+                <b>NOTE:</b> when using test you don't need to start data probe and H2 database standalone in
+                the previous steps.
+            </p>
+        </div>
     </section>
     <section>
         <h2 class="section-title">Done! 👌</h2>
