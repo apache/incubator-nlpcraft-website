@@ -37,27 +37,6 @@ layout: interior
         <section id="prerequisites">
             <h2 class="section-title">Support</h2>
             <p>
-                Here's the list of tools you will need to get started with NLPCraft:
-            </p>
-            <ul>
-                <li>
-                    <a target=_new href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">Java SE Runtime Environment</a>
-                    (JRE) or <a target=_new href="https://openjdk.java.net/">OpenJDK</a> ver. 8 or later installed.
-                    <ul>
-                        <li>
-                            Java 8 and Scala 2.11 are required to build NLPCraft (Java 11 is NOT supported).
-                        </li>
-                        <li>
-                            For runtime Java 8 or later is supported.
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    Latest versions of <a target=_ href="https://git-scm.com/downloads">Git</a> and
-                    <a target=_ href="https://maven.apache.org/install.html">Maven</a>.
-                </li>
-            </ul>
-            <p>
                 For any questions, feedback or suggestions:
             </p>
             <ul>
@@ -72,6 +51,7 @@ layout: interior
                 </li>
                 <li>
                     Join project developers on <a href="mailto:dev@nlpcraft.apache.org">dev@nlpcraft.apache.org</a>
+                    (<a href="mailto:dev-subscribe@nlpcraft.apache.org">subscribe</a>, <a target="_" href="https://lists.apache.org/list.html?dev@nlpcraft.apache.org">archive</a>)
                 </li>
             </ul>
             <p>
@@ -79,7 +59,7 @@ layout: interior
             </p>
         </section>
         <section id="src">
-            <h2 class="section-title">Source Release</h2>
+            <h2 class="section-title">Apache Official Release</h2>
             <p>
                 Download the NLPCraft release - <code><b>{{site.latest_version}}</b></code> is the latest version:
             </p>
@@ -307,23 +287,34 @@ layout: interior
         <section id="github">
             <h2 class="section-title">GitHub</h2>
             <p>
-                If you want to contribute to the project or build it form the source
-                you need to get the full developer snapshot from <a target="github" href="https://github.com/apache/incubator-nlpcraft">GitHub</a> mirror:
+                If you want to contribute to the project you need to get the full developer snapshot from <a target="github" href="https://github.com/apache/incubator-nlpcraft">GitHub</a> mirror:
             </p>
             <pre class="brush: plain">
             $ git clone https://github.com/apache/incubator-nlpcraft.git
             $ mvn clean package
             </pre>
-            <div class="bq info">
+            <div class="bq warn">
                 <p>
-                    <b>GitHub vs. ZIP vs. Maven</b>
+                    <b>GitHub vs. Apache Release</b>
                 </p>
                 <p>
-                    Use GitHub clone if you want to contribute to the project or build it from source.
-                    To build your own models and integrate into your own application it is recommended to
-                    download ZIP archive or use build tools and add build dependency.
+                    Note that cloned GitHub repository is NOT an official Apache release and it does not
+                    come with the guarantees made by the official <a href="#src">Apache release</a> in terms of the licensing.
+                    GitHub repository may include content not licensed under ASL 2.0. Only the official
+                    <a href="#src">Apache source release</a> is guaranteed to be cleanly licensed under ASL 2.0.
                 </p>
             </div>
+        </section>
+        <section id="3rd-party-config">
+            <h2 class="section-title">3rd Part Configuration</h2>
+            <p>
+                Due to licensing limitations the official Apache Release comes with only default configurations
+                for spelling and geographic subsystems (spelling and geo enrichers). As a user of NLPCraft you are
+                free to extend the default configuration and provide your own configuration. You can also download
+                the pre-packaged configuration for both spelling and geo enrichers. However, these packages are based on
+                the content licensed under <a target="_" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0 license</a>
+                and you need to ensure that you can comply with that license before downloading these packages.
+            </p>
         </section>
         <section id="java-client">
             <h2 class="section-title">Java Client <i class="fab fa-java"></i></h2>
