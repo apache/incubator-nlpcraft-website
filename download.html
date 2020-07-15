@@ -274,7 +274,7 @@ layout: interior
                     </pre>
                 </div>
             </div>
-            <div class="bq info">
+            <div class="bq success">
                 <p>
                     <b>Latest Version</b>
                 </p>
@@ -309,12 +309,76 @@ layout: interior
             <h2 class="section-title">3rd Part Configuration</h2>
             <p>
                 Due to licensing limitations the official Apache Release comes with only default configurations
-                for spelling and geographic subsystems (spelling and geo enrichers). As a user of NLPCraft you are
-                free to extend the default configuration and provide your own configuration. You can also download
-                the pre-packaged configuration for both spelling and geo enrichers. However, these packages are based on
-                the content licensed under <a target="_" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0 license</a>
-                and you need to ensure that you can comply with that license before downloading these packages.
+                for spelling and geographical subsystems (spelling and geo enrichers). As a user of NLPCraft you are
+                free to extend the default configuration and provide your own configuration.
             </p>
+            <p>
+                Alternatively, you can also download
+                the pre-packaged configuration for both spelling and/or geo enrichers.
+                However, these packages are based on
+                the content licensed under <a target="_" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0 license</a>
+                and you need to ensure that you can comply with that license before downloading these packages:
+            </p>
+            <table class="gradient-table max-width">
+                <thead>
+                <tr>
+                    <th>File Name</th>
+                    <th>Release Date</th>
+                    <th>Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <nobr>
+                            <i class="fa fa-fw fa-download"></i> <a href="https://github.com/apache/incubator-nlpcraft/raw/master/external/cc_by40_geo_config.zip">cc_by40_geo_config.zip</a>
+                        </nobr>
+                    </td>
+                    <td><nobr>June 8, 2020</nobr></td>
+                    <td>
+                        Comprehensive GEO data configuration based on various open source data sources. Portion of the
+                        configuration is based on the content licensed under <a target="_" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0 license</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <nobr>
+                            <i class="fa fa-fw fa-download"></i> <a href="https://github.com/apache/incubator-nlpcraft/raw/master/external/cc_by40_spell_config.zip">cc_by40_spell_config.zip</a>
+                        </nobr>
+                    </td>
+                    <td>
+                        <nobr>June 8, 2020</nobr>
+                    </td>
+                    <td>
+                        Comprehensive spelling database that is based on various open source data sources. Based
+                        on the content licensed under <a target="_" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0 license</a>.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="bq success">
+                <p>
+                    Unless noted otherwise these configuration files work with NLPCraft <b>ver. 0.6.2 or later</b>.
+                </p>
+            </div>
+            <p>
+                To install one or both pre-package configurations:
+            </p>
+            <ul>
+                <li>Download desired files and unzip them into <i>target folder</i>.</li>
+                <li>
+                    Add system property <code>-DNLPCRAFT_RESOURCE_EXT=/full/path</code> to NLPCraft server runtime, where:
+                    <ul>
+                        <li>
+                            <code>/full/path</code> is a fully qualified path to the <i>target folder</i> where files were unzipped.
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    Restart NLPCraft server.
+                </li>
+            </ul>
+
         </section>
         <section id="java-client">
             <h2 class="section-title">Java Client <i class="fab fa-java"></i></h2>
@@ -379,6 +443,7 @@ layout: interior
             <li><a href="#verification">Verification</a></li>
             <li><a href="#maven">Maven/Grape/SBT</a></li>
             <li><a href="#github">GitHub</a></li>
+            <li><a href="#3rd-party-config">3rd Party Config <i style="color: #666;" class="fas fa-fw fa-download"></i></a></li>
             <li><a href="#java-client">Java Client</a></li>
             {% include quick-links.html %}
         </ul>
