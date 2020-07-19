@@ -452,17 +452,15 @@ id: integrations
         </p>
         <p>
             Note that due to the fact that Stanford CoreNLP
-            is licensed under <a target=_ href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU General Public License v3</a> you need to add Stanford CoreNLP
-            dependencies separately and make it available to NLPCraft.
+            is licensed under <a target=_ href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU General Public License v3</a> you need to add
+            both Stanford CoreNLP
+            dependencies and NLPCraft Stanford CoreNLP integration separately and make them available to your project.
         </p>
         <p>
             Default <code>pom.xml</code> shipped with NLPCraft release contains Stanford CoreNLP dependency in a separate
             <code>stanford-corenlp</code> profile. To use this, you need to enable this profile when building the project
-            from sources, i.e. <code>mvn clean package -P stanford-corenlp</code>, or enable this profile in IDE maven
-            configuration.
-        </p>
-        <p>
-            If you are using your own <code>pom.xml</code> you need to manually add the following dependencies:
+            from sources, i.e. <code>mvn clean package -P stanford-corenlp</code>, or enable this profile in maven
+            configuration:
         </p>
         <nav>
             <div class="nav nav-tabs" role="tablist">
@@ -480,25 +478,36 @@ id: integrations
                         &lt;artifactId&gt;stanford-corenlp&lt;/artifactId&gt;
                         &lt;version&gt;3.9.2&lt;/version&gt;
                     &lt;/dependency&gt;
+                    &lt;dependency&gt;
+                        &lt;groupId&gt;org.apache.nlpcraft&lt;/groupId&gt;
+                        &lt;artifactId&gt;nlpcraft-stanford&lt;/artifactId&gt;
+                        &lt;version&gt;{{site.latest_version}}&lt;/version&gt;
+                    &lt;/dependency&gt;
                 </pre>
             </div>
             <div class="tab-pane fade" id="nav-stanfordnlp-grape" role="tabpanel">
                 <pre class="brush: java">
                     @Grab ('edu.stanford.nlp:stanford-corenlp:3.9.2')
+                    @Grab ('org.apache.nlpcraft:nlpcraft-stanford:{{site.latest_version}}')
                 </pre>
             </div>
             <div class="tab-pane fade" id="nav-stanfordnlp-gradle" role="tabpanel">
                 <pre class="brush: java">
                     dependencies {
                         runtime group: 'edu.stanford.nlp', name: 'stanford-corenlp', version: '3.9.2'
+                        runtime group: 'org.apache.nlpcraft', name: 'nlpcraft-stanford', version: '{{site.latest_version}}'
                     }
                 </pre>
             </div>
             <div class="tab-pane fade" id="nav-stanfordnlp-sbt" role="tabpanel">
                 <pre class="brush: scala">
-                    libraryDependencies += "mysql" % "stanford-corenlp" % "3.9.2"
+                    libraryDependencies += "edu.stanford.nlp" % "stanford-corenlp" % "3.9.2"
+                    libraryDependencies += "org.apache.nlpcraft" % "nlpcraft-stanford" % "{{site.latest_version}}"
                 </pre>
             </div>
+        </div>
+        <div class="bq warn">
+            Make sure to change Stanford CoreNLP <code>3.9.2</code> version to the latest or required one.
         </div>
         <p>
             Note that you can also <a target=_ href="https://stanfordnlp.github.io/CoreNLP/">download</a>
@@ -516,9 +525,6 @@ id: integrations
             <li>
                 Stanford CoreNLP library must be available <b>on both</b> the REST server and the data probe.
             </li>
-            <li>
-                Make sure to change <code>3.9.2</code> version to the latest or required one.
-            </li>
         </ul>
         <h3 class="section-title">Token Provider</h3>
         <p>
@@ -527,9 +533,6 @@ id: integrations
         <ul>
             <li>
                 Stanford CoreNLP library should <b>only</b> be available on the data probe.
-            </li>
-            <li>
-                Make sure to change <code>3.9.2</code> version to the latest or required one.
             </li>
         </ul>
         <p>
