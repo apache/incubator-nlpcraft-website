@@ -35,6 +35,19 @@ id: installation
     </section>
     <section id="config">
         <h2 class="section-title">External Configuration</h2>
+        <p>
+            Due to <a target="asf" href="http://apache.org/legal/release-policy.html">Apache release policy</a> the official Apache release cannot include content that is based on
+            <a target=_ href="https://creativecommons.org/licenses/by/4.0/">Commons Attribution 4.0 International</a> (CC BY 4.0) license
+            or any binary artifacts regardless of their respective licences. Due to these restrictions the NLPCraft release
+            does not include certain configuration files that are necessary for its operation. These files will be auto-downloaded upon first star of NLPCraft.
+            On subsequent starts the NLPCraft will check for the updates and will re-download these files only if they were changed.
+        </p>
+        <p>
+            By default, this external configuration is hosted on GitHub (master branch of NLPCraft project) from where it will
+            be automatically downloaded on the first start: <a target="github" href="https://github.com/apache/incubator-nlpcraft/tree/master/external">https://github.com/apache/incubator-nlpcraft/tree/master/external</a>.
+            You can change this location, e.g. move external configuration behind your firewall, as well as change other parameters related to auto-download of the external configuration
+            in <code>nlpcraft.conf</code> file (see <code>nlpcraft.extConfig</code> property).
+        </p>
     </section>
     <section id="ignite">
         <h2 class="section-title">Apache Ignite 2.7 <span class="amp">&amp;</span> Java 9+</h2>
