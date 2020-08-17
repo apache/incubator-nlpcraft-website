@@ -35,39 +35,56 @@ id: test_framework
         </p>
         <ul>
             <li>
-                <a
-                    target="javadoc"
-                    href="/apis/latest/org/apache/nlpcraft/model/tools/test/NCTestClient.html">
-                    NCTestClient
-                </a> - main model test client interface.
+                Auto-testing:
+                <ul>
+                    <li>
+                        <a
+                            target="javadoc"
+                            href="/apis/latest/org/apache/nlpcraft/model/tools/test/NCTestAutoModelValidator.html">
+                            NCTestAutoModelValidator
+                        </a> - auto-runner for model tests based on <code>@NCIntentSample</code> annotation.
+                    </li>
+                </ul>
             </li>
             <li>
-                <a
-                    target="javadoc"
-                    href="/apis/latest/org/apache/nlpcraft/model/tools/test/NCTestClientBuilder.html">
-                    NCTestClientBuilder
-                </a> - builder for <code>NCTestClient</code> instances.
-            </li>
-            <li>
-                <a
-                    target="javadoc"
-                    href="/apis/latest/org/apache/nlpcraft/model/tools/test/NCTestClientResult.html">
-                    NCTestClientResult
-                </a> - result holder of the test sentence processing.
-            </li>
-            <li>
-                <a
-                    target="javadoc"
-                    href="/apis/latest/org/apache/nlpcraft/model/tools/test/NCTestClientException.html">
-                    NCTestClientException
-                </a> - exception used by the test framework.
-            </li>
+                Using test client directly:
+                <ul>
+                    <li>
+                        <a
+                            target="javadoc"
+                            href="/apis/latest/org/apache/nlpcraft/model/tools/test/NCTestClient.html">
+                            NCTestClient
+                        </a> - main model test client interface.
+                    </li>
+                    <li>
+                        <a
+                            target="javadoc"
+                            href="/apis/latest/org/apache/nlpcraft/model/tools/test/NCTestClientBuilder.html">
+                            NCTestClientBuilder
+                        </a> - builder for <code>NCTestClient</code> instances.
+                    </li>
+                    <li>
+                        <a
+                            target="javadoc"
+                            href="/apis/latest/org/apache/nlpcraft/model/tools/test/NCTestClientResult.html">
+                            NCTestClientResult
+                        </a> - result holder of the test sentence processing.
+                    </li>
+                    <li>
+                        <a
+                            target="javadoc"
+                            href="/apis/latest/org/apache/nlpcraft/model/tools/test/NCTestClientException.html">
+                            NCTestClientException
+                        </a> - exception used by the test framework.
+                    </li>
+
+                </ul>
         </ul>
     </section>
     <section id="usage">
-        <h2 class="section-title">Usage</h2>
+        <h2 class="section-title">Test client</h2>
         <p>
-            Here's an code snippet from <a href="/examples/alarm_clock.html">Alarm Clock</a>
+            Here's a code for unit test using test client for the model from <a href="/examples/alarm_clock.html">Alarm Clock</a>
             example illustrating the usage of test framework together with JUnit 5:
         </p>
             <pre class="brush: java, highlight: [8, 10, 16, 24, 25, 26]">
@@ -131,11 +148,31 @@ public class AlarmTest {
             </p>
         </div>
     </section>
+    <section id="autotest">
+        <h2 class="section-title">Auto-test</h2>
+        <p>
+            The same model from <a href="/examples/alarm_clock.html">Alarm Clock</a> example can be auto-tested using
+            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/tools/test/NCTestAutoModelValidator.html">NCTestAutoModelValidator</a>
+            class and the <code>@NCIntentSample</code> annotation from the model's callback method. Notice that this method
+            does not require any additional code to be written - the class gathers all required information from the model
+            itself.
+        </p>
+        <p>
+            Add necessary classpath to and run:
+        </p>
+        <pre class="brush: plain">
+java -ea -DNLPCRAFT_TEST_MODELS=org.apache.nlpcraft.examples.alarm.AlarmModel org.apache.nlpcraft.model.tools.test.NCTestAutoModelValidator
+        </pre>
+        <p>
+            See <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/tools/test/NCTestAutoModelValidator.html">NCTestAutoModelValidator</a>
+            class for more details.
+        </p>
+    </section>
     <section id="examples">
         <h2 class="section-title">Examples</h2>
         <p>
             All <a target="github" href="https://github.com/apache/incubator-nlpcraft/tree/master/nlpcraft/src/main/scala/org/apache/nlpcraft/examples">examples</a>
-            shipped with NLPCraft utilize the test framework in their unit tests.
+            shipped with NLPCraft utilize auto-testing for their model testing.
         </p>
     </section>
 </div>
@@ -143,7 +180,8 @@ public class AlarmTest {
     <ul class="side-nav">
         <li class="side-nav-title">On This Page</li>
         <li><a href="#overview">Overview</a></li>
-        <li><a href="#usage">Usage</a></li>
+        <li><a href="#usage">Test client</a></li>
+        <li><a href="#autotest">Auto-test</a></li>
         <li><a href="#examples">Examples</a></li>
         {% include quick-links.html %}
     </ul>
