@@ -308,11 +308,10 @@ id: server_and_probe
         | Down-Link       | localhost:8202                                   |
         | Up-Link         | localhost:8201                                   |
         +-----------------+--------------------------------------------------+
-        | Models          | org.apache.nlpcraft.examples.alarm.AlarmModel           |
-        |                 | org.apache.nlpcraft.examples.echo.EchoModel             |
-        |                 | org.apache.nlpcraft.examples.helloworld.HelloWorldModel |
-        |                 | org.apache.nlpcraft.examples.time.TimeModel             |
-        |                 | org.apache.nlpcraft.examples.weather.WeatherModel       |
+        | Models          | org.apache.nlpcraft.examples.alarm.AlarmModel    |
+        |                 | org.apache.nlpcraft.examples.echo.EchoModel      |
+        |                 | org.apache.nlpcraft.examples.time.TimeModel      |
+        |                 | org.apache.nlpcraft.examples.weather.WeatherModel|
         +-----------------+--------------------------------------------------+
         | Lifecycle       |                                                  |
         | JARs Folder     |                                                  |
@@ -327,7 +326,6 @@ id: server_and_probe
         +================================================================================+
         | nlpcraft.alarm.ex      | Alarm Example Model      | 1.0  | 1        | 419      |
         | nlpcraft.weather.ex    | Weather Example Model    | 1.0  | 3        | 9045     |
-        | nlpcraft.helloworld.ex | HelloWorld Example Model | 1.0  | 0        | 0        |
         | nlpcraft.time.ex       | Time Example Model       | 1.0  | 1        | 432      |
         | nlpcraft.echo.ex       | Echo Example Model       | 1.0  | 0        | 0        |
         +--------------------------------------------------------------------------------+
@@ -363,10 +361,10 @@ id: server_and_probe
         <p>
             Default configuration is available in <code>build/<b>nlpcraft.conf</b></code> file and it is extensively documented. It has subsections
             for the server and probe configuration. When server and the probe use different files these whole sections should be
-            placed into an individual file:
+            placed into an individual files:
         </p>
         <p>
-        Server configuration file:
+            Server configuration file (e.g. <code>server_nlpcraft.conf</code>):
         </p>
         <pre class="brush: js">
 nlpcraft {
@@ -376,7 +374,7 @@ nlpcraft {
 }
             </pre>
         <p>
-            Probe configuration file:
+            Probe configuration file (e.g. <code>probe_nlpcraft.conf</code>):
         </p>
         <pre class="brush: js">
 nlpcraft {
