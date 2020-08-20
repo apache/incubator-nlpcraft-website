@@ -164,19 +164,19 @@ id: alarm_clock
         <p>
             Let's create new Java class in <code>AlarmModel.java</code> with the following code:
         </p>
-        <pre class="brush: java, highlight: [9, 18, 21, 22, 23, 24, 68, 81]">
-import org.apache.nlpcraft.model.*;
+        <pre class="brush: java, highlight: [10, 18, 22, 27], 82">
+package org.apache.nlpcraft.examples.alarm;
 
+import org.apache.nlpcraft.model.*;
 import java.time.*;
-import java.time.format.DateTimeFormatter;
+import java.time.format.*;
 import java.util.*;
 
-import static java.time.temporal.ChronoUnit.MILLIS;
+import static java.time.temporal.ChronoUnit.*;
 
 public class AlarmModel extends NCModelFileAdapter {
     private static final DateTimeFormatter FMT =
-        DateTimeFormatter.ofPattern("HH'h' mm'm' ss's'")
-            .withZone(ZoneId.systemDefault());
+        DateTimeFormatter.ofPattern("HH'h' mm'm' ss's'").withZone(ZoneId.systemDefault());
 
     private final Timer timer = new Timer();
 
@@ -186,6 +186,11 @@ public class AlarmModel extends NCModelFileAdapter {
     }
 
     @NCIntentRef("alarm")
+    @NCIntentSample({
+        "Ping me in 3 minutes",
+        "Buzz me in an hour and 15mins",
+        "Set my alarm for 30s"
+    })
     private NCResult onMatch(
         NCIntentMatch ctx,
         @NCIntentTerm("nums") List&lt;NCToken&gt; numToks
@@ -193,9 +198,7 @@ public class AlarmModel extends NCModelFileAdapter {
         if (ctx.isAmbiguous())
             throw new NCRejection("Not exact match.");
 
-        long unitsCnt = numToks.stream().map(
-            tok -> (String)tok.meta("num:unit")
-        ).distinct().count();
+        long unitsCnt = numToks.stream().map(tok -> (String)tok.meta("num:unit")).distinct().count();
 
         if (unitsCnt != numToks.size())
             throw new NCRejection("Ambiguous time units.");
@@ -222,8 +225,7 @@ public class AlarmModel extends NCModelFileAdapter {
                 case "year": { dt = dt.plusYears(v); break; }
 
                 default:
-                    // It shouldn't be an assertion, because 'datetime'
-                    // unit type can be extended in the future.
+                    // It shouldn't be assert, because 'datetime' unit can be extended.
                     throw new NCRejection("Unsupported time unit: " + unit);
             }
         }
@@ -237,8 +239,7 @@ public class AlarmModel extends NCModelFileAdapter {
                 @Override
                 public void run() {
                     System.out.println(
-                        "BEEP BEEP BEEP for: " +
-                            ctx.getContext().getRequest().getNormalizedText() + ""
+                        "BEEP BEEP BEEP for: " + ctx.getContext().getRequest().getNormalizedText() + ""
                     );
                 }
             },
@@ -246,6 +247,12 @@ public class AlarmModel extends NCModelFileAdapter {
         );
 
         return NCResult.text("Timer set for: " + FMT.format(dt));
+    }
+
+    @Override
+    public void onDiscard() {
+        // Clean up when model gets discarded (e.g. during testing).
+        timer.cancel();
     }
 }
         </pre>
@@ -255,14 +262,19 @@ public class AlarmModel extends NCModelFileAdapter {
         </p>
         <ul>
             <li>
-                On line 9 our class extends <code>NCModelFileAdapter</code> that allows us to load most
+                On line 10 our class extends <code>NCModelFileAdapter</code> that allows us to load most
                 of the model declaration from the external JSON or YAML file (line 18) and only provide functionality that we
                 couldn't express in declarative portion in JSON.
             </li>
             <li>
-                Lines 21-24 define method <code>onMatch</code> as a callback for intent <code>alarm</code>
+                Line 27 defines method <code>onMatch</code> as a callback for intent <code>alarm</code>
                 when it is detected in the user input. Method parameter <code>numToks</code> will get up to 7 tokens
                 of type <code>nlpcraft:num</code> (see intent definition above).
+            </li>
+            <li>
+                Note the line 22 where we use <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a>
+                annotation to provide samples of the user input that this intent should match. Apart from documentation
+                purpose these samples will be used when we will be <a href="#testing">testing out model below.</a>
             </li>
             <li>
                 The rest of the method <code>onMatch</code> implementation is a relatively straight forward Java code
@@ -271,7 +283,7 @@ public class AlarmModel extends NCModelFileAdapter {
                 be printed right in the data probe console.
             </li>
             <li>
-                On the line 81 the intent callback simply returns a confirmation message telling
+                On the line 82 the intent callback simply returns a confirmation message telling
                 for what actual time the alarm clock was set.
             </li>
         </ul>
@@ -347,100 +359,55 @@ public class AlarmModel extends NCModelFileAdapter {
     <section id="testing">
         <h3 class="section-title">Testing</h3>
         <p>
-            NLPCraft comes with easy to use <a href="/tools/test_framework.html">test framework</a> for
-            data models that can be used with
-            any unit testing framework like JUnit or ScalaTest. It is essentially a simplified
-            version of Java REST client that is custom designed for data model testing.
+            Let's develop a unit test for our model. Remember the <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a>
+            annotation we have used in our code next to intent definition? Auto-testing utility is relying on it.
         </p>
         <p>
-            We would like to test with following user requests:
+            Part of the <a href="/tools/test_framework.html">test framework</a>, the auto-validator class <a
+                target="javadoc"
+                href="/apis/latest/org/apache/nlpcraft/model/tools/test/NCTestAutoModelValidator.html">NCTestAutoModelValidator</a> takes one or more model IDs
+            (or class names) and performs validation. Validation consists of starting an embedded probe with a given model,
+            scanning for <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a> annotations
+            and their corresponding callback methods, submitting each sample input
+            sentences from <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a>
+            annotation and checking that resulting intent matches the intent the sample was attached to.
         </p>
-        <ul>
-            <li><code>"Ping me in 3 minutes"</code></li>
-            <li><code>"Buzz me in an hour and 15mins"</code></li>
-            <li><code>"Set my alarm for 30s"</code></li>
-        </ul>
         <p>
-            Let's create new Java class <code>AlarmTest.java</code> with the following code:
+            Note that auto-testing does not require any additional code to be written - the class gathers all required information from the model
+            itself.
         </p>
-        <pre class="brush: java, highlight: [20, 24, 32, 37, 38, 39]">
-package org.apache.nlpcraft.examples.alarm;
-
-import org.apache.nlpcraft.common.NCException;
-import org.apache.nlpcraft.model.tools.test.NCTestClient;
-import org.apache.nlpcraft.model.tools.test.NCTestClientBuilder;
-import org.apache.nlpcraft.probe.embedded.NCEmbeddedProbe;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-class AlarmTest {
-    static private NCTestClient cli;
-
-    @BeforeAll
-    static void setUp() throws NCException, IOException {
-        NCEmbeddedProbe.start(AlarmModel.class);
-
-        cli = new NCTestClientBuilder().newBuilder().build();
-
-        cli.open("nlpcraft.alarm.ex"); // See alarm_model.json
-    }
-
-    @AfterAll
-    static void tearDown() throws NCException, IOException {
-        if (cli != null)
-            cli.close();
-
-        NCEmbeddedProbe.stop();
-    }
-
-    @Test
-    void test() throws NCException, IOException {
-        assertTrue(cli.ask("Ping me in 3 minutes").isOk());
-        assertTrue(cli.ask("Buzz me in an hour and 15mins").isOk());
-        assertTrue(cli.ask("Set my alarm for 30s").isOk());
-    }
-}
-
-        </pre>
         <p>
-            This test is pretty straight forward:
+            Let's configure IDEA Runtime Configuration (remember - there's no need to write any additional code here):
         </p>
         <ul>
             <li>
-                On line 24 we open the test client with the model ID (see <code>alarm_model.json</code>
-                file for where we declared it).
+                <b>Main class:</b> <code>org.apache.nlpcraft.model.tools.test.NCTestAutoModelValidator</code>
             </li>
             <li>
-                Line 37, 38, and 39 is where we issue our test sentences and we should see
-                the confirmation messages and eventually "BEEP BEEP BEEP" print outs in the data probe
-                console.
+                <b>VM options: </b> <code>-DNLPCRAFT_TEST_MODELS=org.apache.nlpcraft.examples.alarm.AlarmModel</code>
             </li>
         </ul>
         <div class="bq info">
             <p><b>Embedded Probe</b></p>
             <p>
-                This test uses <a href="/tools/embedded_probe.html">embedded probe</a> which automatically
-                starts and stops the data probe from within the tests itself. See lines 20 and 32 for details.
+                This test (as well as manual test client from <a href="/tools/test_framework.html">test framework</a>) use
+                <a href="/tools/embedded_probe.html">embedded probe</a> which automatically
+                starts and stops the data probe from within the tests itself. However, when not testing you will need
+                to start data probe separately.
             </p>
             <p>
-                <b>NOTE:</b> when using test you don't need to start data probe standalone in a previous step.
+                <b>NOTE:</b> when using this test you don't need to start data probe standalone.
             </p>
         </div>
         <p>
-            Right click on this class in the project view and run it. You should be getting standard output in
-            JUnit panel as well as the output in the data probe console.
+            Start this Runtime Configuration and you should be getting standard log in the output console.
         </p>
     </section>
     <section>
         <h2 class="section-title">Done! 👌</h2>
         <p>
             You've created alarm clock data model, deployed it into the data probe, started the
-            REST server and tested this model using JUnit 5 and the built-in test framework.
+            REST server and tested this model using the built-in test framework.
         </p>
     </section>
 </div>
