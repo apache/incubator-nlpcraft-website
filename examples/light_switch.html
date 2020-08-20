@@ -106,19 +106,14 @@ id: light_switch
         <h3 class="section-title">Data Model</h3>
         <p>
             We are going to start with declaring the static part of our semantic model using YAML which we will later load using
-            <code>NCModelFileAdapter</code> in our Sccla-based model implementation. Create new <code>lightswitch_model.yaml</code>
+            <code>NCModelFileAdapter</code> in our Scala-based model implementation. Create new <code>lightswitch_model.yaml</code>
             file and add the following model declaration into it:
         </p>
-        <pre class="brush: js, highlight: [10, 19, 26, 34, 42]">
+        <pre class="brush: js, highlight: [5, 14, 21, 29, 37]">
 id: "nlpcraft.lightswitch.ex"
 name: "Light Switch Example Model"
 version: "1.0"
 description: "NLI-powered light switch example model."
-examples:
-  - "Set the lights on in the entire house."
-  - "Turn the lights off in the guest bedroom."
-  - "Could you please switch off all the lights?"
-  - "Dial off illumination on the 2nd floor."
 macros:
   - name: "&lt;ACTION&gt;"
     macro: "{turn|switch|dial|control|let|set|get|put}"
@@ -126,7 +121,7 @@ macros:
     macro: "{entire|full|whole|total|*}"
   - name: "&lt;LIGHT&gt;"
     macro: "{all|*} {it|them|light|illumination|lamp|lamplight}"
-enabledBuiltInTokens: [] # Don't use any built-in tokens.
+enabledBuiltInTokens: [] # This example doesn't use any built-in tokens.
 elements:
   - id: "ls:loc"
     description: "Location of lights."
@@ -182,12 +177,26 @@ intents:
         <p>
             Let's create new Scala class in <code>LightSwitchModel.scala</code> with the following code:
         </p>
-        <pre class="brush: java, highlight: [4, 5, 6, 7, 8, 20]">
-import org.apache.nlpcraft.model._
-import org.apache.nlpcraft.model.NCIntentTerm
+        <pre class="brush: java, highlight: [5, 6, 7, 21, 22, 34]">
+package org.apache.nlpcraft.examples.lightswitch
+
+import org.apache.nlpcraft.model.{NCIntentTerm, _}
 
 class LightSwitchModel extends NCModelFileAdapter("org/apache/nlpcraft/examples/lightswitch/lightswitch_model.yaml") {
     @NCIntentRef("ls")
+    @NCIntentSample(Array(
+        "Turn the lights off in the entire house.",
+        "Switch on the illumination in the master bedroom closet.",
+        "Get the lights on.",
+        "Please, put the light out in the upstairs bedroom.",
+        "Set the lights on in the entire house.",
+        "Turn the lights off in the guest bedroom.",
+        "Could you please switch off all the lights?",
+        "Dial off illumination on the 2nd floor.",
+        "Please, no lights!",
+        "Kill off all the lights now!",
+        "No lights in the bedroom, please."
+    ))
     def onMatch(
         @NCIntentTerm("act") actTok: NCToken,
         @NCIntentTerm("loc") locToks: List[NCToken]
@@ -213,20 +222,25 @@ class LightSwitchModel extends NCModelFileAdapter("org/apache/nlpcraft/examples/
         </p>
         <ul>
             <li>
-                On <code>line 4</code> our class extends <code>NCModelFileAdapter</code> that allows us to load most
+                On <code>line 5</code> our class extends <code>NCModelFileAdapter</code> that allows us to load most
                 of the model declaration from the external YAML file and only provide functionality that we
                 couldn't express in declarative portion in JSON.
             </li>
             <li>
-                <code>Line 5</code> annotates method <code>onMatch</code> as a callback for the intent <code>ls</code>
+                <code>Line 6</code> annotates method <code>onMatch</code> as a callback for the intent <code>ls</code>
                 when it is detected in the user input.
             </li>
             <li>
-                <code>Lines 7 and 8</code> map terms from detected intent to the formal method parameters of the
+                Note the line 7 where we use <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a>
+                annotation to provide samples of the user input that this intent should match. Apart from documentation
+                purpose these samples will be used when we will be <a href="#testing">testing out model below.</a>
+            </li>
+            <li>
+                <code>Lines 21 and 22</code> map terms from detected intent to the formal method parameters of the
                 <code>onMatch</code> method.
             </li>
             <li>
-                On the <code>line 20</code> the intent callback simply returns a confirmation message.
+                On the <code>line 34</code> the intent callback simply returns a confirmation message.
             </li>
         </ul>
     </section>
@@ -302,114 +316,55 @@ class LightSwitchModel extends NCModelFileAdapter("org/apache/nlpcraft/examples/
     <section id="testing">
         <h3 class="section-title">Testing</h3>
         <p>
-            NLPCraft comes with easy to use <a href="/tools/test_framework.html">test framework</a> for
-            data models that can be used with
-            any unit testing framework like JUnit or ScalaTest. It is essentially a simplified
-            version of Java REST client that is custom designed for data model testing.
+            Let's develop a unit test for our model. Remember the <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a>
+            annotation we have used in our code next to intent definition? Auto-testing utility is relying on it.
         </p>
         <p>
-            We would like to test with following user requests:
+            Part of the <a href="/tools/test_framework.html">test framework</a>, the auto-validator class <a
+                target="javadoc"
+                href="/apis/latest/org/apache/nlpcraft/model/tools/test/NCTestAutoModelValidator.html">NCTestAutoModelValidator</a> takes one or more model IDs
+            (or class names) and performs validation. Validation consists of starting an embedded probe with a given model,
+            scanning for <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a> annotations
+            and their corresponding callback methods, submitting each sample input
+            sentences from <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a>
+            annotation and checking that resulting intent matches the intent the sample was attached to.
         </p>
-        <ul>
-            <li><code>"Turn the lights off in the entire house."</code></li>
-            <li><code>"Switch on the illumination in the master bedroom closet."</code></li>
-            <li><code>"Get the lights on."</code></li>
-            <li><code>"Please, put the light out in the upstairs bedroom."</code></li>
-            <li><code>"Set the lights on in the entire house."</code></li>
-            <li><code>"Turn the lights off in the guest bedroom."</code></li>
-            <li><code>"Could you please switch off all the lights?"</code></li>
-            <li><code>"Dial off illumination on the 2nd floor."</code></li>
-            <li><code>"Please, no lights!"</code></li>
-            <li><code>"Kill off all the lights now!"</code></li>
-            <li><code>"No lights in the bedroom, please."</code></li>
-        </ul>
         <p>
-            Let's create new Java class <code>LightSwitchTest.java</code> with the following code:
+            Note that auto-testing does not require any additional code to be written - the class gathers all required information from the model
+            itself.
         </p>
-        <pre class="brush: java, highlight: [20, 24, 32, 36]">
-package org.apache.nlpcraft.examples.lightswitch;
-
-import org.apache.nlpcraft.common.NCException;
-import org.apache.nlpcraft.model.tools.test.NCTestClient;
-import org.apache.nlpcraft.model.tools.test.NCTestClientBuilder;
-import org.apache.nlpcraft.probe.embedded.NCEmbeddedProbe;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-class LightSwitchTest {
-    private NCTestClient cli;
-
-    @BeforeEach
-    void setUp() throws NCException, IOException {
-        NCEmbeddedProbe.start(LightSwitchModel.class);
-
-        cli = new NCTestClientBuilder().newBuilder().build();
-
-        cli.open("nlpcraft.lightswitch.ex");
-    }
-
-    @AfterEach
-    void tearDown() throws NCException, IOException {
-        if (cli != null)
-            cli.close();
-
-        NCEmbeddedProbe.stop();
-    }
-
-    @Test
-    void test() throws NCException, IOException {
-        assertTrue(cli.ask("Turn the lights off in the entire house.").isOk());
-        assertTrue(cli.ask("Switch on the illumination in the master bedroom closet.").isOk());
-        assertTrue(cli.ask("Get the lights on.").isOk());
-        assertTrue(cli.ask("Please, put the light out in the upstairs bedroom.").isOk());
-        assertTrue(cli.ask("Set the lights on in the entire house.").isOk());
-        assertTrue(cli.ask("Turn the lights off in the guest bedroom.").isOk());
-        assertTrue(cli.ask("Could you please switch off all the lights?").isOk());
-        assertTrue(cli.ask("Dial off illumination on the 2nd floor.").isOk());
-        assertTrue(cli.ask("Please, no lights!").isOk());
-        assertTrue(cli.ask("Kill off all the lights now!").isOk());
-        assertTrue(cli.ask("No lights in the bedroom, please.").isOk());
-    }
-}
-        </pre>
         <p>
-            This test is pretty straight forward:
+            Let's configure IDEA Runtime Configuration (remember - there's no need to write any additional code here):
         </p>
         <ul>
             <li>
-                On <code>line 24</code> we open the test client with the model ID (see <code>lightswitch_model.yaml</code>
-                file for where we declared it).
+                <b>Main class:</b> <code>org.apache.nlpcraft.model.tools.test.NCTestAutoModelValidator</code>
             </li>
             <li>
-                Test on <code>line 36</code> is where we issue our test sentences and we should see
-                the confirmation messages in our test console output.
+                <b>VM options: </b> <code>-DNLPCRAFT_TEST_MODELS=org.apache.nlpcraft.examples.lightswitch.LightSwitchModel</code>
             </li>
         </ul>
         <div class="bq info">
             <p><b>Embedded Probe</b></p>
             <p>
-                This test uses <a href="/tools/embedded_probe.html">embedded probe</a> which automatically
-                starts and stops the data probe from within the tests itself. See lines 20 and 32 for details.
+                This test (as well as manual test client from <a href="/tools/test_framework.html">test framework</a>) use
+                <a href="/tools/embedded_probe.html">embedded probe</a> which automatically
+                starts and stops the data probe from within the tests itself. However, when not testing you will need
+                to start data probe separately.
             </p>
             <p>
-                <b>NOTE:</b> when using this test you don't need to start data probe standalone in a previous step.
+                <b>NOTE:</b> when using this test you don't need to start data probe standalone.
             </p>
         </div>
         <p>
-            Right click on this class in the project view and run it. You should be getting standard output in
-            JUnit panel as well as the output in the data probe console.
+            Start this Runtime Configuration and you should be getting standard log in the output console.
         </p>
     </section>
     <section>
         <h2 class="section-title">Done! 👌</h2>
         <p>
             You've created NLI-power light switch data model, deployed it into the data probe, started the
-            REST server and tested this model using JUnit 5 and the built-in test framework.
+            REST server and tested this model using the built-in test framework.
         </p>
     </section>
 </div>

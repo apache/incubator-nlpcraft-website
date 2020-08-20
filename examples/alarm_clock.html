@@ -262,17 +262,17 @@ public class AlarmModel extends NCModelFileAdapter {
         </p>
         <ul>
             <li>
-                On line 10 our class extends <code>NCModelFileAdapter</code> that allows us to load most
+                On <code>line 10</code> our class extends <code>NCModelFileAdapter</code> that allows us to load most
                 of the model declaration from the external JSON or YAML file (line 18) and only provide functionality that we
                 couldn't express in declarative portion in JSON.
             </li>
             <li>
-                Line 27 defines method <code>onMatch</code> as a callback for intent <code>alarm</code>
+                <code>Line 27</code> defines method <code>onMatch</code> as a callback for intent <code>alarm</code>
                 when it is detected in the user input. Method parameter <code>numToks</code> will get up to 7 tokens
                 of type <code>nlpcraft:num</code> (see intent definition above).
             </li>
             <li>
-                Note the line 22 where we use <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a>
+                Note the <code>line 22</code> where we use <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a>
                 annotation to provide samples of the user input that this intent should match. Apart from documentation
                 purpose these samples will be used when we will be <a href="#testing">testing out model below.</a>
             </li>
@@ -283,7 +283,7 @@ public class AlarmModel extends NCModelFileAdapter {
                 be printed right in the data probe console.
             </li>
             <li>
-                On the line 82 the intent callback simply returns a confirmation message telling
+                On the <code>line 82</code> the intent callback simply returns a confirmation message telling
                 for what actual time the alarm clock was set.
             </li>
         </ul>
