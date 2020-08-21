@@ -154,28 +154,47 @@ id: weather_bot
                 <code>Line 10</code> defines an element <code>wt:phen</code> for various weather phenomenon.
             </li>
             <li>
-                <code>Line 18</code> defines an element <code>wt:hist</code> which presence will indicate the
+                <code>Line 18</code> defines an element <code>wt:hist</code> whose presence will indicate the
                 request for the past (history) weather information.
             </li>
             <li>
-                <code>Line 28</code> defines an element <code>wt:fcast</code> which presence will indicate the
+                <code>Line 28</code> defines an element <code>wt:fcast</code> whose presence will indicate the
                 request for the future (forecast) weather information.
             </li>
         </ul>
         <p>
-            Now that our model is ready let's create a Java class that would load this model and define intents
-            that use the model elements we have just defined.
+            Now that our model is ready let's create a Java class that would load this model and define the intent
+            that uses the model elements we have just defined.
         </p>
     </section>
     <section id="code">
         <h3 class="section-title">Model Class</h3>
         <p>
-            Our Java implementation uses one auxiliary class <a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/src/main/scala/org/apache/nlpcraft/examples/weather/WeatherResultWrapper.java">WeatherResultWrapper.java</a>
-            that is used for JSON result formatting. Note that the main <a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/src/main/scala/org/apache/nlpcraft/examples/weather/WeatherModel.java">WeatherModel</a> class
-            have number of utility methods that we'll skip here (you can see the entire class by following the link above) and
-            we'll concentrate on the intents only:
+            Below is a full source code for our implementation. Note that this code uses several
+            <a href="#tools">external tools</a> for IP-based geo-location and the weather information
+            provider (Dark Sky). Note also that despite its apparent simplicity the model logic implementation is non-trivial.
+            Significant portion of the code deals with a complex <b>temporal and geographical ambiguity</b>, i.e. the sentences like the these:
         </p>
-        <pre class="brush: java, highlight: []">
+        <dl>
+            <dt>
+                <code>'show my local weather'</code> vs <code>'show local Boston weather'</code>
+            </dt>
+            <dd>
+                In the first sentence the word <code>local</code> indicates that the user is asking about her local weather
+                (i.e. the weather for the location based on the IP address of the user's REST agent). However, in the
+                second sentence the same word <code>local</code> is effectively ignored as user clearly indicated the city
+                for the weather request (Boston).
+            </dd>
+            <dt>
+                <code>'show weather forecast'</code> vs <code>'show weather forecast for today'</code> vs <code>'show last week weather forecast'</code>
+            </dt>
+            <dd>
+                In these three sentences the word <code>forecast</code> defines future, current and past timeframe for the
+                weather request. It acts as a future indicator in the first sentence and is effectively ignored in the second
+                and third sentences.
+            </dd>
+        </dl>
+        <pre class="brush: java, highlight: [24, 71, 79, 97, 99, 100, 101, 146]">
 package org.apache.nlpcraft.examples.weather;
 
 import com.google.gson.Gson;
@@ -330,42 +349,26 @@ public class WeatherModel extends NCModelFileAdapter {
     }
 }
         </pre>
-        <p>
-            There three methods define three intents. Each intent is defined "in place", i.e. as an annotation on the
-            method that acts as a callback for that intent:
-        </p>
         <ul>
             <li>
-                Line 1 defines intent and the callback for the weather forecast (weather in the future):
-                <ul>
-                    <li>Intent is ordered (default), supports conversation (default) and has ID <code>fcast</code></li>
-                    <li>Intent has one mandatory term and two optional terms:
-                        <ul>
-                            <li>
-                                Mandatory term is defined as a token with ID <code>wt:fcast</code> as defined
-                                in the model.
-                            </li>
-                            <li>
-                                Two optional terms (their IDs are <code>city</code> and <code>date</code>) define
-                                optional city and date for the weather report. If not provided, their will be taken
-                                from either conversation context or assume the default value (current IP geo location
-                                and current time, if available).
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+                <code>Line 146</code> loads the model configuration from the external <code>weather_model.json</code>
+                file.
             </li>
             <li>
-                Lines 3-5 define formal parameters for the <code>fcast</code> intent callback method. Note that we use term IDs
-                (<code>city</code> and <code>date</code>) in <code>@NCIntentTerm</code> annotations to automatically
-                assign tokens from the detected terms to their corresponding method formal parameters.
+                Method <code>preGeo(...)</code> on the <code>line 24</code> handles the geo location processing including
+                IP-based geo-location and resolution of the geographical ambiguity.
             </li>
             <li>
-                Lines 10-14 and lines 19-23 define two other intents and their callbacks methods in the same manner.
+                <code>Line 97</code> defines a callback for the intent defined on the <code>line 71</code>. Note that
+                callback implementation also deals with the temporal ambiguity.
             </li>
             <li>
-                Implementation of all intent callback method is pretty straightforward and deals mostly with figuring
-                out the default location and time if either one isn't provided.
+                <code>Lines 99, 100, and 101</code> define formal callback method parameters that correspond
+                to the intent's terms (see <code>line 71</code>).
+            </li>
+            <li>
+                <code>Line 79</code> defines input sentence samples that are used for both documentation as well as
+                auto-validation purposed (see <a href="#testing">testing</a> second for details).
             </li>
         </ul>
     </section>
@@ -460,136 +463,56 @@ public class WeatherModel extends NCModelFileAdapter {
     <section id="testing">
         <h3 class="section-title">Testing</h3>
         <p>
-            NLPCraft comes with easy to use <a href="/tools/test_framework.html">test framework</a> for
-            data models that can be used with
-            any unit testing framework like JUnit or ScalaTest. It is essentially a simplified
-            version of Java REST client that is custom designed for data model testing.
+            Let's develop a unit test for our model. Remember the <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a>
+            annotation we have used in our code next to intent definition? Auto-testing utility is relying on it.
         </p>
         <p>
-            We would like to test with following user requests:
-        </p>
-        <ul>
-            <li><code>"What's the local weather forecast?"</code></li>
-            <li><code>"What's the weather in Moscow?"</code></li>
-            <li><code>"Chance of snow?"</code> (using conversation context)</li>
-            <li><code>"Moscow?"</code> (using conversation context).</li>
-        </ul>
         <p>
-            Let's create new Java class <code>WeatherTest.java</code> with the following code:
+            Part of the <a href="/tools/test_framework.html">test framework</a>, the auto-validator class <a
+                target="javadoc"
+                href="/apis/latest/org/apache/nlpcraft/model/tools/test/NCTestAutoModelValidator.html">NCTestAutoModelValidator</a> takes one or more model IDs
+            (or class names) and performs validation. Validation consists of starting an embedded probe with a given model,
+            scanning for <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a> annotations
+            and their corresponding callback methods, submitting each sample input
+            sentences from <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a>
+            annotation and checking that resulting intent matches the intent the sample was attached to.
         </p>
-        <pre class="brush: java, highlight: [47, 43, 55, 59]">
-package org.apache.nlpcraft.examples.weather;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import org.apache.nlpcraft.common.NCException;
-import org.apache.nlpcraft.model.tools.test.NCTestClient;
-import org.apache.nlpcraft.model.tools.test.NCTestClientBuilder;
-import org.apache.nlpcraft.model.tools.test.NCTestResult;
-import org.apache.nlpcraft.probe.embedded.NCEmbeddedProbe;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-class WeatherTest {
-    private static final Gson GSON = new Gson();
-    private static final Type TYPE_MAP_RESP = new TypeToken&lt;HashMap&lt;String, Object&gt;&gt;() {}.getType();
-    private NCTestClient cli;
-            
-    private void checkIntent(String txt, String intentId, boolean shouldBeSame) throws NCException, IOException {
-        NCTestResult res = cli.ask(txt);
-
-        assertTrue(res.isOk(), () -&gt; res.getResultError().get());
-
-        assert res.getResult().isPresent();
-
-        Map&lt;String, Object&gt; map = GSON.fromJson(res.getResult().get(), TYPE_MAP_RESP);
-
-        if (shouldBeSame)
-            assertEquals(intentId, map.get("intentId"));
-        else
-            assertNotEquals(intentId, map.get("intentId"));
-    }
-
-    @BeforeEach
-    void setUp() throws NCException, IOException {
-        NCEmbeddedProbe.start(WeatherModel.class);
-
-        cli = new NCTestClientBuilder().newBuilder().build();
-
-        cli.open("nlpcraft.weather.ex");  // See weather_model.json
-    }
-
-    @AfterEach
-    void tearDown() throws NCException, IOException {
-        if (cli != null)
-            cli.close();
-
-        NCEmbeddedProbe.stop();
-    }
-
-    @Test
-    void test() throws NCException, IOException {
-        // Empty parameter.
-        assertTrue(cli.ask("").isFailed());
-
-        // Only latin charset is supported.
-        assertTrue(cli.ask("El tiempo en España").isFailed());
-
-        // Should be passed.
-        checkIntent("What's the local weather forecast?", "fcast", true);
-        checkIntent("What's the weather in Moscow?", "curr", true);
-        // Can be answered with conversation.
-        checkIntent("Chance of snow?", "curr", true);
-        checkIntent("Moscow", "curr", true);
-
-        cli.clearConversation();
-
-        // Cannot be answered without conversation.
-        assertTrue(cli.ask("Moscow").isFailed());
-    }
-}
-        </pre>
         <p>
-            This test is pretty straight forward:
+            Note that auto-testing does not require any additional code to be written - the class gathers all required information from the model
+            itself.
+        </p>
+        <p>
+            Let's configure IDEA Runtime Configuration (remember - there's no need to write any additional code here):
         </p>
         <ul>
             <li>
-                On line 47 we open the test client with the model ID (see <code>weather_model.yaml</code>
-                file for where we declared it).
+                <b>Main class:</b> <code>org.apache.nlpcraft.model.tools.test.NCTestAutoModelValidator</code>
             </li>
             <li>
-                Test on line 59 is where we issue our test sentences and we should see
-                the confirmation messages in our test console output.
+                <b>VM options: </b> <code>-DNLPCRAFT_TEST_MODELS=org.apache.nlpcraft.examples.weather.WeatherModel</code>
             </li>
         </ul>
         <div class="bq info">
             <p><b>Embedded Probe</b></p>
             <p>
-                This test uses <a href="/tools/embedded_probe.html">embedded probe</a> which automatically
-                starts and stops the data probe from within the tests itself. See lines 43 and 55 for details.
+                This test (as well as manual test client from <a href="/tools/test_framework.html">test framework</a>) use
+                <a href="/tools/embedded_probe.html">embedded probe</a> which automatically
+                starts and stops the data probe from within the tests itself. However, when not testing you will need
+                to start data probe separately.
             </p>
             <p>
-                <b>NOTE:</b> when using this test you don't need to start data probe standalone in a previous step.
+                <b>NOTE:</b> when using this test you don't need to start data probe standalone.
             </p>
         </div>
         <p>
-            Right click on this class in the project view and run it. You should be getting standard output in
-            JUnit panel as well as the output in the data probe console.
+            Start this Runtime Configuration and you should be getting standard log in the output console.
         </p>
     </section>
     <section>
         <h2 class="section-title">Done! 👌</h2>
         <p>
-            You've created pretty full featured weather bot data model, deployed it into the data probe, started the
-            REST server and tested this model using JUnit 5 and the built-in test framework.
+            You've created alarm clock data model, deployed it into the data probe, started the
+            REST server and tested this model using the built-in test framework.
         </p>
     </section>
 </div>
