@@ -127,6 +127,13 @@ layout: interior
                 <a href="/tools/sql_model_gen.html">SQL Model Generator</a>
                 {% endif %}
             </li>
+            <li>
+                {% if page.id == "model_inspector" %}
+                <a class="active" href="/tools/model_inspector.html">Model Inspector</a>
+                {% else %}
+                <a href="/tools/model_inspector.html">Model Inspector</a>
+                {% endif %}
+            </li>
             <li class="side-nav-title">Examples</li>
             <li>
                 {% if page.id == "alarm_clock" %}
