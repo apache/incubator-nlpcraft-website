@@ -21,6 +21,7 @@ id: rest
  limitations under the License.
 -->
 
+<!--suppress HtmlDeprecatedTag -->
 <div class="col-md-8 second-column">
     <section id="overview">
         <h2 class="section-title">Overview</h2>
@@ -310,6 +311,26 @@ id: rest
             <tr>
                 <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/probes/all</code></nobr></a></td>
                 <td>Get information about connected probes.</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+    <section id="model">
+        <h3 class="section-title">Model Operations</h3>
+        <p>
+            This group of operations allows to perform various model related tools and operations:
+        </p>
+        <table class="gradient-table">
+            <thead>
+            <tr>
+                <th>REST call</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/model/sugsyn</code></nobr></a></td>
+                <td>Runs synonym suggestion tool that is based on BERT model and uses <code>@NCIntentSample</code> annotation.</td>
             </tr>
             </tbody>
         </table>
