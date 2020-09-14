@@ -89,6 +89,7 @@ id: server_and_probe
                 <a class="nav-item nav-link active" data-toggle="tab" href="#nav-srv-jar" role="tab" aria-controls="nav-home" aria-selected="true">Executable JAR</a>
                 <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-cmd" role="tab" aria-controls="nav-home" aria-selected="true">Command Line</a>
                 <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-ide" role="tab" aria-controls="nav-home" aria-selected="true">IDE</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-docker" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fab fa-docker"></i> Docker</a>
             </div>
         </nav>
         <div class="tab-content">
@@ -110,6 +111,16 @@ id: server_and_probe
                     Note that <code>org.apache.nlpcraft.NCStart</code> class starts both the REST server and the data probe and is the
                     class that is configured as <code>Main-Class</code> in <code>apache-nlpcraft-{{site.latest_version}}-all-deps.jar</code>
                     JAR file manifest.
+                </p>
+            </div>
+            <div class="tab-pane fade show" id="nav-srv-docker" role="tabpanel">
+                <pre class="brush: plain">
+                    $ docker run -m 8G -p 8081:8081 -p 8201:8201 -p 8202:8202 nlpcraftserver/server:{{site.latest_version}}
+                </pre>
+                <p>
+                    By default, the Docker image runs with a default configuration.
+                    See <a href="#config">configuration</a> section on how to provide custom configuration via environment variables for the REST
+                    server running inside of Docker container.
                 </p>
             </div>
         </div>
@@ -159,18 +170,6 @@ id: server_and_probe
                 insufficient JVM heap memory.
             </p>
         </div>
-        <h3 class="section-title"><i class="fab fa-docker"></i> Docker</h3>
-        <p>
-            You can also run REST server inside of Docker container:
-        </p>
-        <pre class="brush: plain">
-            $ docker run -m 8G -p 8081:8081 -p 8201:8201 -p 8202:8202 nlpcraftserver/server:{{site.latest_version}}
-        </pre>
-        <p>
-            By default, the Docker image runs with a default configuration.
-            See <a href="#config">configuration</a> section on how to provide custom configuration via environment variables for the REST
-            server running inside of Docker container.
-        </p>
         <p>
             When the REST server successfully started you should see the log output similar to this:
         </p>
@@ -350,7 +349,11 @@ id: server_and_probe
             <li>Both the server and the data probe come with default configuration available in <code>build/<b>nlpcraft.conf</b></code> file.</li>
             <li>Custom configuration or default overrides can be placed into a file or provided via environment variables.</li>
             <li>Configuration files use <a target=_ href="https://github.com/lightbend/config/blob/master/HOCON.md">HOCON</a> file format.</li>
-            <li>Server and probe configuration can be placed in the same file or kept in separate files. </li>
+            <li>
+                Server and probe configuration can be placed in the same file (as it is shipped by default in <code>build/nlpcraft.conf</code> file)
+                or kept in separate files. When kept in separate files each file would have either <code>nlpcraft.server</code>
+                or <code>nlpcraft.probe</code> sub-section.
+            </li>
         </ul>
 
         <p>
@@ -383,62 +386,58 @@ nlpcraft {
     }
 }
             </pre>
-
-
-        <div class="bq info">
-            <b>Overriding Configuration</b>
-            <p>
-                There are two ways to provide your own configuration for the server or the probe:
-            </p>
-            <ul>
-                <li>
-                    Put your configuration into separate file and use <code>-config=...</code> parameter to specify
-                    the path of your configuration file.
-                </li>
-                <li>
-                    Use environment variable to override specific single property.
-                </li>
-            </ul>
-            <p>
-                During development and testing, or when running in a container environment like Docker, it is more
-                convenient to use environment variables to override just few specific configuration properties:
-            </p>
-            <ol>
-                <li>
-                    Set probe or server JVM system property <code>-Dconfig.override_with_env_vars=true</code> which will instruct
-                    configuration framework to look for external overrides.
-                </li>
-                <li>For each configuration property <code>x.y.z</code> set the overriding environment variable <code>CONFIG_FORCE_x_y_z=some_value</code></li>
-            </ol>
-            <p>
-                Consider the following snippet of server configuration:
-            </p>
-            <pre class="brush: js">
+    </section>
+    <section id="override">
+        <h2 class="section-title">Override Configuration</h2>
+        <p>
+            While you can change configuration file or files for your own configuration (using  <code>-config=...</code>
+            parameter described above) it is frequently more convenient to use the default configuration file and just
+            change one or two properties in it. You can accomplish this by using standard
+            <a target=_ href="https://github.com/lightbend/config#optional-system-or-env-variable-overrides">HOCON overriding</a>
+            via environment variables:
+        </p>
+        <ol>
+            <li>
+                Set probe or server JVM system property <code>-Dconfig.override_with_env_vars=true</code> which will instruct
+                configuration framework to look for external overrides.
+            </li>
+            <li>For each configuration property <code>x.y.z</code> set the overriding environment variable <code>CONFIG_FORCE_x_y_z=some_value</code></li>
+            <li>See more details on <a target=_ href="https://github.com/lightbend/config#optional-system-or-env-variable-overrides">HOCON documentation</a>.</li>
+        </ol>
+        <p>
+            Consider the following snippet of server configuration:
+        </p>
+        <pre class="brush: js">
 nlpcraft {
-    server {
-        ...
+    probe {
+        models = "com.nlp.MyModel"
+    }
 
-        lifecycle = [
-            "org.apache.nlpcraft.server.lifecycle.opencensus.NCJaegerExporter"
-        ]
+    server {
+        lifecycle = "org.apache.nlpcraft.server.lifecycle.opencensus.NCJaegerExporter"
 
         rest {
             host = "0.0.0.0"
             port = 8081
             apiImpl = "org.apache.nlpcraft.server.rest.NCBasicRestApi"
         }
-
-        ...
     }
 }
-            </pre>
+        </pre>
+        <p>
+            You can override these properties with the following environment variables:
+        </p>
+        <p>
+            <code>CONFIG_FORCE_<b>nlpcraft_server_rest_host</b>=1.2.3.4</code><br>
+            <code>CONFIG_FORCE_<b>nlpcraft_server_lifecycle</b>="org.nlp.Lifecycle1, org.nlp.Lifecycle1"</code><br>
+            <code>CONFIG_FORCE_<b>nlpcraft_probe_models</b>="com.nlp.MyModel, com.nlp.AnotherModel"</code>
+        </p>
+        <div class="bq info">
+            <b>Examples</b>
             <p>
-                You can override these properties with the following environment variables:
-            </p>
-            <p>
-                <code>CONFIG_FORCE_nlpcraft_server_rest_host=1.2.3.4</code><br>
-                <code>CONFIG_FORCE_nlpcraft_server_lifecycle.0=org.apache.nlpcraft.server.lifecycle.opencensus.NCStackdriverTraceExporter</code><br>
-                <code>CONFIG_FORCE_nlpcraft_server_lifecycle.1=org.apache.nlpcraft.server.lifecycle.opencensus.NCStackdriverStatsExporter</code>
+                Note that all examples use environment variable overriding when running their data probes. They use
+                default <code>nlpcraft.conf</code> file and just override one <code>nlpcraft.probe.models</code> property
+                (see above) to specify what model the data probe needs to deploy.
             </p>
         </div>
     </section>
@@ -449,6 +448,7 @@ nlpcraft {
         <li><a href="#server">REST Server</a></li>
         <li><a href="#probe">Data Probe</a></li>
         <li><a href="#config">Configuration</a></li>
+        <li><a href="#override">Override Configuration</a></li>
         {% include quick-links.html %}
     </ul>
 </div>

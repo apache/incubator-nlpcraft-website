@@ -43,20 +43,19 @@ id: installation
             On subsequent starts the NLPCraft will check for the updates and will re-download these files only if they were changed.
         </p>
         <p>
-            By default, this external configuration is hosted on GitHub (master branch of NLPCraft project) from where it will
+            By default, this external configuration is hosted on GitHub (<code>master</code> branch of NLPCraft project) from where it will
             be automatically downloaded on the first start: <a target="github" href="https://github.com/apache/incubator-nlpcraft/tree/master/external">https://github.com/apache/incubator-nlpcraft/tree/master/external</a>.
             You can change this location, e.g. move external configuration behind your firewall, as well as change other parameters related to auto-download of the external configuration
             in <code>nlpcraft.conf</code> file (see <code>nlpcraft.extConfig</code> property).
         </p>
     </section>
     <section id="ignite">
-        <h2 class="section-title">Apache Ignite 2.7 <span class="amp">&amp;</span> Java 9+</h2>
+        <h2 class="section-title">Apache Ignite 2.7 <span class="amp">&amp;</span> Java 11+</h2>
         <p>
             By default NLPCraft uses <a target=_ href="https://ignite.apache.org/">Apache Ignite</a> project as its
             underlying in-memory distributed storage and cluster computing framework. If running with Apache Ignite 2.7 or
-            earlier on Java 9/10/11 you need to follow these
+            earlier on Java 11 you need to follow these
             <a target=_ href="https://apacheignite.readme.io/docs/getting-started#section-running-ignite-with-java-9-10-11">instructions.</a>
-            For Java 8 no additional parameters are required.
         </p>
         <div class="bq info">
             <p>
