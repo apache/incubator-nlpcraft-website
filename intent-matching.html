@@ -233,7 +233,7 @@ id: intent_matching
         <h2 class="section-title">Intent DSL</h2>
         <p>
             Regardless of how intent is defined - directly in <code>@NCIntent</code> annotation or in external model
-            declaration - it follow the exactly the same syntax (here's a full <a target=github href="https://github.com/apache/incubator-nlpcraft/blob/master/src/main/scala/org/apache/nlpcraft/model/intent/impl/antlr4/NCIntentDsl.g4">ANTRL4 grammar</a>).
+            declaration - it follow the exactly the same syntax (here's a full <a target=github href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft/src/main/scala/org/apache/nlpcraft/model/intent/impl/antlr4/NCIntentDsl.g4">ANTRL4 grammar</a>).
         </p>
         <p>
             Intent DSL grammar can be informally described using the following example (order of individual declarations is important):
@@ -241,7 +241,7 @@ id: intent_matching
         <pre class="brush: js">
              intent=my_intent
                 conv=true
-                order=true
+                ordered=true
                 flow='id* >> (id2|id3)[2,3]'
                 term(term1)={group @@ 'my_group'}?
                 term(term2)={trim(partId.partAlias.id) == 'token1:id'}[1,3]
