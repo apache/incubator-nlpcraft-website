@@ -399,5 +399,8 @@ code {
     width: 100% !important;
 }
 
-
-
+.img-fluid-no-border {
+    max-width: 800px !important;
+    border-radius: 4px;
+    padding: 0 !important;
+}

@@ -388,10 +388,10 @@ nlpcraft {
             </pre>
     </section>
     <section id="override">
-        <h2 class="section-title">Override Configuration</h2>
+        <h2 class="section-title">Custom Configuration</h2>
         <p>
-            While you can change configuration file or files for your own configuration (using  <code>-config=...</code>
-            parameter described above) it is frequently more convenient to use the default configuration file and just
+            While you can change configuration file or files for your own needs (and use <code>-config=...</code>
+            parameter described above to provide path to that file) it is often more convenient to use the default configuration file and just
             change one or two properties in it. You can accomplish this by using standard
             <a target=_ href="https://github.com/lightbend/config#optional-system-or-env-variable-overrides">HOCON overriding</a>
             via environment variables:
@@ -442,6 +442,34 @@ nlpcraft {
             </p>
         </div>
     </section>
+    <section id="ansi">
+        <h2 class="section-title">ANSI Colors</h2>
+        <p>
+            Both NLPCraft server and probe use ANSI coloring via
+            <a target=_ href="https://en.wikipedia.org/wiki/ANSI_escape_code">ANSI escape sequences</a> for their log
+            output by default. ANSI coloring provides easer console log comprehension and modern estethics.
+        </p>
+        <figure>
+            <img class="img-fluid-no-border" src="/images/ansi_colors.png" alt="">
+            <figcaption><b>Fig 1.</b> ANSI Colors</figcaption>
+        </figure>
+        <p>
+            However, there are
+            cases when either specific console does not support ANSI escape sequences, or specific color schema
+            isn't suitable or log being redirected to a file or piped to downstream system. In these cases you need to
+            disable ANSI coloring to avoid polluting log with unprocessed ANSI escape codes.
+        </p>
+        <p>
+            You can disable ANSI coloring in either server, probe or both by supplying the following system
+            property to JVM process: <code>-D<b>NLPCRAFT_ANSI_COLOR_DISABLED</b>=true</code>
+        </p>
+
+    </section>
+    <section id="testing">
+        <h2 class="section-title">Testing</h2>
+        <p>
+        </p>
+    </section>
 </div>
 <div class="col-md-2 third-column">
     <ul class="side-nav">
@@ -449,11 +477,9 @@ nlpcraft {
         <li><a href="#server">REST Server</a></li>
         <li><a href="#probe">Data Probe</a></li>
         <li><a href="#config">Configuration</a></li>
-        <li><a href="#override">Override Configuration</a></li>
+        <li><a href="#override">Custom Configuration</a></li>
+        <li><a href="#ansi">ANSI Colors</a></li>
+        <li><a href="#override">Testing</a></li>
         {% include quick-links.html %}
     </ul>
 </div>
-
-
-
-
