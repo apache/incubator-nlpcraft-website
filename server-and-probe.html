@@ -474,13 +474,106 @@ nlpcraft {
         </p>
         <p>
             The challenge is that from the Maven build you need to start the server, wait til its fully started and
-            initialized, and only then start the data probes or run tests that use embedded probes. When done manually
-            (e.g. from IDE) you can visually observe when the server finished its startup and then manually
+            initialized, and only then start issuing REST calls, start data probes or run tests that use <a href="/tools/embedded_probe.html">embedded probes</a>.
+            When done manually (e.g. from IDE) you can visually observe when the server finished its startup and then manually
             launch the tests. In Maven, however, you need to use a special plugin to accomplish the same in
             automated fashion.
         </p>
+        <div class="bq info">
+            <b>Probe Waits For Server</b>
+            <p>
+                Technically, when a data probe starts up it will initialize, load the models, and will automatically wait for the server to get online
+                if it isn't yet (as well as periodically check for it). Once server is online the data probe will automatically connect to it. However,
+                if the unit tests don't use data probe and just issue REST calls then these tests have to somehow wait for the
+                server to get online.
+            </p>
+            <p>
+                To overcome this challenge you can use
+                <a target="github" href="https://github.com/bazaarvoice/maven-process-plugin"><code>process-exec-maven-plugin</code></a>
+                Maven plugin.
+            </p>
+        </div>
         <p>
+            To get around this problem NLPCraft uses <a target="github" href="https://github.com/bazaarvoice/maven-process-plugin"><code>process-exec-maven-plugin</code></a>
+            Maven plugin in its own build. This plugin allows to start the external process and use configured URL
+            endpoint to check whether or not the external process has fully started. This works perfect with NLPCraft server
+            <a href="using-rest.html#misc">health check REST call</a>. The plugin can be configured in the following way for your own project
+            (taken directly from NLPCraft <a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft/pom.xml"><code>pom.xml</code></a>):
         </p>
+        <pre class="brush: xml, highlight: [14, 16, 21]">
+&lt;plugin&gt;
+    &lt;groupId&gt;com.bazaarvoice.maven.plugins&lt;/groupId&gt;
+    &lt;artifactId&gt;process-exec-maven-plugin&lt;/artifactId&gt;
+    &lt;version&gt;0.9&lt;/version&gt;
+    &lt;executions&gt;
+        &lt;execution&gt;
+            &lt;id&gt;pre-integration-test&lt;/id&gt;
+            &lt;phase&gt;pre-integration-test&lt;/phase&gt;
+            &lt;goals&gt;
+                &lt;goal&gt;start&lt;/goal&gt;
+            &lt;/goals&gt;
+            &lt;configuration&gt;
+                &lt;name&gt;server&lt;/name&gt;
+                &lt;healthcheckUrl&gt;http://localhost:8081/api/v1/health&lt;/healthcheckUrl&gt;
+                &lt;waitAfterLaunch&gt;180&lt;/waitAfterLaunch&gt;
+                &lt;processLogFile&gt;${project.build.directory}/server.log&lt;/processLogFile&gt;
+                &lt;arguments&gt;
+                    &lt;argument&gt;java&lt;/argument&gt;
+                    &lt;argument&gt;-Xmx4G&lt;/argument&gt;
+                    &lt;argument&gt;-Xms4G&lt;/argument&gt;
+                    &lt;argument&gt;-DNLPCRAFT_ANSI_COLOR_DISABLED=true&lt;/argument&gt;
+                    &lt;argument&gt;-jar&lt;/argument&gt;
+                    &lt;argument&gt;${project.build.directory}/${nlpcraft.all.deps.jar}&lt;/argument&gt;
+                    &lt;argument&gt;-server&lt;/argument&gt;
+                &lt;/arguments&gt;
+            &lt;/configuration&gt;
+        &lt;/execution&gt;
+        &lt;execution&gt;
+            &lt;id&gt;stop-all&lt;/id&gt;
+            &lt;phase&gt;post-integration-test&lt;/phase&gt;
+            &lt;goals&gt;
+                &lt;goal&gt;stop-all&lt;/goal&gt;
+            &lt;/goals&gt;
+        &lt;/execution&gt;
+    &lt;/executions&gt;
+&lt;/plugin&gt;
+        </pre>
+        <p>
+            <b>NOTES</b>:
+        </p>
+        <ul>
+            <li>
+                On line 14 we specify the URL endpoint to check whether or not our server is online. We use
+                <code>/health</code> localhost REST call for that.
+            </li>
+            <li>
+                On line 16 we redirect the output from server to a dedicated file to <b>avoid interleaving</b> log
+                from server and log from data probe in the same console (where we are running the Maven build from).
+                Such interleaving will make the combined log unreadable and can cause output problem for the console
+                due to mixed up ANSI escape sequences from server and data probe.
+            </li>
+            <li>
+                Since the server log is piped out to a separate file we disable ANSI coloring for the server
+                on the line 21.
+            </li>
+        </ul>
+        <div class="bq info">
+            <b>Avoid Interleaving Logs</b>
+            <p>
+                When running both server and the data probe(s) from the Maven build it is important to avoid interleaving
+                logs from the server and the probe. Such interleaving will make the combined log in Maven unreadable and
+                can cause console malfunction due to mixed up ANSI escape codes. It is idiomatic in such cases to:
+            </p>
+            <ul>
+                <li>
+                    Disable ANSI coloring for the server via <code>-D<b>NLPCRAFT_ANSI_COLOR_DISABLED</b>=true</code>
+                </li>
+                <li>
+                    Pipe out the server log into a dedicated file using Maven plugins like
+                    <a target="github" href="https://github.com/bazaarvoice/maven-process-plugin"><code>process-exec-maven-plugin</code></a>.
+                </li>
+            </ul>
+        </div>
     </section>
 </div>
 <div class="col-md-2 third-column">
@@ -491,7 +584,7 @@ nlpcraft {
         <li><a href="#config">Configuration</a></li>
         <li><a href="#override">Custom Configuration</a></li>
         <li><a href="#ansi">ANSI Colors</a></li>
-        <li><a href="#override">Testing</a></li>
+        <li><a href="#testing">Testing</a></li>
         {% include quick-links.html %}
     </ul>
 </div>

@@ -82,6 +82,12 @@ server:
   - name: probe_all
     description: <code>/probe/all</code> REST call
 
+  - name: health
+    description: <code>/health</code> REST call
+
+  - name: model_subsyn
+    description: <code>/model/sugsyn</code> REST call
+
   - name: roundtrip
     description: server-probe-server rountrip
 

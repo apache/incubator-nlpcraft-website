@@ -99,6 +99,7 @@ id: rest
             <li><a href="#user">User Management</a></li>
             <li><a href="#data_probe">Data Probe Management</a></li>
             <li><a href="#model">Model Operations</a></li>
+            <li><a href="#misc">Miscellaneous</a></li>
         </ul>
         <div class="bq info">
             <b>Admins</b>
@@ -332,6 +333,26 @@ id: rest
             <tr>
                 <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/model/sugsyn</code></nobr></a></td>
                 <td>Runs synonym suggestion tool that is based on BERT model and uses <code>@NCIntentSample</code> annotation.</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+    <section id="misc">
+        <h3 class="section-title">Miscellaneous Operations</h3>
+        <p>
+            This group of operations allows to perform various miscellaneous and utility operations:
+        </p>
+        <table class="gradient-table">
+            <thead>
+            <tr>
+                <th>REST call</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/health</code></nobr></a></td>
+                <td>Performs a health ping for the server. Can be used by periodic monitoring tools.</td>
             </tr>
             </tbody>
         </table>
