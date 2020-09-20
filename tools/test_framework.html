@@ -149,12 +149,17 @@ public class AlarmTest {
         </div>
     </section>
     <section id="autotest">
-        <h2 class="section-title">Auto-test</h2>
+        <h2 class="section-title">Auto Model Validation</h2>
         <p>
-            The same model from <a href="/examples/alarm_clock.html">Alarm Clock</a> example can be auto-tested using
+            The same model from <a href="/examples/alarm_clock.html">Alarm Clock</a> example can be auto validated using
             <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/tools/test/NCTestAutoModelValidator.html">NCTestAutoModelValidator</a>
-            class and the <code>@NCIntentSample</code> annotation from the model's callback method. Notice that this method
-            does not require any additional code to be written - the class gathers all required information from the model
+            class and the <code>@NCIntentSample</code> annotation from the model's callback method.
+        </p>
+        <p>
+            Auto model validator
+            will scan the model for its callback methods, collect all samples from <code>@NCIntentSample</code> annotations, and
+            will submit each sample and check that correct intent is selected as the winning match. Notice that this auto validation
+            does not require any additional code to be written - the tool gathers all required information from the model
             itself.
         </p>
         <p>
@@ -164,6 +169,13 @@ public class AlarmTest {
 java -ea -DNLPCRAFT_TEST_MODELS=org.apache.nlpcraft.examples.alarm.AlarmModel org.apache.nlpcraft.model.tools.test.NCTestAutoModelValidator
         </pre>
         <p>
+            In the log output you should see the following validation results:
+        </p>
+        <figure>
+            <img class="img-fluid-no-border" src="/images/auto_validation.png" alt="">
+            <figcaption><b>Fig 1.</b> Model Auto-Validation Result.</figcaption>
+        </figure>
+        <p>
             See <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/tools/test/NCTestAutoModelValidator.html">NCTestAutoModelValidator</a>
             class for more details.
         </p>
@@ -172,7 +184,7 @@ java -ea -DNLPCRAFT_TEST_MODELS=org.apache.nlpcraft.examples.alarm.AlarmModel or
         <h2 class="section-title">Examples</h2>
         <p>
             All <a target="github" href="https://github.com/apache/incubator-nlpcraft/tree/master/nlpcraft/src/main/scala/org/apache/nlpcraft/examples">examples</a>
-            shipped with NLPCraft utilize auto-testing for their model testing.
+            shipped with NLPCraft come with instructions on how to auto-validate their models.
         </p>
     </section>
 </div>
@@ -181,7 +193,7 @@ java -ea -DNLPCRAFT_TEST_MODELS=org.apache.nlpcraft.examples.alarm.AlarmModel or
         <li class="side-nav-title">On This Page</li>
         <li><a href="#overview">Overview</a></li>
         <li><a href="#usage">Test client</a></li>
-        <li><a href="#autotest">Auto-test</a></li>
+        <li><a href="#autotest">Auto model validation</a></li>
         <li><a href="#examples">Examples</a></li>
         {% include quick-links.html %}
     </ul>
