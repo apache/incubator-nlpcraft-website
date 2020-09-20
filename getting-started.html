@@ -178,8 +178,7 @@ id: getting_started
             <a target="wiki" href="https://en.wikipedia.org/wiki/CURL">cURL</a> utility which you can simply use from the
             command line in any OS.
             NLPCraft comes with a convenient wrapper script <code>bin/nccurl.sh</code> that shortens
-            command line of the standard <code>cURL</code>. Note also that we'll be using Python to pretty format
-            cURL JSON responses.
+            command line of the standard <code>cURL</code>.
         </p>
         <h3 class="section-title">Sign In</h3>
         <p>
@@ -189,7 +188,7 @@ id: getting_started
             <code>admin</code> password. Open new command line terminal and let's use these default credentials for sing in:
         </p>
         <pre class="brush: js; highlight: [3]">
-            $ nccurl.sh signin '{"email": "admin@admin.com", "passwd": "admin"}' | python -m json.tool
+            $ nccurl.sh signin '{"email": "admin@admin.com", "passwd": "admin"}'
             {
                 "acsTok": "KMGWMQJ44",
                 "status": "API_OK"
@@ -210,7 +209,7 @@ id: getting_started
             <b>Q: What is the current forecast for Chicago?</b>
         </p>
         <pre class="brush: js highlight: [2, 3, 4, 5]">
-            $ nccurl.sh ask/sync '{"acsTok": "KMGWMQJ44", "txt": "What is the current forecast for Chicago?", "mdlId": "nlpcraft.weather.ex"}' | python -m json.tool
+            $ nccurl.sh ask/sync '{"acsTok": "KMGWMQJ44", "txt": "What is the current forecast for Chicago?", "mdlId": "nlpcraft.weather.ex"}'
         </pre>
         <p>
             And we get a full 5-day forecast for Chicago:
@@ -262,7 +261,7 @@ id: getting_started
             <b>Q: Any chance of snow today in Moscow?</b>
         </p>
         <pre class="brush: js highlight: [2, 3, 4, 5]">
-            $ nccurl.sh ask/sync '{"acsTok": "KMGWMQJ44", "txt": "Any chance of snow today in Moscow?", "mdlId": "nlpcraft.weather.ex"}' | python -m json.tool
+            $ nccurl.sh ask/sync '{"acsTok": "KMGWMQJ44", "txt": "Any chance of snow today in Moscow?", "mdlId": "nlpcraft.weather.ex"}'
         </pre>
         <p>
             And we get today's Moscow weather report:
@@ -337,7 +336,7 @@ id: getting_started
             Once we enjoyed our conversation about the weather we sign out:
         </p>
         <pre class="brush: js highlight: [3]">
-            $ nccurl.sh signout '{"acsTok": "KMGWMQJ44"}' | python -m json.tool
+            $ nccurl.sh signout '{"acsTok": "KMGWMQJ44"}'
             {
                 "status": "API_OK"
             }
