@@ -463,10 +463,22 @@ nlpcraft {
             You can disable ANSI coloring in either server, probe or both by supplying the following system
             property to JVM process: <code>-D<b>NLPCRAFT_ANSI_COLOR_DISABLED</b>=true</code>
         </p>
-
     </section>
     <section id="testing">
         <h2 class="section-title">Testing</h2>
+        <p>
+            It is a good practice to run units tests during routine builds using Maven (or others CI toolchains). To
+            test data models you need to have a running server and then start one or more data probes with
+            models you want to test. While doing this from IDE can be trivial enough, doing this from Maven
+            can be tricky.
+        </p>
+        <p>
+            The challenge is that from the Maven build you need to start the server, wait til its fully started and
+            initialized, and only then start the data probes or run tests that use embedded probes. When done manually
+            (e.g. from IDE) you can visually observe when the server finished its startup and then manually
+            launch the tests. In Maven, however, you need to use a special plugin to accomplish the same in
+            automated fashion.
+        </p>
         <p>
         </p>
     </section>
