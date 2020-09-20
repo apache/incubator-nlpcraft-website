@@ -15,6 +15,16 @@
 # limitations under the License.
 #
 
+- version: 0.7.0
+  date: Sep 29, 2020
+  zip_name: apache-nlpcraft-incubating-bin-0.7.0.zip
+  zip_url: https://github.com/aradzinski/binstore/releases/download/apache-nlpcraft-v0.7.0/apache-nlpcraft-incubating-bin-0.7.0.zip
+  sha256_url: https://github.com/aradzinski/binstore/releases/download/apache-nlpcraft-v0.7.0/apache-nlpcraft-incubating-bin-0.7.0.zip.sha256
+  pgp_url: https://github.com/aradzinski/binstore/releases/download/apache-nlpcraft-v0.7.0/apache-nlpcraft-incubating-bin-0.7.0.zip.asc
+  github_link: https://github.com/apache/incubator-nlpcraft/tree/v0.7.0
+  #  dockerhub_link: https://hub.docker.com/r/nlpcraftserver/server
+  backward_compatible: no
+
 - version: 0.6.2
   date: Jul 19, 2020
   zip_name: apache-nlpcraft-incubating-bin-0.6.2.zip
