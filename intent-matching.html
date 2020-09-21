@@ -228,13 +228,55 @@ id: intent_matching
                 </ul>
             </li>
         </ul>
-    </section>
-    <section id="logic">
-        <h2 class="section-title">Intent Matching Logic</h2>
+        <h3 id="logic" class="section-sub-title">Matching Logic</h3>
+        <p>
+            In order to understand the intent matching logic lets review the overall user request processing workflow:
+        </p>
         <figure>
             <img class="img-fluid" src="/images/intent_matching1.png" alt="">
-            <figcaption><b>Fig. 1</b> Intent Matching Workflow</figcaption>
+            <figcaption><b>Fig. 1</b> User Request Workflow</figcaption>
         </figure>
+        <ul>
+            <li>
+                <b>Step: 0</b><br>
+                <p>
+                    Server receives REST call <code>/ask</code> or <code>/ask/sync</code> that contains the text
+                    of the sentence that needs to be processed.
+                </p>
+            </li>
+            <li>
+                <b>Step: 1</b><br>
+                <p>
+                    At this step the server attempts to find additional variations of the input sentence by substituting
+                    certain words in the original text with synonyms from Google's BERT dataset. Note that server will not use the synonyms that
+                    are already defined in the model itself - it only tries to compensate for the potential incompleteness
+                    of the model. The result of this step is one or more sentences that all have the same meaning as the
+                    original text.
+                </p>
+            </li>
+            <li>
+                <b>Step: 2</b><br>
+                <p>
+                    At this step the server takes one or more sentences from the previous step and tokenizes them. This
+                    process involves converting the text into a sequence of enriched tokens representing named entities.
+                    This step also performs the initial server-side enrichment and detection of the
+                    <a href="/data-model.html#builtin">built-in named entities</a>.
+                </p>
+                <p>
+                    The result of this step is a sequence of converted texts, where each element is in itself a sequence
+                    of tokens with each token representing a named entity. These sequences are send down to the data probe
+                    that has requested data model deployed.
+                </p>
+            </li>
+            <li>
+                <b>Step: 3</b><br>
+                <p>
+                    This is the first step of the probe-side processing. At this point the data probe receives one or more
+                    sequences of tokens. Probe then takes each sequence and performs the final enrichment by detecting user-defined
+                    elements additionally to the built-in tokens that were detected on the server during step 2 above.
+                </p>
+            </li>
+        </ul>
     </section>
     <section id="syntax">
         <h2 class="section-title">Intent DSL</h2>
