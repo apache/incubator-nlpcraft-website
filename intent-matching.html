@@ -311,6 +311,40 @@ id: intent_matching
                     <li><code>elm1</code>('A', 'B') <code>freeword</code>('C') <code>elm3</code>('D')</li>
                     <li><code>freeword</code>('A') <code>elm2</code>('B', 'C') <code>elm3</code>('D')</li>
                 </ol>
+                <p></p>
+                <p>
+                    Note that at this point the system cannot determine which of these variants is the best - there's simply not
+                    enough information at this stage. It can only be determined when matched against model's intents - which
+                    will happen in the next step.
+                </p>
+            </li>
+            <li>
+                <b>Step: 5</b><br>
+                <p>
+                    At this step the actual matching between intents and variants happens. Each parsing variant from the previous
+                    step is matched against each intent. Each matching pair of a variant and an intent produce a match with a
+                    <em>certain weight</em>. If there are no matches at all - an error is returned. If there  are matches, the match
+                    with the biggest weight is selected as a winning match. The intent's callback from the winning match is
+                    than called.
+                </p>
+                <p>
+                    Although details on exact algorithm on weight calculation are too complex, here's the general guidelines
+                    on what determines the weight of the match between a parsing variant and the intent:
+                </p>
+                <ul>
+                    <li>
+                        A match that captures more tokens has more weight than a match with less tokens. As a corollary, the match
+                        with less free words has bigger weight than a match with more free words.
+                    </li>
+                    <li>
+                        Tokens for user-defined elements are more important than built-in tokens.
+                    </li>
+                    <li>
+                        A more specific match has bigger weight. In other words, a match that uses token from the conversation
+                        context (an STM) has less weight than a match that only uses tokens from the current request. In the same
+                        way older tokens from the conversation produce less weight than the younger ones.
+                    </li>
+                </ul>
             </li>
         </ul>
     </section>
