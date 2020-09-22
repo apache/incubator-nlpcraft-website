@@ -276,6 +276,42 @@ id: intent_matching
                     elements additionally to the built-in tokens that were detected on the server during step 2 above.
                 </p>
             </li>
+            <li>
+                <b>Step: 4</b><br>
+                <p>
+                    This is an important step for understanding intent matching logic. At this step the data probe
+                    takes sequences of tokens generated at the last step and comes up with a definitive parsing
+                    variants. A parsing variant is a sequence of tokens that is free from overlapping and parsing
+                    ambiguity. Typically, a single sequence of tokens can produce one (always) or more parsing variants.
+                </p>
+                <p>
+                    Let's consider the input text <code>'A B C D'</code> and the following elements defined in our model:
+                </p>
+                <pre class="brush: js">
+                "elements": [
+                    {
+                        "id": "elm1",
+                        "synonyms": ["A B"]
+                    },
+                    {
+                        "id": "elm2",
+                        "synonyms": ["B C"]
+                    },
+                    {
+                        "id": "elm3",
+                        "synonyms": ["D"]
+                    }
+                ],
+                </pre>
+                <p>
+                    All of these elements will be detected but since two of them are overlapping (<code>elm1</code> and
+                    <code>elm2</code>) there should be <b>two</b> parsing variants at the output of this step:
+                </p>
+                <ol>
+                    <li><code>elm1</code>('A', 'B') <code>freeword</code>('C') <code>elm3</code>('D')</li>
+                    <li><code>freeword</code>('A') <code>elm2</code>('B', 'C') <code>elm3</code>('D')</li>
+                </ol>
+            </li>
         </ul>
     </section>
     <section id="syntax">
