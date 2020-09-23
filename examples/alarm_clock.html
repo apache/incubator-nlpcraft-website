@@ -109,7 +109,7 @@ id: alarm_clock
             <code>NCModelFileAdapter</code> in our Java-based model implementation. Create new <code>alarm_model.json</code>
             file and add the following model declaration into it:
         </p>
-        <pre class="brush: js, highlight: [7, 16, 25]">
+        <pre class="brush: js, highlight: [7, 11, 20]">
 {
     "id": "nlpcraft.alarm.ex",
     "name": "Alarm Example Model",
@@ -117,11 +117,6 @@ id: alarm_clock
     "description": "Alarm example model.",
     "enabledBuiltInTokens": [
         "nlpcraft:num"
-    ],
-    "examples": [
-        "Ping me in 3 minutes",
-        "Buzz me in an hour and 15mins",
-        "Set my alarm for 30s"
     ],
     "elements": [
         {
@@ -145,11 +140,11 @@ id: alarm_clock
                 it needs to be explicitly enabled).
             </li>
             <li>
-                <code>Line 16</code> defines the only custom model element we'll need. It's ID is <code>x:alarm</code> and
+                <code>Line 11</code> defines the only custom model element we'll need. It's ID is <code>x:alarm</code> and
                 it is defined through synonyms. It basically means a verb to set up an alarm clock.
             </li>
             <li>
-                On <code>line 25</code> we define an intent <code>alarm</code> that we are going to be looking for in the user input that
+                On <code>line 20</code> we define an intent <code>alarm</code> that we are going to be looking for in the user input that
                 consists of two terms: one for <code>x:alarm</code> element (defined above) and another one for up to 7 numeric values
                 of unit type <code>datetime</code> (minutes, seconds, hours, etc.).
             </li>
