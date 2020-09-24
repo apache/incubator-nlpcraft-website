@@ -39,8 +39,8 @@ id: syn_tool
     <section id="usage">
         <h2 class="section-title">Usage</h2>
         <p>
-            In order to use this tool the <code>ctxword</code> server should be started and the server's configuration
-            should be updated.
+            In order to use this tool the <code>ctxword</code> server and NLPCraft server should be started as well as
+            the server's configuration should potentially be updated.
         </p>
         <h3 class="section-sub-title"><code>ctxword</code> Server</h3>
         <p>
@@ -100,13 +100,20 @@ id: syn_tool
                 </div>
             </li>
         </ol>
+        <h3 class="section-sub-title">NLPCraft Server</h3>
+        <p>
+            NLPCraft server should be started in a <a href="/server-and-probe.html#server">standard way</a>.
+        </p>
         <h3 class="section-sub-title">REST Call</h3>
+        <p>
+            Once the 'ctxword' and NLPCraft server are started you can issue the REST call.
+        </p>
         <p>
             REST API accepts only <code>POST</code> HTTP calls and <code>application/json</code> content type
             for JSON payload and responses. When issuing a REST call for this tool you will be using the following URL:
         </p>
         <pre class="brush: plain">
-            https://localhost:8081/api/v1/model/sugsyn?
+            https://localhost:8081/api/v1/model/sugsyn
         </pre>
         <p>
             where:
@@ -114,13 +121,123 @@ id: syn_tool
             <dt><code>http</code></dt>
             <dd>Either <code>http</code> or <code>https</code> protocol.</dd>
             <dt><code>localhost:8081</code></dt>
-            <dd>Host and port on which REST server is started. <code>localhost:8081</code> is the default configuration and can be <a href="server-and-probe.html">changed</a>.</dd>
+            <dd>Host and port on which REST server is started. <code>localhost:8081</code> is the default configuration and can be <a href="/server-and-probe.html">changed</a>.</dd>
             <dt><code>/api/v1</code></dt>
             <dd>Mandatory prefix indicating API version.</dd>
-            <dt><code>/signin</code></dt>
-            <dd>Specific REST call.</dd>
+            <dt><code>model/sugsyn</code></dt>
+            <dd>Synonym suggester REST call.</dd>
         </dl>
-
+        <p>
+            The parameters should be passed in as JSON:
+        </p>
+        <pre class="brush: js">
+{
+    "acsTok": "qweqw9123uqwe",
+    "mdlId": "my.model.id",
+    "minScore": 0.5
+}
+        </pre>
+        <p>
+            where:
+        </p>
+        <ul>
+            <li>
+                <code>acsTok</code> - access token obtain via previous <code>'/signin'</code> call.
+            </li>
+            <li>
+                <code>mdlId</code> - ID of the model to run synonym suggester on.
+            </li>
+            <li>
+                <code>minScore</code> - Optional min score to include into the result, ranging from 0 to 1, default is 0.
+                <code>minScore</code> of 0 will include all results, and <code>minScore</code> of 1 will include only results
+                with the absolutely highest confidence score. Values between 0.5 and 0.7 is generally suggested.
+            </li>
+        </ul>
+        <p>
+            <code>/model/sugsyn</code> REST call will return the following JSON result (<code>nlpcraft.alarm.ex</code>
+            model from <a href="/examples/alarm_clock.html">Alarm</a> example):
+        </p>
+        <pre class="brush: js">
+{
+"status": "API_OK",
+"result": {
+  "modelId": "nlpcraft.alarm.ex",
+  "minScore": 0.5,
+  "durationMs": 424.0,
+  "timestamp": 1.60091239852E12,
+  "suggestions": [
+    {
+      "x:alarm": [
+        {
+          "score": 1.0,
+          "synonym": "ask"
+        },
+        {
+          "score": 0.9477103542042674,
+          "synonym": "join"
+        },
+        {
+          "score": 0.8882341083867801,
+          "synonym": "get"
+        },
+        {
+          "score": 0.7330826349218547,
+          "synonym": "remember"
+        },
+        {
+          "score": 0.6902880910527778,
+          "synonym": "contact"
+        },
+        {
+          "score": 0.6014764219771813,
+          "synonym": "time"
+        },
+        {
+          "score": 0.5816398376889104,
+          "synonym": "follow"
+        },
+        {
+          "score": 0.5640882890681899,
+          "synonym": "watch"
+        },
+        {
+          "score": 0.5139855649326083,
+          "synonym": "stop"
+        },
+        {
+          "score": 0.5136895804732818,
+          "synonym": "kill"
+        },
+        {
+          "score": 0.5001167992233122,
+          "synonym": "send"
+        }
+      ]
+    }
+  ],
+  "warnings": [
+    "Model has too few (3) intents samples. It will negatively affect the quality of suggestions. Try to increase overall sample count to at least 20."
+  ]
+}
+        </pre>
+        <p>
+            The result is structured as a list of proposed synonyms with their corresponding scores for each model's
+            element.
+            You should analyse the results for their fitness for your model and its existing synonyms. The tool cannot guarantee
+            that every suggested synonym is appropriate or valid - but it gives a good "courtesy" check for potentially
+            missing synonyms.
+        </p>
+        <div class="bq info">
+            <p>
+                <b>Run Periodically</b>
+            </p>
+            <p>
+                It is a good idea to run this tool periodically if you are actively changing the model. With dozens or hundreds
+                of model elements it is very hard to manually maintain quality set of synonyms. With a good list of
+                <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a>
+                samples for each intent this tool can be indispensable for easy maintenance of the synonyms.
+            </p>
+        </div>
     </section>
 </div>
 <div class="col-md-2 third-column">
