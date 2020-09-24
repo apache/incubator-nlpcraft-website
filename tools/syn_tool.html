@@ -29,15 +29,75 @@ id: syn_tool
             a list of synonyms that are currently missing that you might want to add to your model.
         </p>
         <p>
-            This tool is accessed via REST call. It's implementation is based on Google's BERT and Facebook fasttext
-            models. It requires <a target="javadoc" href=/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a> annotations present on intent
-            callbacks. In short, the tool scans the data model for intents and their
+            This tool is accessed via REST call. It is based on Google's BERT and Facebook fasttext
+            models. It requires <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a> annotations present on intent
+            callbacks. When invoked, the tool scans the given data model for intents and their
             <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a> annotations, and based on these samples tries to determine
             which synonyms are missing in the model.
         </p>
     </section>
     <section id="usage">
         <h2 class="section-title">Usage</h2>
+        <p>
+            In order to use this tool the <code>ctxword</code> server should be started and the server's configuration
+            should be updated.
+        </p>
+        <h3 class="section-sub-title"><code>ctxword</code> Server</h3>
+        <p>
+            'ctxword' server is a Python-based module that provides BERT and fasttext based implementation
+            for finding a contextually related words for a given word from the input sentence. NLPCraft server interacts
+            with 'ctxword' server via internal REST interface. To configure NLPCraft server and start 'ctxword' Python-based
+            server follow these steps:
+        </p>
+        <ol>
+            <li>
+                Install necessary dependencies. <b>This step should only be performed once:</b>
+                <nav>
+                    <div class="nav nav-tabs" role="tablist">
+                        <a class="nav-item nav-link active" data-toggle="tab" href="#nav-nix" role="tab" aria-controls="nav-home" aria-selected="true">Linux/Unix/MacOS</a>
+                        <a class="nav-item nav-link" data-toggle="tab" href="#nav-win" role="tab" aria-controls="nav-home" aria-selected="true">Windows</a>
+                    </div>
+                </nav>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="nav-nix" role="tabpanel">
+                        <p>
+                            Run the following command from NLPCraft installation directory:
+                        </p>
+                        <pre class="brush: plain">
+                            $ src/main/python/ctxword/bin/install_dependencies.sh
+                        </pre>
+                    </div>
+                    <div class="tab-pane fade show" id="nav-win" role="tabpanel">
+                        <pre class="brush: plain">
+                            Read 'src\main\python\ctxword\bin\WINDOWS_SETUP.md' file for manual installation instructions.
+                        </pre>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <em>Optional.</em>
+                <br/>
+                Configure <code>nlpcraft.server.ctxword.url</code> property in <code>nlpcraft.conf</code> file (or your own configuration file).
+                This property comes with a default endpoint and you only need to change it if you change the
+                'ctxword' module implementation.
+            </li>
+            <li>
+                Start the 'ctxword' server by running the following command from NLPCraft installation directory:
+                <pre class="brush: plain">
+                    src/main/python/ctxword/bin/start_server.{sh|cmd}
+                </pre>
+                <div class="bq info">
+                    <p>
+                        <b>1st Start</b>
+                    </p>
+                    Note that on the first start the server will try to load compressed BERT model which is not yet
+                    available. It will then download this library and compress it which will take a several minutes
+                    and may require 10 GB+ of available memory. Subsequent starts will skip this step, and the
+                    server will start much faster.
+                </div>
+            </li>
+        </ol>
+        <h3 class="section-sub-title">REST Call</h3>
     </section>
 </div>
 <div class="col-md-2 third-column">
