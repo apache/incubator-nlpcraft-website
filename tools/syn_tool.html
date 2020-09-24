@@ -51,7 +51,11 @@ id: syn_tool
         </p>
         <ol>
             <li>
-                Install necessary dependencies. <b>This step should only be performed once:</b>
+                <p>
+                    Install necessary dependencies by running the following commands from the NLPCraft installation
+                    directory:<br/>
+                    <sub><b>NOTE: This step should only be performed once</b></sub>
+                </p>
                 <nav>
                     <div class="nav nav-tabs" role="tablist">
                         <a class="nav-item nav-link active" data-toggle="tab" href="#nav-nix" role="tab" aria-controls="nav-home" aria-selected="true">Linux/Unix/MacOS</a>
@@ -60,11 +64,9 @@ id: syn_tool
                 </nav>
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="nav-nix" role="tabpanel">
-                        <p>
-                            Run the following command from NLPCraft installation directory:
-                        </p>
                         <pre class="brush: plain">
-                            $ src/main/python/ctxword/bin/install_dependencies.sh
+                            $ cd nlpcraft/src/main/python/ctxword
+                            $ bin/install_dependencies.sh
                         </pre>
                     </div>
                     <div class="tab-pane fade show" id="nav-win" role="tabpanel">
@@ -82,9 +84,10 @@ id: syn_tool
                 'ctxword' module implementation.
             </li>
             <li>
-                Start the 'ctxword' server by running the following command from NLPCraft installation directory:
+                Start the 'ctxword' server by running the following commands from NLPCraft installation directory:
                 <pre class="brush: plain">
-                    src/main/python/ctxword/bin/start_server.{sh|cmd}
+                    $ cd nlpcraft/src/main/python/ctxword
+                    $ bin/start_server.{sh|cmd}
                 </pre>
                 <div class="bq info">
                     <p>
@@ -98,6 +101,26 @@ id: syn_tool
             </li>
         </ol>
         <h3 class="section-sub-title">REST Call</h3>
+        <p>
+            REST API accepts only <code>POST</code> HTTP calls and <code>application/json</code> content type
+            for JSON payload and responses. When issuing a REST call for this tool you will be using the following URL:
+        </p>
+        <pre class="brush: plain">
+            https://localhost:8081/api/v1/model/sugsyn?
+        </pre>
+        <p>
+            where:
+        <dl>
+            <dt><code>http</code></dt>
+            <dd>Either <code>http</code> or <code>https</code> protocol.</dd>
+            <dt><code>localhost:8081</code></dt>
+            <dd>Host and port on which REST server is started. <code>localhost:8081</code> is the default configuration and can be <a href="server-and-probe.html">changed</a>.</dd>
+            <dt><code>/api/v1</code></dt>
+            <dd>Mandatory prefix indicating API version.</dd>
+            <dt><code>/signin</code></dt>
+            <dd>Specific REST call.</dd>
+        </dl>
+
     </section>
 </div>
 <div class="col-md-2 third-column">
