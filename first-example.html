@@ -80,13 +80,14 @@ id: first_example
             &lt;/dependencies&gt;
         </pre>
         <p>
-            Also make sure that you have correct JDK version (1.8 or above) for the maven compiler plugin:
+            Also make sure that you have correct JDK version (11 or above) for the
+            <a target="asf" href="https://maven.apache.org/plugins/maven-compiler-plugin/examples/set-compiler-source-and-target.html">maven compiler plugin</a>:
         </p>
         <pre class="brush: xml, highlight: [3, 4]">
             &lt;properties&gt;
                 &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
-                &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;
-                &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;
+                &lt;maven.compiler.source&gt;11&lt;/maven.compiler.source&gt;
+                &lt;maven.compiler.target&gt;11&lt;/maven.compiler.target&gt;
             &lt;/properties&gt;
         </pre>
         <p>
@@ -256,39 +257,6 @@ class LightSwitchModel extends NCModelFileAdapter("examples/lightswitch_model.ya
             </li>
         </ul>
     </section>
-<!--    <section id="probe">-->
-<!--        <h3 class="section-title">Start Data Probe</h3>-->
-<!--        <p>-->
-<!--            NLPCraft data models get deployed into data probe. Let's start data probe to deploy our newly-->
-<!--            created light switch data model. To start data probe we need to configure Run Configuration in IDEA with-->
-<!--            the following parameters:-->
-<!--        </p>-->
-<!--        <ul>-->
-<!--            <li>-->
-<!--                <b>Main class:</b> <code>org.apache.nlpcraft.NCStart</code>-->
-<!--            </li>-->
-<!--            <li>-->
-<!--                <b>VM arguments:</b> <code>-Dconfig.override_with_env_vars=true</code>-->
-<!--            </li>-->
-<!--            <li>-->
-<!--                <b>Environment variable:</b> <code>CONFIG_FORCE_nlpcraft_probe_models.0=examples.LightSwitchModel</code>-->
-<!--            </li>-->
-<!--            <li>-->
-<!--                <b>Program arguments: </b> <code>-probe</code>-->
-<!--            </li>-->
-<!--        </ul>-->
-<!--        <div class="bq info">-->
-<!--            <p>-->
-<!--                <b>NOTE:</b> instead of supplying a <a href="server-and-probe.html">full configuration file</a> we-->
-<!--                just use the default configuration and override one configuration property using-->
-<!--                configuration override via environment variables.-->
-<!--            </p>-->
-<!--        </div>-->
-<!--        <p>-->
-<!--            Start this run configuration and make sure you have positive console output indicating that our model-->
-<!--            has been successfully loaded and probe started.-->
-<!--        </p>-->
-<!--    </section>-->
     <section id="server">
         <h3 class="section-title">Start REST Server</h3>
         <p>

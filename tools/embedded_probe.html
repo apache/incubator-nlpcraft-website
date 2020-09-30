@@ -44,7 +44,8 @@ id: embedded_probe
         <p>
             When performing model unit testing or when client "application" can be combined with the data probe in a single JVM, the
             embedded probe mode provides significant performance advantage. Using embedded probe you can reduce number
-            of network hops to 2 in a similar scenario (see fig 2.):
+            of network hops to 2 in a similar scenario - in which case the <b>hop<sub>3</sub></b> and
+            <b>hop<sub>4</sub></b> (see fig. 1) are performed inside of JVM between client and embedded probe:
         </p>
         <figure>
             <img class="img-fluid" style="max-width: 500px !important;" src="/images/emb_probe2.png" alt="">

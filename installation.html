@@ -28,7 +28,7 @@ id: installation
             Apache NLPCraft requires <b>no special installation</b> operations:
         </p>
         <ul>
-            <li>If you <a href="/download.html">downloaded</a> binary ZIP archive - verify it and unzip it</li>
+            <li>If you <a href="/download.html">downloaded</a> binary ZIP archive - <a target="asf" href="https://www.apache.org/dyn/closer.cgi#verify">verify</a> it and unzip it</li>
             <li>If you <a href="/download.html">cloned</a> GitHub repository or downloaded source archive - use <code>mvn clean install</code> to build it</li>
             <li>If you <a href="/download.html">used</a> Maven/Gradle/SBT - you know what you are doing 👍</li>
         </ul>
@@ -43,9 +43,10 @@ id: installation
             On subsequent starts the NLPCraft will check for the updates and will re-download these files only if they were changed.
         </p>
         <p>
-            By default, this external configuration is hosted on GitHub (<code>master</code> branch of NLPCraft project) from where it will
+            By default, this external configuration is hosted on GitHub (in <code>master</code> branch of NLPCraft project) from where it will
             be automatically downloaded on the first start: <a target="github" href="https://github.com/apache/incubator-nlpcraft/tree/master/external">https://github.com/apache/incubator-nlpcraft/tree/master/external</a>.
-            You can change this location, e.g. move external configuration behind your firewall, as well as change other parameters related to auto-download of the external configuration
+            You can change this location, e.g. move the external configuration behind your firewall or onto your local file system,
+            as well as change other parameters related to auto-download of the external configuration
             in <code>nlpcraft.conf</code> file (see <code>nlpcraft.extConfig</code> property).
         </p>
     </section>
