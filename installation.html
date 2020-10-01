@@ -21,8 +21,8 @@ id: installation
  limitations under the License.
 -->
 
-<div class="col-md-8 second-column">
-    <section id="installation">
+<div id="installation" class="col-md-8 second-column">
+    <section id="install">
         <h2 class="section-title">Installation</h2>
         <p>
             Apache NLPCraft requires <b>no special installation</b> operations:
@@ -32,6 +32,19 @@ id: installation
             <li>If you <a href="/download.html">cloned</a> GitHub repository or downloaded source archive - use <code>mvn clean install</code> to build it</li>
             <li>If you <a href="/download.html">used</a> Maven/Gradle/SBT - you know what you are doing 👍</li>
         </ul>
+    </section>
+    <section id="clean">
+        <h2 class="section-title">Clean</h2>
+        <p>
+            For releases marked with <i class="fas fa-fw fa-bomb"></i> you need to clean our existing database. If you are
+            using the Apache Ignite storage (default configuration for NLPCraft) you can accomplish this by
+            removing <code>${USER_HOME}/.nlpcraft/ignite</code> folder.
+        </p>
+        <p>
+            If you are using other storage engines (e.g. Postgres or MySQL) you need to follow their specific
+            procedures to recreate the database using SQL scripts from <code>sql</code> sub-folder in NLPCraft
+            installation directory.
+        </p>
     </section>
     <section id="config">
         <h2 class="section-title">External Configuration</h2>
@@ -69,7 +82,8 @@ id: installation
 <div class="col-md-2 third-column">
     <ul class="side-nav">
         <li class="side-nav-title">On This Page</li>
-        <li><a href="#installation">Installation</a></li>
+        <li><a href="#install">Installation</a></li>
+        <li><a href="#clean">Clean</a></li>
         <li><a href="#config">External Config</a></li>
         <li><a href="#ignite">Apache Ignite</a></li>
         {% include quick-links.html %}
