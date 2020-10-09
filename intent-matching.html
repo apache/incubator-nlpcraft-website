@@ -59,7 +59,7 @@ id: intent_matching
                     </td>
                 </tr>
                 <tr>
-                    <td><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentRed.html">@NCIntentRef</a></td>
+                    <td><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentRef.html">@NCIntentRef</a></td>
                     <td>
                         This annotation allows to reference an intent defined in external JSON or YAML model definition.
                         Similarly to <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntent.html">@NCIntent</a>
@@ -576,7 +576,7 @@ id: intent_matching
         </p>
         <p>
             Note that there's a significant difference between <a href="/apis/latest/org/apache/nlpcraft/model/NCIntentSkip.html">NCIntentSkip</a>
-            exception and model's <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onMatchedIntent-org.apache.nlpcraft.model.NCIntentMatch-">onMatchedIntent(...)</a>
+            exception and model's <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModel.html">onMatchedIntent(...)</a>
             callback. Unlike this callback, the exception does not force re-matching of all intents, it simply
             picks the next best intent from the list of already matched ones. The model's callback can force
             a full reevaluation of all intents against the user input.
