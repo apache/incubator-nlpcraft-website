@@ -20,6 +20,39 @@ layout: release-notes
  limitations under the License.
 -->
 
+<section id="overview">
+    <h2 class="section-title">Overview</h2>
+    <p>
+        <a href="/download.html">NLPCraft 0.7.0</a> brings about several important features:
+    </p>
+    <ul>
+        <li>
+            The project has moved to JDK 11+ Java version and therefore is no longer compatible with previous
+            versions or prior JDK version.
+        </li>
+        <li>
+            We introduced <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentTerm.html">@NCIntentTerm</a> annotation
+            that is broadly used throughout the project:
+            <ul>
+                <li>In model auto-validation.</li>
+                <li>In the new synonym suggestion tool.</li>
+                <li>In the upcoming BERT-based server side enricher.</li>
+            </ul>
+        </li>
+        <li>
+            We introduced model <a href="/tools/test_framework.html">auto-validation</a> based on <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentTerm.html">@NCIntentTerm</a> annotation
+            that allows for zero-code testing of the models (all shipped examples have been updated accordingly).
+        </li>
+        <li>
+            We introduced <a href="/tools/syn_tool.html">synonym suggestion tool</a> that takes an existing model, analyses its synonyms and intents and comes up
+            with a list of synonyms that are currently missing that you might want to add to your model.
+        </li>
+        <li>
+            We've added a preview of the upcoming REPL tool for NLPCraft (see <code>nlpcraft.{shg|cmd}</code> scripts in the bin folder)
+            and corresponding ASCI/ANSI support for both server and probe log output.
+        </li>
+    </ul>
+</section>
 <section id="new">
     <h2 class="section-title">🙌 New</h2>
     <ul>
