@@ -95,11 +95,10 @@ id: rest
         <ul>
             <li><a href="#auth">Authentication</a></li>
             <li><a href="#asking">Asking</a></li>
-            <li><a href="#company">Company Management</a></li>
-            <li><a href="#user">User Management</a></li>
-            <li><a href="#data_probe">Data Probe Management</a></li>
-            <li><a href="#model">Model Operations</a></li>
-            <li><a href="#misc">Miscellaneous</a></li>
+            <li><a href="#company">Company</a></li>
+            <li><a href="#user">User</a></li>
+            <li><a href="#data_probe">Probe</a></li>
+            <li><a href="#model">Tools</a></li>
         </ul>
         <div class="bq info">
             <b>Admins</b>
@@ -212,11 +211,29 @@ id: rest
                     Clear the dialog flow for current user and data model.
                 </td>
             </tr>
+            <tr>
+                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/feedback/add</code></nobr></a></td>
+                <td>
+                    Adds feedback record.
+                </td>
+            </tr>
+            <tr>
+                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/feedback/all</code></nobr></a></td>
+                <td>
+                    Gets feedback records.
+                </td>
+            </tr>
+            <tr>
+                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/feedback/delete</code></nobr></a></td>
+                <td>
+                    Deletes feedback record.
+                </td>
+            </tr>
             </tbody>
         </table>
     </section>
     <section id="company">
-        <h3 class="section-title">Company Management</h3>
+        <h3 class="section-title">Company</h3>
         <p>
             This group of operations allows to add, update and remove companies in the systems.
         </p>
@@ -252,7 +269,7 @@ id: rest
         </table>
     </section>
     <section id="user">
-        <h3 class="section-title">User Management</h3>
+        <h3 class="section-title">User</h3>
         <p>
             This group of operations allows to add, update and remove users in the systems:
         </p>
@@ -298,7 +315,7 @@ id: rest
         </table>
     </section>
     <section id="data_probe">
-        <h3 class="section-title">Data Probe Management</h3>
+        <h3 class="section-title">Probe</h3>
         <p>
             This group of operations allows to get the information about connected data probes:
         </p>
@@ -317,8 +334,8 @@ id: rest
             </tbody>
         </table>
     </section>
-    <section id="model">
-        <h3 class="section-title">Model Operations</h3>
+    <section id="tools">
+        <h3 class="section-title">Tools</h3>
         <p>
             This group of operations allows to perform various model related tools and operations:
         </p>
@@ -334,22 +351,6 @@ id: rest
                 <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/model/sugsyn</code></nobr></a></td>
                 <td>Runs synonym suggestion tool that is based on BERT model and uses <code>@NCIntentSample</code> annotation.</td>
             </tr>
-            </tbody>
-        </table>
-    </section>
-    <section id="misc">
-        <h3 class="section-title">Miscellaneous Operations</h3>
-        <p>
-            This group of operations allows to perform various miscellaneous and utility operations:
-        </p>
-        <table class="gradient-table">
-            <thead>
-            <tr>
-                <th>REST path</th>
-                <th>Description</th>
-            </tr>
-            </thead>
-            <tbody>
             <tr>
                 <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/health</code></nobr></a></td>
                 <td>Performs a health ping for the server. Can be used by periodic monitoring tools.</td>
@@ -437,9 +438,10 @@ id: rest
         <li><a href="#format">REST URL</a></li>
         <li><a href="#auth">Authentication</a></li>
         <li><a href="#company">Company</a></li>
-        <li><a href="#user">Users</a></li>
+        <li><a href="#user">User</a></li>
         <li><a href="#asking">Asking</a></li>
-        <li><a href="#data_probe">Data Probes</a></li>
+        <li><a href="#data_probe">Probes</a></li>
+        <li><a href="#tools">Tools</a></li>
         <li><a href="#server_errors">Server Errors</a></li>
         {% include quick-links.html %}
     </ul>
