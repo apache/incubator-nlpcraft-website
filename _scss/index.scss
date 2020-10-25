@@ -128,11 +128,11 @@
         margin-bottom: 150px;
     }
 
-    #integration-logos {
+    #lang-logos, #integration-logos {
         display: inline-block;
 
         & > a {
-            margin: 5px 10px 0 0;
+            margin: 0 10px 0 0;
         }
     }
 }
