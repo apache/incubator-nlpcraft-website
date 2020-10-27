@@ -176,7 +176,7 @@ package examples
 import org.apache.nlpcraft.model.{NCIntentTerm, _}
 
 class LightSwitchModel extends NCModelFileAdapter("examples/lightswitch_model.yaml") {
-    @NCIntent("intent=ls conv=false term(act)={groups @@ 'act'} term(loc)={id == 'ls:loc'}*")
+    @NCIntent("intent=ls term(act)={groups @@ 'act'} term(loc)={id == 'ls:loc'}*")
     @NCIntentSample(Array(
         "Turn the lights off in the entire house.",
         "Switch on the illumination in the master bedroom closet.",

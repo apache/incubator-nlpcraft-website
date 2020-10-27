@@ -91,7 +91,7 @@ id: intent_matching
             <a href="examples/light_switch.html">Light Switch</a> Scala example:
         </p>
         <pre class="brush: java">
-            &#64;NCIntent("intent=act conv=false term(act)={groups @@ 'act'} term(loc)={trim(id) == 'ls:loc'}*")
+            &#64;NCIntent("intent=act term(act)={groups @@ 'act'} term(loc)={trim(id) == 'ls:loc'}*")
             &#64;NCIntentSample(Array(
                 "Turn the lights off in the entire house.",
                 "Switch on the illumination in the master bedroom closet.",
@@ -123,8 +123,12 @@ id: intent_matching
                 A term match is defined as one or more tokens. Term can be optional if its min quantifier is zero.
             </li>
             <li>
-                A non-conversational intent <code>act</code> has one mandatory term and another
+                An intent <code>act</code> has two non-conversational terms: one mandatory term and another
                 that can match zero or more tokens with method <code>onMatch(...)</code> as its callback.
+            </li>
+            <li>
+                Terms is conversational if it uses <code>'~'</code> and non-conversational if it uses <code>'='</code>
+                symbol in its definition.
             </li>
             <li>
                 Method <code>onMatch(...)</code> will be called when this intent is selected as the best match.
@@ -171,7 +175,7 @@ id: intent_matching
                     }
                 ],
                 "intents": [
-                    "intent=alarm term={id=='x:alarm'} term(nums)={id=='nlpcraft:num' && ~nlpcraft:num:unittype=='datetime' && ~nlpcraft:num:isequalcondition==true}[0,7]"
+                    "intent=alarm term~{id=='x:alarm'} term(nums)~{id=='nlpcraft:num' && ~nlpcraft:num:unittype=='datetime' && ~nlpcraft:num:isequalcondition==true}[0,7]"
                 ]
             }
         </pre>
@@ -201,8 +205,12 @@ id: intent_matching
                 as its callback.
             </li>
             <li>
-                This example defines a non-conversational intent with two terms both of which have to found for the
+                This example defines an intent with two conversational terms both of which have to found for the
                 intent to match.
+            </li>
+            <li>
+                Terms is conversational if it uses <code>'~'</code> and non-conversational if it uses <code>'='</code>
+                symbol in its definition.
             </li>
             <li>
                 Method <code>onMatch(...)</code> will be called when this intent is the best match detected.
@@ -359,21 +367,15 @@ id: intent_matching
         </p>
         <pre class="brush: js">
              intent=my_intent
-                conv=true
                 ordered=true
                 flow='id* >> (id2|id3)[2,3]'
                 term(term1)={group @@ 'my_group'}?
-                term(term2)={trim(partId.partAlias.id) == 'token1:id'}[1,3]
+                term(term2)~{trim(partId.partAlias.id) == 'token1:id'}[1,3]
         </pre>
         <dl>
             <dt><code>intent=my_intent</code></dt>
             <dd>
                 Mandatory intent ID. Any arbitrary unique string matching the following template: <code>(UNDERSCORE|[a-z]|[A-Z])+([a-z]|[A-Z]|[0-9]|COLON|MINUS|UNDERSCORE)*</code>
-            </dd>
-            <dt><code>conv=true</code></dt>
-            <dd>
-                <em>Optional.</em> Whether or not this intent supports
-                <a href="basic-concepts.html#stm">conversation</a>. Default is <code>true</code>.
             </dd>
             <dt><code>ordered=true</code></dt>
             <dd>
@@ -414,12 +416,18 @@ id: intent_matching
             </dd>
             <dt>
                 <code>term(term1)={group @@ 'my_group'}?</code><br>
-                <code>term(term2)={trim(partId.partAlias.id) == 'token1:id'}[1,3]</code>
+                <code>term(term2)~{trim(partId.partAlias.id) == 'token1:id'}[1,3]</code>
             </dt>
             <dd>
                 <p>
-                    Term, also known as a slot, is a building block of the intent. Term has optional ID, predicate and quantifiers. It can
-                    represent one or more tokens, sequential or not, detected in the user input. Intent has a list of terms
+                    Term, also known as a slot, is a building block of the intent. Term has optional ID, predicate and quantifiers.
+                    It can support conversation context if it uses <code>'~'</code> symbol or not if it uses <code>'='</code>
+                    symbol in its definition. For conversational term the system will search for a match using tokens from
+                    the current request as well as the tokens from conversation STM (short-term-memory). For a non-conversational
+                    term - only tokens from the current request will be considered.
+                </p>
+                <p>
+                    A term represents one or more tokens, sequential or not, detected in the user input. Intent has a list of terms
                     (always at least one) that all have to be found in the user input for the intent to match. Note that term
                     can be optional if its min quantifier is zero. Whether or not the order of the terms is important
                     for matching is governed by <code>ordered=true</code> parameter.
@@ -530,7 +538,7 @@ id: intent_matching
             For example:
         </p>
         <pre class="brush: java">
-            &#64;NCIntent("intent=id term(termId)={id == 'my_token'}?")
+            &#64;NCIntent("intent=id term(termId)~{id == 'my_token'}?")
             private NCResult onMatch(
                &#64;NCIntentTerm("termId") Optional&lt;NCToken&gt; myTok
             ) {
@@ -540,7 +548,7 @@ id: intent_matching
         <p><b>NOTES:</b></p>
         <ul>
             <li>
-                Term <code>termId</code> has <code>[0,1]</code> quantifier (it's optional).
+                Conversational term <code>termId</code> has <code>[0,1]</code> quantifier (it's optional).
             </li>
             <li>
                 The formal parameter on the callback has a type of <code>Optional&lt;NCToken&gt;</code> because the
@@ -586,12 +594,12 @@ id: intent_matching
                 <b>Intent DSL Expressiveness</b>
             </p>
             <p>
-                Note that usage of <code>NCIntentSkip</code> exception (or even model's life-cycle callbacks) is a
-                requires technique when you cannot express the desired matching logic with just intent DSL alone.
+                Note that usage of <code>NCIntentSkip</code> exception (as well as model's life-cycle callbacks) is a
+                required technique when you cannot express the desired matching logic with just intent DSL alone.
                 Intent DSL is a high-level declarative language and it does
                 not support programmable logic or other types of complex matching algorithms. In such cases, you can
                 define a broad intent that would match and then define the rest of the more complex matching logic in the callback 
-                using <code>NCIntentSkip</code> exception to effectively indicate that intent doesn't match (and other
+                using <code>NCIntentSkip</code> exception to effectively indicate when intent doesn't match (and other
                 intents have to be tried).
             </p>
             <p>
@@ -620,8 +628,8 @@ id: intent_matching
         </p>
         <pre class="brush: js">
             intent=id1
-                term={id == 'x:id'}
-                term(nums)={id == 'nlpcraft:num' && lowercase(~nlpcraft:num:unittype) == 'datetime'}[0,2]
+                term~{id == 'x:id'}
+                term(nums)~{id == 'nlpcraft:num' && lowercase(~nlpcraft:num:unittype) == 'datetime'}[0,2]
         </pre>
         <p><b>NOTES:</b></p>
         <ul>
@@ -632,7 +640,7 @@ id: intent_matching
                 Intent uses default conversational support (<code>true</code>) and default order (<code>false</code>).
             </li>
             <li>
-                Intent has two terms that have to be found for the intent to match. Note that second term is optional as it
+                Intent has two converstaional terms that have to be found for the intent to match. Note that second term is optional as it
                 has <code>[0,2]</code> quantifier.
             </li>
             <li>
@@ -661,7 +669,6 @@ id: intent_matching
         </p>
         <pre class="brush: js">
             intent=id2
-                conv=false
                 flow='id1* >> (id1|id2)[1,2]'
                 term={id == 'mytok' && signum(~score['best']) != -1}
                 term={(groups @@ 'actors' || groups @@ 'owners') && size(partAlias.~text) > 10}
@@ -672,15 +679,12 @@ id: intent_matching
                 Intent has ID <code>id2</code>.
             </li>
             <li>
-                Intent overrides default conversational support via <code>conv=false</code> and uses default order (<code>false</code>).
-            </li>
-            <li>
                 Intent has dialog flow pattern to match: <code>'id1* >> (id1|id2)[1,2]'</code>. It expect zero or more
                 intents <code>id1</code> to matched immediately prior to this one and either one or two of <code>id1</code> or
                 <code>id2</code> intents before that.
             </li>
             <li>
-                Intent has two terms. Both terms have to be present only once (their implicit quantifiers are <code>[1,1]</code>).
+                Intent has two non-conversational terms. Both terms have to be present only once (their implicit quantifiers are <code>[1,1]</code>).
             </li>
             <li>
                 First term should be a token with ID <code>mytok</code> and have metadata property <code>score</code> of type

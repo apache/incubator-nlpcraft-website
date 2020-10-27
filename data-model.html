@@ -815,9 +815,9 @@ intents:
             future individual sub-IDs:
         </p>
         <pre class="brush: plain">
-            "intent=vehicle.intent term={ancestors @@ 'vehicle'}"
-            "intent=truck.intent term={parent == 'truck'}"
-            "intent=car.intent term={parent == 'car'}"
+            "intent=vehicle.intent term~{ancestors @@ 'vehicle'}"
+            "intent=truck.intent term~{parent == 'truck'}"
+            "intent=car.intent term~{parent == 'car'}"
         </pre>
     </section>
     <section id="dsl" >

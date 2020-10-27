@@ -147,7 +147,7 @@ elements:
       - "{&lt;ACTION&gt;|shut|kill|stop|eliminate} {off|out} &lt;LIGHT&gt;"
       - "no &lt;LIGHT&gt;"
 intents:
-  - "intent=ls conv=false term(act)={groups @@ 'act'} term(loc)={id == 'ls:loc'}*"
+  - "intent=ls term(act)={groups @@ 'act'} term(loc)={id == 'ls:loc'}*"
         </pre>
         <p>There are number of important points here:</p>
         <ul>
