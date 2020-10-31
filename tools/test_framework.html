@@ -153,8 +153,24 @@ public class AlarmTest {
         <p>
             The same model from <a href="/examples/alarm_clock.html">Alarm Clock</a> example can be auto validated using
             <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/tools/test/NCTestAutoModelValidator.html">NCTestAutoModelValidator</a>
-            class and the <code>@NCIntentSample</code> annotation from the model's callback method.
+            class and the <code>@NCIntentSample</code> annotation from the model's callback method:
         </p>
+        <pre class="brush: java, highlight: [4, 5, 6]">
+public class AlarmModel extends NCModelFileAdapter {
+    @NCIntentRef("alarm")
+    @NCIntentSample({
+        "Ping me in 3 minutes",
+        "Buzz me in an hour and 15mins",
+        "Set my alarm for 30s"
+    })
+    NCResult onMatch(
+        NCIntentMatch ctx,
+        @NCIntentTerm("nums") List&lt;NCToken&gt; numToks
+    ) {
+      // ...
+    }
+}
+        </pre>
         <p>
             Auto model validator
             will scan the model for its callback methods, collect all samples from <code>@NCIntentSample</code> annotations, and
@@ -168,6 +184,15 @@ public class AlarmTest {
         <pre class="brush: plain">
 java -ea -DNLPCRAFT_TEST_MODELS=org.apache.nlpcraft.examples.alarm.AlarmModel org.apache.nlpcraft.model.tools.test.NCTestAutoModelValidator
         </pre>
+        <p>
+            Notes:
+        </p>
+        <ul>
+            <li>
+                When running auto validator from command line you set models to test via <code>NLPCRAFT_TEST_MODELS</code>
+                system property that should contain comma separate list of the data model classes.
+            </li>
+        </ul>
         <p>
             In the log output you should see the following validation results:
         </p>
