@@ -15,25 +15,21 @@
 # limitations under the License.
 #
 
+- title: Apache NLPCraft 0.7.1 Released
+  url: /release-notes-0.7.1.html
+  excerpt: Download NLPCraft 0.7.1.
+  author: Aaron Radzinksi
+  publish_date: October 29, 2020
+  avatar_url: images/nlpcraft_logo.png
+  twitter_id: apachenlpcraft
+
 - title: Apache NLPCraft 0.7.0 Released
   url: /release-notes-0.7.0.html
   excerpt: Download NLPCraft 0.7.0.
   author: Aaron Radzinksi
-  avatar_url: images/lion.jpg
   publish_date: September 29, 2020
-  linkedin_id: aaron-radzinski-6b2228167
-  twitter_id: aaron_radzinski
-  medium_id: aradzinski
-
-- title: Apache NLPCraft 0.6.2 Released
-  url: https://medium.com/@aradzinski/nlpcraft-0-6-2-fcfb511f1fb3
-  excerpt: Announcing Apache NLPCraft 0.6.2.
-  author: Aaron Radzinksi
-  avatar_url: images/lion.jpg
-  publish_date: July 19, 2020
-  linkedin_id: aaron-radzinski-6b2228167
-  twitter_id: aaron_radzinski
-  medium_id: aradzinski
+  avatar_url: images/nlpcraft_logo.png
+  twitter_id: apachenlpcraft
 
 - title: Introducing Apache NLPCraft 0.5.0
   url: https://medium.com/@aradzinski/introducing-apache-nlpcraft-0-5-open-source-api-to-convert-natural-language-into-actions-11d7536d0507
