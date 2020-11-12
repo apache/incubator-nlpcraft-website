@@ -209,11 +209,13 @@
         border-top-color: $color-magnolia;
     }
 
-    a, a:hover, a:active, i.fas {
-        color: $color-asphalt;
-    }
-
     #news-container {
+        margin-bottom: 20px;
+
+        a, a:hover, a:active, i.fas {
+            color: $color-asphalt;
+        }
+
         .news-title {
             font-size: 24px;
             letter-spacing: 0.02em;
