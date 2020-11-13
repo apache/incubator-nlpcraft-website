@@ -1,0 +1,71 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#blogs {
+    #blogs-container {
+        .blog-block {
+            margin-bottom: 50px;
+        }
+
+        a, a:hover, a:active, i.fas {
+            color: $color-asphalt;
+        }
+
+        .blog-title {
+            font-size: 24px;
+            letter-spacing: 0.02em;
+            font-weight: 200;
+
+            i.fas {
+                color: $color-asphalt;
+            }
+        }
+
+        .blog-excerpt {
+            font-size: 15px;
+            color: #666;
+            font-weight: 200;
+            letter-spacing: 0.05em;
+            margin-bottom: 20px;
+        }
+
+        .blog-footer {
+            letter-spacing: 0.02em;
+
+            img {
+                height: 32px;
+                margin-right: 5px;
+                vertical-align: middle;
+            }
+
+            img.avatar-img {
+                -webkit-border-radius: 100%;
+                -moz-border-radius: 100%;
+                border-radius: 100%;
+            }
+
+            a, span {
+                vertical-align: middle;
+            }
+
+            a.blog-author {
+                margin-right: 15px;
+                display: inline-block;
+            }
+        }
+    }
+}

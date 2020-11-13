@@ -15,25 +15,31 @@
 # limitations under the License.
 #
 
-- title: Apache NLPCraft 0.7.1 Released
+- title: 📃 Краткий обзор системы Apache NlpCraft
+  url: https://habr.com/ru/post/526950/
+  excerpt: Цель проекта — тотальное упрощение доступа к возможностям NLP разработчикам приложений. Уловить баланс между простотой вхождения в NLP проблематику и поддержкой широкого диапазона возможностей промышленной библиотеки.
+  author: Сергей Камов
+  publish_date: November 8, 2020
+  avatar_url: images/sergey_kamov_avatar.png
+  twitter_id: apachenlpcraft
+
+- title: 📢 Apache NLPCraft 0.7.1 Released
   url: /release-notes-0.7.1.html
-  excerpt: Download NLPCraft 0.7.1.
-  author: Aaron Radzinksi
+  excerpt: Download NLPCraft 0.7.1. Over 19 tickets fixed 💪
   publish_date: October 29, 2020
   avatar_url: images/nlpcraft_logo.png
   twitter_id: apachenlpcraft
 
-- title: Apache NLPCraft 0.7.0 Released
+- title: 📢 Apache NLPCraft 0.7.0 Released
   url: /release-notes-0.7.0.html
-  excerpt: Download NLPCraft 0.7.0.
-  author: Aaron Radzinksi
+  excerpt: Download NLPCraft 0.7.0. Lots of changes - JDK 11 support, model auto-validation and synonym suggestor based on BERT and FastText models 🎉
   publish_date: September 29, 2020
   avatar_url: images/nlpcraft_logo.png
   twitter_id: apachenlpcraft
 
 - title: Introducing Apache NLPCraft 0.5.0
   url: https://medium.com/@aradzinski/introducing-apache-nlpcraft-0-5-open-source-api-to-convert-natural-language-into-actions-11d7536d0507
-  excerpt: Announcing the 1st release of the Apache NLPCraft.
+  excerpt: Announcing the 1st release of the Apache NLPCraft 🔥🔥
   author: Aaron Radzinksi
   avatar_url: images/lion.jpg
   publish_date: April 30, 2020

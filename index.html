@@ -292,13 +292,13 @@ layout: default
                     {% if news.linkedin_id %}<a target="linkedin" href="https://www.linkedin.com/in/{{ news.linkedin_id}}/"><i class="fab fa-fw fa-linkedin"></i></a>{% endif %}
                     {% if news.medium_id %}<a target="medium" href="https://medium.com/@{{ news.medium_id}}"><i class="fab fa-fw fa-medium"></i></a>{% endif %}
                     {% if news.twitter_id %}<a target="twitter" href="https://twitter.com/{{ news.twitter_id}}"><i class="fab fa-fw fa-twitter"></i></a>{% endif %}
-                    <span class="text-nowrap news-date">{{ news.publish_date }}</span>
+                    <span class="text-nowrap">{{ news.publish_date }}</span>
                 </div>
             </div>
             {% endfor %}
         </div>
         <div class="learn-more">
-            <a href="blogs.html">Blogs &amp; articles <i class="align-text-bottom fas fa-angle-right"></i></a>
+            <a href="blogs.html">Blogs <i class="align-text-bottom fas fa-angle-right"></i></a>
         </div>
     </div>
 </div>

@@ -21,10 +21,10 @@ layout: interior
 -->
 
 <h1 class="page-title">
-    <span><i class="fas fa-fw fa-users-cog"></i> {{ page.active_crumb }}</span>
+    <span><i class="fas fa-fw fa-blog"></i> {{ page.active_crumb }}</span>
 </h1>
 
-<div id="use-cases" class="three-cols-container">
+<div id="blogs" class="three-cols-container">
     <div class="col-md-2 first-column">
         <ul class="side-nav">
             <li class="side-nav-title">Documentation</li>
@@ -34,89 +34,29 @@ layout: interior
         </ul>
     </div>
     <div class="col-md-8 second-column">
-        <section>
-            <h2 class="section-title">NLI Applications</h2>
-            <p>
-                Despite being seemingly obvious that NLI (Natural Language Interface) has wide applicability to many applications and
-                software systems there are specific areas where NLI is already used today and has
-                demonstrated its unique capabilities.
-            </p>
-        </section>
-        <section class="two-col-section">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-6">
-                        <div id="search" class="sub-section-title">NLI-Enhanced Search</div>
-                        <p class="subhead">
-                            NLI-enhanced search, filter and sort is one area where NLI has been successful
-                            for a number of years already. Look at Google Analytics, GMail, JIRA, or many
-                            other applications that allow you to search, filter or sort their content with
-                            natural language queries. This use case is a perfect application of NLI as it
-                            naturally augments the existing UI/UX by replacing often cumbersome and hard-to-use
-                            search/filter/sort UX with a simple text box.
-                        </p>
-                        <p>
-                            As a matter of fact, all major general purpose search platforms today (i.e.
-                            Google, Bing, or Siri) use NLI-enhanced approach to their search queries processing.
-                        </p>
-                        <div id="chatbots" class="sub-section-title">Chatbots</div>
-                        <p>
-                            NLI is clearly at the heart of any chatbot implementation. And although most initial naive
-                            implementations of chatbots have struggles to gain traction - the advancement
-                            in NLI technology is allowing modern chatbots to become gradually more sophisticated
-                            and outgrow the early "childhood" problems of parasitic dialogues, lack of contextual
-                            awareness, inability to comprehend a spoken, free-form language, and primitive rule-based logic.
-                        </p>
-                        <div id="reporting" class="sub-section-title">Data Reporting</div>
-                        <p>
-                            Fully deterministic NLI systems like NLPCraft provide critical technology for NLI-based
-                            data reporting. Unlike data insights analytics or data exploration, the data reporting
-                            typically cannot rely on the probabilistic nature of ML/DL-based approaches as it must
-                            provide 100% correctness in all cases.
-                        </p>
-                        <p>
-                            NLPCraft employs advanced semantic modelling that provides fully deterministic
-                            results and NL comprehension.
-                        </p>
-                    </div>
-                    <div class="col-6">
-                        <div id="data" class="sub-section-title">Ad-Hoc Data Exploration</div>
-                        <p>
-                            One of the most exciting applications of NLI is an ad-hoc data analytics or
-                            data exploration. This is the area where the proper NLI application can bring
-                            about a fundamental seismic change to how we explore our data and discover the
-                            insights from it.
-                        </p>
-                        <p>
-                            Today the most data is walled off in the silos of the individual, incompatible
-                            data systems making it mostly inaccessible to the all but a few "power" users.
-                            Very few can gain access to all the different systems in a typical company, learn all
-                            the different ways to analyse the data and master incompatible and drastically different
-                            user interfaces.
-                        </p>
-                        <p>
-                            The NLI-based approach can democratize access to the sprawling silo-ed data with a
-                            single unified UX by allowing users to use the natural language to explore and analyse
-                            the data. The natural language is the only UX/UI that everyone already knows, requires no
-                            training or learning and is universal regardless of the data source.
-                        </p>
-                        <div id="device" class="sub-section-title">Device Control</div>
-                        <p>
-                            With the popularization of consumer technologies like Amazon Alexa, Apple HomeKit,
-                            Mercedes MBUX and similar the NLI-based control of various devices and systems
-                            becoming a norm.
-                        </p>
-                        <p>
-                            While most of these systems today can only understand the
-                            rudimentary 2-3 words command the advancements in NLI technology is rapidly leading to
-                            more sophisticated interfaces. The enterprise world is starting to catch up and
-                            NLI-based systems appear today in various manufacturing, oil and gas, pharma
-                            and medical applications.
-                        </p>
-                    </div>
+        <div id="blogs-container" class="row">
+            {% for news in site.data.news %}
+            <div class="col-6 blog-block">
+                <div class="blog-title">
+                    <a href="{{ news.url }}" target=_>
+                        {{ news.title }}
+                    </a>
+                </div>
+                <div class="blog-excerpt">
+                    {{ news.excerpt}}&nbsp;<a target=_ href="{{ news.url }}"><i class="fas fa-angle-double-right"></i></a>
+                </div>
+                <div class="blog-footer">
+                    {% if news.avatar_url %}<img class="avatar-img" src="{{ news.avatar_url | relative_url}}" alt="">{% endif %}
+                    {% if news.pub_logo_url %}<img class="pub-logo-img" src="{{ news.pub_logo_url | relative_url}}" alt="">{% endif %}
+                    {% if news.author %}{{ news.author }}{% endif %}
+                    {% if news.linkedin_id %}<a target="linkedin" href="https://www.linkedin.com/in/{{ news.linkedin_id}}/"><i class="fab fa-fw fa-linkedin"></i></a>{% endif %}
+                    {% if news.medium_id %}<a target="medium" href="https://medium.com/@{{ news.medium_id}}"><i class="fab fa-fw fa-medium"></i></a>{% endif %}
+                    {% if news.twitter_id %}<a target="twitter" href="https://twitter.com/{{ news.twitter_id}}"><i class="fab fa-fw fa-twitter"></i></a>{% endif %}
+                    <span class="text-nowrap">{{ news.publish_date }}</span>
                 </div>
             </div>
-        </section>
+            {% endfor %}
+        </div>
     </div>
     <div class="col-md-2 third-column">
         <ul class="side-nav">
