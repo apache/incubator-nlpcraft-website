@@ -275,7 +275,7 @@ layout: default
             </div>
         </div>
         <div id="news-container" class="row">
-            {% for news in site.data.news %}
+            {% for news in site.data.news limit:3%}
             <div class="col-4">
                 <div class="news-title">
                     <a href="{{ news.url }}" target=_>
@@ -283,12 +283,12 @@ layout: default
                     </a>
                 </div>
                 <div class="news-excerpt">
-                    {{ news.excerpt}}&nbsp;<a target=_ href="{{ news.url }}"><i class="fas fa-angle-double-right"></i></a>
+                    <a target=news href="{{ news.url }}">{{ news.excerpt}}&nbsp;<i class="fas fa-angle-double-right"></i></a>
                 </div>
                 <div class="news-footer">
                     {% if news.avatar_url %}<img class="avatar-img" src="{{ news.avatar_url | relative_url}}" alt="">{% endif %}
                     {% if news.pub_logo_url %}<img class="pub-logo-img" src="{{ news.pub_logo_url | relative_url}}" alt="">{% endif %}
-                    {% if news.medium_id %}<a class="news-author text-nowrap " target="news" href="https://medium.com/@{{ news.medium_id}}">{{ news.author }}</a>{% endif %}
+                    {% if news.author %}{{ news.author }}{% endif %}
                     {% if news.linkedin_id %}<a target="linkedin" href="https://www.linkedin.com/in/{{ news.linkedin_id}}/"><i class="fab fa-fw fa-linkedin"></i></a>{% endif %}
                     {% if news.medium_id %}<a target="medium" href="https://medium.com/@{{ news.medium_id}}"><i class="fab fa-fw fa-medium"></i></a>{% endif %}
                     {% if news.twitter_id %}<a target="twitter" href="https://twitter.com/{{ news.twitter_id}}"><i class="fab fa-fw fa-twitter"></i></a>{% endif %}

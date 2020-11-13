@@ -107,6 +107,13 @@ layout: interior
             </li>
             <li class="side-nav-title">Tools</li>
             <li>
+                {% if page.id == "script" %}
+                <a class="active" href="/tools/script.html"><code>nlpcraft.{sh|cmd}</code></a>
+                {% else %}
+                <a href="/tools/script.html"><code>nlpcraft.{sh|cmd}</code></a>
+                {% endif %}
+            </li>
+            <li>
                 {% if page.id == "test_framework" %}
                 <a class="active" href="/tools/test_framework.html">Test Framework</a>
                 {% else %}
