@@ -46,3 +46,13 @@
   linkedin_id: aaron-radzinski-6b2228167
   twitter_id: aaron_radzinski
   medium_id: aradzinski
+
+- title: 📜 Short-Term Memory - Maintaining Conversation Context
+  url: /blogs/short_term_memory.html
+  excerpt: Short-Term Memory (STM), a technique used to maintain conversational context in NLPCraft. Maintaining the proper conversation context — remembering what the current conversation is about — is essential for all human interaction and thus essential for computer-based natural language understanding.
+  author: Aaron Radzinksi
+  avatar_url: images/lion.jpg
+  publish_date: July 26, 2019
+  linkedin_id: aaron-radzinski-6b2228167
+  twitter_id: aaron_radzinski
+  medium_id: aradzinski

@@ -24,7 +24,7 @@ layout: default
         <ol class="breadcrumb">
             <li class="mr-1"><a href="index.html">Home</a></li>
             <li class="mr-1"><a href="/blogs.html">Blogs</a></li>
-            <li class="mr-1 active">{{ page.title }}</li>
+            <li class="mr-1 active">{{ page.active_crumb }}</li>
         </ol>
 
         <h1 class="page-title">
@@ -41,46 +41,24 @@ layout: default
                 </ul>
             </div>
             <div id="blog" class="col-md-8 second-column">
+                <section id="intro">
+                    <div class="blog-header">
+                        <div class="blog-title">{{ page.blog_title }}</div>
+                        <div class="blog-avatar"><img class="avatar-img" src="{{ page.author_avatar | relative_url}}" alt=""></div>
+                        <div class="text-nowrap blog-author">{{ page.author_name}}</div>
+                        {% if page.author_linkedin_id %}<a target="linkedin" href="https://www.linkedin.com/in/{{ page.author_linkedin_id}}/"><i class="fab fa-fw fa-linkedin"></i></a>{% endif %}
+                        {% if page.author_medium_id %}<a target="medium" href="https://medium.com/@{{ page.author_medium_id}}"><i class="fab fa-fw fa-medium"></i></a>{% endif %}
+                        {% if page.author_twitter_id %}<a target="twitter" href="https://twitter.com/{{ page.author_twitter_id}}"><i class="fab fa-fw fa-twitter"></i></a>{% endif %}
+
+                        <div class="text-nowrap blog-date">{{ page.publish_date }}</div>
+                    </div>
+                </section>
+
                 {{ content }}
             </div>
             <div class="col-md-2 third-column">
                 <ul class="side-nav">
-                    <li class="side-nav-title">Quick Links</li>
-                    <li>
-                        <img alt="" class="quick-link-img mr-2" src="/images/github_logo.png"><a
-                        target="github"
-                        href="https://github.com/apache/incubator-nlpcraft/tree/master/nlpcraft/src/main/scala/org/apache/nlpcraft/examples">Examples</a>
-                    </li>
-                    <li>
-                        <i class="fab fa-java mr-2"></i><a target="_" href="/apis/latest/index.html">Javadoc</a>
-                    </li>
-                    <li>
-                        <img alt="" class="quick-link-img mr-2" src="/images/apiary.svg"><a
-                        href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"
-                        target="github">REST API</a>
-                    </li>
-                    <li>
-                        <i class="fas fa-download mr-2"></i><a href="/download.html">Download</a>
-                    </li>
-                    <li>
-                        <i class="fas fa-blog mr-2"></i><a href="/blogs.html">Blogs</a>
-                    </li>
-                    <li class="side-nav-title">Support</li>
-                    <li>
-                        <nobr>
-                            <i class="far fa-fw fa-envelope mr-2"></i><a href="mailto:dev@nlpcraft.apache.org">Dev List</a>
-                        </nobr>
-                    </li>
-                    <li>
-                        <nobr>
-                            <i class="fab fa-fw fa-stack-overflow mr-2"></i><a target="so" href="https://stackoverflow.com/questions/ask">Stack Overflow</a>
-                        </nobr>
-                    </li>
-                    <li>
-                        <nobr>
-                            <i class="fab fa-fw fa-github mr-2"></i><a target="github" href="https://github.com/apache/incubator-nlpcraft">GitHub</a>
-                        </nobr>
-                    </li>
+                    {% include quick-links.html %}
                 </ul>
             </div>
         </div>

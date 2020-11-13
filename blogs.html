@@ -47,12 +47,11 @@ layout: interior
                 </div>
                 <div class="blog-footer">
                     {% if news.avatar_url %}<img class="avatar-img" src="{{ news.avatar_url | relative_url}}" alt="">{% endif %}
-                    {% if news.pub_logo_url %}<img class="pub-logo-img" src="{{ news.pub_logo_url | relative_url}}" alt="">{% endif %}
-                    {% if news.author %}{{ news.author }}{% endif %}
+                    {% if news.author %}<div class="blog-author">{{ news.author }}</div>{% endif %}
                     {% if news.linkedin_id %}<a target="linkedin" href="https://www.linkedin.com/in/{{ news.linkedin_id}}/"><i class="fab fa-fw fa-linkedin"></i></a>{% endif %}
                     {% if news.medium_id %}<a target="medium" href="https://medium.com/@{{ news.medium_id}}"><i class="fab fa-fw fa-medium"></i></a>{% endif %}
                     {% if news.twitter_id %}<a target="twitter" href="https://twitter.com/{{ news.twitter_id}}"><i class="fab fa-fw fa-twitter"></i></a>{% endif %}
-                    <span class="text-nowrap">{{ news.publish_date }}</span>
+                    <span class="text-nowrap">{{news.publish_date}}</span>
                 </div>
             </div>
             {% endfor %}

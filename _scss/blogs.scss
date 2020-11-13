@@ -15,6 +15,41 @@
  * limitations under the License.
  */
 
+img.avatar-img {
+    height: 32px;
+    margin-right: 10px;
+    vertical-align: middle;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+}
+
+.blog-header {
+    a, a:hover, a:active, i.fas {
+        color: $color-asphalt;
+    }
+
+    .blog-author {
+        display: inline;
+        margin-right: 10px;
+    }
+
+    .blog-date {
+        margin-left: 10px;
+        display: inline;
+    }
+
+    .blog-avatar {
+        display: inline;
+    }
+
+    .blog-title {
+        font-size: 32px;
+        letter-spacing: 0.02em;
+        font-weight: 400;
+    }
+}
+
 #blogs {
     #blogs-container {
         .blog-block {
@@ -46,24 +81,12 @@
         .blog-footer {
             letter-spacing: 0.02em;
 
-            img {
-                height: 32px;
-                margin-right: 5px;
-                vertical-align: middle;
-            }
-
-            img.avatar-img {
-                -webkit-border-radius: 100%;
-                -moz-border-radius: 100%;
-                border-radius: 100%;
-            }
-
             a, span {
                 vertical-align: middle;
             }
 
-            a.blog-author {
-                margin-right: 15px;
+            .blog-author {
+                margin-right: 10px;
                 display: inline-block;
             }
         }
