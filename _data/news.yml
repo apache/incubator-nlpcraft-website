@@ -17,7 +17,7 @@
 
 - title: 📃 Краткий обзор системы Apache NlpCraft
   url: https://habr.com/ru/post/526950/
-  excerpt: Цель проекта — тотальное упрощение доступа к возможностям NLP разработчикам приложений. Уловить баланс между простотой вхождения в NLP проблематику и поддержкой широкого диапазона возможностей промышленной библиотеки.
+  excerpt: Цель проекта - тотальное упрощение доступа к возможностям NLP разработчикам приложений. Уловить баланс между простотой вхождения в NLP проблематику и поддержкой широкого диапазона возможностей промышленной библиотеки.
   author: Сергей Камов
   publish_date: November 8, 2020
   avatar_url: images/sergey_kamov_avatar.png
@@ -49,7 +49,7 @@
 
 - title: 📜 Short-Term Memory - Maintaining Conversation Context
   url: /blogs/short_term_memory.html
-  excerpt: Short-Term Memory (STM), a technique used to maintain conversational context in NLPCraft. Maintaining the proper conversation context — remembering what the current conversation is about — is essential for all human interaction and thus essential for computer-based natural language understanding.
+  excerpt: Short-Term Memory (STM), a technique used to maintain conversational context in NLPCraft. Maintaining the proper conversation context - remembering what the current conversation is about - is essential for all human interaction and thus essential for computer-based natural language understanding.
   author: Aaron Radzinksi
   avatar_url: images/lion.jpg
   publish_date: July 26, 2019
