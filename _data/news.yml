@@ -15,6 +15,14 @@
 # limitations under the License.
 #
 
+- title: 📜 Quick Introduction to Apache NLPCraft
+  url: /blogs/quick_intro_apache_nlpcraft.html
+  excerpt: The goal of this project is unambiguously straightforward - provide an efficient & highly productive API to develop advanced NLP-based interfaces for modern applications.
+  author: Aaron Radzinski
+  publish_date: November 16, 2020
+  twitter_id: aaron_radzinski
+  href_target: _self
+
 - title: 📃 Краткий обзор системы Apache NlpCraft
   url: https://habr.com/ru/post/526950/
   excerpt: Цель проекта - тотальное упрощение доступа к возможностям NLP разработчикам приложений. Уловить баланс между простотой вхождения в NLP проблематику и поддержкой широкого диапазона возможностей промышленной библиотеки.
@@ -46,9 +54,7 @@
   author: Aaron Radzinksi
   avatar_url: images/lion.jpg
   publish_date: April 30, 2020
-  linkedin_id: aaron-radzinski-6b2228167
   twitter_id: aaron_radzinski
-  medium_id: aradzinski
   href_target: medium
 
 - title: 📜 Short-Term Memory - Maintaining Conversation Context
@@ -57,7 +63,5 @@
   author: Aaron Radzinksi
   avatar_url: images/lion.jpg
   publish_date: July 26, 2019
-  linkedin_id: aaron-radzinski-6b2228167
   twitter_id: aaron_radzinski
-  medium_id: aradzinski
   href_target: _self
