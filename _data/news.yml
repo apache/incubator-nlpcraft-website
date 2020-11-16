@@ -22,6 +22,7 @@
   publish_date: November 8, 2020
   avatar_url: images/sergey_kamov_avatar.png
   twitter_id: apachenlpcraft
+  href_target: habr
 
 - title: 📢 Apache NLPCraft 0.7.1 Released
   url: /release-notes-0.7.1.html
@@ -29,6 +30,7 @@
   publish_date: October 29, 2020
   avatar_url: images/nlpcraft_logo.png
   twitter_id: apachenlpcraft
+  href_target: _self
 
 - title: 📢 Apache NLPCraft 0.7.0 Released
   url: /release-notes-0.7.0.html
@@ -36,6 +38,7 @@
   publish_date: September 29, 2020
   avatar_url: images/nlpcraft_logo.png
   twitter_id: apachenlpcraft
+  href_target: _self
 
 - title: Introducing Apache NLPCraft 0.5.0
   url: https://medium.com/@aradzinski/introducing-apache-nlpcraft-0-5-open-source-api-to-convert-natural-language-into-actions-11d7536d0507
@@ -46,6 +49,7 @@
   linkedin_id: aaron-radzinski-6b2228167
   twitter_id: aaron_radzinski
   medium_id: aradzinski
+  href_target: medium
 
 - title: 📜 Short-Term Memory - Maintaining Conversation Context
   url: /blogs/short_term_memory.html
@@ -56,3 +60,4 @@
   linkedin_id: aaron-radzinski-6b2228167
   twitter_id: aaron_radzinski
   medium_id: aradzinski
+  href_target: _self
