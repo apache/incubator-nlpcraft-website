@@ -400,8 +400,22 @@ code {
     width: 100% !important;
 }
 
+.non-fluid-img {
+    border-radius: 6px;
+}
+
+.keyboard {
+    padding: 1px 8px;
+    background-color: #2c2c29;
+    color: #efefef;
+    border-radius: 4px;
+    display: inline-block;
+    font-family: monospace;
+    font-weight: 600;
+}
+
 .img-fluid-no-border {
     max-width: 900px !important;
-    border-radius: 4px;
+    border-radius: 6px;
     padding: 0 !important;
 }

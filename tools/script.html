@@ -53,12 +53,84 @@ id: script
     </section>
     <section id="quick_start">
         <h2 class="section-title">Quick Start</h2>
+        <p>
+            The <code>bin/nlpcraft.{sh|cmd}</code> script can work in two modes:
+        </p>
+        <ul>
+            <li>
+                Command line mode where it executes a single given command at a time.
+            </li>
+            <li>
+                Interactive REPL mode. To enter REPL mode run <code>bin/nlpcraft.sh</code> without any arguments.
+            </li>
+        </ul>
+        <p>
+            All the functionality remains the same regardless of whether each command is executed separately or
+            interactively in REPL mode. To get started, run <code>bin/nlpcraft.sh</code> without any arguments:
+        </p>
+        <p>
+            <img class="non-fluid-img" src="/images/cli1.png" alt="">
+        </p>
+        <p>
+            Script starts in the REPL mode by default. You can use <span class="keyboard">Tab</span> key anytime for auto-suggestion and auto-completion
+            while in REPL mode. Type <code>help</code> to list of all supported commands:
+        </p>
+        <p>
+            <img class="non-fluid-img" src="/images/cli2.png" alt="">
+        </p>
     </section>
     <section id="usage">
         <h2 class="section-title">Usage</h2>
         <p>
-
+            Commands supported by the <code>bin/nlpcraft.{sh|cmd}</code> script fall into 4 categories:
         </p>
+        <ol>
+            <li>
+                <b>Server Commands.</b><br/>
+                <p>
+                    Server commands allow to manage locally run REST server. Note that these commands only work for the REST
+                    server that runs on the same host as script. In other words, these commands cannot manage the remote REST
+                    server.
+                </p>
+                <p>
+                    REST server is a "fire-and-forget" component. During model development you will likely start the
+                    server only once and check its output from time to time as most of the work will be happening in the data probe
+                    that hosts your models.
+                </p>
+                <p>
+                    For example, <code>start-server</code> command provide the easiest and quickest way to start the REST server (with
+                    default configuration by default):
+                </p>
+                <p>
+                    <img alt="" src="/images/cli3.png">
+                </p>
+                <p>
+                    Note that when <code>start-server</code> commands completes it shows all connected probes (none in this example)
+                    and automatically signs in with the default <code>admin@admin.com</code> user account so that you can proceed
+                    to testing and working with your model right away.
+                </p>
+                <div class="bq info">
+                    <b>REPL Prompt</b>
+                    <p>
+                        REPL prompt shows 3 pieces of information:
+                    </p>
+                    <ul>
+                        <li>REST server status (<code>ON</code> if server is started and detected, <code>OFF</code> otherwise).</li>
+                        <li>REST access token if the user is signed in. This token is required for all REST calls.</li>
+                        <li>Current user working directory.</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <b>REST Commands:</b>
+            </li>
+            <li>
+                <b>REPL Commands:</b>
+            </li>
+            <li>
+                <b>Miscellaneous Tools:</b>
+            </li>
+        </ol>
     </section>
 </div>
 <div class="col-md-2 third-column">
