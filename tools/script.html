@@ -123,6 +123,35 @@ id: script
             </li>
             <li>
                 <b>REST Commands:</b>
+                <p>
+                    All REST commands provide convenient wrappers for REST calls. <code>call</code> and <code>rest</code>
+                    commands provide generic REST command wrapper for REPL and command line mode respectively. Run
+                    <code>help --cmd=rest</code> and <code>help --cmd=call</code> to get a detailed instructions.
+                </p>
+                <p>
+                    The following commands provider convenient REPL wrappers for specific REST calls:
+                </p>
+                <table class="gradient-table">
+                    <thead>
+                    <tr>
+                        <td>REPL Wrapper</td>
+                        <td>REST Call</td>
+                        <td>Help</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>ask</code></td>
+                            <td><code>/ask/sync</code></td>
+                            <td><code>help --cmd=ask</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>signin</code></td>
+                            <td><code>/signin</code></td>
+                            <td><code>help --cmd=signin</code></td>
+                        </tr>
+                    <tbody>
+                </table>
             </li>
             <li>
                 <b>REPL Commands:</b>
