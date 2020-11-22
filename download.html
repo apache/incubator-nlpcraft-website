@@ -80,6 +80,7 @@ layout: interior
                     <td>
                         <i class="fa fa-fw fa-download"></i> <a href="{{rel.zip_url}}">{{rel.zip_name}}</a>
                         {% unless rel.backward_compatible %}<i class="fas fa-fw fa-bomb"></i>{% endunless %}
+                        {% if rel.version == site.latest_version %} <span class="latest">new</span> {% endif %}
                     </td>
                     <td>{{rel.version}}</td>
                     <td>{{rel.date}}</td>
@@ -88,7 +89,7 @@ layout: interior
                         <a href="{{rel.pgp_url}}">PGP</a>
                     </td>
                     <td>
-                        <a href="/release-notes-{{rel.version}}.html"><i class="fas fa-fw fa-file-alt"></i></a>
+                        <a href="/relnotes/release-notes-{{rel.version}}.html"><i class="fas fa-fw fa-file-alt"></i></a>
                         <a target=_ href="/apis/javadoc-{{rel.version}}/index.html"><i class="fab fa-fw fa-java"></i></a>
                         <a target="github" href="{{rel.github_link}}"><i class="fab fa-fw fa-github"></i></a>
                     </td>
@@ -107,7 +108,7 @@ layout: interior
             </div>
             <div class="bq info">
                 <p>
-                    Releases marked with <i class="fas fa-fw fa-bomb"></i> are <b>NOT</b> 100% backward compatible.
+                    Releases marked with <i class="fas fa-fw fa-bomb"></i> are <b>NOT</b> 100% <em>backward</em> compatible.
                 </p>
                 <p>
                     The above release files should be verified using the PGP signatures and the <a href="https://downloads.apache.org/incubator/nlpcraft/KEYS">project release KEYS</a>.
@@ -137,6 +138,7 @@ layout: interior
                     <td>
                         <i class="fa fa-fw fa-download"></i> <a href="{{rel.zip_url}}">{{rel.zip_name}}</a>
                         {% unless rel.backward_compatible %}<i class="fas fa-fw fa-bomb"></i>{% endunless %}
+                        {% if rel.version == site.latest_version %} <span class="latest">new</span> {% endif %}
                     </td>
                     <td>{{rel.version}}</td>
                     <td>{{rel.date}}</td>
@@ -145,7 +147,7 @@ layout: interior
                         <a href="{{rel.pgp_url}}">PGP</a>
                     </td>
                     <td>
-                        <a href="/release-notes-{{rel.version}}.html"><i class="fas fa-fw fa-file-alt"></i></a>
+                        <a href="/relnotes/release-notes-{{rel.version}}.html"><i class="fas fa-fw fa-file-alt"></i></a>
                         <a target=_ href="/apis/javadoc-{{rel.version}}/index.html"><i class="fab fa-fw fa-java"></i></a>
                         <a target="github" href="{{rel.github_link}}"><i class="fab fa-fw fa-github"></i></a>
                         {% if rel.dockerhub_link %}<a target="docker" href="{{rel.dockerhub_link}}"><i class="fab fa-fw fa-docker"></i></a>{% endif %}
@@ -170,7 +172,7 @@ layout: interior
             </div>
             <div class="bq info">
                 <p>
-                    Releases marked with <i class="fas fa-fw fa-bomb"></i> are <b>NOT</b> 100% backward compatible.
+                    Releases marked with <i class="fas fa-fw fa-bomb"></i> are <b>NOT</b> 100% <em>backward</em> compatible.
                 </p>
             </div>
         </section>
