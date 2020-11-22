@@ -25,18 +25,18 @@ id: script
     <section id="overview">
         <h2 class="section-title">Overview</h2>
         <p>
-            <code>bin/nlpcraft.{sh|cmd}</code> script that is a <b>central management utility</b> for NLPCraft. Most
+            <code>bin/nlpcraft.{sh|cmd}</code> script is a <b>central management utility</b> for NLPCraft. Most
             of the functions this script does can be done through running
-            Java applications - yet, using this script, you can accomplish the same things much simpler and quicker.
-            From starting and managing REST server, running various tools, to testing models via REST API -
+            Java applications - yet using this script you can accomplish the same things much simpler and quicker.
+            From starting and managing REST server, running various built-in tools, to testing models via REST API -
             <code>bin/nlpcraft.{sh|cmd}</code> script provides a single centralized utility that makes a quick work out
             of all these routine tasks.
         </p>
         <p>
             The script is only available in either official Apache <a href="/download.html#src">source ZIP</a> or in
             <a href="/download.html#zip">binary ZIP</a> distributions. If you used Maven or similar build tools to
-            add NLPCraft to your project, this script will not available automatically - you will need to download ZIP
-            distribution separately.
+            add NLPCraft to your project as a dependency, this script will not be available out-of-the-box - you will
+            need to download ZIP distribution separately.
         </p>
         <div class="bq warn">
             <b>ZIP Distribution</b>
@@ -54,29 +54,45 @@ id: script
     <section id="quick_start">
         <h2 class="section-title">Quick Start</h2>
         <p>
-            The <code>bin/nlpcraft.{sh|cmd}</code> script can work in two modes:
+            The <code>bin/nlpcraft.{sh|cmd}</code> works in two modes:
         </p>
         <ul>
             <li>
-                Command line mode where it executes a single given command at a time.
+                Command line mode where it executes a single command at a time.
             </li>
             <li>
                 Interactive REPL mode. To enter REPL mode run <code>bin/nlpcraft.sh</code> without any arguments.
             </li>
         </ul>
         <p>
-            All the functionality remains the same regardless of whether each command is executed separately or
-            interactively in REPL mode. To get started, run <code>bin/nlpcraft.sh</code> without any arguments:
+            All the functionality remains the same regardless of whether a command is executed from command line or
+            in REPL mode.
+        </p>
+        <p>
+            To get started, run <code>bin/nlpcraft.sh</code> without any arguments:
         </p>
         <p>
             <img class="non-fluid-img" src="/images/cli1.png" alt="">
         </p>
         <p>
-            Script starts in the REPL mode by default. You can use <span class="keyboard">Tab</span> key anytime for auto-suggestion and auto-completion
-            while in REPL mode. Type <code>help</code> to list of all supported commands:
+            Script starts in the REPL mode by default. Type <code>help</code> to list of all supported commands:
         </p>
         <p>
             <img class="non-fluid-img" src="/images/cli2.png" alt="">
+        </p>
+        <p>
+            You can get detailed instructions and usage examples for any command
+            <code>xxx</code> by typing <code>help --cmd=xxx</code>, for example:
+        </p>
+        <p>
+            <img class="non-fluid-img" alt="" src="/images/cli7.png">
+        </p>
+        <p>
+            Hit <span class="keyboard">Tab</span> key anytime for auto-suggestion and auto-completion for
+            commands and their parameters while in REPL mode:
+        </p>
+        <p>
+            <img class="non-fluid-img" alt="" src="/images/cli8.png">
         </p>
     </section>
     <section id="usage">
@@ -102,7 +118,7 @@ id: script
                     default configuration by default):
                 </p>
                 <p>
-                    <img alt="" src="/images/cli3.png">
+                    <img class="non-fluid-img" alt="" src="/images/cli3.png">
                 </p>
                 <p>
                     Note that when <code>start-server</code> commands completes it shows all connected probes (none in this example)
@@ -124,18 +140,21 @@ id: script
             <li>
                 <b>REST Commands:</b>
                 <p>
-                    All REST commands provide convenient wrappers for REST calls. <code>call</code> and <code>rest</code>
-                    commands provide generic REST command wrapper for REPL and command line mode respectively. Run
-                    <code>help --cmd=rest</code> and <code>help --cmd=call</code> to get a detailed instructions.
+                    All REST commands provide convenient wrappers for <a href="/using-rest.html">REST API</a>.
                 </p>
                 <p>
-                    The following commands provider convenient REPL wrappers for specific REST calls:
+                    Tha two main commands are <code>call</code> and <code>rest</code> - they provide generic REST call wrapper
+                    for both REPL and command line modes respectively. <code>call</code> command is convenient for the REPL
+                    mode, while <code>rest</code> command is more convenient for the command line mode.
+                </p>
+                <p>
+                    Following additional commands provide custom wrappers for frequently used REST APIs:
                 </p>
                 <table class="gradient-table">
                     <thead>
                     <tr>
                         <td>REPL Wrapper</td>
-                        <td>REST Call</td>
+                        <td>REST API</td>
                         <td>Help</td>
                     </tr>
                     </thead>
@@ -150,8 +169,36 @@ id: script
                             <td><code>/signin</code></td>
                             <td><code>help --cmd=signin</code></td>
                         </tr>
+                        <tr>
+                            <td><code>signout</code></td>
+                            <td><code>/signout</code></td>
+                            <td><code>help --cmd=signout</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>sugsyn</code></td>
+                            <td><code>/model/sugsyn</code></td>
+                            <td><code>help --cmd=sugsyn</code></td>
+                        </tr>
                     <tbody>
                 </table>
+                <p>
+                    This is an example of the session where <code>call</code> command was used to issue REST <code>/signin</code>
+                    call and then REST <code>/signout</code> call:
+                </p>
+                <p>
+                    <img class="non-fluid-img" src="/images/cli4.png" alt="">
+                </p>
+                <p>
+                    The exactly the same sequence of calls can be performed quicker and easier using convenient
+                    <code>signing</code> and <code>signout</code> command wrappers:
+                </p>
+                <p>
+                    <img class="non-fluid-img" src="/images/cli5.png" alt="">
+                </p>
+                <p>
+                    Note that for <code>signout</code> command you don't even have to specify the access token
+                    as it is taken from the current server context automatically.
+                </p>
             </li>
             <li>
                 <b>REPL Commands:</b>
@@ -163,6 +210,13 @@ id: script
             </li>
             <li>
                 <b>Miscellaneous Tools:</b>
+                <p>
+                    Miscellaneous commands contain number of convenient utilities. For example, you can generate the
+                    project stub for Scala and SBT using the following command:
+                </p>
+                <p>
+                    <img class="non-fluid-img" src="/images/cli6.png" alt="">
+                </p>
             </li>
         </ol>
     </section>

@@ -15,6 +15,14 @@
 # limitations under the License.
 #
 
+- title: 📢 Apache NLPCraft 0.7.2 Released
+  url: /release-notes-0.7.2.html
+  excerpt: Download NLPCraft 0.7.2. Over 11 tickets fixed 💪
+  publish_date: November 19, 2020
+  avatar_url: images/nlpcraft_logo.png
+  twitter_id: apachenlpcraft
+  href_target: _self
+
 - title: 📜 Quick Introduction to Apache NLPCraft
   url: /blogs/quick_intro_apache_nlpcraft.html
   excerpt: The goal of this project is unambiguously straightforward - provide an efficient & highly productive API to develop advanced NLP-based interfaces for modern applications.
