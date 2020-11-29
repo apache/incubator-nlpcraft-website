@@ -92,9 +92,8 @@ id: script
             <img class="non-fluid-img" alt="" src="/images/cli7.png">
         </p>
         <p>
-            Hit <span class="keyboard">Tab</span> key anytime for auto-suggestion and auto-completion for
-            commands and their parameters while in REPL mode, use <span class="keyboard">↑</span> and
-            <span class="keyboard">↓</span> keys to scroll through command history:
+            Use <span class="keyboard">Tab</span> key anytime for command auto-suggestion and auto-completion.<br/>
+            Use <span class="keyboard">↑</span> and <span class="keyboard">↓</span> keys to scroll through command history.
         </p>
         <p>
             <img class="non-fluid-img" alt="" src="/images/cli8.png">
@@ -110,6 +109,12 @@ id: script
             command with a <code>$</code> symbol. For example:
         </p>
         <pre class="brush: plain">
+            > $git pull
+        </pre>
+        <p style="margin-left: 20px">
+            Runs <code>git pull</code> command in the current directory.
+        </p>
+        <pre class="brush: plain">
             > $mvn clean package
         </pre>
         <p style="margin-left: 20px">
@@ -122,7 +127,7 @@ id: script
             Runs Windows <code>dir</code> command in the current directory using a separate shell.
         </p>
         <p>
-            Note that <em>stdin</em>, <em>stderr</em> and <em>stdout</em> will be redirected into running <code>bin/nlpcraft.{sh|cmd}</code> script.
+            Note that <em>stdin</em>, <em>stderr</em> and <em>stdout</em> of the new process will inherit from running <code>bin/nlpcraft.{sh|cmd}</code> script process.
             Running OS commands makes the most sense in REPL mode where you don't want to lose a session context while
             executing external OS commands. Technically, however, external OS commands can be executed from command line mode
             as well.

@@ -265,6 +265,7 @@ $bq-success-border-color: $brand-success;
     margin: 20px 0;
     padding: 15px 20px;
     border-left: 3px solid #eee;
+    border-radius: 6px;
 
     & > p,
     & > ul {
@@ -349,7 +350,7 @@ a[target=javadoc] {
 
 pre.console {
     border: 1px solid #dedede;
-    border-radius: 4px;
+    border-radius: 6px;
     padding: 25px 30px 0 30px;
 }
 

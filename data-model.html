@@ -51,8 +51,8 @@ id: data_model
         </p>
         <nav>
             <div class="nav nav-tabs" role="tablist">
-                <a class="nav-item nav-link active" data-toggle="tab" href="#scala-model-ex" role="tab" aria-controls="nav-home" aria-selected="true">LightSwitchModel.scala</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#java-model-ex" role="tab" aria-controls="nav-home" aria-selected="true">AlarmModel.java</a>
+                <a class="nav-item nav-link active" data-toggle="tab" href="#scala-model-ex" role="tab" aria-controls="nav-home" aria-selected="true"><code>LightSwitchModel.scala</code></a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#java-model-ex" role="tab" aria-controls="nav-home" aria-selected="true"><code>AlarmModel.java</code></a>
             </div>
         </nav>
         <div class="tab-content">
@@ -232,8 +232,8 @@ public class AlarmModel extends NCModelFileAdapter {
             </p>
             <p>
                 Note that in this architecture the user-defined data model is fully isolated from the REST server accepting
-                user calls. Users never access data probes and hence user data models directly. Typically REST server
-                should be deployed in DMZ and only ingress connectivity is necessary between REST server and the data probes.
+                user calls. Users never access data probes and hence data models directly. Typically REST server
+                should be deployed in DMZ and only <em>ingress connectivity is required</em> from the REST server to data probes.
             </p>
         </div>
     </section>
