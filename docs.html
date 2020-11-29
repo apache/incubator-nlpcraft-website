@@ -40,7 +40,7 @@ id: overview
         <p>
             Another key aspect of NLPCraft is its singular focus on processing English language. Although it may sound
             counterintuitive, this narrow focus enables NLPCraft to deliver unprecedented ease of use combined with
-            unparalleled comprehension capabilities for English input out-of-the-box. It's been shown many times that
+            unparalleled comprehension capabilities for English input out-of-the-box. It's been shown that
             support for multiple languages in a single framework leads to either watered down functionality or overly
             complicated configuration, training and usage. It's also important to note that English language is spoken by more
             than a billion people on this planet and is de facto standard global language of the business and commerce.
@@ -68,29 +68,29 @@ id: overview
             <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModel.html">NCModel</a> Java interface that
             can be developed using any JVM programming language like Java, Scala, Kotlin or Groovy.
             Data model implementation defines how to interpret user input, and how to query or control a particular
-            data source. Model-as-a-code natively supports any software lifecycle tools and frameworks in Java eco-system.
+            data source. Model-as-a-code natively supports any software lifecycle tools and frameworks in Java ecosystem.
         </p>
         <p>
             Typically, declarative portion of the model will be stored in a separate JSON or YAML file
-            for simpler modifications. There are no practical limitation on how complex or simple a model
+            for simpler maintenance. There are no practical limitation on how complex or simple a model
             can be, or what other tools it can use. Data models use <a href="/intent-matching.html">intent-based matching</a>
             provided by NLPCraft out-of-the-box.
         </p>
         <p>
-            To use data model it has to be deployed into data probe.
+            To use data model it has to be deployed into a data probe.
         </p>
     </section>
     <section id="data-probe">
         <h3 class="section-title">Data Probe</h3>
         <p>
-            Data probe is an application designed to securely deploy and manage data models.
+            Data probe is a light-weight container application designed to securely deploy and manage data models.
             Each probe can deploy and manage multiple models and many probes can be connected to the REST server (or a cluster of REST servers).
             The main purpose of the data probe is to separate data model hosting from managing REST calls from the clients.
             While you would typically have just one REST server, you may have multiple data probes deployed
             in different geo-locations and configured differently.
         </p>
         <p>
-            Data probes can be deployed and run anywhere as long as there is an outbound connectivity to the REST server, and are
+            Data probes can be deployed and run anywhere as long as there is an ingress connectivity from the REST server, and are
             typically deployed in DMZ or close to your target data sources: on-premise, in the cloud, etc. Data
             probe uses strong 256-bit encryption and ingress only connectivity for communicating with the REST server.
         </p>
