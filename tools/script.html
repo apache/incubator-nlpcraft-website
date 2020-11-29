@@ -65,7 +65,7 @@ id: script
             </li>
         </ul>
         <p>
-            All the functionality remains the same regardless of whether a command is executed from command line or
+            All the functionality and command syntax remain the same regardless of whether a command is executed from a command line or
             in REPL mode.
         </p>
         <p>
@@ -75,7 +75,11 @@ id: script
             <img class="non-fluid-img" src="/images/cli1.png" alt="">
         </p>
         <p>
-            Script starts in the REPL mode by default. Type <code>help</code> to list of all supported commands:
+            Script starts in the REPL mode by default.
+        </p>
+        <h2 class="section-sub-title">Get Command List</h2>
+        <p>
+            Type <code>help</code> to list of all supported commands (or run <code>bin/nlpcraft.sh help</code> if in command line mode):
         </p>
         <p>
             <img class="non-fluid-img" src="/images/cli2.png" alt="">
@@ -93,6 +97,31 @@ id: script
         </p>
         <p>
             <img class="non-fluid-img" alt="" src="/images/cli8.png">
+        </p>
+    </section>
+    <section id="os_commands">
+        <h2 class="section-title">OS Commands</h2>
+        <p>
+            You can run any external OS-specific commands from <code>bin/nlpcraft.{sh|cmd}</code> script by prepending such
+            command with a <code>$</code> symbol. For example:
+        </p>
+        <pre class="brush: plain">
+            > $mvn clean package
+        </pre>
+        <p style="margin-left: 20px">
+            Runs Maven build in the current directory.
+        </p>
+        <pre class="brush: plain">
+            > $cmd /c dir
+        </pre>
+        <p style="margin-left: 20px">
+            Runs Windows <code>dir</code> command in the current directory using a separate shell.
+        </p>
+        <p>
+            Note that <em>stdin</em>, <em>stderr</em> and <em>stdout</em> will be redirected into running <code>bin/nlpcraft.{sh|cmd}</code> script.
+            Running OS commands makes the most sense in REPL mode where you don't want to lose a session context while
+            executing external OS commands. Technically, however, external OS commands can be executed from command line mode
+            as well.
         </p>
     </section>
     <section id="usage">
@@ -204,8 +233,7 @@ id: script
                 <b>REPL Commands:</b>
                 <p>
                     REPL commands are set of utilities that you can use while in REPL mode. Although all of these commands, as always,
-                    can be executed in the command like mode - they make most sense in REPL mode (except for <code>help</code> command). When running <code>help</code>
-                    command the list of REPL commands is available under <b>REPL Commands</b> heading.
+                    can be executed in the command like mode - they make most sense in REPL mode (except for <code>help</code> command).
                 </p>
             </li>
             <li>
@@ -226,6 +254,7 @@ id: script
         <li class="side-nav-title">On This Page</li>
         <li><a href="#overview">Overview</a></li>
         <li><a href="#quick_start">Quick Start</a></li>
+        <li><a href="#os_commands">OS Commands</a></li>
         <li><a href="#usage">Usage</a></li>
         {% include quick-links.html %}
     </ul>

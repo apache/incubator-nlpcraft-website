@@ -464,7 +464,7 @@ nlpcraft {
         </p>
     </section>
     <section id="testing">
-        <h2 class="section-title">Testing</h2>
+        <h2 class="section-title">CI Testing</h2>
         <p>
             It is a good practice to run units tests during routine builds using Maven (or others CI toolchains). To
             test data models you need to have a running server and then start one or more data probes with
@@ -496,7 +496,7 @@ nlpcraft {
             To get around this problem NLPCraft uses <a target="github" href="https://github.com/bazaarvoice/maven-process-plugin"><code>process-exec-maven-plugin</code></a>
             Maven plugin in its own build. This plugin allows to start the external process and use configured URL
             endpoint to check whether or not the external process has fully started. This works perfect with NLPCraft server
-            <a href="using-rest.html#misc">health check REST call</a>. The plugin can be configured in the following way for your own project
+            <a href="/using-rest.html#tools">health check REST call</a>. The plugin can be configured in the following way for your own project
             (taken directly from NLPCraft <a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft/pom.xml"><code>pom.xml</code></a>):
         </p>
         <pre class="brush: xml, highlight: [14, 16, 28]">
@@ -591,7 +591,7 @@ nlpcraft {
         <li><a href="#config">Configuration</a></li>
         <li><a href="#override">Custom Configuration</a></li>
         <li><a href="#ansi">ANSI Colors</a></li>
-        <li><a href="#testing">Testing</a></li>
+        <li><a href="#testing">CI Testing</a></li>
         {% include quick-links.html %}
     </ul>
 </div>
