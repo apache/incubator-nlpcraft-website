@@ -15,20 +15,52 @@
  limitations under the License.
 -->
 
+<!--
+==================\/\/\/\/\/\/\/\/\/==================
+-->
+
 <!DOCTYPE html>
 <!--suppress HtmlUnknownAttribute -->
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-180663034-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-180663034-1');
+    </script>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/npm/api-html@1.1.6/themes/compact/assets/img/logo.svg" type="image/x-icon">
+    <meta name="description" content="An open source API to convert natural language into actions.">
+    <meta name="author" content="NLPCraft.">
+
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/api-html@1.1.6/themes/compact/assets/css/bundle.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/api-html@1.1.6/themes/compact/assets/css/style.css">
+
     <style>:root {--color-base: #4298fc; --color-base-light: #4298fc; --color-text: #FFF;}</style>
     <title>Apache NLPCraft API (0.7.2)</title>
     <style>
+        body {
+            letter-spacing: 0.02em;
+            font-family: "Helvetica Neue", Helvetica, sans-serif;
+            color: #333;
+        }
+
+        header {
+            background: url(/images/bg-main-box.jpg) bottom center no-repeat;
+        }
+
         aside * {z-index: 2;}
         aside div {position: relative;}
         aside::before {
@@ -41,7 +73,7 @@
             height: 100vh;
             z-index: 1;
             opacity: 0.2;
-            background-image: linear-gradient(to bottom, #888, rgba(0, 0, 0, 0.8)), url(https://cdn.jsdelivr.net/npm/api-html@1.1.6/themes/compact/assets/img/patterns/5.svg);
+            background-image: linear-gradient(to bottom, #aaa, rgba(0, 0, 0, 0.2)), url(https://cdn.jsdelivr.net/npm/api-html@1.1.6/themes/compact/assets/img/patterns/5.svg);
             background-position: 50% 0;
             background-size: 500px auto;
         }
@@ -83,10 +115,38 @@
       aside .uk-nav .uk-nav-sub .uk-parent > a::after {
           background-image: url('data:image/svg+xml;base64;utf8,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCAyNS45MyAyNS45MyIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBmaWxsPSIjRkZGIiBkPSJNMjUuMzk3LDQuNTU0aC0yLjA0MmwtOS45NzQsMTIuNjQ0Yy0wLjEwMSwwLjEyNC0wLjI1NiwwLjE5Ny0wLjQxNiwwLjE5N2MtMC4xNjQsMC0wLjMxNS0wLjA3My0wLjQxOS0wLjE5N0wyLjU3NSw0LjU1NCAgICAgICAgSDAuNTMyYy0wLjIwNiwwLTAuMzkyLDAuMTE1LTAuNDc5LDAuMjk5Yy0wLjA5LDAuMTg0LTAuMDY0LDAuNDAzLDAuMDYsMC41NjFsMTIuNDM1LDE1Ljc2MmMwLjEwNCwwLjEyNSwwLjI1NSwwLjIsMC40MTksMC4yICAgICAgICBjMC4xNiwwLDAuMzE1LTAuMDc1LDAuNDE2LTAuMkwyNS44MTYsNS40MTNjMC4xMjgtMC4xNTcsMC4xNDgtMC4zNzcsMC4wNTgtMC41NjFDMjUuNzg5LDQuNjY5LDI1LjYwMSw0LjU1NCwyNS4zOTcsNC41NTR6Ii8+PC9zdmc+');
       }
+
+      div.search {
+          color: #fff !important;
+      }
+
+      span.uk-icon {
+          color: #fff !important;
+      }
+
+      input {
+          color: #fff !important;
+      }
+
+      .uk-search-input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+          color: #eee;
+          opacity: 1; /* Firefox */
+      }
+
+      .uk-search-input::-ms-input-placeholder { /* Internet Explorer 10-11 */
+          color: #eee;
+      }
+
+      .uk-search-input::-ms-input-placeholder { /* Microsoft Edge */
+          color: #eee;
+      }
     </style>
-    
-  
 </head>
+
+<!--
+==================\/\/\/\/\/\/\/\/\/==================
+-->
+
 <body>
     <div class="main-loader">
         <img src="https://cdn.jsdelivr.net/npm/api-html@1.1.6/themes/compact/assets/img/loader.gif" />
@@ -117,7 +177,7 @@
         <!-- Search ended -->
 
         <!-- Right side hamburger menu used, only visible in small screens -->
-        <a class="btn-right-menu" uk-icon="more-vertical"></a>
+        <a class="btn-right-menu" style="color: #fff;" uk-icon="more-vertical"></a>
         <div uk-dropdown="mode: click; pos: bottom-right">
             <ul class="uk-nav uk-dropdown-nav main-menu-items"></ul>
         </div>
