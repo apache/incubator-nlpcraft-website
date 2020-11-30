@@ -23,8 +23,14 @@ id: rest
 
 <!--suppress HtmlDeprecatedTag -->
 <div class="col-md-8 second-column">
+    <section>
+        <h2 class="section-title">TL;DR;</h2>
+        <p>
+            View <a target="openapi" href="/openapi.html">Open API Specification</a> in a separate window. 👌
+        </p>
+    </section>
     <section id="overview">
-        <h2 class="section-title">Overview</h2>
+        <h2 class="section-title">...bit more details</h2>
         <p>
             REST API provides a universal integration path for any type of user application to connect to and use NLPCraft.
             By using REST API these applications can ask natural language questions, get results and perform
@@ -38,7 +44,7 @@ id: rest
         </p>
         <div class="bq info">
             <p>
-                If you downloaded ZIP archive the REST API specification is also available in
+                If you downloaded ZIP archive the <a target="openapi" href="/openapi.html">REST API specification</a> is also available in
                 <code>openapi/nlpcraft_swagger.yml</code> file
                 or on <a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml">GitHub</a>.
             </p>
@@ -88,18 +94,7 @@ id: rest
                 effective REST API usage against local REST server.
             </p>
         </div>
-        <p>
-            REST API is divided into five functional groups:
-        </p>
-        <ul>
-            <li><a href="#auth">Authentication</a></li>
-            <li><a href="#asking">Asking</a></li>
-            <li><a href="#company">Company</a></li>
-            <li><a href="#user">User</a></li>
-            <li><a href="#data_probe">Probe</a></li>
-            <li><a href="#tools">Tools</a></li>
-        </ul>
-        <div class="bq info">
+        <div class="bq success">
             <b>Admins</b>
             <p>
                 Note that many operations are only available to the users with administrative privileges. Note
@@ -107,7 +102,7 @@ id: rest
                 have administrative privileges or not.
             </p>
         </div>
-        <div class="bq info">
+        <div class="bq success">
             <b>External User ID</b>
             <p>
                 Many calls on REST API accept external "on-behalf-of" user ID (<code>usrExtId</code>) additionally to the regular
@@ -123,239 +118,6 @@ id: rest
                 user IDs but without a need to migrate and synchronize all user accounts from the existing system to NLPCraft.
             </p>
         </div>
-    </section>
-    <section id="auth">
-        <h3 class="section-title">Authentication</h3>
-        <p>
-            Before performing any REST calls a registered user needs to sign in to receive
-            an <b>access token</b> that will be used in all subsequent operations:
-        </p>
-        <table class="gradient-table">
-            <thead>
-            <tr>
-                <th>REST path</th>
-                <th>Description</th>
-            </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/signin</code></nobr></a></td>
-                    <td>Sign in and obtain <b>access token</b>.</td>
-                </tr>
-                <tr>
-                    <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/signout</code></nobr></a></td>
-                    <td>Sign out and invalidate previously obtained <b>access token</b>.</td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="bq info">
-            <b>Default User</b>
-            <p>
-                NLPCraft comes with a default built-in credentials that you can use when signing in for the
-                first time:
-            </p>
-            <ul>
-                <li>Email: <code>admin@admin.com</code></li>
-                <li>Password: <code>admin</code></li>
-            </ul>
-        </div>
-        <div class="bq warn">
-            <p>
-                In production environment make sure to delete this default user once you add at least one of your
-                own users with administrative privileges.
-            </p>
-        </div>
-    </section>
-    <section id="asking">
-        <h3 class="section-title">Asking</h3>
-        <p>
-            This is the main group of operation that allows to ask questions, check the status and get
-            result:
-        </p>
-        <table class="gradient-table">
-            <thead>
-            <tr>
-                <th>REST path</th>
-                <th>Description</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/ask</code></nobr></a></td>
-                <td>Submit the sentence to be processed <b>asynchronously</b>.</td>
-            </tr>
-            <tr>
-                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/ask/sync</code></nobr></a></td>
-                <td>Submit the sentence to be processed <b>synchronously</b>. </td>
-            </tr>
-            <tr>
-                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/check</code></nobr></a></td>
-                <td>Get statuses and results for previously submitted <code>/ask</code> requests.</td>
-            </tr>
-            <tr>
-                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/cancel</code></nobr></a></td>
-                <td>
-                    Remove results from the server memory.
-                </td>
-            </tr>
-            <tr>
-                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/clear/conversation</code></nobr></a></td>
-                <td>
-                    Clear the conversation STM for current user and data model.
-                </td>
-            </tr>
-            <tr>
-                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/clear/dialog</code></nobr></a></td>
-                <td>
-                    Clear the dialog flow for current user and data model.
-                </td>
-            </tr>
-            <tr>
-                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/feedback/add</code></nobr></a></td>
-                <td>
-                    Adds feedback record.
-                </td>
-            </tr>
-            <tr>
-                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/feedback/all</code></nobr></a></td>
-                <td>
-                    Gets feedback records.
-                </td>
-            </tr>
-            <tr>
-                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/feedback/delete</code></nobr></a></td>
-                <td>
-                    Deletes feedback record.
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </section>
-    <section id="company">
-        <h3 class="section-title">Company</h3>
-        <p>
-            This group of operations allows to add, update and remove companies in the systems.
-        </p>
-        <table class="gradient-table">
-            <thead>
-            <tr>
-                <th>REST path</th>
-                <th>Description</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/company/get</code></nobr></a></td>
-                <td>Gets current user company.</td>
-            </tr>
-            <tr>
-                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/company/add</code></nobr></a></td>
-                <td>Add new company.</td>
-            </tr>
-            <tr>
-                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/company/update</code></nobr></a></td>
-                <td>Update company information.</td>
-            </tr>
-            <tr>
-                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/company/delete</code></nobr></a></td>
-                <td>Delete company.</td>
-            </tr>
-            <tr>
-                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/company/token/reset</code></nobr></a></td>
-                <td>Reset company's authentication token.</td>
-            </tr>
-            </tbody>
-        </table>
-    </section>
-    <section id="user">
-        <h3 class="section-title">User</h3>
-        <p>
-            This group of operations allows to add, update and remove users in the systems:
-        </p>
-        <table class="gradient-table">
-            <thead>
-            <tr>
-                <th>REST path</th>
-                <th>Description</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/user/get</code></nobr></a></td>
-                <td>Get current user information.</td>
-            </tr>
-            <tr>
-                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/user/all</code></nobr></a></td>
-                <td>Get all users.</td>
-            </tr>
-            <tr>
-                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/user/add</code></nobr></a></td>
-                <td>Add new user.</td>
-            </tr>
-            <tr>
-                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/user/update</code></nobr></a></td>
-                <td>Update user information.</td>
-            </tr>
-            <tr>
-                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/user/delete</code></nobr></a></td>
-                <td>Delete user.</td>
-            </tr>
-            <tr>
-                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/user/admin</code></nobr></a></td>
-                <td>Change user administrative privileges.</td>
-            </tr>
-            <tr>
-                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/user/passwd/reset</code></nobr></a></td>
-                <td>
-                    Reset the current user password.
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </section>
-    <section id="data_probe">
-        <h3 class="section-title">Probe</h3>
-        <p>
-            This group of operations allows to get the information about connected data probes:
-        </p>
-        <table class="gradient-table">
-            <thead>
-            <tr>
-                <th>REST path</th>
-                <th>Description</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/probes/all</code></nobr></a></td>
-                <td>Get information about connected probes.</td>
-            </tr>
-            </tbody>
-        </table>
-    </section>
-    <section id="tools">
-        <h3 class="section-title">Tools</h3>
-        <p>
-            This group of operations allows to perform various model related tools and operations:
-        </p>
-        <table class="gradient-table">
-            <thead>
-            <tr>
-                <th>REST path</th>
-                <th>Description</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/model/sugsyn</code></nobr></a></td>
-                <td>Runs synonym suggestion tool that is based on BERT model and uses <code>@NCIntentSample</code> annotation.</td>
-            </tr>
-            <tr>
-                <td><a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><nobr><code>/health</code></nobr></a></td>
-                <td>Performs a health ping for the server. Can be used by periodic monitoring tools.</td>
-            </tr>
-            </tbody>
-        </table>
     </section>
     <section id="server_errors">
         <h2 class="section-title">Server Errors</h2>
@@ -434,13 +196,8 @@ id: rest
 <div class="col-md-2 third-column">
     <ul class="side-nav">
         <li class="side-nav-title">On This Page</li>
+        <li><a href="#java-client">Java Client</a></li>
         <li><a href="#format">REST URL</a></li>
-        <li><a href="#auth">Authentication</a></li>
-        <li><a href="#company">Company</a></li>
-        <li><a href="#user">User</a></li>
-        <li><a href="#asking">Asking</a></li>
-        <li><a href="#data_probe">Probes</a></li>
-        <li><a href="#tools">Tools</a></li>
         <li><a href="#server_errors">Server Errors</a></li>
         {% include quick-links.html %}
     </ul>
