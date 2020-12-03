@@ -48,32 +48,42 @@ id: server_and_probe
             </p>
         </div>
         <p>
-            Fro the rest of this section we assume that NLPCraft was <a href="/download.html">downloaded</a> and
-            <a href="/installation.html">installed</a> via ZIP archive. However, all instructions below are fully
+            Fro the rest of this section we assume that NLPCraft was <a href="/download.html#zip">downloaded</a> and
+            <a href="/installation.html">installed</a> via binary ZIP archive. However, all instructions below are fully
             applicable to any type of installation.
         </p>
         <p>
-            Once NLPCraft is downloaded as a ZIP archive and unzipped, the current directory will look like this:
+            Once NLPCraft is downloaded as a binary ZIP archive and unzipped, the current directory will look like this:
         </p>
         <pre class="console">
 ├── LICENSE
+├── NOTICE
+├── DISCLAIMER
 ├── bin
 ├── sql
+├── nlpcraft
+├── nlpcraft-stanford
 ├── build
-│   └── apache-nlpcraft-incubating-{{site.latest_version}}
-│       ├── <b>nlpcraft.conf</b>
-│       ├── ignite.xml
-│       ├── log4j2.xml
-│       └── <b>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</b>
+│    ├── <b>nlpcraft.conf</b>
+│    ├── ignite.xml
+│    ├── log4j2.xml
+│    └── <b>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</b>
 ├── javadoc
-├── openapi
-└── src
+└── openapi
         </pre>
         <p>
-            Regardless of how NLPCraft was installed it comes with a single executable JAR file that includes all
-            necessary dependencies: <code>build/apache-nlpcraft-incubating-{{site.latest_version}}/<b>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</b></code>.
+            NLPCraft comes with a single executable JAR file that includes all
+            necessary dependencies: <code>build/<b>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</b></code>.
             This JAR file includes binaries for data probe, data model APIs and the REST server.
         </p>
+        <div class="bq info">
+            <b>Run <code>'mvn clean package'</code> For Source ZIP</b>
+            <p>
+                If you downloaded the source ZIP you need to run <code>mvn clean package</code> to
+                get the <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code>
+                file. It will be located in <code>nlpcraft/target</code> sub-folder.
+            </p>
+        </div>
     </section>
     <section id="server">
         <h2 class="section-title">REST Server</h2>
