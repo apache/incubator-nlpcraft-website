@@ -15,6 +15,15 @@
 # limitations under the License.
 #
 
+- title: 📃 Как найти что-то в тексте
+  url: https://habr.com/ru/post/530878/
+  excerpt: Найти объект или распознать понятие в тексте — с этого начинается решение большинства NLP задач...
+  author: Сергей Камов
+  publish_date: December 1, 2020
+  avatar_url: images/sergey_kamov_avatar.png
+  twitter_id: apachenlpcraft
+  href_target: habr
+
 - title: 📢 Apache NLPCraft 0.7.2 Released
   url: /relnotes/release-notes-0.7.2.html
   excerpt: Download NLPCraft 0.7.2. Over 11 tickets fixed 💪 First full public release of the new <code>nlpcraft.{sh|cmd}</code> management utility.
