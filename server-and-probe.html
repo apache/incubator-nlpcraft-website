@@ -89,7 +89,8 @@ id: server_and_probe
         <h2 class="section-title">REST Server</h2>
         <p>
             As mentioned above REST server (or a cluster of servers) is used to accept client REST calls and
-            route them to the data model via data probes. Note that both data probe and the REST server start the same way.
+            route them to the data model hosted by data probes. Note that both data probe and the REST server start principally
+            the same way.
         </p>
         <p>
             REST server can be stared in a <em>standard way</em> from either the command line or IDE such as Eclipse or IntelliJ IDEA:
@@ -99,7 +100,7 @@ id: server_and_probe
                 <a class="nav-item nav-link active" data-toggle="tab" href="#nav-srv-jar" role="tab" aria-controls="nav-home" aria-selected="true">Executable JAR</a>
                 <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-cmd" role="tab" aria-controls="nav-home" aria-selected="true">Command Line</a>
                 <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-ide" role="tab" aria-controls="nav-home" aria-selected="true">IDE</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-docker" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fab fa-docker"></i> Docker</a>
+<!--                <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-docker" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fab fa-docker"></i> Docker</a>-->
             </div>
         </nav>
         <div class="tab-content">
@@ -123,16 +124,16 @@ id: server_and_probe
                     JAR file manifest.
                 </p>
             </div>
-            <div class="tab-pane fade show" id="nav-srv-docker" role="tabpanel">
-                <pre class="brush: plain">
-                    $ docker run -m 8G -p 8081:8081 -p 8201:8201 -p 8202:8202 nlpcraftserver/server:{{site.latest_version}}
-                </pre>
-                <p>
-                    By default, the Docker image runs with a default configuration.
-                    See <a href="#config">configuration</a> section on how to provide custom configuration via environment variables for the REST
-                    server running inside of Docker container.
-                </p>
-            </div>
+<!--            <div class="tab-pane fade show" id="nav-srv-docker" role="tabpanel">-->
+<!--                <pre class="brush: plain">-->
+<!--                    $ docker run -m 8G -p 8081:8081 -p 8201:8201 -p 8202:8202 nlpcraftserver/server:{{site.latest_version}}-->
+<!--                </pre>-->
+<!--                <p>-->
+<!--                    By default, the Docker image runs with a default configuration.-->
+<!--                    See <a href="#config">configuration</a> section on how to provide custom configuration via environment variables for the REST-->
+<!--                    server running inside of Docker container.-->
+<!--                </p>-->
+<!--            </div>-->
         </div>
         Parameters:
         <dl>
@@ -179,6 +180,26 @@ id: server_and_probe
                 The abnormally long GC pauses (over 5s) can be caused by the excessive memory swapping performed by OS due to
                 insufficient JVM heap memory.
             </p>
+        </div>
+        <div class="bq warn">
+            <div style="float: right">
+                <img alt="" src="/images/apache_ignite_logo.png" height="60px">
+            </div>
+            <b>Apache Ignite 2.x and JDK 11+</b>
+            <p>
+                NLPCraft REST  server uses Apache Ignite 2.x as its distributed in-memory computing plane. Apache Ignite
+                <a target=_new href="https://apacheignite.readme.io/docs/getting-started#running-ignite-with-java-11-and-later-versions">recommends</a>
+                the following additional JVM options to be used when running Apache Ignite 2.x on JDK 11+:
+            </p>
+            <pre class="brush: text">
+--add-exports=java.base/jdk.internal.misc=ALL-UNNAMED
+--add-exports=java.base/sun.nio.ch=ALL-UNNAMED
+--add-exports=java.management/com.sun.jmx.mbeanserver=ALL-UNNAMED
+--add-exports=jdk.internal.jvmstat/sun.jvmstat.monitor=ALL-UNNAMED
+--add-exports=java.base/sun.reflect.generics.reflectiveObjects=ALL-UNNAMED
+--add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED
+--illegal-access=permit
+            </pre>
         </div>
         <p>
             When the REST server successfully started you should see the log output similar to this:
