@@ -398,8 +398,8 @@ id: intent_matching
                     Dialog flow pattern consists of one of multiple intent IDs separated by <code>&gt;&gt;</code> symbol ordered from
                     most recent to the oldest.
                     Multiple IDs should be placed in <code>(</code> <code>)</code> brackets and separated by <code>|</code>
-                    symbol. Each group of IDs can have an optional quantifier (e.g. <code>[2,3]</code>) for how many times this intent should appear
-                    in matching history:
+                    symbol. Each group of IDs can have an optional quantifier (e.g. <code>[2,3]</code>) for how many times
+                    this intent should <em>sequentially</em> appear in the matching history:
                 </p>
                 <ul>
                     <li><code>[n,m]</code> - intent should appear at least <code>n</code> times and at most <code>m</code> times.</li>
