@@ -340,13 +340,15 @@ id: intent_matching
                 <p>
                     At this step the actual matching between intents and variants happens. Each parsing variant from the previous
                     step is matched against each intent. Each matching pair of a variant and an intent produce a match with a
-                    <em>certain weight</em>. If there are no matches at all - an error is returned. If there  are matches, the match
-                    with the biggest weight is selected as a winning match. The intent's callback from the winning match is
-                    than called.
+                    <em>certain weight</em>. If there are no matches at all - an error is returned. If matches were found, the match
+                    with the biggest weight is selected as a winning match. If multiple matches have the same weight, their
+                    respective variants' weights will be used to further sort them out. Finally, the intent's callback from the winning match is
+                    called.
                 </p>
                 <p>
                     Although details on exact algorithm on weight calculation are too complex, here's the general guidelines
-                    on what determines the weight of the match between a parsing variant and the intent:
+                    on what determines the weight of the match between a parsing variant and the intent. Note that these rules
+                    coalesce around the principle idea that the <b>more specific match always wins</b>:
                 </p>
                 <ul>
                     <li>
@@ -358,7 +360,7 @@ id: intent_matching
                     </li>
                     <li>
                         A more specific match has bigger weight. In other words, a match that uses token from the conversation
-                        context (an STM) has less weight than a match that only uses tokens from the current request. In the same
+                        context (i.e short-term-memory) has less weight than a match that only uses tokens from the current request. In the same
                         way older tokens from the conversation produce less weight than the younger ones.
                     </li>
                 </ul>
@@ -377,7 +379,7 @@ id: intent_matching
         <pre class="brush: js">
              intent=my_intent
                 ordered=true
-                flow='id* >> (id2|id3)[2,3]'
+                flow='^(?:id1)(^:id2)*$'
                 term(term1)={group @@ 'my_group'}?
                 term(term2)~{trim(partId.partAlias.id) == 'token1:id'}[1,3]
         </pre>
@@ -396,31 +398,28 @@ id: intent_matching
                 the ordered intent is only applicable to processing formal strict grammar (like a programming language)
                 and unsuitable for  natural language processing.
             </dd>
-            <dt><code>flow='id* >> (id2|id3)[2,3]'</code></dt>
+            <dt><code>flow='^(?:id1)(^:id2)*$'</code></dt>
             <dd>
                 <p>
                     <em>Optional.</em> Dialog flow is a history of previously matched intents to match on. If provided,
-                    the intent will match not only on the current user input but also on the history of the previously matched
+                    the intent will match not only on the user input but also on the history of the previously matched
                     intents.
                 </p>
                 <p>
-                    Dialog flow pattern consists of one of multiple intent IDs separated by <code>&gt;&gt;</code> symbol ordered from
-                    most recent to the oldest.
-                    Multiple IDs should be placed in <code>(</code> <code>)</code> brackets and separated by <code>|</code>
-                    symbol. Each group of IDs can have an optional quantifier (e.g. <code>[2,3]</code>) for how many times
-                    this intent should <em>sequentially</em> appear in the matching history:
+                    Dialog flow specification is a standard <a target=_blank href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/regex/Pattern.html">Java regular expression</a>.
+                    The history of previously matched intents is presented as a space separated string of intent IDs that were
+                    selected as the best match during the current conversation, in the chronological order with the most
+                    recent matched intent ID being the first element in the string. Dialog flow regular expression
+                    will be matched against that string representing intent IDs.
                 </p>
-                <ul>
-                    <li><code>[n,m]</code> - intent should appear at least <code>n</code> times and at most <code>m</code> times.</li>
-                    <li><code>*</code> is equal to <code>[0,∞]</code></li>
-                    <li><code>+</code> is equal to <code>[1,∞]</code></li>
-                    <li><code>?</code> is equal to <code>[0,1]</code></li>
-                    <li>No quantifier defaults to <code>[1,1]</code></li>
-                </ul>
                 <p>
-                    For the dialog flow to match the history of the matched intents (for given user and the data model) should
-                    match the dialog flow pattern. Note that if dialog flow is defined and it doesn't match the history the terms
-                    of the intent won't be tested at all.
+                    In this example, the <code>^(?:id1)(^:id2)*$</code> dialog flow regular expression defines that intent
+                    should only match when the immediate previous intent was <code>id1</code> and no <code>id2</code> intents
+                    are in the history. If history is <code>"id1 id3 id3"</code> - this intent will match. However, for
+                    <code>"id1 id2"</code> or <code>"id3 id1"</code> history this dialog flow will not match.
+                </p>
+                <p>
+                    Note that if dialog flow is defined and it doesn't match the history the terms of the intent won't be tested at all.
                 </p>
             </dd>
             <dt>
@@ -454,7 +453,7 @@ id: intent_matching
                 </p>
                 <p>
                     <code>?</code> and <code>[1,3]</code> define an inclusive quantifier for that term (how many time this term should appear
-                    for it to be considered found). You cal also use the following abbreviations:
+                    for it to be considered found). You can also use the following standard abbreviations:
                 </p>
                 <ul>
                     <li><code>*</code> is equal to <code>[0,∞]</code></li>
@@ -607,9 +606,9 @@ id: intent_matching
                 required technique when you cannot express the desired matching logic with just intent DSL alone.
                 Intent DSL is a high-level declarative language and it does
                 not support programmable logic or other types of complex matching algorithms. In such cases, you can
-                define a broad intent that would match and then define the rest of the more complex matching logic in the callback 
-                using <code>NCIntentSkip</code> exception to effectively indicate when intent doesn't match (and other
-                intents have to be tried).
+                define a broad intent that would <em>broadly match</em> and then define the rest of the more complex matching logic in the callback
+                using <code>NCIntentSkip</code> exception to effectively indicate when intent doesn't match and other
+                intents, if any, have to be tried.
             </p>
             <p>
                 There are many use cases where DSL is not expressive enough. For example, if you intent matching depends
@@ -625,6 +624,64 @@ id: intent_matching
             about the intent that was matched (i.e. the intent with which this callback was annotated with). Note also that
             intent context can only be the 1st parameter in the callback, and if not declared as such - it won't be passed in.
         </p>
+    </section>
+    <section id="model_callbacks">
+        <h2 class="section-title">Model Callbacks</h2>
+        <p>
+            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModel.html">NCModel</a> interface provides
+            several callbacks that are invoked before, during and after intent matching. They provide an opportunity to inject
+            user-provided cross-cutting concerns into a standard intent matching workflow of NLPCraft. Usage of these callbacks
+            is completely optional, yet they provide convenient joint points for logging, statistic collections, security
+            audit and validation, explicit conversation context management, model metadata updates, and many other aspects
+            that depend on the standard intent matching workflow:
+        </p>
+        <table class="gradient-table">
+            <thead>
+            <tr>
+                <th>Callback</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><a href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onParsedVariant(org.apache.nlpcraft.model.NCVariant)"><code>NCModel#onParsedVariant(...)</code></a></td>
+                <td>
+                    <p>
+                        A callback to accept or reject a parsed variant. This callback is called before any other
+                        callbacks at the beginning of the processing pipeline and it is called for each parsed variant.
+                        Note that a given user input can have one or more possible different parsing variants. Depending on
+                        model configuration a user input can produce hundreds or even thousands of parsing variants that
+                        can significantly slow down the overall processing. This method allows to filter out unnecessary
+                        parsing variants based on variety of user-defined factors like number of tokens, presence
+                        of a particular token in the variant, etc.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><a href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onContext(org.apache.nlpcraft.model.NCContext)"><code>NCModel#onContext(...)</code></a></td>
+                <td>
+                    <p>
+                        A callback that is called when a fully assembled query context is ready. This callback is called
+                        after all <a href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onParsedVariant(org.apache.nlpcraft.model.NCVariant)"><code>onParsedVariant(...)</code></a>
+                        callbacks are called but before any <a href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onMatchedIntent(org.apache.nlpcraft.model.NCIntentMatch)"><code>onMatchedIntent(...)</code></a>
+                        are called, i.e. right before the intent matching is performed. It's called always once per user request processing.
+                        Typical use case for this callback is to perform logging, debugging, statistic or usage collection,
+                        explicit update or initialization of conversation context, security audit or validation, etc.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><a href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onMatchedIntent(org.apache.nlpcraft.model.NCIntentMatch)"><code>onMatchedIntent(...)</code></a></td>
+                <td>
+                    <p>
+                        A callback that is called when intent was successfully matched but right before its callback is called. This callback is called after onContext(NCContext) is called and may be called multiple times depending on its return value. If true is returned than the default workflow will continue and the matched intent's callback will be called. However, if false is returned than the entire existing set of parsing variants will be matched against all declared intents again. Returning false allows this method to alter the state of the model (like soft-reset conversation or change metadata) and force the full re-evaluation of the parsing variants against all declared intents. Note that user logic should be careful not to induce infinite loop in this behavior.
+
+                        Note that this callback may not be called at all based on the return value of onContext(NCContext) callback. Typical use case for this callback is to perform logging, debugging, statistic or usage collection, explicit update or initialization of conversation context, security audit or validation, etc.
+                    </p>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </section>
     <section id="examples">
         <h2 class="section-title">Intent Examples</h2>
@@ -678,7 +735,7 @@ id: intent_matching
         </p>
         <pre class="brush: js">
             intent=id2
-                flow='id1* >> (id1|id2)[1,2]'
+                flow='id1 id2'
                 term={id == 'mytok' && signum(~score['best']) != -1}
                 term={(groups @@ 'actors' || groups @@ 'owners') && size(partAlias.~text) > 10}
         </pre>
@@ -688,9 +745,8 @@ id: intent_matching
                 Intent has ID <code>id2</code>.
             </li>
             <li>
-                Intent has dialog flow pattern to match: <code>'id1* >> (id1|id2)[1,2]'</code>. It expect zero or more
-                intents <code>id1</code> to matched immediately prior to this one and either one or two of <code>id1</code> or
-                <code>id2</code> intents before that.
+                Intent has dialog flow pattern: <code>'id1 id2'</code>. It expect sequence of intents <code>id1</code> and
+                <code>id2</code> somewhere in the history of previously matched intents in the course of the current conversation.
             </li>
             <li>
                 Intent has two non-conversational terms. Both terms have to be present only once (their implicit quantifiers are <code>[1,1]</code>).
@@ -731,6 +787,7 @@ id: intent_matching
         <li><a href="#matching">Intent Matching</a></li>
         <li><a href="#syntax">Intent DSL</a></li>
         <li><a href="#callback">Intent Callback</a></li>
+        <li><a href="#model_callbacks">Model Callbacks</a></li>
         <li><a href="#examples">Intent Examples</a></li>
         {% include quick-links.html %}
     </ul>
