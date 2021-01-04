@@ -129,10 +129,10 @@ id: script
             Runs <code>git pull</code> command in the current directory.
         </p>
         <pre class="brush: plain">
-            > $mvn clean package
+            > $ls -la
         </pre>
         <p style="margin-left: 20px">
-            Runs Maven build in the current directory.
+            Runs <code>ls -la</code> Unix shell command.
         </p>
         <pre class="brush: plain">
             > $cmd /c dir
@@ -172,12 +172,22 @@ id: script
         </p>
         <h2 class="section-sub-title">Using <code>bin/nlpcraft.{sh|cmd}</code> In Scripts</h2>
         <p>
-            All of the commands that utilize REST API produce JSON responses. You can easily parse these JSON responses
-            for your own needs in your scripts. For example, here's the code to get the access token from the <code>signin</code>
-            command (on Linux):
+            All of the commands that utilize REST API produce JSON responses:
+        </p>
+        <p>
+            <img class="non-fluid-img" src="/images/cli9.png" alt="">
+        </p>
+        <p>
+            You can easily parse these JSON responses for your own needs in your scripts. For example, here's the
+            code snippet to get the access token from the <code>signin</code> command (on Linux):
         </p>
         <pre class="brush: bash">
             $ bin/nlpcraft.sh no-ansi no-logo signin --email=admin@admin.com --passwd=admin | tail -n +2 | jq -M '.acsTok' | tr -d '"'
+        </pre>
+        <p>
+        ... and the result access token is:
+        </p>
+        <pre class="brush: bash">
             kkoXBAn8yruEzXrj8Kja5
         </pre>
         <p>
