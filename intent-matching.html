@@ -633,7 +633,7 @@ id: intent_matching
             user-provided cross-cutting concerns into a standard intent matching workflow of NLPCraft. Usage of these callbacks
             is completely optional, yet they provide convenient joint points for logging, statistic collections, security
             audit and validation, explicit conversation context management, model metadata updates, and many other aspects
-            that depend on the standard intent matching workflow:
+            that may depend on the standard intent matching workflow:
         </p>
         <table class="gradient-table">
             <thead>
@@ -644,7 +644,7 @@ id: intent_matching
             </thead>
             <tbody>
             <tr>
-                <td><a href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onParsedVariant(org.apache.nlpcraft.model.NCVariant)"><code>NCModel#onParsedVariant(...)</code></a></td>
+                <td><a href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onParsedVariant(org.apache.nlpcraft.model.NCVariant)"><code>NCModel#<b>onParsedVariant(...)</b></code></a></td>
                 <td>
                     <p>
                         A callback to accept or reject a parsed variant. This callback is called before any other
@@ -658,7 +658,7 @@ id: intent_matching
                 </td>
             </tr>
             <tr>
-                <td><a href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onContext(org.apache.nlpcraft.model.NCContext)"><code>NCModel#onContext(...)</code></a></td>
+                <td><a href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onContext(org.apache.nlpcraft.model.NCContext)"><code>NCModel#<b>onContext(...)</b></code></a></td>
                 <td>
                     <p>
                         A callback that is called when a fully assembled query context is ready. This callback is called
@@ -671,12 +671,60 @@ id: intent_matching
                 </td>
             </tr>
             <tr>
-                <td><a href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onMatchedIntent(org.apache.nlpcraft.model.NCIntentMatch)"><code>onMatchedIntent(...)</code></a></td>
+                <td><a href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onMatchedIntent(org.apache.nlpcraft.model.NCIntentMatch)"><code>NCModel#<b>onMatchedIntent(...)</b></code></a></td>
                 <td>
                     <p>
-                        A callback that is called when intent was successfully matched but right before its callback is called. This callback is called after onContext(NCContext) is called and may be called multiple times depending on its return value. If true is returned than the default workflow will continue and the matched intent's callback will be called. However, if false is returned than the entire existing set of parsing variants will be matched against all declared intents again. Returning false allows this method to alter the state of the model (like soft-reset conversation or change metadata) and force the full re-evaluation of the parsing variants against all declared intents. Note that user logic should be careful not to induce infinite loop in this behavior.
-
-                        Note that this callback may not be called at all based on the return value of onContext(NCContext) callback. Typical use case for this callback is to perform logging, debugging, statistic or usage collection, explicit update or initialization of conversation context, security audit or validation, etc.
+                        A callback that is called when intent was successfully matched but right before its callback is called.
+                        This callback is called after <a href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onContext(org.apache.nlpcraft.model.NCContext)"><code>onContext(...)</code></a>
+                        is called and may be called multiple times depending on its return value. If <code>true</code> is
+                        returned than the default workflow will continue and the matched intent's callback will be called.
+                        However, if <code>false</code> is returned than the entire existing set of parsing variants will be
+                        matched against all declared intents again. Returning false allows this method to alter the state
+                        of the model (like soft-reset conversation or change metadata) and force the full re-evaluation
+                        of the parsing variants against all declared intents. Note that user logic should be careful not
+                        to induce infinite loop in this behavior.
+                    </p>
+                    <p>
+                        Note that this callback may not be called at all based on the return value of
+                        <a href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onContext(org.apache.nlpcraft.model.NCContext)"><code>onContext(...)</code></a> callback.
+                        Typical use case for this callback is to perform logging, debugging, statistic or usage collection,
+                        explicit update or initialization of conversation context, security audit or validation, etc.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><a href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onResult(org.apache.nlpcraft.model.NCIntentMatch,org.apache.nlpcraft.model.NCResult)"><code>NCModel#<b>onResult(...)</b></code></a></td>
+                <td>
+                    <p>
+                        A callback that is called when successful result is obtained from the intent callback and right
+                        before sending it back to the caller. This callback is called after
+                        <a href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onMatchedIntent(org.apache.nlpcraft.model.NCIntentMatch)"><code>onMatchedIntent(...)</code></a> is called.
+                        Note that this callback may not be called at all, and if called - it's called only once. Typical
+                        use case for this callback is to perform logging, debugging, statistic or usage collection,
+                        explicit update or initialization of conversation context, security audit or validation, etc.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><a href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onRejection(org.apache.nlpcraft.model.NCIntentMatch,org.apache.nlpcraft.model.NCRejection)"><code>NCModel#<b>onRejection(...)</b></code></a></td>
+                <td>
+                    <p>
+                        A callback that is called when intent callback threw <a href="/apis/latest/org/apache/nlpcraft/model/NCRejection.html"><code>NCRejection</code></a> exception.
+                        This callback is called after <a href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onMatchedIntent(org.apache.nlpcraft.model.NCIntentMatch)"><code>onMatchedIntent(...)</code></a> is called.
+                        Note that this callback may not be called at all, and if called - it's called only once. Typical
+                        use case for this callback is to perform logging, debugging, statistic or usage collection,
+                        explicit update or initialization of conversation context, security audit or validation, etc.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><a href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onError(org.apache.nlpcraft.model.NCContext,java.lang.Throwable)"><code>NCModel#<b>onError(...)</b></code></a></td>
+                <td>
+                    <p>
+                        A callback that is called when intent callback failed with unexpected exception. Note that this
+                        callback may not be called at all, and if called - it's called only once. Typical use case for
+                        this callback is to perform logging, debugging, statistic or usage collection, explicit update
+                        or initialization of conversation context, security audit or validation, etc.
                     </p>
                 </td>
             </tr>

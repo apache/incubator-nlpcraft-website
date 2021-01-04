@@ -245,9 +245,9 @@ public class AlarmModel extends NCModelFileAdapter {
             defaults for most of its methods. These are the only methods that need to be implemented by its sub-class:
         </p>
         <ul>
-            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getId--">getId()</a></li>
-            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getName--">getName()</a></li>
-            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getVersion--">getVersion()</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getId()">getId()</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getName()">getName()</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getVersion()">getVersion()</a></li>
         </ul>
         <p>
             You can either implement <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModel.html">NCModel</a>
@@ -290,49 +290,49 @@ public class AlarmModel extends NCModelFileAdapter {
         </p>
         <h3 class="section-title">Callbacks</h3>
         <p>
-            There are two callbacks on
+            There are two lifecycle callbacks on
             <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModel.html">NCModel</a> interface
-            (by way of extending <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCLifecycle.html">NCLifecycle</a> interface) that you can optionally override to affect the the default lifecycle behavior:
+            (by way of extending <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCLifecycle.html">NCLifecycle</a> interface) that you can override to affect the the default lifecycle behavior:
         </p>
         <ul>
             <li>
-                <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCLifecycle.html#onInit--">onInit()</a> - called
+                <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCLifecycle.html#onInit()">onInit()</a> - called
                 right after the model was loaded and deployed.
             </li>
             <li>
-                <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCLifecycle.html#onDiscard--">onDiscard()</a> - called to
+                <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCLifecycle.html#onDiscard()">onDiscard()</a> - called to
                 discard the data model when and only when data probe is orderly shutting down.
             </li>
         </ul>
         <p>
-            Note that there are also several callbacks that you can override to affect model behavior
+            There are also several callbacks that you can override to affect model behavior during intent matching
             to perform logging, debugging, statistic or usage collection, explicit update or initialization of
             conversation context, security audit or validation:
         </p>
         <ul>
             <li>
                 <a target="javadoc"
-                   href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onParsedVariant-org.apache.nlpcraft.model.NCVariant-">onParsedVariant(...)</a>
+                   href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onParsedVariant(org.apache.nlpcraft.model.NCVariant)">onParsedVariant(...)</a>
             </li>
             <li>
                 <a target="javadoc"
-                   href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onContext-org.apache.nlpcraft.model.NCContext-">onContext(...)</a>
+                   href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onContext(org.apache.nlpcraft.model.NCContext)">onContext(...)</a>
             </li>
             <li>
                 <a target="javadoc"
-                   href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onMatchedIntent-org.apache.nlpcraft.model.NCIntentMatch-">onMatchedIntent(...)</a>
+                   href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onMatchedIntent(org.apache.nlpcraft.model.NCIntentMatch)">onMatchedIntent(...)</a>
             </li>
             <li>
                 <a target="javadoc"
-                   href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onResult-org.apache.nlpcraft.model.NCIntentMatch-org.apache.nlpcraft.model.NCResult-">onResult(...)</a>
+                   href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onResult(org.apache.nlpcraft.model.NCIntentMatch,org.apache.nlpcraft.model.NCResult)">onResult(...)</a>
             </li>
             <li>
                 <a target="javadoc"
-                   href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onError-org.apache.nlpcraft.model.NCContext-java.lang.Throwable-">onError(...)</a>
+                   href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onError(org.apache.nlpcraft.model.NCContext,java.lang.Throwable)">onError(...)</a>
             </li>
             <li>
                 <a target="javadoc"
-                   href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onRejection-org.apache.nlpcraft.model.NCIntentMatch-org.apache.nlpcraft.model.NCRejection-">onRejection(...)</a>
+                   href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onRejection(org.apache.nlpcraft.model.NCIntentMatch,org.apache.nlpcraft.model.NCRejection)">onRejection(...)</a>
             </li>
         </ul>
         <div class="bq info">
@@ -340,9 +340,9 @@ public class AlarmModel extends NCModelFileAdapter {
             <p>
                 Callbacks
                 <a target="javadoc"
-                   href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onContext-org.apache.nlpcraft.model.NCContext-">onContext(...)</a> and
+                   href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onContext(org.apache.nlpcraft.model.NCContext)">onContext(...)</a> and
                 <a target="javadoc"
-                   href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onMatchedIntent-org.apache.nlpcraft.model.NCIntentMatch-">onMatchedIntent(...)</a>
+                   href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onMatchedIntent(org.apache.nlpcraft.model.NCIntentMatch)">onMatchedIntent(...)</a>
                 are especially handy to perform a soft reset on the conversation context. Read their Javadoc documentation
                 to understand these callbacks protocol.
             </p>
@@ -355,48 +355,45 @@ public class AlarmModel extends NCModelFileAdapter {
                 the probe or server configuration the lifecycle components will be called
                 during various stages of the probe or server startup or shutdown procedures. These callbacks can be used
                 to control lifecycle of external libraries and systems that the data probe or the server rely on, i.e.
-                <a href="metrics-and-tracing.html">OpenCensus exporters</a>,
-                security environment, devops hooks, etc.
+                <a href="metrics-and-tracing.html">OpenCensus exporters</a>, security environment, devops hooks, etc.
             </p>
             <p>
-                See server and probe <a href="">configuration</a> as well as <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCProbeLifecycle.html">NCProbeLifecycle</a>
-                interface for more details.
+                See server and probe <a href="">configuration</a>.
             </p>
         </div>
     </section>
     <section id="config">
         <h2 class="section-title">Model Configuration</h2>
         <p>
-            Apart from mandatory model <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getId--">ID</a>,
-            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getName--">name</a> and
-            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getVersion--">version</a>
+            Apart from mandatory model <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getId()">ID</a>,
+            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getName()">name</a> and
+            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getVersion()">version</a>
             there is a number of static model configurations that you can set. All of these properties have sensible
             defaults that you can override, when required, in either sub-classes or via external JSON/YAML declaration:
         </p>
         <ul>
-            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getAdditionalStopWords--">getAdditionalStopWords</a></li>
-            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getEnabledBuiltInTokens--">getEnabledBuiltInTokens</a></li>
-            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getExamples--">getExamples</a></li>
-            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getExcludedStopWords--">getExcludedStopWords</a></li>
-            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getJiggleFactor--">getJiggleFactor</a></li>
-            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMaxFreeWords--">getMaxFreeWords</a></li>
-            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMaxSuspiciousWords--">getMaxSuspiciousWords</a></li>
-            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMaxTokens--">getMaxTokens</a></li>
-            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMaxTotalSynonyms--">getMaxTotalSynonyms</a></li>
-            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMaxUnknownWords--">getMaxUnknownWords</a></li>
-            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMaxWords--">getMaxWords</a></li>
-            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMetadata--">getMetadata</a></li>
-            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMinNonStopwords--">getMinNonStopwords</a></li>
-            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMinTokens--">getMinTokens</a></li>
-            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMinWords--">getMinWords</a></li>
-            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getSuspiciousWords--">getSuspiciousWords</a></li>
-            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#isDupSynonymsAllowed--">isDupSynonymsAllowed</a></li>
-            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#isNonEnglishAllowed--">isNonEnglishAllowed</a></li>
-            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#isNoNounsAllowed--">isNoNounsAllowed</a></li>
-            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#isNotLatinCharsetAllowed--">isNotLatinCharsetAllowed</a></li>
-            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#isNoUserTokensAllowed--">isNoUserTokensAllowed</a></li>
-            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#isPermutateSynonyms--">isPermutateSynonyms</a></li>
-            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#isSwearWordsAllowed--">isSwearWordsAllowed</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getAdditionalStopWords()">getAdditionalStopWords</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getEnabledBuiltInTokens()">getEnabledBuiltInTokens</a></li>
+             <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getExcludedStopWords()">getExcludedStopWords</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getJiggleFactor()">getJiggleFactor</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMaxFreeWords()">getMaxFreeWords</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMaxSuspiciousWords()">getMaxSuspiciousWords</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMaxTokens()">getMaxTokens</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMaxTotalSynonyms()">getMaxTotalSynonyms</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMaxUnknownWords()">getMaxUnknownWords</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMaxWords()">getMaxWords</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMetadata()">getMetadata</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMinNonStopwords()">getMinNonStopwords</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMinTokens()">getMinTokens</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMinWords()">getMinWords</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getSuspiciousWords()">getSuspiciousWords</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#isDupSynonymsAllowed()">isDupSynonymsAllowed</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#isNonEnglishAllowed()">isNonEnglishAllowed</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#isNoNounsAllowed()">isNoNounsAllowed</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#isNotLatinCharsetAllowed()">isNotLatinCharsetAllowed</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#isNoUserTokensAllowed()">isNoUserTokensAllowed</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#isPermutateSynonyms()">isPermutateSynonyms</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#isSwearWordsAllowed()">isSwearWordsAllowed</a></li>
         </ul>
         <h3 class="section-title">External JSON/YAML Declaration</h3>
         <p>
@@ -480,7 +477,7 @@ intents:
         <p>
             Model element is an implementation of <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCElement.html">NCElement</a>
             interface. <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModel.html">NCModel</a> provides
-            its elements via <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getElements--">getElements()</a> method.
+            its elements via <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getElements()">getElements()</a> method.
             Typically, you create model elements by either:
         </p>
         <ul>
@@ -599,7 +596,7 @@ intents:
             ...
         </pre>
         <p>
-            During synonym matching NLPCraft uses <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getJiggleFactor--">jiggle factor</a> to rearrange (or "jiggle")
+            During synonym matching NLPCraft uses <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getJiggleFactor()">jiggle factor</a> to rearrange (or "jiggle")
             the individual words in the user input in attempt to match a given synonym. Jiggle factor is a measure of
             how much sparsity is allowed when user input words are reordered in attempt to match the multi-word
             synonyms. Zero means no reordering is allowed. One means that a word can move only one
@@ -641,7 +638,7 @@ intents:
             together with option groups allow for significant simplification of this process.
             Macros let you give a name to an often used set of words or option groups and reuse it without
             repeating those words or option groups again and again. A model provides a list of macros via
-            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMacros--">getMacros()</a> method on
+            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMacros()">getMacros()</a> method on
             <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html">NCModelView</a> interface. Each macro
             has a name in a form of <code>&lt;X&gt;</code> where <code>X</code>
             is just any string, and a string value. Note that macros can be nested (but not recursive), i.e. macro value can include
@@ -824,7 +821,7 @@ intents:
             (backslash).
         </p>
         <p>
-            For example, the following synonym: 
+            For example, the following synonym:
         </p>
         <pre class="brush: js">
         "synonyms": [
@@ -854,7 +851,7 @@ intents:
             When a model element is recognized it is made available to the model's matching logic as an instance of
             the <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html">NCToken</a> interface.
             This interface has a method
-            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getValue--">getValue()</a> which
+            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getValue()">getValue()</a> which
             returns the name of the value, if any, by which
             that model element was recognized. That value name can be further used in intent matching.
         </p>
@@ -916,7 +913,7 @@ intents:
         <span id="groups" class="section-sub-title">Element Groups</span>
         <p>
             Each model element belongs to one or more groups. Model element provides its groups via
-            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelElement.html#getGroups--">getGroups()</a> method.
+            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCElement.html#getGroups()">getGroups()</a> method.
             By default, if element group is not specified, the element ID will act as its default group ID.
         </p>
         <p>
@@ -942,7 +939,7 @@ intents:
         <span id="parent" class="section-sub-title">Element Parent</span>
         <p>
             Each model element can form an optional hierarchical relationship with other element by specifying its
-            parent element ID via <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelElement.html#getParnetId--">getParentID()</a> method. The main idea here is that sometimes model elements can act not only individually but
+            parent element ID via <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCElement.html#getParentId()">getParentID()</a> method. The main idea here is that sometimes model elements can act not only individually but
             their place in the hierarchy can be important too for token and intent DSL.
         </p>
         <p>
@@ -1158,7 +1155,7 @@ intents:
                 <td><code>id</code></td>
                 <td>
                     <p>
-                        Token <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getId--">ID</a> as
+                        Token <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getId()">ID</a> as
                         a <code>java.lang.String</code> object.
                     </p>
                     <p>
@@ -1171,7 +1168,7 @@ intents:
                 <td><code>groups</code></td>
                 <td>
                     <p>
-                        Token <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getGroups--">groups</a>
+                        Token <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getGroups()">groups</a>
                         as <code>java.util.Collection</code> of token IDs.
                     </p>
                     <p>
@@ -1184,7 +1181,7 @@ intents:
                 <td><code>aliases</code></td>
                 <td>
                     <p>
-                        Token <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getAliases--">aliases</a>
+                        Token <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getAliases()">aliases</a>
                         as <code>java.util.Collection</code> of token aliases.
                     </p>
                     <p>
@@ -1197,7 +1194,7 @@ intents:
                 <td><code>startidx</code></td>
                 <td>
                     <p>
-                        Token start character <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getStartCharIndex--">index</a> in the original text.
+                        Token start character <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getStartCharIndex()">index</a> in the original text.
                     </p>
                     <p>
                         <b>Example:</b><br/>
@@ -1209,7 +1206,7 @@ intents:
                 <td><code>endidx</code></td>
                 <td>
                     <p>
-                        Token end character <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getStartCharIndex--">index</a> in the original text.
+                        Token end character <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getStartCharIndex()">index</a> in the original text.
                     </p>
                     <p>
                         <b>Example:</b><br/>
@@ -1221,7 +1218,7 @@ intents:
                 <td><code>parent</code></td>
                 <td>
                     <p>
-                        <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getParentId--">ID</a> of
+                        <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getParentId()">ID</a> of
                         the parent token as a <code>java.lang.String</code> object.
                     </p>
                     <p>
@@ -1234,7 +1231,7 @@ intents:
                 <td><code>ancestors</code></td>
                 <td>
                     <p>
-                        <code>java.util.List</code> of all token <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getParentId--">parent ID</a>
+                        <code>java.util.List</code> of all token <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getParentId()">parent ID</a>
                         from the current one to the root. List can be empty if current token has no parent ID.
                     </p>
                     <p>
@@ -1247,7 +1244,7 @@ intents:
                 <td><code>value</code></td>
                 <td>
                     <p>
-                        Token <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getValue--">value</a>
+                        Token <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getValue()">value</a>
                         as a <code>java.lang.String</code> object.
                     </p>
                     <p>
@@ -1260,7 +1257,7 @@ intents:
                 <td><code>~propName</code></td>
                 <td>
                     <p>
-                        Token <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getMetadata--">metadata</a>
+                        Token <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCMetadata.html#getMetadata()">metadata</a>
                         property for given <code>propName</code>.
                     </p>
                     <p>
@@ -1273,7 +1270,7 @@ intents:
                 <td><code>~propName[key]</code></td>
                 <td>
                     <p>
-                        Token <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getMetadata--">metadata</a>
+                        Token <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCMetadata.html#getMetadata()">metadata</a>
                         property for given <code>propName</code>
                         of type <code>java.util.List</code> or <code>java.util.Map</code>.
                         Returns indexed or keyed value. Note that <code>key</code> should be integer
@@ -1720,7 +1717,7 @@ intents:
         </p>
         <ul>
             <li>
-                Model provides its custom parsers via <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getParsers--">getParsers()</a> method.
+                Model provides its custom parsers via <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getParsers()">getParsers()</a> method.
             </li>
             <li>
                 Custom parser is defined by the following classes:
@@ -1793,18 +1790,18 @@ intents:
             </li>
             <li>
                 List of parsing variants provided
-                by <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCContext.html#getVariants--">getVariants()</a>
+                by <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCContext.html#getVariants()">getVariants()</a>
                 method. When the user sentence gets parsed into individual tokens (i.e. detected model elements) there is generally
                 more than one way to do it. This ambiguity is perfectly fine because only the data model has all the
                 necessary information to select one parsing variant that fits that model the best. Without the data model
                 there isn't enough context to determine which variant is the best fitting.
-                Method <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCContext.html#getVariants--">getVariants()</a>
+                Method <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCContext.html#getVariants()">getVariants()</a>
                 returns list of all parsing variants for a given user input.
             </li>
         </ul>
         <h3 class="section-title">Interface <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html">NCRequest</a></h3>
         <p>
-            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCSentence.html">NCRequest</a> interface
+            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html">NCRequest</a> interface
             is one of the several important entities in Data Model API that you as a model developer will be working with. You
             should review its <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html">Javadoc</a> but
             here is an outline of the information it provides:
@@ -1829,7 +1826,7 @@ intents:
         </p>
         <p>
             Most of the token's information is stored in map-based metadata accessible via
-            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getMetadata--">getMetadata()</a> method.
+            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCMetadata.html#getMetadata()">getMetadata()</a> method.
             Depending on the token ID each token will have different set of <a href="#meta">metadata properties</a>. Some common NLP properties
             are always present for tokens of all types.
         </p>
@@ -1851,7 +1848,7 @@ intents:
         <p>
             Built-in tokens have to be explicitly enabled on both the REST server and in the model. See
             <code>nlpcraft.server.tokenProviders</code> configuration property and
-            <a target="javadoc" href="apis/latest/org/apache/nlpcraft/model/NCModelView.html#getEnabledBuiltInTokens--">NCModelView#getEnabledBuiltInTokens()</a>
+            <a target="javadoc" href="apis/latest/org/apache/nlpcraft/model/NCModelView.html#getEnabledBuiltInTokens()">NCModelView#getEnabledBuiltInTokens()</a>
             method for more details. By default, only NLPCraft tokens are enabled (token ID
             starting with <code>nlpcraft</code>).
         </p>
@@ -2208,7 +2205,7 @@ intents:
                     <td>
                         Whether this token represents an English word. Note that this only checks that token's text
                         consists of characters of English alphabet, i.e. the text doesn't have to be necessary a
-                        known valid English word. See <a href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#isNonEnglishAllowed--" target="javadoc">NCModelView.isNonEnglishAllowed()</a> method
+                        known valid English word. See <a href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#isNonEnglishAllowed()" target="javadoc">NCModelView.isNonEnglishAllowed()</a> method
                         for corresponding model configuration.
                     </td>
                 </tr>
@@ -2258,7 +2255,7 @@ intents:
                     <td><code>java.lang.Boolean</code></td>
                     <td>
                         Whether or not this token is a swear word. NLPCraft has built-in list of common English swear words.
-                        See <a href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#isSwearWordsAllowed--" target="javadoc">NCModelView.isSwearWordsAllowed()</a> for corresponding model configuration
+                        See <a href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#isSwearWordsAllowed()" target="javadoc">NCModelView.isSwearWordsAllowed()</a> for corresponding model configuration
                     </td>
                 </tr>
                 <tr>
