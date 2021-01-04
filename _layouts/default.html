@@ -57,8 +57,8 @@ layout: compress
     <script src="//stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>    <!-- BS3 CSS, etc. -->
 
     <link href="//use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" rel="stylesheet" crossorigin="anonymous">
-    <link href="{{ '/ext/syntaxhighlighter/styles/shCoreNLPCraft.css' | relative_url }}" rel="stylesheet" type="text/css">
-    <link href="{{ '/ext/syntaxhighlighter/styles/shThemeNLPCraft.css' | relative_url }}" rel="stylesheet" type="text/css">
+    <link href="/ext/syntaxhighlighter/styles/shCoreNLPCraft.css" rel="stylesheet" type="text/css">
+    <link href="/ext/syntaxhighlighter/styles/shThemeNLPCraft.css" rel="stylesheet" type="text/css">
 
     <!-- Google fonts. -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -66,18 +66,19 @@ layout: compress
     <link href="//fonts.googleapis.com/css2?family=Libre+Baskerville:ital@1&display=swap" rel="stylesheet">
 
     <!-- Loading some init libs here. -->
-    <script src="{{ '/ext/syntaxhighlighter/scripts/XRegExp.js' | relative_url }}" type="text/javascript"></script>
-    <script src="{{ '/ext/syntaxhighlighter/scripts/shCore.js' | relative_url }}" type="text/javascript"></script>
-    <script src="{{ '/ext/syntaxhighlighter/scripts/shBrushXml.js' | relative_url }}" type="text/javascript"></script>
-    <script src="{{ '/ext/syntaxhighlighter/scripts/shBrushPlain.js' | relative_url }}" type="text/javascript"></script>
-    <script src="{{ '/ext/syntaxhighlighter/scripts/shBrushJava.js' | relative_url }}" type="text/javascript"></script>
-    <script src="{{ '/ext/syntaxhighlighter/scripts/shBrushScala.js' | relative_url }}" type="text/javascript"></script>
-    <script src="{{ '/ext/syntaxhighlighter/scripts/shBrushPython.js' | relative_url }}" type="text/javascript"></script>
-    <script src="{{ '/ext/syntaxhighlighter/scripts/shBrushJScript.js' | relative_url }}" type="text/javascript"></script>
+    <script src="/ext/syntaxhighlighter/scripts/XRegExp.js" type="text/javascript"></script>
+    <script src="/ext/syntaxhighlighter/scripts/shCore.js" type="text/javascript"></script>
+    <script src="/ext/syntaxhighlighter/scripts/shBrushXml.js" type="text/javascript"></script>
+    <script src="/ext/syntaxhighlighter/scripts/shBrushBash.js" type="text/javascript"></script>
+    <script src="/ext/syntaxhighlighter/scripts/shBrushPlain.js" type="text/javascript"></script>
+    <script src="/ext/syntaxhighlighter/scripts/shBrushJava.js" type="text/javascript"></script>
+    <script src="/ext/syntaxhighlighter/scripts/shBrushScala.js" type="text/javascript"></script>
+    <script src="/ext/syntaxhighlighter/scripts/shBrushPython.js" type="text/javascript"></script>
+    <script src="/ext/syntaxhighlighter/scripts/shBrushJScript.js" type="text/javascript"></script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
     <!-- Main CSS. -->
-    <link rel="stylesheet" type="text/css" href="{{ '/assets/css/style.css' | relative_url }}"/>
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css"/>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -90,7 +91,7 @@ layout: compress
 <!-- Fixed navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light" id="top-header">
     <a class="navbar-brand mr-4" href="/index.html">
-        <img src="{{ 'images/nlpcraft_logo_white.gif' | relative_url }}" height="24px">
+        <img src="/images/nlpcraft_logo_white.gif" height="24px">
     </a>
     
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -123,7 +124,7 @@ layout: compress
                 <a class="nav-link" href="/download.html">v.{{ site.latest_version}}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link fork-link" target="github" href="https://github.com/apache/incubator-nlpcraft">GitHub <img height="20px" src="{{ 'images/github_logo_white.png' | relative_url }}"></a>
+                <a class="nav-link fork-link" target="github" href="https://github.com/apache/incubator-nlpcraft">GitHub <img height="20px" src="/images/github_logo_white.png"></a>
             </li>
         </ul>
     </div>
@@ -136,7 +137,7 @@ layout: compress
         <div class="text-muted text-center">
             <span>Copyright &copy; 2021 Apache Software Foundation</span>
             <span>
-                <a target=_new href="https://apache.org"><img alt="asf" src="{{ '/images/asf_logo.png' | relative_url }}" height="24px"></a>
+                <a target=_new href="https://apache.org"><img alt="asf" src="/images/asf_logo.png" height="24px"></a>
             </span>
             <a target="asf" href="https://www.apache.org/events/current-event.html" class="btn btn-link ml-4">Events</a>
             <span class="sep">•</span>

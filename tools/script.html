@@ -147,129 +147,58 @@ id: script
             as well.
         </p>
     </section>
-    <section id="usage">
-        <h2 class="section-title">Usage</h2>
+    <section id="tips">
+        <h2 class="tips">Tips <span class="amp">&amp;</span> Tricks</h2>
         <p>
-            Commands supported by the <code>bin/nlpcraft.{sh|cmd}</code> script fall into 4 categories:
+            <code>bin/nlpcraft.{sh|cmd}</code> is standard command line utility that can be used in the familiar ways both in
+            Linux/Unix and Window environments. Note that only Windows 10 has been tested.
         </p>
-        <ol>
+        <h2 class="section-sub-title">Using <code>start-server</code> Command</h2>
+        <p>
+            REST server is a fire-and-forget component in NLPCraft. You can start it once and you only need to restart it
+            if you change the server configuration. It is customary to add <code>bin/nlpcraft.{sh|cmd} start-server</code>
+            call to the OS init script to have it started automatically on boot up.
+        </p>
+        <h2 class="section-sub-title">Using Default <code>nlpcraft.conf</code></h2>
+        <p>
+            It is recommended to modify the standard <code>nlpcraft.conf</code> configuration file (i.e. <em>in a standard
+            installation location</em>). Commands like <code>start-server</code>, <code>start-probe</code> and
+            <code>test-model</code> use this default location by default and you will not have to specify alternative
+            location or provide other overrides every time you run these commands.
+        </p>
+        <p>
+            If you keep all your configuration modifications in the standard <code>nlpcraft.conf</code> file you can simply
+            run these commands without any additional arguments - significantly simplifying their usage.
+        </p>
+        <h2 class="section-sub-title">Using <code>bin/nlpcraft.{sh|cmd}</code> In Scripts</h2>
+        <p>
+            All of the commands that utilize REST API produce JSON responses. You can easily parse these JSON responses
+            for your own needs in your scripts. For example, here's the code to get the access token from the <code>signin</code>
+            command (on Linux):
+        </p>
+        <pre class="brush: bash">
+            $ bin/nlpcraft.sh no-ansi no-logo signin --email=admin@admin.com --passwd=admin | tail -n +2 | jq -M '.acsTok' | tr -d '"'
+            kkoXBAn8yruEzXrj8Kja5
+        </pre>
+        <p>
+            <b>NOTES:</b>
+        </p>
+        <ul>
             <li>
-                <b>Server Commands.</b><br/>
-                <p>
-                    Server commands allow to manage locally run REST server. Note that these commands only work for the REST
-                    server that runs on the same host as script. In other words, these commands cannot manage the remote REST
-                    server.
-                </p>
-                <p>
-                    REST server is a "fire-and-forget" component. During model development you will likely start the
-                    server only once and check its output from time to time as most of the work will be happening in the data probe
-                    that hosts your models.
-                </p>
-                <p>
-                    For example, <code>start-server</code> command provide the easiest and quickest way to start the REST server (with
-                    default configuration by default):
-                </p>
-                <p>
-                    <img class="non-fluid-img" alt="" src="/images/cli3.png">
-                </p>
-                <p>
-                    Note that when <code>start-server</code> commands completes it shows all connected probes (none in this example)
-                    and automatically signs in with the default <code>admin@admin.com</code> user account so that you can proceed
-                    to testing and working with your model right away.
-                </p>
-                <div class="bq info">
-                    <b>REPL Prompt</b>
-                    <p>
-                        REPL prompt shows 3 pieces of information:
-                    </p>
-                    <ul>
-                        <li>REST server status (<code>ON</code> if server is started and detected, <code>OFF</code> otherwise).</li>
-                        <li>REST access token if the user is signed in. This token is required for all REST calls.</li>
-                        <li>Current user working directory.</li>
-                    </ul>
-                </div>
+                We use <code>no-ansi</code> and <code>no-logo</code> special commands that clean up and simplify the
+                output so that it would be easier to parse the resulting JSON.
             </li>
             <li>
-                <b>REST Commands:</b>
-                <p>
-                    All REST commands provide convenient wrappers for <a href="/using-rest.html">REST API</a>.
-                </p>
-                <p>
-                    Tha two main commands are <code>call</code> and <code>rest</code> - they provide generic REST call wrapper
-                    for both REPL and command line modes respectively. <code>call</code> command is convenient for the REPL
-                    mode, while <code>rest</code> command is more convenient for the command line mode.
-                </p>
-                <p>
-                    Following additional commands provide custom wrappers for frequently used REST APIs:
-                </p>
-                <table class="gradient-table">
-                    <thead>
-                    <tr>
-                        <td>REPL Wrapper</td>
-                        <td>REST API</td>
-                        <td>Help</td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code>ask</code></td>
-                            <td><code>/ask/sync</code></td>
-                            <td><code>help --cmd=ask</code></td>
-                        </tr>
-                        <tr>
-                            <td><code>signin</code></td>
-                            <td><code>/signin</code></td>
-                            <td><code>help --cmd=signin</code></td>
-                        </tr>
-                        <tr>
-                            <td><code>signout</code></td>
-                            <td><code>/signout</code></td>
-                            <td><code>help --cmd=signout</code></td>
-                        </tr>
-                        <tr>
-                            <td><code>sugsyn</code></td>
-                            <td><code>/model/sugsyn</code></td>
-                            <td><code>help --cmd=sugsyn</code></td>
-                        </tr>
-                    <tbody>
-                </table>
-                <p>
-                    This is an example of the session where <code>call</code> command was used to issue REST <code>/signin</code>
-                    call and then REST <code>/signout</code> call:
-                </p>
-                <p>
-                    <img class="non-fluid-img" src="/images/cli4.png" alt="">
-                </p>
-                <p>
-                    The exactly the same sequence of calls can be performed quicker and easier using convenient
-                    <code>signing</code> and <code>signout</code> command wrappers:
-                </p>
-                <p>
-                    <img class="non-fluid-img" src="/images/cli5.png" alt="">
-                </p>
-                <p>
-                    Note that for <code>signout</code> command you don't even have to specify the access token
-                    as it is taken from the current server context automatically.
-                </p>
+                We use <code>tail -n +2</code> to skip the 1st line of the output that contains HTTP return code.
             </li>
             <li>
-                <b>REPL Commands:</b>
-                <p>
-                    REPL commands are set of utilities that you can use while in REPL mode. Although all of these commands, as always,
-                    can be executed in the command like mode - they make most sense in REPL mode (except for <code>help</code> command).
-                </p>
+                We use <a target=_blank href="https://stedolan.github.io/jq/">jq</a> utility to parse JSON inline to extract
+                <code>acsTok</code> field.
             </li>
             <li>
-                <b>Miscellaneous Tools:</b>
-                <p>
-                    Miscellaneous commands contain number of convenient utilities. For example, you can generate the
-                    project stub for Scala and SBT using the following command:
-                </p>
-                <p>
-                    <img class="non-fluid-img" src="/images/cli6.png" alt="">
-                </p>
+                We use <code>tr -d '"'</code> to remove surrounding double quotes to get out final result.
             </li>
-        </ol>
+        </ul>
     </section>
 </div>
 <div class="col-md-2 third-column">
@@ -278,7 +207,7 @@ id: script
         <li><a href="#overview">Overview</a></li>
         <li><a href="#quick_start">Quick Start</a></li>
         <li><a href="#os_commands">OS Commands</a></li>
-        <li><a href="#usage">Usage</a></li>
+        <li><a href="#tips">Tips <span class="amp">&amp;</span> Tricks</a></li>
         {% include quick-links.html %}
     </ul>
 </div>
