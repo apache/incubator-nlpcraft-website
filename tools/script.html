@@ -25,10 +25,10 @@ id: script
     <section id="overview">
         <h2 class="section-title">Overview</h2>
         <p>
-            <code>bin/nlpcraft.{sh|cmd}</code> script is a <b>central management utility</b> for NLPCraft. Most
-            of the functions this script does can be done through running
-            Java applications - yet using this script you can accomplish the same things much simpler and quicker.
-            From starting and managing REST server, running various built-in tools, to testing models via REST API -
+            <code>bin/nlpcraft.{sh|cmd}</code> script is a <b>central management utility</b> for NLPCraft that supports
+            REPL (interactive) and command line modes. Most of the functions this script does can be done through running
+            Java applications or using REST API - yet using this script you can perform the same tasks much simpler and quicker.
+            From starting and managing REST server and probes, running various built-in tools, to testing models via REST API -
             <code>bin/nlpcraft.{sh|cmd}</code> script provides a single centralized utility that makes a quick work out
             of all these routine tasks.
         </p>
@@ -47,8 +47,8 @@ id: script
         </div>
         <p>
             The script is located in <code>/bin</code> sub-folder of the installation root and is available for
-            Unix/Linux (<code>nlpcraft.sh</code>) and Windows (<code>nlpcraft.cmd</code>) environments. We will use
-            <code>.sh</code> version for the rest of instructions unless specified otherwise.
+            Unix/Linux (<code>nlpcraft.sh</code>) and Windows (<code>nlpcraft.cmd</code>) environments. Both versions
+            provide identical functionality.
         </p>
     </section>
     <section id="quick_start">
@@ -75,8 +75,25 @@ id: script
             <img class="non-fluid-img" src="/images/cli1.png" alt="">
         </p>
         <p>
-            Script starts in the REPL mode by default.
+            Script starts in the REPL mode by default. Note that in REPL mode the command prompt always shows REST
+            server status, local probe status, REST access token (if any) as well as current working directory.
         </p>
+        <div class="bq info">
+            <b>REPL Prompt</b>
+            <p>
+                REPL prompt shows 4 pieces of information:
+            </p>
+            <ul>
+                <li>REST server status (<code>ON</code> if server is started and detected, <code>OFF</code> otherwise).</li>
+                <li>Local probe status (<code>ON</code> if probe is started and connected to the server, <code>OFF</code> otherwise).</li>
+                <li>REST access token if the user is signed in. This token is required for all REST calls.</li>
+                <li>Current user working directory.</li>
+            </ul>
+            <p>
+                Note that when using <code>start-server</code> command the default user account is automatically signed in
+                upon server start and the access token is obtained. You can sign in with different user account, if necessary.
+            </p>
+        </div>
         <h2 class="section-sub-title">Get Command List</h2>
         <p>
             Type <code>help</code> to list all supported commands (or run <code>bin/nlpcraft.sh help</code> if in command line mode):
@@ -94,9 +111,6 @@ id: script
         <p>
             Use <span class="keyboard">Tab</span> key anytime for command auto-suggestion and auto-completion.<br/>
             Use <span class="keyboard">↑</span> and <span class="keyboard">↓</span> keys to scroll through command history.
-        </p>
-        <p>
-            <img class="non-fluid-img" alt="" src="/images/cli8.png">
         </p>
         <p>
             To exit <code>bin/nlpcraft.{sh|cmd}</code> script in REPL mode type <code>quit</code>.
