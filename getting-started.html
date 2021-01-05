@@ -25,10 +25,14 @@ id: getting_started
     <section id="getting-started">
         <h2 class="section-title">Getting Started</h2>
         <p>
-            In this section we'll take a quick 10 minutes look at running and
-            testing <a href="https://github.com/apache/incubator-nlpcraft/tree/master/nlpcraft/src/main/scala/org/apache/nlpcraft/examples" target="github">examples</a>
-            shipped with NLPCraft along with
-            running the main components of NLPCraft - data probe and REST server - using <code>nlpcraft.{sh|cmd}</code> script.
+            In this section we'll take a quick 10 minutes look at running NLPCraft <a href="https://github.com/apache/incubator-nlpcraft/tree/master/nlpcraft/src/main/scala/org/apache/nlpcraft/examples" target="github">examples</a>.
+            Instead of building our own model we will use an example model shipped with NLPCraft along with
+            demonstrating the main components of NLPCraft -
+            <a href="/server-and-probe.html#probe">data probe</a>,
+            <a href="/server-and-probe.html#server">REST server</a>, and
+            <a href="/tools/script.html"><code>nlpcraft.{sh|cmd}</code></a> script (NLPCraft CLI).
+        </p>
+        <p>
             We assume the following:
         </p>
         <ul>
@@ -40,24 +44,23 @@ id: getting_started
     <section id="probe-server">
         <h2 class="section-title">Data Probe <span class="amp">&amp;</span> REST Server</h2>
         <p>
-            Data probes are used to deploy and host data model, while REST server (or a
+            <a href="/server-and-probe.html">Data probes</a> are used to deploy and host data model, while <a href="/server-and-probe.html">REST server</a> (or a
             cluster of servers) is used to accept client REST calls and route them to the data model deployed on data probes.
         </p>
         <p>
             Data probe and REST server are both Java applications and therefore can be started in many different ways.
-            In this quick tutorial, we'll use <code>nlpcraft.{sh|cmd}</code> script that comes with NLPCraft and acts as a central management
-            utility responsible for executing most of the routine tasks in NLPCraft in most simple and productive way.
+            In this tutorial, we'll use <a href="/tools/script.html"><code>nlpcraft.{sh|cmd}</code></a> script that comes with NLPCraft and acts as a central management
+            utility responsible for executing most of the routine tasks in NLPCraft in a simple and productive way.
         </p>
         <p>
-            To start REST server and data probe (with default configurations) let's execute following two commands one
-            after another:
+            To start REST server and data probe with default configurations - execute following two commands:
         </p>
         <pre class="brush: bash">
             $ bin/nlpcraft.sh start-server
             $ bin/nlpcraft.sh start-probe
         </pre>
         <p>
-            ...and you will get the following output:
+            ...output:
         </p>
         <nav>
             <div class="nav nav-tabs" role="tablist">
@@ -79,7 +82,7 @@ id: getting_started
         </div>
         <p>
             At this point you have both the data probe and the REST server started and connected to each other.
-            We are ready to start calling REST API to use natural language to query our example models.
+            We are ready to start using REST API to query our example model.
         </p>
     </section>
     <section id="querying">
@@ -90,187 +93,76 @@ id: getting_started
             data for variety of different inquiries about the past, present or future weather conditions.
         </p>
         <p>
-            We will be using <code>nlpcraft.{sh|cmd}</code> script to issue REST calls. Let's start by running <code>nlpcraft.{sh|cmd}</code>
-            in REPL mode so that we can conveniently issue multiple commands. To get into REPL mode simply launch the <code>nlpcraft.{sh|cmd}</code>
-            script with no argument:
+            We will be using NLPCraft CLI script to issue REST calls. Let's start NLPCraft CLI in interactive REPL mode
+            by running running <code>nlpcraft.{sh|cmd}</code> script with no argument:
         </p>
         <pre class="brush: bash">
             $ bin/nlpcraft.sh
         </pre>
         <p>
-            ...with the following output (keep in mind that your REST server and data probe are already started and
-            connected to each other):
+            ...output:
         </p>
         <p>
             <img class="non-fluid-img" src="/images/getting_started_fig3.png" alt="">
         </p>
-
-
-
-
-
-
-        <h3 class="section-title">Sign In</h3>
         <p>
-            First, we need to sign in and obtain <b>access token</b>. We'll use <code>/signin</code>
-            REST call for that. When REST server starts
-            for the first time it creates a default user with email <code>admin@admin.com</code> and
-            <code>admin</code> password. Open new command line terminal and let's use these default credentials for sing in:
+            <b>NOTES:</b>
         </p>
-        <pre class="brush: js; highlight: [3]">
-            $ nccurl.sh signin '{"email": "admin@admin.com", "passwd": "admin"}'
-            {
-                "acsTok": "KMGWMQJ44",
-                "status": "API_OK"
-            }
-        </pre>
+        <ul>
+            <li>
+                Note that when you start NLPCraft CLI it automatically detects the REST server and data probe we have started in
+                the previous step.
+            </li>
+            <li>
+                You can see the status of the REST server and data probe in the prompt and you can always
+                use <code>info</code> command to see a full information.
+            </li>
+            <li>
+                When NLPCraft CLI detects running REST server it automatically signs in with the default user account
+                to obtain access token that is required for all REST calls. It will automatically use this access token
+                while in REPL mode whenever required so that you don't have to specify it manually.
+            </li>
+            <li>
+                Use <span class="keyboard">Tab</span> key anytime for command auto-suggestion and auto-completion.
+            </li>
+            <li>
+                You can also use <span class="keyboard">↑</span> and <span class="keyboard">↓</span> keys to scroll through command history.
+            </li>
+        </ul>
+        <h2 class="section-sub-title">Asking</h2>
         <p>
-            Note the returned access token <code>KMGWMQJ44</code> which we'll use in subsequent operations. Keep in mind that you
-            will get different access tokens and IDs when you are performing these steps by yourself.
-        </p>
-        <h3 class="section-title"><b>Query</b></h3>
-        <p>
-            Now that we have signed in (access token <code>KMGWMQJ44</code>) we can go ahead and start asking natural language
-            questions against our data model (<code>nlpcraft.weather.ex</code>). For this example we'll use
-            <a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/openapi/nlpcraft_swagger.yml"><code>/ask/sync</code></a> REST call - a
-            call that submit the request and waits for its completion before returning the result.
+            Now that we are in NLPCraft CLI REPL mode and have both REST server and the data probe connected, we can
+            use <code>ask</code> command to conveniently issue REST request to our data model.
         </p>
         <p>
             <b>Q: What is the current forecast for Chicago?</b>
         </p>
-        <pre class="brush: js highlight: [2, 3, 4, 5]">
-            $ nccurl.sh ask/sync '{"acsTok": "KMGWMQJ44", "txt": "What is the current forecast for Chicago?", "mdlId": "nlpcraft.weather.ex"}'
-        </pre>
         <p>
-            And we get a full 5-day forecast for Chicago:
+            <img class="non-fluid-img" src="/images/getting_started_fig4.png" alt="">
         </p>
-        <pre class="brush: js">
-        {
-            "state": [
-                {
-                    "createTstamp": 1552527883277,
-                    "mdlId": "nlpcraft.weather.ex",
-                    "resBody": {
-                        "intentId": "fcast|date?|city?",
-                        "result": {
-                            "forecast": {
-                                "forecastday": [
-                                    {
-                                        "astro": {
-                                            "moonrise": "11:05 AM",
-                                            "moonset": "01:01 AM",
-                                            "sunrise": "07:06 AM",
-                                            "sunset": "06:55 PM"
-                                        },
-                                    }
-                                ]
-                            },
-                            ...
-                            "location": {
-                                "lat": "41.85",
-                                "localtime": "2019-03-13 20:44",
-                                "localtime_epoch": "1552527885",
-                                "lon": "-87.65",
-                                "name": "Chicago",
-                                "region": "Illinois",
-                                "tz_id": "America/Chicago"
-                            }
-                        }
-                    },
-                    "resType": "json",
-                    "srvReqId": "gJ0OJ0qXp",
-                    "status": "QRY_READY",
-                    "updateTstamp": 1552527885155,
-                    "usrId": 7001
-                }
-            ],
-            "status": "API_OK"
-        }
-        </pre>
+        <p>
+            ...we get a full 5-day forecast for Chicago:
+        </p>
         <p>
             <b>Q: Any chance of snow today in Moscow?</b>
         </p>
-        <pre class="brush: js highlight: [2, 3, 4, 5]">
-            $ nccurl.sh ask/sync '{"acsTok": "KMGWMQJ44", "txt": "Any chance of snow today in Moscow?", "mdlId": "nlpcraft.weather.ex"}'
-        </pre>
         <p>
-            And we get today's Moscow weather report:
+            <img class="non-fluid-img" src="/images/getting_started_fig5.png" alt="">
         </p>
-        <pre class="brush: js">
-            {
-                "states": [
-                    {
-                        "createTstamp": 1552529034568,
-                        "mdlId": "nlpcraft.weather.ex",
-                        "resBody": {
-                            "intentId": "curr|date?|city?",
-                            "result": {
-                                "forecast": {
-                                    "forecastday": [
-                                        {
-                                            "astro": {
-                                                "moonrise": "10:16 AM",
-                                                "moonset": "02:16 AM",
-                                                "sunrise": "06:49 AM",
-                                                "sunset": "06:30 PM"
-                                            },
-                                            "date": "2019-03-14",
-                                            "date_epoch": "1552521600",
-                                            "day": {
-                                                "avghumidity": 89.0,
-                                                "avgtemp_c": -3.9,
-                                                "avgtemp_f": 25.1,
-                                                "avgvis_km": 19.6,
-                                                "avgvis_miles": 12.0,
-                                                "condition": {
-                                                    "code": 1198.0,
-                                                    "icon": "//cdn.apixu.com/weather/64x64/day/311.png",
-                                                    "text": "Light freezing rain"
-                                                },
-                                                "maxtemp_c": -0.2,
-                                                "maxtemp_f": 31.6,
-                                                "maxwind_kph": 15.8,
-                                                "maxwind_mph": 9.8,
-                                                "mintemp_c": -7.3,
-                                                "mintemp_f": 18.9,
-                                                "totalprecip_in": 0.0,
-                                                "totalprecip_mm": 0.1,
-                                                "uv": 1.7
-                                            }
-                                        }
-                                    ]
-                                },
-                                "location": {
-                                    "lat": "55.75",
-                                    "localtime": "2019-03-14 5:03",
-                                    "localtime_epoch": "1552529035",
-                                    "lon": "37.62",
-                                    "name": "Moscow",
-                                    "region": "Moscow City",
-                                    "tz_id": "Europe/Moscow"
-                                }
-                            }
-                        },
-                        "resType": "json",
-                        "srvReqId": "bgp299kX0",
-                        "status": "QRY_READY",
-                        "updateTstamp": 1552529035186,
-                        "usrId": 7001
-                    }
-                ],
-                "status": "API_OK"
-            }
-        </pre>
-        <h3 class="section-title">Sign Out</h3>
         <p>
-            Once we enjoyed our conversation about the weather we sign out:
+            ...we get today's Moscow weather report:
         </p>
-        <pre class="brush: js highlight: [3]">
-            $ nccurl.sh signout '{"acsTok": "KMGWMQJ44"}'
-            {
-                "status": "API_OK"
-            }
-        </pre>
+    </section>
+    <section>
+        <h2 class="section-title">Done! 👌</h2>
+        <p>
+            We've seen how to start REST server and data probe, and ask our weather bot several natural language questions. All we
+            have to do now is to use <code>stop</code> command to stop REST server and the data probe and <code>quit</code>
+            command to quit from REPL mode:
+        </p>
+        <p>
+            <img class="non-fluid-img" src="/images/getting_started_fig6.png" alt="">
+        </p>
     </section>
 </div>
 <div class="col-md-2 third-column">
