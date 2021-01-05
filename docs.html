@@ -33,13 +33,13 @@ id: overview
         </p>
         <p>
             One of the key features of NLPCraft is its use of advance semantic modelling that is tailor made for
-            domain-specific natural language interface. It doesn't require traditional ML
-            approach involving model training or corpora development leading to much <em>simpler <span class="amp">&</span> faster</em>
+            domain-specific natural language interface. It doesn't force developers to use direct ML/DL
+            approach involving time consuming model training or corpora development leading to much <em>simpler <span class="amp">&</span> faster</em>
             implementation.
         </p>
         <p>
-            Another key aspect of NLPCraft is its singular focus on processing English language. Although it may sound
-            counterintuitive, this narrow focus enables NLPCraft to deliver unprecedented ease of use combined with
+            Another key aspect of NLPCraft is its focus on processing English language. Although it may sound
+            counterintuitive, this narrower focus enables NLPCraft to deliver unprecedented ease of use combined with
             unparalleled comprehension capabilities for English input out-of-the-box. It's been shown that
             support for multiple languages in a single framework leads to either watered down functionality or overly
             complicated configuration, training and usage. It's also important to note that English language is spoken by more
@@ -73,7 +73,7 @@ id: overview
         <p>
             Typically, declarative portion of the model will be stored in a separate JSON or YAML file
             for simpler maintenance. There are no practical limitation on how complex or simple a model
-            can be, or what other tools it can use. Data models use <a href="/intent-matching.html">intent-based matching</a>
+            can be, or what other tools it can use. Data models use comprehensive <a href="/intent-matching.html">intent-based matching</a>
             provided by NLPCraft out-of-the-box.
         </p>
         <p>
@@ -83,7 +83,7 @@ id: overview
     <section id="data-probe">
         <h3 class="section-title">Data Probe</h3>
         <p>
-            Data probe is a light-weight container application designed to securely deploy and manage data models.
+            Data probe is a light-weight container designed to securely deploy and manage data models.
             Each probe can deploy and manage multiple models and many probes can be connected to the REST server (or a cluster of REST servers).
             The main purpose of the data probe is to separate data model hosting from managing REST calls from the clients.
             While you would typically have just one REST server, you may have multiple data probes deployed
@@ -106,7 +106,7 @@ id: overview
         <p>
             Unlike data probe that gets restarted every time the model is changed, i.e. during development, the
             REST server is a "start-and-forget" component that can be launched once while various data probes can
-            continuously reconnect to it. It can typically run as a Docker image locally on premise or on the cloud.
+            continuously reconnect to it. It can typically run as a Docker image locally on premise or in the cloud.
         </p>
         <p>
             Learn more about <a href="data-model.html">data model</a>,

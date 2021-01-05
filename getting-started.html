@@ -28,7 +28,8 @@ id: getting_started
             In this section we'll take a quick 10 minutes look at running and
             testing <a href="https://github.com/apache/incubator-nlpcraft/tree/master/nlpcraft/src/main/scala/org/apache/nlpcraft/examples" target="github">examples</a>
             shipped with NLPCraft along with
-            running the main components of NLPCraft - data probe and REST server. We assume the following:
+            running the main components of NLPCraft - data probe and REST server - using <code>nlpcraft.{sh|cmd}</code> script.
+            We assume the following:
         </p>
         <ul>
             <li>You <a href="/download.html">downloaded</a> NLPCraft {{site.latest_version}} as a ZIP archive.</li>
@@ -43,9 +44,20 @@ id: getting_started
             cluster of servers) is used to accept client REST calls and route them to the data model deployed on data probes.
         </p>
         <p>
-            Both data probe and the REST server start the same way. NLPCraft ships with all-inclusive
-            single executable JAR file. We'll use command line to start the both.
-            Open two console windows and start server first and then data probe by typing these commands:
+            Data probe and REST server are both Java applications and therefore can be started in many different ways.
+            In this quick tutorial, we'll use <code>nlpcraft.{sh|cmd}</code> script that comes with NLPCraft and acts as a central management
+            utility responsible for executing most of the routine tasks in NLPCraft in most simple and productive way.
+        </p>
+        <p>
+            To start REST server and data probe (with default configurations) let's execute following two commands one
+            after another:
+        </p>
+        <pre class="brush: bash">
+            $ bin/nlpcraft.sh start-server
+            $ bin/nlpcraft.sh start-probe
+        </pre>
+        <p>
+            ...and you will get the following output:
         </p>
         <nav>
             <div class="nav nav-tabs" role="tablist">
@@ -55,109 +67,14 @@ id: getting_started
         </nav>
         <div class="tab-content">
             <div class="tab-pane fade show active" id="nav-srv-start" role="tabpanel">
-                <pre class="brush: plain">
-                    $ cd build
-                    $ java -jar apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar -server
-                </pre>
-<!--                <p>-->
-<!--                    Alternatively, you can can also start it via Docker:-->
-<!--                </p>-->
-<!--                <pre class="brush: plain">-->
-<!--                    $ docker run -m 8G -p 8081:8081 -p 8201:8201 -p 8202:8202 nlpcraftserver/server:{{site.latest_version}}-->
-<!--                </pre>-->
-                <p>
-                    REST server starts with default configuration (<code>nlpcraft.conf</code> and
-                    <code>ignite.xml</code> files located in the same folder as <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code>
-                    file). You should see the output similar to this:
+                <p style="margin-top: 15px">
+                    <img class="non-fluid-img" src="/images/getting_started_fig1.png" alt="">
                 </p>
-                <pre class="brush: plain">
-                        _   ____      ______           ______
-                       / | / / /___  / ____/________ _/ __/ /_
-                      /  |/ / / __ \/ /   / ___/ __ `/ /_/ __/
-                     / /|  / / /_/ / /___/ /  / /_/ / __/ /_
-                    /_/ |_/_/ .___/\____/_/   \__,_/_/  \__/
-                           /_/
-
-                    Server
-                    Version: {{site.latest_version}}
-                    Copyright (C) 2021 Apache Software Foundation.
-
-                    ...
-
-                    +-------------------------+
-                    | Server started [19.35s] |
-                    +-------------------------+
-
-
-                    Mar-11 23:21:04 [INFO ] REST server is listening on 'localhost:8081'.
-                </pre>
             </div>
             <div class="tab-pane fade show" id="nav-probe-start" role="tabpanel">
-                <pre class="brush: plain">
-                    $ cd build
-                    $ java -jar apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar -probe
-                </pre>
-                <p>
-                    Data probe starts with default configuration (file <code>nlpcraft.conf</code> located in the same folder
-                    as <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code> file) that deploys
-                    all example models shipped with NLPCraft. You should see the output similar to this:
+                <p style="margin-top: 15px">
+                    <img class="non-fluid-img" src="/images/getting_started_fig2.png" alt="">
                 </p>
-                <pre class="brush: plain">
-                    _   ____      ______           ______
-                   / | / / /___  / ____/________ _/ __/ /_
-                  /  |/ / / __ \/ /   / ___/ __ `/ /_/ __/
-                 / /|  / / /_/ / /___/ /  / /_/ / __/ /_
-                /_/ |_/_/ .___/\____/_/   \__,_/_/  \__/
-                       /_/
-
-                Data Probe
-                Version: {{site.latest_version}}
-                Copyright (C) 2021 Apache Software Foundation.
-
-                Mar-11 23:25:52 [INFO ] Probe Configuration:
-                +-------------------------------------------------------------------------+
-                | Probe ID    | all.examples                                              |
-                | Probe Token | 3141592653589793                                          |
-                | API Version | 0.7.0, 2020-09-29                                         |
-                | Down-Link   | localhost:8202                                            |
-                | Up-Link     | localhost:8201                                            |
-                +-------------+-----------------------------------------------------------+
-                | Models      | org.apache.nlpcraft.examples.echo.EchoModel               |
-                |             | org.apache.nlpcraft.examples.alarm.AlarmModel             |
-                |             | org.apache.nlpcraft.examples.helloworld.HelloWorldModel   |
-                |             | org.apache.nlpcraft.examples.time.TimeModel               |
-                |             | org.apache.nlpcraft.examples.weather.WeatherModel         |
-                |             | org.apache.nlpcraft.examples.lightswitch.LightSwitchModel |
-                +-------------+-----------------------------------------------------------+
-                | Lifecycle   |                                                           |
-                | JARs Folder |                                                           |
-                +-------------------------------------------------------------------------+
-
-                ...
-
-                Mar-11 23:25:56 [INFO ] Models deployed: 6
-
-                +===================================================================================+
-                |        Model ID         |            Name            | Ver. | Elements | Synonyms |
-                +===================================================================================+
-                | nlpcraft.alarm.ex       | Alarm Example Model        | 1.0  | 1        | 419      |
-                | nlpcraft.weather.ex     | Weather Example Model      | 1.0  | 3        | 9045     |
-                | nlpcraft.lightswitch.ex | Light Switch Example Model | 1.0  | 3        | 643      |
-                | nlpcraft.helloworld.ex  | HelloWorld Example Model   | 1.0  | 0        | 0        |
-                | nlpcraft.time.ex        | Time Example Model         | 1.0  | 1        | 432      |
-                | nlpcraft.echo.ex        | Echo Example Model         | 1.0  | 0        | 0        |
-                +-----------------------------------------------------------------------------------+
-
-                ...
-
-                +--------------------------+
-                | Probe started [5.12 sec] |
-                +--------------------------+
-
-                ...
-
-                Mar-11 23:25:58 [INFO ] Server connection established.
-                </pre>
             </div>
         </div>
         <p>
@@ -173,13 +90,26 @@ id: getting_started
             data for variety of different inquiries about the past, present or future weather conditions.
         </p>
         <p>
-            There are <a target=_ href="https://medium.com/@alicealdaine/top-10-api-testing-tools-rest-soap-services-5395cb03cfa9">many ways</a> to issue
-            and test REST calls - for our examples we'll use standard
-            <a target="wiki" href="https://en.wikipedia.org/wiki/CURL">cURL</a> utility which you can simply use from the
-            command line in any OS.
-            NLPCraft comes with a convenient wrapper script <code>bin/nccurl.sh</code> that shortens
-            command line of the standard <code>cURL</code>.
+            We will be using <code>nlpcraft.{sh|cmd}</code> script to issue REST calls. Let's start by running <code>nlpcraft.{sh|cmd}</code>
+            in REPL mode so that we can conveniently issue multiple commands. To get into REPL mode simply launch the <code>nlpcraft.{sh|cmd}</code>
+            script with no argument:
         </p>
+        <pre class="brush: bash">
+            $ bin/nlpcraft.sh
+        </pre>
+        <p>
+            ...with the following output (keep in mind that your REST server and data probe are already started and
+            connected to each other):
+        </p>
+        <p>
+            <img class="non-fluid-img" src="/images/getting_started_fig3.png" alt="">
+        </p>
+
+
+
+
+
+
         <h3 class="section-title">Sign In</h3>
         <p>
             First, we need to sign in and obtain <b>access token</b>. We'll use <code>/signin</code>

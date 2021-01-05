@@ -25,7 +25,7 @@ id: script
     <section id="overview">
         <h2 class="section-title">Overview</h2>
         <p>
-            <code>bin/nlpcraft.{sh|cmd}</code> script is a <b>central management utility</b> for NLPCraft that supports
+            <code>bin/nlpcraft.{sh|cmd}</code> script (NLPCraft CLI) is a <b>central management utility</b> for NLPCraft that supports
             REPL (interactive) and command line modes. Most of the functions this script does can be done through running
             Java applications or using REST API - yet using this script you can perform the same tasks much simpler and quicker.
             From starting and managing REST server and probes, running various built-in tools, to testing models via REST API -
@@ -47,7 +47,7 @@ id: script
         </div>
         <p>
             The script is located in <code>/bin</code> sub-folder of the installation root and is available for
-            Unix/Linux (<code>nlpcraft.sh</code>) and Windows (<code>nlpcraft.cmd</code>) environments. Both versions
+            Unix/Linux/MacOS (<code>nlpcraft.sh</code>) and Windows (<code>nlpcraft.cmd</code>) environments. Both versions
             provide identical functionality.
         </p>
     </section>
@@ -75,8 +75,7 @@ id: script
             <img class="non-fluid-img" src="/images/cli1.png" alt="">
         </p>
         <p>
-            Script starts in the REPL mode by default. Note that in REPL mode the command prompt always shows REST
-            server status, local probe status, REST access token (if any) as well as current working directory.
+            Script starts in the REPL mode by default.
         </p>
         <div class="bq info">
             <b>REPL Prompt</b>
@@ -91,7 +90,7 @@ id: script
             </ul>
             <p>
                 Note that when using <code>start-server</code> command the default user account is automatically signed in
-                upon server start and the access token is obtained. You can sign in with different user account, if necessary.
+                upon the server start and the access token is obtained. You can sign in with different user account, if necessary.
             </p>
         </div>
         <h2 class="section-sub-title">Get Command List</h2>
@@ -150,27 +149,57 @@ id: script
     <section id="tips">
         <h2 class="tips">Tips <span class="amp">&amp;</span> Tricks</h2>
         <p>
-            <code>bin/nlpcraft.{sh|cmd}</code> is standard command line utility that can be used in the familiar ways both in
-            Linux/Unix and Window environments. Note that only Windows 10 has been tested.
+            NLPCraft CLI is standard command line utility that can be used in the familiar ways both in
+            Linux/Unix/MacOS and Window environments. Note that only Windows 10 has been tested.
         </p>
-        <h2 class="section-sub-title">Using <code>start-server</code> Command</h2>
+        <span class="section-sub-title">Typical Development Workflow</span>
+        <p>
+            Here's the typical workflow of working with NLPCraft using NLPCraft CLI. Note that although all of these
+            steps can be performed from IDE or just a command line - NLPCraft CLI in REPL model provides the easiest
+            way to accomplish these tasks:
+        </p>
+        <ol>
+            <li>
+                <code>gen-project</code> command generates new Maven/Gradle/Sbt project for either Java, Scala, Groovy
+                or Kotlin that is ready to run.
+            </li>
+            <li>
+                <code>start-server</code> command starts the local REST server.
+            </li>
+            <li>
+                Modify <span class="amp">&amp;</span> build the project using IDE or editor of your choice. You can
+                <a href="#os_commands">launch</a> the editor and build tooling right from NLPCraft CLI.
+            </li>
+            <li>
+                <code>test-model</code> command runs auto-validator for your model automatically starting and stopping an
+                embedded data probe. Alternatively, <code>start-probe</code> and <code>ask</code> commands allow to manually
+                start the local data probe and issue REST requests.
+            </li>
+            <li>
+                <code>stop</code> command stops both local REST server and data probe.
+            </li>
+        </ol>
+        <div class="bq info">
+            <p>
+                Steps 3 and 5 define a typical development cycle for change, build and test.
+            </p>
+        </div>
+        <span class="section-sub-title">Using <code>start-server</code> Command</span>
         <p>
             REST server is a fire-and-forget component in NLPCraft. You can start it once and you only need to restart it
             if you change the server configuration. It is customary to add <code>bin/nlpcraft.{sh|cmd} start-server</code>
             call to the OS init script to have it started automatically on boot up.
         </p>
-        <h2 class="section-sub-title">Using Default <code>nlpcraft.conf</code></h2>
+        <span class="section-sub-title">Using Default <code>nlpcraft.conf</code></span>
         <p>
-            It is recommended to modify the standard <code>nlpcraft.conf</code> configuration file (i.e. <em>in a standard
-            installation location</em>). Commands like <code>start-server</code>, <code>start-probe</code> and
-            <code>test-model</code> use this default location by default and you will not have to specify alternative
+            It is recommended to modify the standard <code>nlpcraft.conf</code> configuration file, i.e. <em>in a standard
+            installation location</em>. Commands like <code>start-server</code>, <code>start-probe</code> and
+            <code>test-model</code> use this location by default and you will not have to specify alternative
             location or provide other overrides every time you run these commands.
-        </p>
-        <p>
             If you keep all your configuration modifications in the standard <code>nlpcraft.conf</code> file you can simply
             run these commands without any additional arguments - significantly simplifying their usage.
         </p>
-        <h2 class="section-sub-title">Using <code>bin/nlpcraft.{sh|cmd}</code> In Scripts</h2>
+        <span class="section-sub-title">Using NLPCraft CLI In Scripts</span>
         <p>
             All of the commands that utilize REST API produce JSON responses:
         </p>
@@ -185,10 +214,10 @@ id: script
             $ bin/nlpcraft.sh no-ansi no-logo signin --email=admin@admin.com --passwd=admin | tail -n +2 | jq -M '.acsTok' | tr -d '"'
         </pre>
         <p>
-        ... and the result access token is:
+        ...and the access token is:
         </p>
         <pre class="brush: bash">
-            kkoXBAn8yruEzXrj8Kja5
+            bjok7yraypseyk86KgGae
         </pre>
         <p>
             <b>NOTES:</b>
@@ -199,7 +228,7 @@ id: script
                 output so that it would be easier to parse the resulting JSON.
             </li>
             <li>
-                We use <code>tail -n +2</code> to skip the 1st line of the output that contains HTTP return code.
+                We use <code>tail -n +2</code> Unix command to skip the 1st line of the output that contains HTTP return code.
             </li>
             <li>
                 We use <a target=_blank href="https://stedolan.github.io/jq/">jq</a> utility to parse JSON inline to extract
