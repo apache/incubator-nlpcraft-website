@@ -94,30 +94,6 @@ id: rest
                 effective REST API usage against local REST server.
             </p>
         </div>
-        <div class="bq success">
-            <b>Admins</b>
-            <p>
-                Note that many operations are only available to the users with administrative privileges. Note
-                also that some operations will implicitly behave differently based on whether the currently signed in user
-                have administrative privileges or not.
-            </p>
-        </div>
-        <div class="bq success">
-            <b>External User ID</b>
-            <p>
-                Many calls on REST API accept external "on-behalf-of" user ID (<code>usrExtId</code>) additionally to the regular
-                user ID (<code>usrID</code>). In these methods zero, one or both IDs must be provided. If none are provided
-                the ID of the currently signed in user will be used. If both are provided they should point to the same user.
-                External user ID allows to use user identification from the external systems without a need to import all the
-                existing users into NLPCraft in the first place.
-            </p>
-            <p>
-                Typical usage pattern for integrating NLPCraft into existing
-                system is to create a single administrative NLPCraft user, sign in with that account and then use external
-                "on-behalf-of" user IDs in all the requests. This way you get the same functionality as if using ordinary
-                user IDs but without a need to migrate and synchronize all user accounts from the existing system to NLPCraft.
-            </p>
-        </div>
     </section>
     <section id="users">
         <h3 class="section-title">Users <span class="amp">&amp;</span> Organizations</h3>
@@ -125,6 +101,43 @@ id: rest
             In NLPCraft most of the REST calls require ID of the user. Every user belongs to a company, and each user
             has administrative privileges flag. The notion of the user and company IDs additionally to the model ID provide
             necessary attributes for proper probe authentication, conversation maintenance, and security.
+        </p>
+        <h3 class="section-sub-title">Default Account</h3>
+        <p>
+            NLPCraft comes with the default account:
+        </p>
+        <ul>
+            <li><b>Email: </b>admin@admin.com</li>
+            <li><b>Password: </b>admin</li>
+        </ul>
+        <p>
+            This account has administrative privileges. Make sure to delete this account when you go to production.
+        </p>
+        <div class="bq warn">
+            <b>Default Account</b>
+            <p>
+                Make sure to delete this account when you go to production.
+            </p>
+        </div>
+        <h3 class="section-sub-title">Admins</h3>
+        <p>
+            Note that many operations are only available to the users with administrative privileges. Note
+            also that some operations will implicitly behave differently based on whether the currently signed in user
+            have administrative privileges or not.
+        </p>
+        <h3 class="section-sub-title">External User ID</h3>
+        <p>
+            Many calls on REST API accept external "on-behalf-of" user ID (<code>usrExtId</code>) additionally to the regular
+            user ID (<code>usrID</code>). In these methods zero, one or both IDs must be provided. If none are provided
+            the ID of the currently signed in user will be used. If both are provided they should point to the same user.
+            External user ID allows to use user identification from the external systems without a need to import all the
+            existing users into NLPCraft in the first place.
+        </p>
+        <p>
+            Typical usage pattern for integrating NLPCraft into existing
+            system is to create a single administrative NLPCraft user, sign in with that account and then use external
+            "on-behalf-of" user IDs in all the requests. This way you get the same functionality as if using ordinary
+            user IDs but without a need to migrate and synchronize all user accounts from the existing system to NLPCraft.
         </p>
     </section>
     <section id="server_errors">
