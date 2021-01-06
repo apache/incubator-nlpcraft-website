@@ -90,7 +90,7 @@ id: rest
             </p>
             <p>
                 <a href="/tools/script.html"><code>bin/nlpcraft.{sh|cmd}</code></a> script is a <b>central management utility</b> for NLPCraft. Among many
-                commands it provide, there are two commands <code>call</code> and <code>rest</code> that allows for simple and
+                commands it provides, there are two commands <code>call</code> and <code>rest</code> that allows for simple and
                 effective REST API usage against local REST server.
             </p>
         </div>
@@ -118,6 +118,14 @@ id: rest
                 user IDs but without a need to migrate and synchronize all user accounts from the existing system to NLPCraft.
             </p>
         </div>
+    </section>
+    <section id="users">
+        <h3 class="section-title">Users <span class="amp">&amp;</span> Organizations</h3>
+        <p>
+            In NLPCraft most of the REST calls require ID of the user. Every user belongs to a company, and each user
+            has administrative privileges flag. The notion of the user and company IDs additionally to the model ID provide
+            necessary attributes for proper probe authentication, conversation maintenance, and security.
+        </p>
     </section>
     <section id="server_errors">
         <h2 class="section-title">Server Errors</h2>
@@ -198,6 +206,7 @@ id: rest
         <li class="side-nav-title">On This Page</li>
         <li><a href="#java-client">Java Client</a></li>
         <li><a href="#format">REST URL</a></li>
+        <li><a href="#users">Users <span class="amp">&amp;</span> Org</a></li>
         <li><a href="#server_errors">Server Errors</a></li>
         {% include quick-links.html %}
     </ul>
