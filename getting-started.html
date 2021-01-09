@@ -55,34 +55,33 @@ id: getting_started
         <p>
             To start REST server and data probe with default configurations - run the following two commands:
         </p>
-        <pre class="brush: bash">
-            $ bin/nlpcraft.sh start-server
-            $ bin/nlpcraft.sh start-probe
-        </pre>
-        <p>
-            ...output:
-        </p>
         <nav>
             <div class="nav nav-tabs" role="tablist">
-                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-srv-start" role="tab" aria-controls="nav-home" aria-selected="true">REST Server</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-probe-start" role="tab" aria-controls="nav-home" aria-selected="true">Data Probe</a>
+                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-start-cmd" role="tab" aria-controls="nav-home" aria-selected="true">Command</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-start" role="tab" aria-controls="nav-home" aria-selected="true">REST Server Output</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-probe-start" role="tab" aria-controls="nav-home" aria-selected="true">Data Probe Output</a>
             </div>
         </nav>
         <div class="tab-content">
-            <div class="tab-pane fade show active" id="nav-srv-start" role="tabpanel">
+            <div class="tab-pane fade show active" id="nav-start-cmd" role="tabpanel">
+                <pre class="brush: bash">
+                    $ bin/nlpcraft.sh start-server
+                    $ bin/nlpcraft.sh start-probe
+                </pre>
+            </div>
+            <div class="tab-pane fade show" id="nav-srv-start" role="tabpanel">
                 <p style="margin-top: 15px">
-                    <img class="non-fluid-img" src="/images/getting_started_fig1.png" alt="">
+                    <img class="img-fluid" src="/images/getting_started_fig1.png" alt="">
                 </p>
             </div>
             <div class="tab-pane fade show" id="nav-probe-start" role="tabpanel">
                 <p style="margin-top: 15px">
-                    <img class="non-fluid-img" src="/images/getting_started_fig2.png" alt="">
+                    <img class="img-fluid" src="/images/getting_started_fig2.png" alt="">
                 </p>
             </div>
         </div>
         <p>
             At this point you have both the data probe and the REST server started and connected to each other.
-            We are ready to start using REST API to query our example model.
         </p>
     </section>
     <section id="querying">
@@ -94,17 +93,26 @@ id: getting_started
         </p>
         <p>
             We will be using NLPCraft CLI script to issue REST calls. Let's start NLPCraft CLI in interactive REPL mode
-            by running running <code>nlpcraft.{sh|cmd}</code> script with no argument:
+            by running <code>nlpcraft.{sh|cmd}</code> script with no argument:
         </p>
-        <pre class="brush: bash">
-            $ bin/nlpcraft.sh
-        </pre>
-        <p>
-            ...output:
-        </p>
-        <p>
-            <img class="non-fluid-img" src="/images/getting_started_fig3.png" alt="">
-        </p>
+        <nav>
+            <div class="nav nav-tabs" role="tablist">
+                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-repl-cmd" role="tab" aria-controls="nav-home" aria-selected="true">Command</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-repl-out" role="tab" aria-controls="nav-home" aria-selected="true">Output</a>
+            </div>
+        </nav>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="nav-repl-cmd" role="tabpanel">
+                <pre class="brush: bash">
+                    $ bin/nlpcraft.sh
+                </pre>
+            </div>
+            <div class="tab-pane fade show" id="nav-repl-out" role="tabpanel">
+                <p style="margin-top: 15px">
+                    <img class="img-fluid" src="/images/getting_started_fig3.png" alt="">
+                </p>
+            </div>
+        </div>
         <p>
             <b>NOTES:</b>
         </p>
@@ -138,7 +146,7 @@ id: getting_started
             <b>Q: What is the current forecast for Chicago?</b>
         </p>
         <p>
-            <img class="non-fluid-img" src="/images/getting_started_fig4.png" alt="">
+            <img class="img-fluid" src="/images/getting_started_fig4.png" alt="">
         </p>
         <p>
             ...we get a full 5-day forecast for Chicago:
@@ -147,7 +155,7 @@ id: getting_started
             <b>Q: Any chance of snow today in Moscow?</b>
         </p>
         <p>
-            <img class="non-fluid-img" src="/images/getting_started_fig5.png" alt="">
+            <img class="img-fluid" src="/images/getting_started_fig5.png" alt="">
         </p>
         <p>
             ...we get today's Moscow weather report:
@@ -161,7 +169,7 @@ id: getting_started
             command to quit from REPL mode:
         </p>
         <p>
-            <img class="non-fluid-img" src="/images/getting_started_fig6.png" alt="">
+            <img class="img-fluid" src="/images/getting_started_fig6.png" alt="">
         </p>
     </section>
 </div>

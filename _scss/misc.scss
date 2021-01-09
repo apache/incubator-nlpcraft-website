@@ -396,8 +396,9 @@ code {
 }
 
 .img-fluid {
-    max-width: 900px !important;
+    max-width: 800px !important;
     width: 100% !important;
+    border-radius: 6px;
 }
 
 .non-fluid-img {
