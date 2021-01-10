@@ -95,18 +95,22 @@ id: integrations
         </table>
 
         <div class="bq warn">
-            <h3 class="section-title">Configuring Token Providers</h3>
+            <b>Configuring Token Providers</b>
             <p>
                 REST server configuration support zero or more token providers. Data models also have to specify
                 the specific tokens they are expecting the REST server and probe to detect. This is done to limit the
                 unnecessary processing since implicit enabling of all token providers and all tokens can lead to
-                a significant slow down of processing.
+                a significant slow down of processing:
             </p>
-            <p>
-                REST server configuration property <code>tokenProvides</code> provides the list of enabled token providers. See its
-                <a href="/server-and-probe.html">documentation</a> for more details. Data model provides its required tokens via
-                <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getEnabledBuiltInTokens()">NCModelView.getEnabledBuiltInTokens()</a> method.
-            </p>
+            <ul>
+                <li>
+                    REST server <a href="/server-and-probe.html">configuration property</a> <code>tokenProvides</code> provides the list of enabled token providers.
+                </li>
+                <li>
+                    Data model provides its required tokens via
+                    <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getEnabledBuiltInTokens()">NCModelView.getEnabledBuiltInTokens()</a> method.
+                </li>
+            </ul>
         </div>
     </section>
     <section>

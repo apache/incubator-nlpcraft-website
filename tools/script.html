@@ -25,11 +25,11 @@ id: script
     <section id="overview">
         <h2 class="section-title">Overview</h2>
         <p>
-            <code>bin/nlpcraft.{sh|cmd}</code> script (NLPCraft CLI) is a <b>central management utility</b> for NLPCraft that supports
-            REPL (interactive) and command line modes. Most of the functions this script does can be done through running
+            NLPCraft CLI <code>bin/nlpcraft.{sh|cmd}</code> script is a <b>central management utility</b> for NLPCraft that supports
+            interactive REPL and command line modes. Most of the functions this script does can be done through running
             Java applications or using REST API - yet using this script you can perform the same tasks much simpler and quicker.
             From starting and managing REST server and probes, running various built-in tools, to testing models via REST API -
-            <code>bin/nlpcraft.{sh|cmd}</code> script provides a single centralized utility that makes a quick work out
+            NLPCraft CLI provides a single centralized utility that makes a quick work out
             of all these routine tasks.
         </p>
         <p>
@@ -41,7 +41,7 @@ id: script
         <div class="bq warn">
             <b>ZIP Distribution</b>
             <p>
-                The <code>bin/nlpcraft.{sh|cmd}</code> script is only available in <a href="/download.html">ZIP distributions</a>. For Maven/Gradle/SBT
+                The NLPCraft CLI is only available in <a href="/download.html">ZIP distributions</a>. For Maven/Gradle/SBT
                 projects you will need to download <a href="/download.html">ZIP distribution</a> separately.
             </p>
         </div>
@@ -61,7 +61,7 @@ id: script
                 Command line mode where it executes a single command at a time.
             </li>
             <li>
-                Interactive REPL mode. To enter REPL mode run <code>bin/nlpcraft.sh</code> without any arguments.
+                Interactive REPL mode. To enter REPL mode run <code>bin/nlpcraft.{sh|cmd}</code> without arguments.
             </li>
         </ul>
         <p>
@@ -69,7 +69,7 @@ id: script
             in REPL mode.
         </p>
         <p>
-            To get started, run <code>bin/nlpcraft.sh</code> without any arguments:
+            To get started, run <code>bin/nlpcraft.{sh|cmd}</code>:
         </p>
         <p>
             <img class="img-fluid" src="/images/cli1.png" alt="">
@@ -89,13 +89,13 @@ id: script
                 <li>Current user working directory.</li>
             </ul>
             <p>
-                Note that when using <code>start-server</code> command the default user account is automatically signed in
+                Note that when using <code>start-server</code> command the <a href="/using-rest.html#users">default user account</a> is automatically signed in
                 upon the server start and the access token is obtained. You can sign in with different user account, if necessary.
             </p>
         </div>
         <h2 class="section-sub-title">Get Command List</h2>
         <p>
-            Type <code>help</code> to list all supported commands (or run <code>bin/nlpcraft.sh help</code> if in command line mode):
+            Type <code>help</code> to list all supported commands (or run <code>bin/nlpcraft.{sh|cmd} help</code> if in command line mode):
         </p>
         <p>
             <img class="img-fluid" src="/images/cli2.png" alt="">
@@ -150,7 +150,7 @@ id: script
         <h2 class="tips">Tips <span class="amp">&amp;</span> Tricks</h2>
         <p>
             NLPCraft CLI is standard command line utility that can be used in the familiar ways both in
-            Linux/Unix/MacOS and Window environments. Note that only Windows 10 has been tested.
+            Linux/Unix/MacOS and Window environments.
         </p>
         <span class="section-sub-title">Typical Development Workflow</span>
         <p>
@@ -201,7 +201,7 @@ id: script
         </p>
         <span class="section-sub-title">Using NLPCraft CLI In Scripts</span>
         <p>
-            All of the commands that utilize REST API produce JSON responses:
+            All of the commands that utilize REST API produce JSON responses, for a example:
         </p>
         <p>
             <img class="img-fluid" src="/images/cli9.png" alt="">
@@ -231,11 +231,11 @@ id: script
                 We use <code>tail -n +2</code> Unix command to skip the 1st line of the output that contains HTTP return code.
             </li>
             <li>
-                We use <a target=_blank href="https://stedolan.github.io/jq/">jq</a> utility to parse JSON inline to extract
+                We use <a target=_blank href="https://stedolan.github.io/jq/">jq</a> utility to parse JSON inline and extract
                 <code>acsTok</code> field.
             </li>
             <li>
-                We use <code>tr -d '"'</code> to remove surrounding double quotes to get out final result.
+                We use <code>tr -d '"'</code> to remove surrounding double quotes to get our final result.
             </li>
         </ul>
     </section>
