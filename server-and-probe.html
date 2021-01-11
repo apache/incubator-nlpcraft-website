@@ -74,8 +74,14 @@ id: server_and_probe
         <p>
             NLPCraft comes with a single executable JAR file that includes all
             necessary dependencies: <code>build/<b>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</b></code>.
-            This JAR file includes binaries for data probe, data model APIs and the REST server.
+            This single all-inclusive JAR file includes classes for:
         </p>
+        <ul>
+            <li>REST Server</li>
+            <li>Data Probe</li>
+            <li><a href="/tools/script.html">NLPCraft CLI</a></li>
+            <li><a href="/data-model.html">Model API</a></li>
+        </ul>
         <div class="bq info">
             <b>Run <code>'mvn clean package'</code> For Source ZIP</b>
             <p>
@@ -89,22 +95,25 @@ id: server_and_probe
         <h2 class="section-title">REST Server</h2>
         <p>
             As mentioned above REST server (or a cluster of servers) is used to accept client REST calls and
-            route them to the data model hosted by data probes. Note that both data probe and the REST server start principally
-            the same way.
-        </p>
-        <p>
-            REST server can be stared in a <em>standard way</em> from either the command line or IDE such as Eclipse or IntelliJ IDEA:
+            route them to the data model hosted by data probes. REST server can be started in different ways:
         </p>
         <nav>
             <div class="nav nav-tabs" role="tablist">
-                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-srv-jar" role="tab" aria-controls="nav-home" aria-selected="true">Executable JAR</a>
+                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-srv-script" role="tab" aria-controls="nav-home" aria-selected="true"><code>nlpcraft.{sh|cmd}</code></a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-jar" role="tab" aria-controls="nav-home" aria-selected="true">Executable JAR</a>
                 <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-cmd" role="tab" aria-controls="nav-home" aria-selected="true">Command Line</a>
                 <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-ide" role="tab" aria-controls="nav-home" aria-selected="true">IDE</a>
 <!--                <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-docker" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fab fa-docker"></i> Docker</a>-->
             </div>
         </nav>
         <div class="tab-content">
-            <div class="tab-pane fade show active" id="nav-srv-jar" role="tabpanel">
+            <div class="tab-pane fade show active" id="nav-srv-script" role="tabpanel">
+                <pre class="brush: plain">
+                    $ cd build
+                    $ java -Xms1024m -jar apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar -server
+                </pre>
+            </div>
+            <div class="tab-pane fade show" id="nav-srv-jar" role="tabpanel">
                 <pre class="brush: plain">
                     $ cd build
                     $ java -Xms1024m -jar apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar -server

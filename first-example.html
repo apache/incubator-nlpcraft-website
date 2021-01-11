@@ -44,7 +44,7 @@ id: first_example
     <section id="new_project">
         <h3 class="section-title">New Project</h3>
         <p>
-            Run <code>nlpcraft.sh</code> script from NLPCraft home directory to create a new project stub:
+            Run <code>nlpcraft.sh</code> script from NLPCraft installation directory to create a new project stub (the script is located in <code>bin</code> sub-directory):
         </p>
         <nav>
             <div class="nav nav-tabs" role="tablist">
@@ -214,17 +214,8 @@ class LightSwitchModel extends NCModelFileAdapter("light_switch.yaml") {
                     </li>
                     <li>
                         Line 7 uses <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a>
-                        annotation that provides a list of sample inputs that should satisfy the intent above. Although this
-                        annotation is optional, the list of samples serves two important purposes:
-                        <ul>
-                            <li>
-                                It provides documentation for the intent by listing examples of input sentences that this intent should match on.
-                            </li>
-                            <li>
-                                It can also be used for auto-testing of the model. See below the <a href="#test">testing</a>
-                                section for details.
-                            </li>
-                        </ul>
+                        annotation that is  used for auto-testing of the model. See below the <a href="#test">testing</a>
+                        section for details.
                     </li>
                 </ul>
             </li>
@@ -260,7 +251,7 @@ class LightSwitchModel extends NCModelFileAdapter("light_switch.yaml") {
     <section id="server">
         <h3 class="section-title">Start Server</h3>
         <p>
-            Run the following command to start local REST server from the NLPCraft home directory:
+            Run the following command to start local REST server, if it hasn't been started already, from the NLPCraft installation directory:
         </p>
         <nav>
             <div class="nav nav-tabs" role="tablist">
@@ -285,7 +276,7 @@ class LightSwitchModel extends NCModelFileAdapter("light_switch.yaml") {
         </p>
         <ul>
             <li>
-                REST server is a "fore-and-forget" component that you don't need to restart unless you change its configuration.
+                REST server is a "fore-and-forget" component that you generally need to start only once.
             </li>
             <li>
                 Run <code>bin/nlpcraft.sh help --cmd=start-server</code> to get a full help on this command.
@@ -346,6 +337,10 @@ class LightSwitchModel extends NCModelFileAdapter("light_switch.yaml") {
         <p>
             <img style="max-width: 910px !important;" class="img-fluid" alt="" src="/images/first_example_fig4.png">
         </p>
+        <p>
+            To play with this project change the model and/or the mode logic, <a href="#build_project">build</a> project again,
+            and run the <a href="#test">auto-test</a>.
+        </p>
     </section>
     <section>
         <h2 class="section-title">Congratulation! 👌</h2>
@@ -360,6 +355,7 @@ class LightSwitchModel extends NCModelFileAdapter("light_switch.yaml") {
         <li class="side-nav-title">On This Page</li>
         <li><a href="#new_project">New Project</a></li>
         <li><a href="#data_model">Data Model</a></li>
+        <li><a href="#build_project">Build Project</a></li>
         <li><a href="#server">Start Server</a></li>
         <li><a href="#test">Testing</a></li>
         {% include quick-links.html %}
