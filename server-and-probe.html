@@ -244,13 +244,13 @@ id: server_and_probe
                     If using just executable JAR:
                 </p>
                 <pre class="brush: plain">
-                    $ java -Xms1024m -jar apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar -probe
+                    $ java -jar apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar -probe
                 </pre>
                 <p>
                     If specifying additional classpath components and need <code>-cp</code> parameter:
                 </p>
                 <pre class="brush: plain">
-                    java -Xms1024m -cp apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar:/my/project/classes org.apache.nlpcraft.NCStart -probe -config=/my/project/probe.conf
+                    java -cp apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar:/my/project/classes org.apache.nlpcraft.NCStart -probe -config=/my/project/probe.conf
                 </pre>
                 <p>
                     <b>NOTES:</b>

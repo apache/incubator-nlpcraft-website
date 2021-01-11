@@ -118,7 +118,7 @@ public class AlarmTest {
 }
         </pre>
         <p>
-            Notes:
+            <b>NOTES:</b>
         </p>
         <ul>
             <li>
@@ -172,33 +172,66 @@ public class AlarmModel extends NCModelFileAdapter {
 }
         </pre>
         <p>
-            Auto model validator
-            will scan the model for its callback methods, collect all samples from <code>@NCIntentSample</code> annotations, and
-            will submit each sample and check that correct intent is selected as the winning match. Notice that this auto validation
-            does not require any additional code to be written - the tool gathers all required information from the model
-            itself.
+            Auto mode validator takes one or more model IDs (or class names) and performs validation. Validation consists
+            of starting an <a href="/tools/embedded_probe.html">embedded probe</a> with a given model, scanning for
+            <code>@NCIntentSample</code> annotations and their corresponding callback methods, submitting each
+            sample input sentences from <code>@NCIntentSample</code> annotation and checking that resulting
+            intent matches the intent the sample was attached to.
         </p>
+        <h3 class="section-sub-title">Running</h3>
         <p>
-            Add necessary classpath to and run:
+            Auto mode validator can be executed in several ways:
         </p>
-        <pre class="brush: plain">
-java -ea -DNLPCRAFT_TEST_MODELS=org.apache.nlpcraft.examples.alarm.AlarmModel org.apache.nlpcraft.model.tools.test.NCTestAutoModelValidator
-        </pre>
-        <p>
-            Notes:
-        </p>
-        <ul>
-            <li>
-                When running auto validator from command line you set models to test via <code>NLPFaFCRAFT_TEST_MODELS</code>
-                system property that should contain comma separate list of the data model classes.
-            </li>
-        </ul>
+        <nav>
+            <div class="nav nav-tabs" role="tablist">
+                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-script" role="tab" aria-controls="nav-home" aria-selected="true">NLPCraft CLI</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-class" role="tab" aria-controls="nav-home" aria-selected="true">Java Class</a>
+            </div>
+        </nav>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="nav-script" role="tabpanel">
+                <pre class="brush: plain">
+                    $ bin/nlpcraft.sh test-model
+                </pre>
+                <p>
+                    <b>NOTES:</b>
+                </p>
+                <ul>
+                    <li>
+                        Use <code>nlpcraft.sh</code> for Unix/Linux/MacOS and <code>nlpcraft.cmd</code> for Windows.
+                    </li>
+                    <li>
+                        Run <code>bin/nlpcraft.sh help --cmd=test-model</code> to get a full help on this command.
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-pane fade show" id="nav-class" role="tabpanel">
+                <pre class="brush: plain">
+                    java -cp apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar -DNLPCRAFT_TEST_MODELS=org.apache.nlpcraft.examples.alarm.AlarmModel org.apache.nlpcraft.model.tools.test.NCTestAutoModelValidator
+                </pre>
+                <p>
+                    <b>NOTES:</b>
+                </p>
+                <ul>
+                    <li>
+                        Make sure to add necessary classpath components.
+                    </li>
+                    <li>
+                        <code>NLPCRAFT_TEST_MODELS</code> system property that should contain comma separate list of the data model classes to test.
+                    </li>
+                    <li>
+                        You can also use <code>org.apache.nlpcraft.model.tools.test.NCTestAutoModelValidator</code> class
+                        directly to call it programmatically from the code or from IDE.
+                    </li>
+                </ul>
+            </div>
+        </div>
         <p>
             In the log output you should see the following validation results:
         </p>
         <figure>
             <img class="img-fluid-no-border" src="/images/auto_validation.png" alt="">
-            <figcaption><b>Fig 1.</b> Model Auto-Validation Result.</figcaption>
+            <figcaption><b>Fig 1.</b> Model auto-validation result.</figcaption>
         </figure>
         <p>
             See <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/tools/test/NCTestAutoModelValidator.html">NCTestAutoModelValidator</a>
