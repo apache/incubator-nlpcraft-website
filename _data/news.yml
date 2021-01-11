@@ -15,6 +15,15 @@
 # limitations under the License.
 #
 
+- title: 📃 Преобразование текстовых запросов в SQL
+  url: https://habr.com/ru/post/536720/
+  excerpt: На первый взгляд задача преобразования разобранного предложения в SQL — проблема чисто алгоритмическая...
+  author: Сергей Камов
+  publish_date: January 11, 2021
+  avatar_url: images/sergey_kamov_avatar.png
+  twitter_id: apachenlpcraft
+  href_target: habr
+
 - title: 📢 Apache NLPCraft 0.7.3 Released
   url: /relnotes/release-notes-0.7.3.html
   excerpt: Download NLPCraft 0.7.3. Over 20 💪 fixes, improvements and enhancements.
