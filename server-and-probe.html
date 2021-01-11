@@ -25,182 +25,174 @@ id: server_and_probe
     <section>
         <h2 class="section-title">Overview</h2>
         <p>
-            As mentioned in <a href="/docs.html">overview</a> section the REST server and data probe are the two
-            runtime components that you need to run when using NLPCraft.
+            REST server and data probe are the two runtime components that you need to run when using NLPCraft.
             Data probes are used to deploy and host data model, while REST server (or a cluster of servers) is used
             to accept client REST call and route them to the data models via data probes.
         </p>
-        <div class="bq info">
-            <b>REST Server vs. Data Probe</b>
-            <p>
-                It's important to remember why REST server is a separate component from a data probe. While a
-                typical deployment would have only one REST server (or a cluster of REST servers behind a single
-                load balancer), there are maybe multiple data probes hosting different data models deployed in
-                different physical locations, managed through different life cycles and requiring different
-                security and network configurations.
-            </p>
-            <p>
-                Moreover, REST server is a heavy and resource consuming component that is built around Apache
-                Ignite distributing in-memory computing capabilities - while the data probe is a lightweight
-                data model container. During the development and testing of data models, the developers need to
-                frequently redeploy data models by restarting the data probe. If the REST server and the data probe
-                would be one component - this process would be very inefficient.
-            </p>
-        </div>
+        <h3 class="section-sub-title">REST Server vs. Data Probe</h3>
         <p>
-            For the rest of this section we assume that NLPCraft was <a href="/download.html#zip">downloaded</a> and
-            <a href="/installation.html">installed</a> via binary ZIP archive. However, all instructions below are fully
-            applicable to any type of installation.
+            It's important to remember why REST server is a separate component from a data probe. While a
+            typical deployment would have only one REST server (or a cluster of REST servers behind a single
+            load balancer), there are maybe multiple data probes hosting different data models deployed in
+            different physical locations, managed through different life cycles and requiring different
+            security and network configurations.
         </p>
         <p>
-            Once NLPCraft is downloaded as a binary ZIP archive and unzipped, the current directory will look like this:
+            Moreover, REST server is a heavy and resource consuming component that is built around Apache
+            Ignite distributing in-memory computing capabilities - while the data probe is a lightweight
+            data model container. During the development and testing of data models, the developers need to
+            frequently redeploy data models by restarting the data probe. If the REST server and the data probe
+            would be one component - this process would be very inefficient.
         </p>
-        <pre class="console">
-├── LICENSE
-├── NOTICE
-├── DISCLAIMER
-├── bin
-├── sql
-├── nlpcraft
-├── nlpcraft-stanford
-├── build
-│    ├── <b>nlpcraft.conf</b>
-│    ├── ignite.xml
-│    ├── log4j2.xml
-│    └── <b>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</b>
-├── javadoc
-└── openapi
-        </pre>
+        <h3 class="section-sub-title">All-Inclusive JAR</h3>
         <p>
-            NLPCraft comes with a single executable JAR file that includes all
+            <a href="/download.html#zip">Binary</a> NLPCraft ZIP download comes with a single executable JAR file that includes all
             necessary dependencies: <code>build/<b>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</b></code>.
-            This single all-inclusive JAR file includes classes for:
+            This single all-inclusive JAR file can be used to start any NLPCraft runtime components as standard
+            Java applications and includes binary classes for:
         </p>
         <ul>
-            <li>REST Server</li>
-            <li>Data Probe</li>
+            <li><a href="#server">REST Server</a></li>
+            <li><a href="#probe">Data Probe</a></li>
             <li><a href="/tools/script.html">NLPCraft CLI</a></li>
             <li><a href="/data-model.html">Model API</a></li>
         </ul>
-        <div class="bq info">
-            <b>Run <code>'mvn clean package'</code> For Source ZIP</b>
-            <p>
-                If you downloaded the source ZIP you need to run <code>mvn clean package</code> to
-                get the <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code>
-                file. It will be located in <code>nlpcraft/target</code> sub-folder.
-            </p>
-        </div>
+        <p>
+            Note that if you downloaded the <a href="/download.html#src">source</a> ZIP you need to run <code>mvn clean package</code> to
+            get the <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code>
+            file. It will be located in <code>nlpcraft/target</code> sub-folder.
+        </p>
     </section>
     <section id="server">
         <h2 class="section-title">REST Server</h2>
         <p>
-            As mentioned above REST server (or a cluster of servers) is used to accept client REST calls and
-            route them to the data model hosted by data probes. REST server can be started in different ways:
+            REST server accepts client REST calls and routes them to the data model hosted by data probes.
+            REST server can be started in different ways:
         </p>
         <nav>
             <div class="nav nav-tabs" role="tablist">
-                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-srv-script" role="tab" aria-controls="nav-home" aria-selected="true"><code>nlpcraft.{sh|cmd}</code></a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-jar" role="tab" aria-controls="nav-home" aria-selected="true">Executable JAR</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-cmd" role="tab" aria-controls="nav-home" aria-selected="true">Command Line</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-ide" role="tab" aria-controls="nav-home" aria-selected="true">IDE</a>
-<!--                <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-docker" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fab fa-docker"></i> Docker</a>-->
+                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-srv-script" role="tab" aria-controls="nav-home" aria-selected="true">NLPCraft CLI</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-class" role="tab" aria-controls="nav-home" aria-selected="true">Java Class</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-docker" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fab fa-docker"></i> Docker</a>
             </div>
         </nav>
         <div class="tab-content">
             <div class="tab-pane fade show active" id="nav-srv-script" role="tabpanel">
                 <pre class="brush: plain">
-                    $ cd build
+                        $ bin/nlpcraft.sh start-server
+                </pre>
+                <p>
+                    <b>NOTES:</b>
+                </p>
+                <ul>
+                    <li>
+                        Use <code>nlpcraft.sh</code> for Unix/Linux/MacOS and <code>nlpcraft.cmd</code> for Windows.
+                    </li>
+                    <li>
+                        Run <code>bin/nlpcraft.sh help --cmd=start-server</code> to get a full help on this command.
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-pane fade show" id="nav-srv-class" role="tabpanel">
+                <p></p>
+                <p>
+                    If using just executable JAR:
+                </p>
+                <pre class="brush: plain">
                     $ java -Xms1024m -jar apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar -server
                 </pre>
-            </div>
-            <div class="tab-pane fade show" id="nav-srv-jar" role="tabpanel">
+                <p>
+                    If specifying additional classpath components and need <code>-cp</code> parameter:
+                </p>
                 <pre class="brush: plain">
-                    $ cd build
-                    $ java -Xms1024m -jar apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar -server
-                </pre>
-            </div>
-            <div class="tab-pane fade show" id="nav-srv-cmd" role="tabpanel">
-                <pre class="brush: plain">
-                    $ cd build
                     $ java -Xms1024m -cp apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar org.apache.nlpcraft.NCStart -server
                 </pre>
-            </div>
-            <div class="tab-pane fade show" id="nav-srv-ide" role="tabpanel">
-                <p style="padding-top: 10px">
-                    Configure run configuration with the main class <code>org.apache.nlpcraft.NCStart</code>.
-                    Note that <code>org.apache.nlpcraft.NCStart</code> class starts both the REST server and the data probe and is the
-                    class that is configured as <code>Main-Class</code> in <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code>
-                    JAR file manifest.
+                <p>
+                    <b>NOTES:</b>
                 </p>
+                <ul>
+                    <li>
+                        Make sure to provide correct path to <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code> file.
+                    </li>
+                    <li>
+                        Class <code>org.apache.nlpcraft.NCStart</code> is a common entry point for all NLPCraft runtime components.
+                    </li>
+                    <li>
+                        Class <code>org.apache.nlpcraft.NCStart</code> should be used to star REST server from IDE.
+                    </li>
+                </ul>
+                <p>
+                    Parameters:
+                </p>
+                <dl>
+                    <dt>
+                        <code>-server</code>
+                    </dt>
+                    <dd>
+                        <em>Mandatory</em> parameter to indicate that you are starting the REST server.
+                    </dd>
+                    <dt><code>-config=path</code></dt>
+                    <dd>
+                        <em>Optional</em> parameter to provide configuration file path.
+                        Server will automatically look for <code>nlpcraft.conf</code> configuration file in the same directory
+                        as <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code> file. If the configuration
+                        file has different name or in different location use <code>-config=path</code> parameter
+                        where <code>path</code> is an absolute path to the configuration file. Note that the server and the data
+                        probe can use the same file for their configuration (just like the
+                        default <code>nlpcraft.conf</code> contains configuration for both the server and the data probe).
+                    </dd>
+                    <dt><code>-igniteConfig=path</code></dt>
+                    <dd>
+                        <em>Optional</em> parameter to provide <a target=_ href="https://ignite.apache.org/">Apache Ignite</a> configuration file path.
+                        Note that Apache Ignite is used as a cluster computing plane and a default distributed storage.
+                        Server will automatically look for <code>ignite.xml</code>
+                        configuration file in the same directory as <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code> file.
+                        If the configuration file has different name or in different location use <code>-igniteConfig=path</code> parameter
+                        where <code>path</code> is an absolute path to the Ignite configuration file.
+                    </dd>
+                </dl>
             </div>
-<!--            <div class="tab-pane fade show" id="nav-srv-docker" role="tabpanel">-->
-<!--                <pre class="brush: plain">-->
-<!--                    $ docker run -m 8G -p 8081:8081 -p 8201:8201 -p 8202:8202 nlpcraftserver/server:{{site.latest_version}}-->
-<!--                </pre>-->
-<!--                <p>-->
-<!--                    By default, the Docker image runs with a default configuration.-->
-<!--                    See <a href="#config">configuration</a> section on how to provide custom configuration via environment variables for the REST-->
-<!--                    server running inside of Docker container.-->
-<!--                </p>-->
-<!--            </div>-->
-        </div>
-        Parameters:
-        <dl>
-            <dt>
-                <code>-server</code>
-            </dt>
-            <dd>
-                <em>Mandatory</em> parameter to indicate that you are starting the REST server.
-            </dd>
-            <dt><code>-config=path</code></dt>
-            <dd>
-                <em>Optional</em> parameter to provide configuration file path.
-                Server will automatically look for <code>nlpcraft.conf</code> configuration file in the same directory
-                as <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code> file. If the configuration
-                file has different name or in different location use <code>-config=path</code> parameter
-                where <code>path</code> is an absolute path to the configuration file. Note that the server and the data
-                probe can use the same file for their configuration (just like the
-                default <code>nlpcraft.conf</code> contains configuration for both the server and the data probe).
-            </dd>
-            <dt><code>-igniteConfig=path</code></dt>
-            <dd>
-                <em>Optional</em> parameter to provide <a target=_ href="https://ignite.apache.org/">Apache Ignite</a> configuration file path.
-                Note that Apache Ignite is used as a cluster computing plane and a default distributed storage.
-                Server will automatically look for <code>ignite.xml</code>
-                configuration file in the same directory as <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code> file.
-                If the configuration file has different name or in different location use <code>-igniteConfig=path</code> parameter
-                where <code>path</code> is an absolute path to the Ignite configuration file.
-            </dd>
-        </dl>
-        <div class="bq warn">
-            <b>Java Memory</b>
-            <p>
-                Make sure to allocate enough memory for server JVM using <code>-Xms</code> JVM option, i.e. <code>-Xms1024m</code>.
-                Many 3rd party NLP engines like Stanford CoreNLP are very memory intensive and may require several GBs
-                of JVM heap allocated depending on the models used. Note that when server JVM has insufficient heap
-                memory the Apache Ignite may throw the following warning logs:
-            </p>
-            <pre class="brush: text, highlight: 2">
-                Jul-22 13:27:56 [INFO ] ...
-                Jul-22 13:28:08 [WARN ] Possible too long JVM pause: 11364 milliseconds.
-                Jul-22 13:28:11 [INFO ] ...
-            </pre>
-            <p>
-                The abnormally long GC pauses (over 5s) can be caused by the excessive memory swapping performed by OS due to
-                insufficient JVM heap memory.
-            </p>
-        </div>
-        <div class="bq warn">
-            <div style="float: right">
-                <img alt="" src="/images/apache_ignite_logo.png" height="60px">
+            <div class="tab-pane fade show" id="nav-srv-docker" role="tabpanel">
+                <p></p>
+                <p>
+                    If Docket image is available for given version you can start REST server as follows:
+                </p>
+                <pre class="brush: plain">
+                    $ docker run -m 8G -p 8081:8081 -p 8201:8201 -p 8202:8202 nlpcraftserver/server:{{site.latest_version}}
+                </pre>
             </div>
-            <b>Apache Ignite 2.x and JDK 11+</b>
-            <p>
-                NLPCraft REST  server uses Apache Ignite 2.x as its distributed in-memory computing plane. Apache Ignite
-                <a target=_new href="https://apacheignite.readme.io/docs/getting-started#running-ignite-with-java-11-and-later-versions">recommends</a>
-                the following additional JVM options to be used when running Apache Ignite 2.x on JDK 11+:
-            </p>
-            <pre class="brush: text">
+        </div>
+        <h3 class="section-sub-title">JVM Memory</h3>
+        <p>
+            Make sure to allocate enough memory for server JVM using <code>-Xms</code> JVM option, i.e. <code>-Xms1024m</code>.
+            Many 3rd party NLP engines like Stanford CoreNLP are very memory intensive and may require several GBs
+            of JVM heap allocated depending on the models used. Note that when server JVM has insufficient heap
+            memory the Apache Ignite may throw the following warning logs:
+        </p>
+        <pre class="brush: text">
+            Jul-22 13:27:56 [INFO ] ...
+            Jul-22 13:28:08 [WARN ] Possible too long JVM pause: 11364 milliseconds.
+            Jul-22 13:28:11 [INFO ] ...
+        </pre>
+        <p>
+            <b>NOTES:</b>
+        </p>
+        <ul>
+            <li>
+                <code>nlpcraft.{sh|cmd}</code> script automatically uses <code>-Xms1024m</code> for <code>start-server</code> command.
+            </li>
+        </ul>
+        <p>
+            The abnormally long GC pauses (over 5s) can be caused by the excessive memory swapping performed by OS due to
+            insufficient JVM heap memory.
+        </p>
+        <h3 class="section-sub-title">Apache Ignite 2.x and JDK 11+</h3>
+        <p>
+            NLPCraft REST  server uses Apache Ignite 2.x as its distributed in-memory computing plane. Apache Ignite
+            <a target=_new href="https://apacheignite.readme.io/docs/getting-started#running-ignite-with-java-11-and-later-versions">recommends</a>
+            the following additional JVM options to be used when running Apache Ignite 2.x on JDK 11+:
+        </p>
+        <pre class="brush: text">
 --add-exports=java.base/jdk.internal.misc=ALL-UNNAMED
 --add-exports=java.base/sun.nio.ch=ALL-UNNAMED
 --add-exports=java.management/com.sun.jmx.mbeanserver=ALL-UNNAMED
@@ -208,32 +200,15 @@ id: server_and_probe
 --add-exports=java.base/sun.reflect.generics.reflectiveObjects=ALL-UNNAMED
 --add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED
 --illegal-access=permit
-            </pre>
-        </div>
-        <p>
-            When the REST server successfully started you should see the log output similar to this:
-        </p>
-        <pre class="brush: plain, highlight: 19">
-                _   ____      ______           ______
-               / | / / /___  / ____/________ _/ __/ /_
-              /  |/ / / __ \/ /   / ___/ __ `/ /_/ __/
-             / /|  / / /_/ / /___/ /  / /_/ / __/ /_
-            /_/ |_/_/ .___/\____/_/   \__,_/_/  \__/
-                   /_/
-
-            Server
-            Version: {{site.latest_version}}
-            Copyright (C) 2021 Apache Software Foundation.
-
-            ...
-
-            +-------------------------+
-            | Server started [19.35s] |
-            +-------------------------+
-
-
-            Mar-11 23:21:04 [INFO ] REST server is listening on 'localhost:8081'.
         </pre>
+        <p>
+            <b>NOTES:</b>
+        </p>
+        <ul>
+            <li>
+                <code>nlpcraft.{sh|cmd}</code> script automatically uses these options for <code>start-server</code> command.
+            </li>
+        </ul>
     </section>
     <section id="probe">
         <h2 class="section-title">Data Probe</h2>
