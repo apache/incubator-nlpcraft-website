@@ -180,7 +180,7 @@ public class AlarmModel extends NCModelFileAdapter {
         </p>
         <h3 class="section-sub-title">Running</h3>
         <p>
-            Auto mode validator can be executed in several ways:
+            Auto mode validator can be executed in two different ways:
         </p>
         <nav>
             <div class="nav nav-tabs" role="tablist">
@@ -190,7 +190,7 @@ public class AlarmModel extends NCModelFileAdapter {
         </nav>
         <div class="tab-content">
             <div class="tab-pane fade show active" id="nav-script" role="tabpanel">
-                <pre class="brush: plain">
+                <pre class="brush: bash">
                     $ bin/nlpcraft.sh test-model
                 </pre>
                 <p>
@@ -198,7 +198,7 @@ public class AlarmModel extends NCModelFileAdapter {
                 </p>
                 <ul>
                     <li>
-                        Use <code>nlpcraft.sh</code> for Unix/Linux/MacOS and <code>nlpcraft.cmd</code> for Windows.
+                        <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for Unix/Linux/MacOS and <code>nlpcraft.cmd</code> for Windows.
                     </li>
                     <li>
                         Run <code>bin/nlpcraft.sh help --cmd=test-model</code> to get a full help on this command.
@@ -206,7 +206,7 @@ public class AlarmModel extends NCModelFileAdapter {
                 </ul>
             </div>
             <div class="tab-pane fade show" id="nav-class" role="tabpanel">
-                <pre class="brush: plain">
+                <pre class="brush: bash">
                     java -cp apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar -DNLPCRAFT_TEST_MODELS=org.apache.nlpcraft.examples.alarm.AlarmModel org.apache.nlpcraft.model.tools.test.NCTestAutoModelValidator
                 </pre>
                 <p>

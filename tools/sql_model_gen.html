@@ -27,145 +27,60 @@ id: sql_model_gen
         <p>
             When using NLPCraft to develop natural language interface to the existing SQL RDBMS one of the
             routine tasks is to develop a data model that mirrors the SQL schema for the given
-            database. Doing it manually can be time consuming and error prone...
+            database. Doing it manually can be time consuming and error prone.
         </p>
         <p>
             SQL model generator automates this task. This is a Java-based utility that takes JDBC configuration,
             reads database schema using it and creates initial JSON or YAML stub for the data model. This stub then
-            can be used as is or be extended further.
+            can be further extended and modified.
         </p>
     </section>
     <section id="usage">
         <h2 class="section-title">Usage</h2>
         <p>
-            This utility is highly configurable. It take several parameters like JDBC URL and driver, database schema,
-            optional set of tables and columns to include or exclude for which it will generate YAML/JSON NLPCraft
-            model stub. Run this utility with <code>--help</code> parameter to get a full up-to-date documentation:
+            This utility can be run in several ways:
         </p>
-        <pre class="brush: plain">
-java -cp apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar org.apache.nlpcraft.model.tools.sqlgen.NCSqlModelGenerator --help
-        </pre>
-        <p>
-            NOTE: this utility is Java-based and can be run similarly from command line or any IDE.
-        </p>
-        <p>
-            At the time of this writing (NLPCraft ver. 0.5.0) this would produce the following output:
-        </p>
-        <pre class="brush: plain">
-NAME:
-    NCSqlModelGenerator -- NLPCraft model generator for SQL databases.
-
-SYNOPSIS:
-    java -cp apache-nlpcraft-incubating-0.5.0-all-deps.jar org.apache.nlpcraft.model.tools.sqlgen.NCSqlModelGenerator [PARAMETERS]
-
-DESCRIPTION:
-    This utility generates NLPCraft model stub for a given SQL database schema. You
-    can choose database schema, set of tables and columns for which you
-    want to generate NLPCraft model. After the model is generated you can
-    further configure and customize it for your specific needs.
-
-    This Java class can be run from the command line or from an IDE like any other
-    Java application. Note that required JDBC driver class must be available on the
-    classpath and therefore its JAR should be added to the classpath when running
-    this application.
-
-PARAMETERS:
-    [--url|-r] url
-        Mandatory database JDBC URL.
-
-    [--driver|-d] class
-        Mandatory JDBC driver class. Note that 'class' must be a
-        fully qualified class name. It should also be available on
-        the classpath.
-
-    [--schema|-s] schema
-        Mandatory database schema to scan.
-
-    [--out|-o] filename
-        Mandatory name of the output JSON or YAML model file. It should
-        have one of the following extensions: .js, .json, .yml, or .yaml
-        File extension determines the output file format.
-
-    [--user|-u] username
-        Optional database user name.
-
-    [--password|-w] password
-        Optional database user password.
-
-    [--model-id|-x] id
-        Optional generated model ID. By default, the model ID will be 'sql.model.id'.
-
-    [--model-ver|-v] version
-        Optional generated model version. By default, the model ID will be '1.0.0-timestamp'.
-
-    [--model-name|-n] name
-        Optional generated model name. By default, the model name will be 'SQL-based model'.
-
-    [--exclude|-e] list
-        Optional semicolon-separate list of tables and/or columns to exclude. By
-        default, none of the tables and columns in the schema are excluded. See below
-        for more information.
-
-    [--prefix|-f] list
-        Optional comma-separate list of table or column name prefixes to remove.
-        These prefixes will be removed when name is used for model elements
-        synonyms. By default, no prefixes will be removed.
-
-    [--suffix|-q] list
-        Optional comma-separate list of table or column name suffixes to remove.
-        These suffixes will be removed when name is used for model elements
-        synonyms. By default, no suffixes will be removed.
-
-    [--include|-i] list
-        Optional semicolon-separate list of tables and/or columns to include. By
-        default, all tables and columns in the schema are included. See below
-        for more information.
-
-    [--synonyms|-y] [true|false]
-        Optional flag on whether or not to generated auto synonyms for the model elements.
-        Default is true.
-
-    [--override|-z] [true|false]
-        Flag to determine whether or not to override output file if it already exist.
-        If override is disabled (default) and output file exists - a unique file name will
-        be used instead.
-        Default is false.
-
-    [--parent|-p] [true|false]
-        Optional flag on whether or not to use element's parent relationship for
-        defining SQL columns and their containing (i.e. parent) tables.
-        Default is false.
-
-    [--help|-h|-?]
-        Prints this usage information.
-
-DETAILS:
-    -r, -d, -s, and -o are mandatory parameters, everything else is optional.
-
-    Each -i or -e parameter is a semicolon ';' separated  list of table or columns names.
-    Each table or column name can be one of following forms:
-      - table         -- to filter on table names only.
-      - table#column  -- to filter on both table and column names.
-      - #column       -- to filter on columns only (regardless of the table).
-
-    Table and column names are treated as standard Java regular expressions. Note that
-    both '#' and ';' cannot be used inside of the regular expression:
-
-    -e "#_.+"             -- excludes any columns starting with '_'.
-    -e "tmp.+"            -- excludes all tables starting with 'tmp'.
-    -i "Order.*;#[^_].+"  -- includes only tables starting with 'Order' and columns that
-                             do not start with '_'.
-
-EXAMPLES:
-    java -cp apache-nlpcraft-incubating-0.5.0-all-deps.jar org.apache.nlpcraft.model.tools.sqlgen.NCSqlModelGenerator
-        -r jdbc:postgresql://localhost:5432/mydb
-        -d org.postgresql.Driver
-        -f "tbl_, col_"
-        -q "_tmp, _old, _unused"
-        -s public
-        -e "#_.+"
-        -o model.json
-        </pre>
+        <nav>
+            <div class="nav nav-tabs" role="tablist">
+                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-script" role="tab" aria-controls="nav-home" aria-selected="true">NLPCraft CLI</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-class" role="tab" aria-controls="nav-home" aria-selected="true">Java Class</a>
+            </div>
+        </nav>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="nav-script" role="tabpanel">
+                <pre class="brush: bash">
+                    $ bin/nlpcraft.sh gen-sql --url=jdbc:postgresql://localhost:5432/mydb --driver=org.postgresql.Driver --schema=public --out=model.json
+                </pre>
+                <p>
+                    <b>NOTES:</b>
+                </p>
+                <ul>
+                    <li>
+                        <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for Unix/Linux/MacOS and <code>nlpcraft.cmd</code> for Windows.
+                    </li>
+                    <li>
+                        Run <code>bin/nlpcraft.sh help --cmd=gen-sql</code> to get a full help on this command.
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-pane fade show" id="nav-class" role="tabpanel">
+                <pre class="brush: bash">
+                    $ java -cp apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar org.apache.nlpcraft.model.tools.sqlgen.NCSqlModelGenerator
+                </pre>
+                <p>
+                    <b>NOTES:</b>
+                </p>
+                <ul>
+                    <li>
+                        Run this class without arguments to get a full help.
+                    </li>
+                    <li>
+                        Use <code>org.apache.nlpcraft.model.tools.sqlgen.NCSqlModelGenerator</code> class directly to execute
+                        it from IDE or programmatically.
+                    </li>
+                </ul>
+            </div>
+        </div>
         <p>
             After the data model stub is generated:
         </p>

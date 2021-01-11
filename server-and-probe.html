@@ -78,7 +78,7 @@ id: server_and_probe
         </nav>
         <div class="tab-content">
             <div class="tab-pane fade show active" id="nav-srv-script" role="tabpanel">
-                <pre class="brush: plain">
+                <pre class="brush: bash">
                     $ bin/nlpcraft.sh start-server
                 </pre>
                 <p>
@@ -86,7 +86,7 @@ id: server_and_probe
                 </p>
                 <ul>
                     <li>
-                        Use <code>nlpcraft.sh</code> for Unix/Linux/MacOS and <code>nlpcraft.cmd</code> for Windows.
+                        <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for Unix/Linux/MacOS and <code>nlpcraft.cmd</code> for Windows.
                     </li>
                     <li>
                         Run <code>bin/nlpcraft.sh help --cmd=start-server</code> to get a full help on this command.
@@ -98,13 +98,13 @@ id: server_and_probe
                 <p>
                     If using just executable JAR:
                 </p>
-                <pre class="brush: plain">
+                <pre class="brush: bash">
                     $ java -Xms1024m -jar apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar -server
                 </pre>
                 <p>
                     If specifying additional classpath components and need <code>-cp</code> parameter:
                 </p>
-                <pre class="brush: plain">
+                <pre class="brush: bash">
                     $ java -Xms1024m -cp apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar org.apache.nlpcraft.NCStart -server
                 </pre>
                 <p>
@@ -157,7 +157,7 @@ id: server_and_probe
                 <p>
                     If Docker image is available for given version you can start REST server as follows:
                 </p>
-                <pre class="brush: plain">
+                <pre class="brush: bash">
                     $ docker run -m 8G -p 8081:8081 -p 8201:8201 -p 8202:8202 nlpcraftserver/server:{{site.latest_version}}
                 </pre>
             </div>
@@ -223,7 +223,7 @@ id: server_and_probe
         </nav>
         <div class="tab-content">
             <div class="tab-pane fade show active" id="nav-probe-script" role="tabpanel">
-                <pre class="brush: plain">
+                <pre class="brush: bash">
                     $ bin/nlpcraft.sh start-probe
                 </pre>
                 <p>
@@ -231,7 +231,7 @@ id: server_and_probe
                 </p>
                 <ul>
                     <li>
-                        Use <code>nlpcraft.sh</code> for Unix/Linux/MacOS and <code>nlpcraft.cmd</code> for Windows.
+                        <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for Unix/Linux/MacOS and <code>nlpcraft.cmd</code> for Windows.
                     </li>
                     <li>
                         Run <code>bin/nlpcraft.sh help --cmd=start-probe</code> to get a full help on this command.
@@ -243,13 +243,13 @@ id: server_and_probe
                 <p>
                     If using just executable JAR:
                 </p>
-                <pre class="brush: plain">
+                <pre class="brush: bash">
                     $ java -jar apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar -probe
                 </pre>
                 <p>
                     If specifying additional classpath components and need <code>-cp</code> parameter:
                 </p>
-                <pre class="brush: plain">
+                <pre class="brush: bash">
                     java -cp apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar:/my/project/classes org.apache.nlpcraft.NCStart -probe -config=/my/project/probe.conf
                 </pre>
                 <p>

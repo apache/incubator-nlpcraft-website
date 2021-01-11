@@ -187,7 +187,7 @@ id: sql_model
             by starting H2 database (using <code>SqlServerRunner</code> application in <code>db/SqlServer.java</code> file)
             and running SQL Model Generator as follows:
         </p>
-        <pre class="brush: plain">
+        <pre class="brush: bash">
             java -cp apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar org.apache.nlpcraft.model.tools.sqlgen.NCSqlModelGenerator -r jdbc:h2:tcp://localhost:9092/nlp2sql -d org.h2.Driver -s PUBLIC -o src/main/scala/org/apache/nlpcraft/examples/sql/sql_model_init.yaml
         </pre>
         <p>
