@@ -106,61 +106,88 @@ id: syn_tool
                 </div>
             </li>
         </ol>
-        <h3 class="section-sub-title">NLPCraft Server</h3>
+        <h3 class="section-sub-title">REST Server</h3>
         <p>
-            NLPCraft server should be started in a <a href="/server-and-probe.html#server">standard way</a>.
+            REST server should be <a href="/server-and-probe.html#server">started</a>.
         </p>
-        <h3 class="section-sub-title">REST Call</h3>
+        <h3 class="section-sub-title">Running</h3>
         <p>
-            Once the 'ctxword' and NLPCraft server are started you can issue the REST call.
+            Synonyms tool can be run in two different ways:
         </p>
+        <nav>
+            <div class="nav nav-tabs" role="tablist">
+                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-script" role="tab" aria-controls="nav-home" aria-selected="true">NLPCraft CLI</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-rest" role="tab" aria-controls="nav-home" aria-selected="true">REST Call</a>
+            </div>
+        </nav>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="nav-script" role="tabpanel">
+                <pre class="brush: bash">
+                    $ bin/nlpcraft.sh sugsyn --mdlId=nlpcraft.alarm.ex
+                </pre>
+                <p>
+                    <b>NOTES:</b>
+                </p>
+                <ul>
+                    <li>
+                        <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for Unix/Linux/MacOS and <code>nlpcraft.cmd</code> for Windows.
+                    </li>
+                    <li>
+                        Run <code>bin/nlpcraft.sh help --cmd=sugsyn</code> to get a full help on this command.
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-pane fade show" id="nav-rest" role="tabpanel">
+                <p></p>
+                <p>
+                    <a href="/using-rest.html">REST API</a> accepts only <code>POST</code> HTTP calls and <code>application/json</code> content type
+                    for JSON payload and responses. When issuing a REST call for this tool you will be using the following URL:
+                </p>
+                <pre class="brush: plain">
+                    https://localhost:8081/api/v1/model/sugsyn
+                </pre>
+                <p>
+                    where:
+                <dl>
+                    <dt><code>http</code></dt>
+                    <dd>Either <code>http</code> or <code>https</code> protocol.</dd>
+                    <dt><code>localhost:8081</code></dt>
+                    <dd>Host and port on which REST server is started. <code>localhost:8081</code> is the default configuration and can be <a href="/server-and-probe.html">changed</a>.</dd>
+                    <dt><code>/api/v1</code></dt>
+                    <dd>Mandatory prefix indicating API version.</dd>
+                    <dt><code>model/sugsyn</code></dt>
+                    <dd>Synonym suggester REST call.</dd>
+                </dl>
+                <p>
+                    The parameters should be passed in as JSON:
+                </p>
+                <pre class="brush: js">
+        {
+            "acsTok": "qweqw9123uqwe",
+            "mdlId": "nlpcraft.alarm.ex",
+            "minScore": 0.5
+        }
+                </pre>
+                <p>
+                    where:
+                </p>
+                <ul>
+                    <li>
+                        <code>acsTok</code> - access token obtain via previous <code>'/signin'</code> call.
+                    </li>
+                    <li>
+                        <code>mdlId</code> - ID of the model to run synonym suggester on.
+                    </li>
+                    <li>
+                        <code>minScore</code> - Optional min score to include into the result, ranging from 0 to 1, default is 0.
+                        <code>minScore</code> of 0 will include all results, and <code>minScore</code> of 1 will include only results
+                        with the absolutely highest confidence score. Values between 0.5 and 0.7 is generally suggested.
+                    </li>
+                </ul>
+            </div>
+        </div>
         <p>
-            REST API accepts only <code>POST</code> HTTP calls and <code>application/json</code> content type
-            for JSON payload and responses. When issuing a REST call for this tool you will be using the following URL:
-        </p>
-        <pre class="brush: plain">
-            https://localhost:8081/api/v1/model/sugsyn
-        </pre>
-        <p>
-            where:
-        <dl>
-            <dt><code>http</code></dt>
-            <dd>Either <code>http</code> or <code>https</code> protocol.</dd>
-            <dt><code>localhost:8081</code></dt>
-            <dd>Host and port on which REST server is started. <code>localhost:8081</code> is the default configuration and can be <a href="/server-and-probe.html">changed</a>.</dd>
-            <dt><code>/api/v1</code></dt>
-            <dd>Mandatory prefix indicating API version.</dd>
-            <dt><code>model/sugsyn</code></dt>
-            <dd>Synonym suggester REST call.</dd>
-        </dl>
-        <p>
-            The parameters should be passed in as JSON:
-        </p>
-        <pre class="brush: js">
-{
-    "acsTok": "qweqw9123uqwe",
-    "mdlId": "my.model.id",
-    "minScore": 0.5
-}
-        </pre>
-        <p>
-            where:
-        </p>
-        <ul>
-            <li>
-                <code>acsTok</code> - access token obtain via previous <code>'/signin'</code> call.
-            </li>
-            <li>
-                <code>mdlId</code> - ID of the model to run synonym suggester on.
-            </li>
-            <li>
-                <code>minScore</code> - Optional min score to include into the result, ranging from 0 to 1, default is 0.
-                <code>minScore</code> of 0 will include all results, and <code>minScore</code> of 1 will include only results
-                with the absolutely highest confidence score. Values between 0.5 and 0.7 is generally suggested.
-            </li>
-        </ul>
-        <p>
-            <code>/model/sugsyn</code> REST call will return the following JSON result (<code>nlpcraft.alarm.ex</code>
+            Either way the synonym suggester returns the following JSON result (<code>nlpcraft.alarm.ex</code>
             model from <a href="/examples/alarm_clock.html">Alarm</a> example):
         </p>
         <pre class="brush: js">
