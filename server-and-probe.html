@@ -79,7 +79,7 @@ id: server_and_probe
         <div class="tab-content">
             <div class="tab-pane fade show active" id="nav-srv-script" role="tabpanel">
                 <pre class="brush: plain">
-                        $ bin/nlpcraft.sh start-server
+                    $ bin/nlpcraft.sh start-server
                 </pre>
                 <p>
                     <b>NOTES:</b>
@@ -213,147 +213,87 @@ id: server_and_probe
     <section id="probe">
         <h2 class="section-title">Data Probe</h2>
         <p>
-            Just like the REST server the data probe can be started in a <em>standard way</em> from either the
-            command line or IDE such as Eclipse or IntelliJ IDEA:
+            Data probes are used to deploy and host data mode, and can also be started in several ways:
         </p>
         <nav>
             <div class="nav nav-tabs" role="tablist">
-                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-probe-cmd" role="tab" aria-controls="nav-home" aria-selected="true">Command Line</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-probe-jar" role="tab" aria-controls="nav-home" aria-selected="true">Executable JAR</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-probe-ide" role="tab" aria-controls="nav-home" aria-selected="true">IDE</a>
+                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-probe-script" role="tab" aria-controls="nav-home" aria-selected="true">NLPCraft CLI</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-probe-class" role="tab" aria-controls="nav-home" aria-selected="true">Java Class</a>
             </div>
         </nav>
         <div class="tab-content">
-            <div class="tab-pane fade show" id="nav-probe-jar" role="tabpanel">
+            <div class="tab-pane fade show active" id="nav-probe-script" role="tabpanel">
                 <pre class="brush: plain">
-                    $ cd build
+                    $ bin/nlpcraft.sh start-probe
+                </pre>
+                <p>
+                    <b>NOTES:</b>
+                </p>
+                <ul>
+                    <li>
+                        Use <code>nlpcraft.sh</code> for Unix/Linux/MacOS and <code>nlpcraft.cmd</code> for Windows.
+                    </li>
+                    <li>
+                        Run <code>bin/nlpcraft.sh help --cmd=start-probe</code> to get a full help on this command.
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-pane fade show" id="nav-probe-class" role="tabpanel">
+                <p></p>
+                <p>
+                    If using just executable JAR:
+                </p>
+                <pre class="brush: plain">
                     $ java -Xms1024m -jar apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar -probe
                 </pre>
-                <div class="bq warn">
-                    <p>
-                        <b>NOTE:</b> when using executable JAR to start the data probe you cannot add your
-                        own model classes to the classpath. You should either package your classes into JAR
-                        file and configure probe accordingly - or use <code>-cp</code> option in
-                        command line.
-                    </p>
-                </div>
-            </div>
-            <div class="tab-pane fade show active" id="nav-probe-cmd" role="tabpanel">
+                <p>
+                    If specifying additional classpath components and need <code>-cp</code> parameter:
+                </p>
                 <pre class="brush: plain">
-                    $ cd build
-                    $ java -Xms1024m -cp apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar:/my/project/classes org.apache.nlpcraft.NCStart -probe -config=/my/project/probe.conf
+                    java -Xms1024m -cp apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar:/my/project/classes org.apache.nlpcraft.NCStart -probe -config=/my/project/probe.conf
                 </pre>
                 <p>
-                    Directory <code>/my/project/classes</code> should contain all compiled classes for your models.
-                    Make sure to replace <code>/my/project/classes</code> and <code>/my/project/probe.conf</code> with
-                    the actual paths.
+                    <b>NOTES:</b>
                 </p>
-            </div>
-            <div class="tab-pane fade show" id="nav-probe-ide" role="tabpanel">
-                <p style="padding-top: 10px">
-                    Configure run configuration with the main class <code>org.apache.nlpcraft.NCStart</code>.
-                </p>
-                <div class="bq info">
-                    <b>Class <code>org.apache.nlpcraft.NCStart</code></b>
-                    <p>
-                        Note that <code>org.apache.nlpcraft.NCStart</code> class starts both the REST server and the data probe and is the
-                        class that is configured as <code>Main-Class</code> in <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code>
-                        JAR file manifest.
-                    </p>
-                </div>
-            </div>
-        </div>
-        Parameters:
-        <dl>
-            <dt>
-                <code>-probe</code>
-            </dt>
-            <dd>
-                <em>Mandatory</em> parameter to indicate that you are starting a data probe.
-            </dd>
-            <dt><code>-config=path</code></dt>
-            <dd>
+                <ul>
+                    <li>
+                        <code>/my/project</code> directory contains user-defined model implementation
+                    </li>
+                    <li>
+                        Make sure to provide correct path to <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code> file.
+                    </li>
+                    <li>
+                        Class <code>org.apache.nlpcraft.NCStart</code> is a common entry point for all NLPCraft runtime components.
+                    </li>
+                    <li>
+                        Class <code>org.apache.nlpcraft.NCStart</code> should be used to star data probe from IDE.
+                    </li>
+                </ul>
                 <p>
-                    <em>Optional</em> parameter to provide probe configuration file path.
-                    Data probe will automatically look for <code>nlpcraft.conf</code> configuration file in the same directory
-                    as <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code> file. If the configuration
-                    file has different name or in different location use <code>-config=path</code> parameter
-                    where <code>path</code> is an absolute path to the data probe configuration file. Note that the server and the data
-                    probe can use the same file for their configuration (just like the
-                    default <code>nlpcraft.conf</code> contains configuration for both the server and the data probe).
+                    Parameters:
                 </p>
-            </dd>
-        </dl>
-        <div class="bq info">
-            <b>Adding Your Classes</b>
-            <p>
-                Note that when you are using a <em>command line</em> to start the probe you can also add your own classes that implement
-                your models. To do that you need to use <code>-cp</code> option instead of <code>-jar</code> and
-                construct your JVM classpath to include both the <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code>
-                as well as directory where your compiled Java code is located:
-            </p>
-            <pre class="brush: plain, highlight: 2">
-                    $ cd build
-                    $ java -cp apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar:/my/project/classes org.apache.nlpcraft.NCStart -probe -config /my/project/probe.conf
-            </pre>
-            Make sure to replace <code>/my/project/classes</code> with your own directory where your compiled model classes
-            are located. Note that you need to specify class <code>org.apache.nlpcraft.NCStart</code> explicitly in this case.
+                <dl>
+                    <dt>
+                        <code>-probe</code>
+                    </dt>
+                    <dd>
+                        <em>Mandatory</em> parameter to indicate that you are starting a data probe.
+                    </dd>
+                    <dt><code>-config=path</code></dt>
+                    <dd>
+                        <p>
+                            <em>Optional</em> parameter to provide probe configuration file path.
+                            Data probe will automatically look for <code>nlpcraft.conf</code> configuration file in the same directory
+                            as <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code> file. If the configuration
+                            file has different name or in different location use <code>-config=path</code> parameter
+                            where <code>path</code> is an absolute path to the data probe configuration file. Note that the server and the data
+                            probe can use the same file for their configuration (just like the
+                            default <code>nlpcraft.conf</code> contains configuration for both the server and the data probe).
+                        </p>
+                    </dd>
+                </dl>
+            </div>
         </div>
-        <p>
-            When the data probe started you should see the log output similar to this:
-        </p>
-        <pre class="brush: plain">
-            _   ____      ______           ______
-           / | / / /___  / ____/________ _/ __/ /_
-          /  |/ / / __ \/ /   / ___/ __ `/ /_/ __/
-         / /|  / / /_/ / /___/ /  / /_/ / __/ /_
-        /_/ |_/_/ .___/\____/_/   \__,_/_/  \__/
-               /_/
-
-        Data Probe
-        Version: {{site.latest_version}}
-        Copyright (C) 2021 Apache Software Foundation.
-
-        Mar-11 23:25:52 [INFO ] Probe Configuration:
-        +--------------------------------------------------------------------+
-        | Probe ID        | all.examples                                     |
-        | Probe Token     | 3141592653589793                                 |
-        | API Version     | {{site.latest_version}}, 2019-03-01                                |
-        | Down-Link       | localhost:8202                                   |
-        | Up-Link         | localhost:8201                                   |
-        +-----------------+--------------------------------------------------+
-        | Models          | org.apache.nlpcraft.examples.alarm.AlarmModel    |
-        |                 | org.apache.nlpcraft.examples.echo.EchoModel      |
-        |                 | org.apache.nlpcraft.examples.time.TimeModel      |
-        |                 | org.apache.nlpcraft.examples.weather.WeatherModel|
-        +-----------------+--------------------------------------------------+
-        | Lifecycle       |                                                  |
-        | JARs Folder     |                                                  |
-        +--------------------------------------------------------------------+
-
-        ...
-
-        Mar-11 23:25:56 [INFO ] Models deployed: 5
-
-        +================================================================================+
-        |        Model ID        |           Name           | Ver. | Elements | Synonyms |
-        +================================================================================+
-        | nlpcraft.alarm.ex      | Alarm Example Model      | 1.0  | 1        | 419      |
-        | nlpcraft.weather.ex    | Weather Example Model    | 1.0  | 3        | 9045     |
-        | nlpcraft.time.ex       | Time Example Model       | 1.0  | 1        | 432      |
-        | nlpcraft.echo.ex       | Echo Example Model       | 1.0  | 0        | 0        |
-        +--------------------------------------------------------------------------------+
-
-        ...
-
-        +--------------------------+
-        | Probe started [5.12 sec] |
-        +--------------------------+
-
-        ...
-
-        Mar-11 23:25:58 [INFO ] Server connection established.
-        </pre>
     </section>
     <section id="config">
         <h2 class="section-title">Configuration</h2>
@@ -370,16 +310,16 @@ id: server_and_probe
                 or <code>nlpcraft.probe</code> sub-section.
             </li>
         </ul>
-
         <p>
             By default, when REST server or data probe start they look for <code>nlpcraft.conf</code> configuration file in the same directory
             as <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code> file and the on their classpath. You can change this behavior with
             <code>-config=path</code> parameter.
         </p>
+        <h3 class="section-sub-title">Separate Configurations</h3>
         <p>
             Default configuration is available in <code>build/<b>nlpcraft.conf</b></code> file and it is extensively documented. It has subsections
-            for the server and probe configuration. When server and the probe use different files these whole sections should be
-            placed into an individual files:
+            for the server and probe configuration. You can also separate server and probe configurations into their own
+            separate files. Each file would have just a subsection of configuration for either server or data probe.
         </p>
         <p>
             Server configuration file (e.g. <code>server_nlpcraft.conf</code>):
@@ -403,7 +343,7 @@ nlpcraft {
             </pre>
     </section>
     <section id="override">
-        <h2 class="section-title">Custom Configuration</h2>
+        <h3 class="section-sub-title">Custom Configuration</h3>
         <p>
             While you can change configuration file or files for your own needs (and use <code>-config=...</code>
             parameter described above to provide path to that file) it is often more convenient to use the default configuration file and just
@@ -604,7 +544,6 @@ nlpcraft {
         <li><a href="#server">REST Server</a></li>
         <li><a href="#probe">Data Probe</a></li>
         <li><a href="#config">Configuration</a></li>
-        <li><a href="#override">Custom Configuration</a></li>
         <li><a href="#ansi">ANSI Colors</a></li>
         <li><a href="#testing">CI Testing</a></li>
         {% include quick-links.html %}
