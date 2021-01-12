@@ -49,7 +49,7 @@ id: first_example
         <nav>
             <div class="nav nav-tabs" role="tablist">
                 <a class="nav-item nav-link active" data-toggle="tab" href="#nav-cmd" role="tab" aria-controls="nav-home" aria-selected="true">Command</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-out" role="tab" aria-controls="nav-home" aria-selected="true">Output</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-out" role="tab" aria-controls="nav-home" aria-selected="true">Output <i class="fa fa-desktop output"></i></a>
             </div>
         </nav>
         <div class="tab-content">
@@ -59,7 +59,8 @@ id: first_example
                 </pre>
             </div>
             <div class="tab-pane fade show" id="nav-out" role="tabpanel">
-                <p style="margin-top: 15px">
+                <p></p>
+                <p>
                     <img class="img-fluid" alt="" src="/images/first_example_fig1.png">
                 </p>
             </div>
@@ -77,6 +78,9 @@ id: first_example
             <li>
                 Run <code>bin/nlpcraft.sh help --cmd=gen-project</code> to get a full help on <code>gen-project</code> command.
             </li>
+            <li>
+                <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for Unix/Linux/MacOS and <code>nlpcraft.cmd</code> for Windows.
+            </li>
         </ul>
     </section>
     <section id="data_model">
@@ -89,7 +93,7 @@ id: first_example
             models in NLPCraft and it allows you cleanly separate the logic of the model from its declarative configuration.
         </p>
         <p>
-            Open <code>src/main/resources/light_switch.yaml</code> file and replace its default content with
+            Open <code>src/main/resources/<b>light_switch.yaml</b></code> file and replace its default content with
             the following model declaration:
         </p>
         <pre class="brush: js, highlight: [16, 23, 31]">
@@ -151,7 +155,7 @@ id: first_example
         </p>
         <p>
             Next, let's go ahead and add model's logic which we'll write in Scala (note that this code can be converted to Java or Kotlin almost as is).
-            Open <code>src/main/scala/demo/LightSwitch.scala</code> file and replace its content with the following
+            Open <code>src/main/scala/demo/<b>LightSwitch.scala</b></code> file and replace its content with the following
             code:
         </p>
         <pre class="brush: java, highlight: [5, 6, 7, 22, 23]">
@@ -256,7 +260,7 @@ class LightSwitchModel extends NCModelFileAdapter("light_switch.yaml") {
         <nav>
             <div class="nav nav-tabs" role="tablist">
                 <a class="nav-item nav-link active" data-toggle="tab" href="#nav-srv-cmd" role="tab" aria-controls="nav-home" aria-selected="true">Command</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-out" role="tab" aria-controls="nav-home" aria-selected="true">Output</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-out" role="tab" aria-controls="nav-home" aria-selected="true">Output <i class="fa fa-desktop output"></i></a>
             </div>
         </nav>
         <div class="tab-content">
@@ -266,7 +270,8 @@ class LightSwitchModel extends NCModelFileAdapter("light_switch.yaml") {
                 </pre>
             </div>
             <div class="tab-pane fade show" id="nav-srv-out" role="tabpanel">
-                <p style="margin-top: 15px">
+                <p></p>
+                <p>
                     <img class="img-fluid" alt="" src="/images/first_example_fig2.png">
                 </p>
             </div>
@@ -280,6 +285,9 @@ class LightSwitchModel extends NCModelFileAdapter("light_switch.yaml") {
             </li>
             <li>
                 Run <code>bin/nlpcraft.sh help --cmd=start-server</code> to get a full help on this command.
+            </li>
+            <li>
+                <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for Unix/Linux/MacOS and <code>nlpcraft.cmd</code> for Windows.
             </li>
         </ul>
     </section>
@@ -305,30 +313,18 @@ class LightSwitchModel extends NCModelFileAdapter("light_switch.yaml") {
             As always, you can launch model auto-validator as any other Java class but we'll use <code>nlpcraft.sh</code>
             script to do it more conveniently:
         </p>
-        <nav>
-            <div class="nav nav-tabs" role="tablist">
-                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-test-cmd" role="tab" aria-controls="nav-home" aria-selected="true">Command</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-test-out" role="tab" aria-controls="nav-home" aria-selected="true">Output</a>
-            </div>
-        </nav>
-        <div class="tab-content">
-            <div class="tab-pane fade show active" id="nav-test-cmd" role="tabpanel">
-                <pre class="brush: bash">
-                    $ bin/nlpcraft.sh test-model --cp=~/LightSwitch/target/classes --mdls=demo.LightSwitch
-                </pre>
-            </div>
-            <div class="tab-pane fade show" id="nav-test-out" role="tabpanel">
-                <p style="margin-top: 15px">
-                    <img style="max-width: 910px !important;" class="img-fluid" alt="" src="/images/first_example_fig3.png">
-                </p>
-            </div>
-        </div>
+        <pre class="brush: bash">
+            $ bin/nlpcraft.sh test-model --cp=~/LightSwitch/target/classes --mdls=demo.LightSwitch
+        </pre>
         <p>
             <b>NOTES:</b>
         </p>
         <ul>
             <li>
                 Run <code>bin/nlpcraft.sh help --cmd=test-model</code> to get a full help on this command.
+            </li>
+            <li>
+                <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for Unix/Linux/MacOS and <code>nlpcraft.cmd</code> for Windows.
             </li>
         </ul>
         <p>
