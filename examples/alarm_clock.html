@@ -80,7 +80,7 @@ id: alarm_clock
         <h3 class="section-title">Data Model</h3>
         <p>
             We are going to start with declaring the static part of our model using JSON which we will later load using
-            <code>NCModelFileAdapter</code> in our Java-based model implementation. Open <code>src/main/resources/<b>alarm_model.json</b></code>
+            <code>NCModelFileAdapter</code> in our Java-based model implementation. Open <code>src/main/resources/<b>alarm_clock.json</b></code>
             file and replace its content with this JSON:
         </p>
         <pre class="brush: js, highlight: [7, 11, 20]">
@@ -131,10 +131,10 @@ id: alarm_clock
     <section id="code">
         <h3 class="section-title">Model Class</h3>
         <p>
-            Open <code>src/main/java/demo/<b>AlarmModel.java</b></code> file and replace its content with the following code:
+            Open <code>src/main/java/demo/<b>AlarmClock.java</b></code> file and replace its content with the following code:
         </p>
         <pre class="brush: java, highlight: [10, 18, 22, 27], 82">
-package org.apache.nlpcraft.examples.alarm;
+package demo;
 
 import org.apache.nlpcraft.model.*;
 import java.time.*;
@@ -143,15 +143,15 @@ import java.util.*;
 
 import static java.time.temporal.ChronoUnit.*;
 
-public class AlarmModel extends NCModelFileAdapter {
+public class AlarmClock extends NCModelFileAdapter {
     private static final DateTimeFormatter FMT =
         DateTimeFormatter.ofPattern("HH'h' mm'm' ss's'").withZone(ZoneId.systemDefault());
 
     private final Timer timer = new Timer();
 
-    public AlarmModel() {
+    public AlarmClock() {
         // Loading the model from the file in the classpath.
-        super("org/apache/nlpcraft/examples/alarm/alarm_model.json");
+        super("alarm_model.json");
     }
 
     @NCIntentRef("alarm")
@@ -336,7 +336,7 @@ public class AlarmModel extends NCModelFileAdapter {
             Look at the output of this command and you will see the test results for all our sample utterances:
         </p>
         <p>
-            <img class="img-fluid" alt="" src="/images/alarm-clock-test.png">
+            <img style="max-width: 667px !important;" class="img-fluid" alt="" src="/images/alarm-clock-test.png">
         </p>
     </section>
     <section>

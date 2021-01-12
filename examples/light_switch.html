@@ -38,76 +38,50 @@ id: light_switch
     <section id="new_project">
         <h3 class="section-title">Create New Project</h3>
         <p>
-            You can create new Java project in many different ways - we'll use Maven archetype generation
-            for that. In your home folder run the following command:
+            You can create new Scala project in many different ways - we'll use <a href="/tools/script.html">NLPCraft CLI</a>
+            to accomplish this task:
         </p>
-        <pre class="brush: bash">
-            mvn archetype:generate -DgroupId=examples -DartifactId=my-app -DarchetypeVersion=1.4 -DinteractiveMode=false
-        </pre>
-        <p>
-            This will create <code>my-app</code> folder with the following default maven project structure:
-        </p>
-        <pre class="console">
-├── <b>pom.xml</b>
-└── src
-    ├── main
-    │   └── java
-    │       └── examples
-    │           └── App.java
-    └── test
-        └── java
-            └── examples
-                └── AppTest.java
-        </pre>
-        <div class="bq info">
-            <p>
-                Note that this setup is same for all examples. Note also that you can use any other tools for
-                creating and managing Java project with or without Maven.
-            </p>
+        <nav>
+            <div class="nav nav-tabs" role="tablist">
+                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-prj-cmd" role="tab" aria-controls="nav-home" aria-selected="true">Command</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-prj-out" role="tab" aria-controls="nav-home" aria-selected="true">Output <i class="fa fa-desktop output"></i></a>
+            </div>
+        </nav>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="nav-prj-cmd" role="tabpanel">
+                <pre class="brush: bash">
+                    $ bin/nlpcraft.sh gen-project --baseName=LightSwitch --outputDir=~ --pkgName=demo --lang=scala
+                </pre>
+                <p>
+                    <b>NOTES:</b>
+                </p>
+                <ul>
+                    <li>
+                        New project created in <code>/home/LightSwitch</code> directory.
+                    </li>
+                    <li>
+                        <code>gen-project</code> command defaults to Java and  Maven as its built tool.
+                    </li>
+                    <li>
+                        Run <code>bin/nlpcraft.sh help --cmd=gen-project</code> to get a full help on <code>gen-project</code> command.
+                    </li>
+                    <li>
+                        <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for Unix/Linux/MacOS and <code>nlpcraft.cmd</code> for Windows.
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-pane fade show" id="nav-prj-out" role="tabpanel">
+                <p></p>
+                <img alt="" class="img-fluid" src="/images/light_switch_fig1.png">
+            </div>
         </div>
-        <p>
-            For our example we'll use JetBrain's <a target=_new href="https://www.jetbrains.com/idea/">IntelliJ IDEA</a>.
-            Create new IDEA project from this source folder (make sure to pick JDK 8 or later JDK and language support).
-            Let's also delete auto-generated files <code>App.java</code> and <code>AppTest.java</code> from our
-            project as we won't be using them.
-        </p>
-    </section>
-    <section id="add_nlpcraft">
-        <h3 class="section-title">Add NLPCraft</h3>
-        <p>
-            Next we need to add NLPCraft dependency to our new project. Open <code>pom.xml</code> file and replace
-            <code>dependencies</code> section with the following code:
-        </p>
-        <pre class="brush: xml, highlight: [3, 4, 5]">
-            &lt;dependencies&gt;
-                &lt;dependency&gt;
-                    &lt;groupId&gt;org.apache.nlpcraft&lt;/groupId&gt;
-                    &lt;artifactId&gt;nlpcraft&lt;/artifactId&gt;
-                    &lt;version&gt;{{site.latest_version}}&lt;/version&gt;
-                &lt;/dependency&gt;
-            &lt;/dependencies&gt;
-        </pre>
-        <p>
-            Also make sure that you have correct JDK version (11 or above) for the maven compiler plugin:
-        </p>
-        <pre class="brush: xml, highlight: [3, 4]">
-            &lt;properties&gt;
-                &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
-                &lt;maven.compiler.source&gt;11&lt;/maven.compiler.source&gt;
-                &lt;maven.compiler.target&gt;11&lt;/maven.compiler.target&gt;
-            &lt;/properties&gt;
-        </pre>
-        <p>
-            IDEA should automatically reload the project with newly updated <code>pom.xml</code> file and
-            we should be ready now to develop our data model.
-        </p>
     </section>
     <section id="model">
         <h3 class="section-title">Data Model</h3>
         <p>
             We are going to start with declaring the static part of our model using YAML which we will later load using
-            <code>NCModelFileAdapter</code> in our Scala-based model implementation. Create new <code>lightswitch_model.yaml</code>
-            file and add the following model declaration into it:
+            <code>NCModelFileAdapter</code> in our Scala-based model implementation. Open <code>src/main/resources/<b>light_switch.yaml</b></code>
+            file and replace its content with the following YAML:
         </p>
         <pre class="brush: js, highlight: [5, 14, 21, 29, 37]">
 id: "nlpcraft.lightswitch.ex"
@@ -175,14 +149,14 @@ intents:
     <section id="code">
         <h3 class="section-title">Model Class</h3>
         <p>
-            Let's create new Scala class in <code>LightSwitchModel.scala</code> with the following code:
+            Open <code>src/main/scala/demo/<b>LightSwitch.scala</b></code> with the following code:
         </p>
         <pre class="brush: java, highlight: [5, 6, 7, 21, 22, 34]">
-package org.apache.nlpcraft.examples.lightswitch
+package demo
 
 import org.apache.nlpcraft.model.{NCIntentTerm, _}
 
-class LightSwitchModel extends NCModelFileAdapter("org/apache/nlpcraft/examples/lightswitch/lightswitch_model.yaml") {
+class LightSwitch extends NCModelFileAdapter("light_switch.yaml") {
     @NCIntentRef("ls")
     @NCIntentSample(Array(
         "Turn the lights off in the entire house.",
@@ -244,130 +218,92 @@ class LightSwitchModel extends NCModelFileAdapter("org/apache/nlpcraft/examples/
             </li>
         </ul>
     </section>
-    <section id="start_probe">
-        <h3 class="section-title">Start Data Probe <sub>optional</sub></h3>
-        <div class="bq warn">
-            <p><b>Embedded Probe</b></p>
-            <p>
-                If you are using the <a href="#testing">unit test</a> that comes with this example you <b>do not</b>
-                need to start the data probe standalone as this unit test uses embedded probe mode. In this mode, the unit
-                test will automatically start and stop the data probe from within the test itself.
-            </p>
-            <p>
-                <b>If using <a href="#testing">unit test</a> below - skip this step, you only need to start the server.</b>
-            </p>
-        </div>
-        <p>
-            NLPCraft data models get deployed into data probe. Let's start data probe with our newly
-            created data model. To start data probe we need to configure Run Configuration in IDEA with
-            the following parameters:
-        </p>
-        <ul>
-            <li>
-                <b>Main class:</b> <code>org.apache.nlpcraft.NCStart</code>
-            </li>
-            <li>
-                <b>VM arguments:</b> <code>-Dconfig.override_with_env_vars=true</code>
-            </li>
-            <li>
-                <b>Environment variable:</b> <code>CONFIG_FORCE_nlpcraft_probe_models.0=org.apache.nlpcraft.examples.lightswitch.LightSwitchModel</code>
-            </li>
-            <li>
-                <b>Program arguments: </b> <code>-probe</code>
-            </li>
-        </ul>
-        <div class="bq info">
-            <p>
-                <b>NOTE:</b> instead of supplying a <a href="/server-and-probe.html">full configuration file</a> we just
-                use the default configuration and override one configuration property using
-                configuration override via environment variables.
-            </p>
-        </div>
-        <p>
-            Start this run configuration and make sure you have positive console output indicating that our model
-            has been successfully loaded and probe started.
-        </p>
-    </section>
     <section id="start_server">
-        <h3 class="section-title">Start REST Server</h3>
+        <h3 class="section-title">Start Server</h3>
         <p>
-            REST server listens for requests from client applications and routes them to the requested data models
-            via connected data probes. REST server starts the same way as the data probe. Configure new
-            Run Configuration in IDEA with the following parameters:
+            Run the following command to start local REST server, if it hasn't been started already, from the NLPCraft installation directory:
+        </p>
+        <nav>
+            <div class="nav nav-tabs" role="tablist">
+                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-srv-cmd" role="tab" aria-controls="nav-home" aria-selected="true">Command</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-out" role="tab" aria-controls="nav-home" aria-selected="true">Output <i class="fa fa-desktop output"></i></a>
+            </div>
+        </nav>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="nav-srv-cmd" role="tabpanel">
+                <pre class="brush: bash">
+                    $ bin/nlpcraft.sh start-server
+                </pre>
+            </div>
+            <div class="tab-pane fade show" id="nav-srv-out" role="tabpanel">
+                <p></p>
+                <p>
+                    <img class="img-fluid" alt="" src="/images/server-fig1.png">
+                </p>
+            </div>
+        </div>
+        <p>
+            <b>NOTES:</b>
         </p>
         <ul>
             <li>
-                <b>Main class:</b> <code>org.apache.nlpcraft.NCStart</code>
+                REST server is a "fore-and-forget" component that you generally need to start only once.
             </li>
             <li>
-                <b>Program arguments: </b> <code>-server</code>
+                Run <code>bin/nlpcraft.sh help --cmd=start-server</code> to get a full help on this command.
+            </li>
+            <li>
+                <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for Unix/Linux/MacOS and <code>nlpcraft.cmd</code> for Windows.
             </li>
         </ul>
-        <p>
-            Once started ensure that your REST server console output shows that data probe is connected and the
-            REST server is listening on the default <code>localhost:8081</code> endpoint.
-        </p>
-        <p>
-            At this point we've developed our data model, deployed it into the data probe, and started the REST server.
-            To test it, we'll use the built-in <a href="/tools/test_framework.html">test framework</a>
-            that allows you to write convenient unit tests against your data model.
-        </p>
     </section>
     <section id="testing">
         <h3 class="section-title">Testing</h3>
         <p>
-            Let's develop a unit test for our model. Remember the <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a>
-            annotation we have used in our code next to intent definition? Auto-testing utility is relying on it.
+            Remember the <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a>
+            annotation we have used in our model code next to intent definition?
         </p>
         <p>
             Part of the <a href="/tools/test_framework.html">test framework</a>, the auto-validator class <a
                 target="javadoc"
                 href="/apis/latest/org/apache/nlpcraft/model/tools/test/NCTestAutoModelValidator.html">NCTestAutoModelValidator</a> takes one or more model IDs
-            (or class names) and performs validation. Validation consists of starting an embedded probe with a given model,
+            (or class names) and performs validation. Validation consists of starting an  <a href="/tools/embedded_probe.html">embedded probe</a> with a given model,
             scanning for <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a> annotations
             and their corresponding callback methods, submitting each sample input
             sentences from <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a>
             annotation and checking that resulting intent matches the intent the sample was attached to.
-        </p>
-        <p>
             Note that auto-testing does not require any additional code to be written - the class gathers all required information from the model
             itself.
         </p>
         <p>
-            Let's configure IDEA Runtime Configuration (remember - there's no need to write any additional code here):
+            As always, you can launch model auto-validator as any other Java class but we'll use NLPCraft CLI
+            to do it more conveniently:
+        </p>
+        <pre class="brush: bash">
+            $ bin/nlpcraft.sh test-model --cp=~/LightSwitch/target/classes --mdls=demo.LightSwitch
+        </pre>
+        <p>
+            <b>NOTES:</b>
         </p>
         <ul>
             <li>
-                <b>Main class:</b> <code>org.apache.nlpcraft.model.tools.test.NCTestAutoModelValidator</code>
+                Run <code>bin/nlpcraft.sh help --cmd=test-model</code> to get a full help on this command.
             </li>
             <li>
-                <b>VM options: </b> <code>-DNLPCRAFT_TEST_MODELS=org.apache.nlpcraft.examples.lightswitch.LightSwitchModel</code>
+                <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for Unix/Linux/MacOS and <code>nlpcraft.cmd</code> for Windows.
             </li>
         </ul>
-        <div class="bq info">
-            <p><b>Embedded Probe</b></p>
-            <p>
-                This test (as well as manual test client from <a href="/tools/test_framework.html">test framework</a>) use
-                <a href="/tools/embedded_probe.html">embedded probe</a> which automatically
-                starts and stops the data probe from within the tests itself. However, when not testing you will need
-                to start data probe separately.
-            </p>
-            <p>
-                <b>NOTE:</b> when using this test you don't need to start data probe standalone.
-            </p>
-        </div>
         <p>
-            Start this Runtime Configuration and you should be getting standard log in the output console:
+            Look at the output of this command and you will see the test results for all our sample utterances:
         </p>
         <p>
-            <img alt="" class="non-fluid-img" src="/images/light-switch-test.png">
+            <img style="max-width: 928px !important;" class="img-fluid" alt="" src="/images/light-switch-test.png">
         </p>
     </section>
     <section>
         <h2 class="section-title">Done! 👌</h2>
         <p>
-            You've created NLI-power light switch data model, deployed it into the data probe, started the
-            REST server and tested this model using the built-in test framework.
+            You've created light switch data model, started the REST server and tested this model using the built-in test framework.
         </p>
     </section>
 </div>
@@ -376,10 +312,8 @@ class LightSwitchModel extends NCModelFileAdapter("org/apache/nlpcraft/examples/
         <li class="side-nav-title">On This Page</li>
         <li><a href="#overview">Overview</a></li>
         <li><a href="#new_project">New Project</a></li>
-        <li><a href="#add_nlpcraft">Add NLPCraft</a></li>
         <li><a href="#model">Data Model</a></li>
         <li><a href="#code">Model Class</a></li>
-        <li><a href="#start_probe">Start Probe <sub>opt</sub></a></li>
         <li><a href="#start_server">Start Server</a></li>
         <li><a href="#testing">Testing</a></li>
         {% include quick-links.html %}
