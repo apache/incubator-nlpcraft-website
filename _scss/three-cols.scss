@@ -203,8 +203,22 @@ ul.side-nav {
     }
 
     i.fa-download {
-        font-size: 90%;
         color: $color-turquoise;
+    }
+
+    i.fa-magic {
+        color: $color-amethyst;
+    }
+}
+
+.page-title {
+    i.fa-magic {
+        color: $color-amethyst;
+    }
+}
+.breadcrumb {
+    i.fa-magic {
+        display: none; // Hide it.
     }
 }
 
