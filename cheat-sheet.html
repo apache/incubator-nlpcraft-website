@@ -22,8 +22,113 @@ id: cheat_sheet
 -->
 
 <div id="cheat-sheet" class="col-md-8 second-column">
+    <section>
+        <div class="row">
+            <div class="col-6">
+                <a href="#cs1">Quick Install</a><br/>
+                <a href="#cs2">Start <span class="amp">&amp;</span> Stop REST Server</a><br/>
+                <a href="#cs3">Start <span class="amp">&amp;</span> Stop Standalone Probe</a><br/>
+                <a href="#cs4">Model Auto-Test</a>
+            </div>
+            <div class="col-6">
+            </div>
+        </div>
+    </section>
     <section id="cs1">
         <h2 class="section-title">Quick Install</h2>
+        <nav>
+            <div class="nav nav-tabs" role="tablist">
+                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-install-src" role="tab" aria-controls="nav-home" aria-selected="true">Source</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-install-bin" role="tab" aria-controls="nav-home" aria-selected="true">Binary</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-install-github" role="tab" aria-controls="nav-home" aria-selected="true">GitHub <i class="fab fa-fw fa-github"></i></a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-install-maven" role="tab" aria-controls="nav-home" aria-selected="true">Maven <img src="/images/java2.png" height="20px" alt=""></a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-install-grape" role="tab" aria-controls="nav-profile" aria-selected="false">Grape <img src="/images/groovy.png" height="18px" alt=""></a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-install-gradle" role="tab" aria-controls="nav-profile" aria-selected="false">Gradle <img src="/images/kotlin.png" height="18px" alt=""></a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-install-sbt" role="tab" aria-controls="nav-contact" aria-selected="false">SBT <img src="/images/scala-logo.png" height="16px" alt=""></a>
+            </div>
+        </nav>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="nav-install-src" role="tabpanel">
+                <p></p>
+                <p>
+                    <a href="/download.html#src">Download</a> latest (<code><b>{{site.latest_version}}</b></code>) source release.
+                </p>
+                <pre class="brush: bash">
+                    $ unzip -q apache-nlpcraft-incubating-{{site.latest_version}}.zip
+                    $ cd apache-nlpcraft-incubating-{{site.latest_version}}
+                    $ mvn clean package -DskipTests
+                </pre>
+                <p>
+                    Built JARs and Javadoc will be located in <code>target</code> sub-folder.
+                </p>
+            </div>
+            <div class="tab-pane fade show" id="nav-install-bin" role="tabpanel">
+                <p></p>
+                <p>
+                    <a href="/download.html#zip">Download</a> latest (<code><b>{{site.latest_version}}</b></code>) binary release.
+                </p>
+                <pre class="brush: bash">
+                    $ unzip -q apache-nlpcraft-incubating-bin-{{site.latest_version}}.zip
+                </pre>
+            </div>
+            <div class="tab-pane fade show" id="nav-install-github" role="tabpanel">
+                <pre class="brush: bash">
+                    $ git clone https://github.com/apache/incubator-nlpcraft.git
+                    $ mvn clean package
+                </pre>
+            </div>
+            <div class="tab-pane fade show" id="nav-install-maven" role="tabpanel">
+                    <pre class="brush: xml">
+                        &lt;dependency&gt;
+                            &lt;groupId&gt;org.apache.nlpcraft&lt;/groupId&gt;
+                            &lt;artifactId&gt;nlpcraft&lt;/artifactId&gt;
+                            &lt;version&gt;{{site.latest_version}}&lt;/version&gt;
+                        &lt;/dependency&gt;
+                    </pre>
+                    <p>
+                        <b>NOTE:</b> to get <a href="/tools/script.html">NLPCraft CLI script</a> you still need to
+                        download <a href="/download.html#zip">binary</a> ZIP or <a href="/download.html#build">build</a> from <a href="/download.html#src">source</a>.
+                    </p>
+            </div>
+            <div class="tab-pane fade" id="nav-install-grape" role="tabpanel">
+                <pre class="brush: java">
+                    @Grab ('org.apache.nlpcraft:nlpcraft:{{site.latest_version}}')
+                </pre>
+                <p>
+                    <b>NOTE:</b> to get <a href="/tools/script.html">NLPCraft CLI script</a> you still need to
+                    download <a href="/download.html#zip">binary</a> ZIP or <a href="/download.html#build">build</a> from <a href="/download.html#src">source</a>.
+                </p>
+            </div>
+            <div class="tab-pane fade" id="nav-install-gradle" role="tabpanel">
+                <pre class="brush: java">
+                    dependencies {
+                        runtime group: 'org.apache.nlpcraft', name: 'nlpcraft', version: '{{site.latest_version}}'
+                    }
+                </pre>
+                <p>
+                    <b>NOTE:</b> to get <a href="/tools/script.html">NLPCraft CLI script</a> you still need to
+                    download <a href="/download.html#zip">binary</a> ZIP or <a href="/download.html#build">build</a> from <a href="/download.html#src">source</a>.
+                </p>
+            </div>
+            <div class="tab-pane fade" id="nav-install-sbt" role="tabpanel">
+                <pre class="brush: scala">
+                    libraryDependencies += "org.apache.nlpcraft" % "nlpcraft" % "{{site.latest_version}}"
+                </pre>
+                <p>
+                    <b>NOTE:</b> to get <a href="/tools/script.html">NLPCraft CLI script</a> you still need to
+                    download <a href="/download.html#zip">binary</a> ZIP or <a href="/download.html#build">build</a> from <a href="/download.html#src">source</a>.
+                </p>
+            </div>
+        </div>
+        <div class="bq success">
+            <p>
+                <b>Latest Version</b>
+            </p>
+            <p>
+                <code>{{site.latest_version}}</code> is the latest version. You can replace it
+                with a desired version.
+            </p>
+        </div>
     </section>
     <section id="cs2">
         <h2 class="section-title">Start <span class="amp">&amp;</span> Stop REST Server</h2>
@@ -32,7 +137,7 @@ id: cheat_sheet
         <h2 class="section-title">Start <span class="amp">&amp;</span> Stop Standalone Probe</h2>
     </section>
     <section id="cs4">
-        <h2 class="section-title">Auto Model Test</h2>
+        <h2 class="section-title">Model Auto-Test</h2>
     </section>
     <section id="cs5">
         <h2 class="section-title">Quick Install</h2>
