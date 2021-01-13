@@ -48,8 +48,7 @@ id: sql_model
             attempts to implement this approach are getting into 90% percentile of accuracy - they remain largely
             unusable for the vast swath of enterprise applications where non-deterministic nature of such systems
             renders them practically useless. The apparent problem with non-deterministic systems like that is that the user
-            never knows whether a given answer is correct or incorrect. In these business and enterprise
-            use cases users can't tolerate the fact that
+            never knows whether a given answer is correct or incorrect. In these use cases users can't tolerate the fact that
             in 5-10% of the cases the answer will be invalid. Try that for your HR or revenue reporting system,
             prescriptive analytics systems, and so on...
         </p>
@@ -59,13 +58,13 @@ id: sql_model
             mobile devices, unlock our phones using face or fingerprint recognition, when performing sentiment
             analysis or trying to detect faces of our friends across thousands of photographs. Cost of retries,
             as well as the cost of initial errors, is insignificant in these cases. The same cost, however, in many business
-            and enterprise applications can be too significant to tolerate.
+            applications can be too significant to tolerate.
         </p>
         <p>
             As you may have learned by now, NLPCraft uses a <i>fully deterministic approach</i> in an attempt to
             match the user input against a defined set of intents. If it finds the matching intent - it guarantees that
-            match for a given intent declaration. If no matching intent can be found - it returns the negative
-            result without any ambiguity. In other words, if the answer is given, it is guaranteed to be correct.
+            match for a given intent. If no matching intent can be found - it returns the negative
+            result without any ambiguity. In other words, if the answer is given, it is deterministically guaranteed to be correct.
             Another positive side-effect of this approach is the fact that such matching logic is easily traceable, i.e.
             the user can easily see why given user input was matched against a certain intent (and not any other). Such
             traceability of the comprehension logic (or explainability vs "black box" approach resulting from deep
@@ -78,73 +77,12 @@ id: sql_model
             model can be a non-trivial and time consuming experience. That is where NLPCraft brings a lot of built-in tooling
             and machinery to simplify this task dramatically.
         </p>
-    </section>
-    <section id="new_project">
-        <h3 class="section-title">Create New Project</h3>
-        <p>
-            You can create new Java project in many different ways - we'll use Maven archetype generation
-            for that. In your home folder run the following command:
-        </p>
-        <pre class="brush: bash">
-            mvn archetype:generate -DgroupId=examples -DartifactId=my-app -DarchetypeVersion=1.4 -DinteractiveMode=false
-        </pre>
-        <p>
-            This will create <code>my-app</code> folder with the following default maven project structure:
-        </p>
-        <pre class="console">
-├── <b>pom.xml</b>
-└── src
-    ├── main
-    │   └── java
-    │       └── examples
-    │           └── App.java
-    └── test
-        └── java
-            └── examples
-                └── AppTest.java
-        </pre>
         <div class="bq info">
+            <b>Source Code</b>
             <p>
-                Note that this setup is same for all examples. Note also that you can use any other tools for
-                creating and managing Java project with or without Maven.
+                Due to size of this example the entire source code for it can be found on <a target="github" href="https://github.com/apache/incubator-nlpcraft/tree/master/nlpcraft/src/main/scala/org/apache/nlpcraft/examples/sql">GitHub</a>.
             </p>
         </div>
-        <p>
-            For our example we'll use JetBrain's <a target=_new href="https://www.jetbrains.com/idea/">IntelliJ IDEA</a>.
-            Create new IDEA project from this source folder (make sure to pick JDK 8 or later JDK and language support).
-            Let's also delete auto-generated files <code>App.java</code> and <code>AppTest.java</code> from our
-            project as we won't be using them.
-        </p>
-    </section>
-    <section id="add_nlpcraft">
-        <h3 class="section-title">Add NLPCraft</h3>
-        <p>
-            Next we need to add NLPCraft dependency to our new project. Open <code>pom.xml</code> file and replace
-            <code>dependencies</code> section with the following code:
-        </p>
-        <pre class="brush: xml, highlight: [3, 4, 5]">
-            &lt;dependencies&gt;
-                &lt;dependency&gt;
-                    &lt;groupId&gt;org.apache.nlpcraft&lt;/groupId&gt;
-                    &lt;artifactId&gt;nlpcraft&lt;/artifactId&gt;
-                    &lt;version&gt;{{site.latest_version}}&lt;/version&gt;
-                &lt;/dependency&gt;
-            &lt;/dependencies&gt;
-        </pre>
-        <p>
-            Also make sure that you have correct JDK version (11 or above) for the maven compiler plugin:
-        </p>
-        <pre class="brush: xml, highlight: [3, 4]">
-            &lt;properties&gt;
-                &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
-                &lt;maven.compiler.source&gt;11&lt;/maven.compiler.source&gt;
-                &lt;maven.compiler.target&gt;11&lt;/maven.compiler.target&gt;
-            &lt;/properties&gt;
-        </pre>
-        <p>
-            IDEA should automatically reload the project with newly updated <code>pom.xml</code> file and
-            we should be ready now to develop our data model.
-        </p>
     </section>
     <section id="sql">
         <h3 class="section-title">Sample Database</h3>
@@ -164,7 +102,7 @@ id: sql_model
     <section id="h2">
         <h3 class="section-title">H2 Database</h3>
         <p>
-            In our example we'll be using H2 database instance. For convenience, example provides a command line application <code>db/SqlServer.java</code>
+            In our example we are using H2 database instance. For convenience, example provides a command line application <code>db/SqlServer.java</code>
             that automatically starts local H2 database instance with default configuration (localhost on port 9092) and initializes it
             using <code>db/northwind.sql</code> script.
         </p>
@@ -179,36 +117,22 @@ id: sql_model
         <p>
             <a href="/tools/sql_model_gen.html">SQL Model Generation</a> is a Java-based utility that takes
             JDBC configuration, reads database schema using it and creates initial JSON or YAML stub for the
-            data model. This stub then can be used as is or be extended further. Read more about this tool
-            <a href="/tools/sql_model_gen.html">here</a>.
+            data model. This stub then can be used as is or be extended further.
         </p>
         <p>
-            Although the example already comes with pre-generated file, you can run this utility yourself
-            by starting H2 database (using <code>SqlServerRunner</code> application in <code>db/SqlServer.java</code> file)
-            and running SQL Model Generator as follows:
-        </p>
-        <pre class="brush: bash">
-            java -cp apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar org.apache.nlpcraft.model.tools.sqlgen.NCSqlModelGenerator -r jdbc:h2:tcp://localhost:9092/nlp2sql -d org.h2.Driver -s PUBLIC -o src/main/scala/org/apache/nlpcraft/examples/sql/sql_model_init.yaml
-        </pre>
-        <p>
-            Examples comes with two pre-generated files:
+            Examples specifically comes with two pre-generated files:
         </p>
         <ul>
             <li>
                 <code>sql_model_init.yaml</code> - the initial file that was generated straight out of
                 SQL Model Generator (see above for the instructions).
             </li>
-            <li>
-                <code>sql_model.yaml</code> - the modified version of the same file. It is recommended to run
-                a diff utility of some sort to see the difference between two files which will indicate the necessary
-                changes that were made to the auto-generated <code>sql_model_init.yaml</code> file.
-            </li>
         </ul>
     </section>
     <section id="impl">
         <h2 class="section-title">Implementation</h2>
         <p>
-            Implementation mainly consists of two main files:
+            Implementation mainly consists of these files:
         </p>
         <ul>
             <li>
@@ -222,138 +146,88 @@ id: sql_model
                 from scratch to illustrate how it can be done. You are free, of course, to use many
                 of the existing libraries to help achieve this goal.
             </li>
-        </ul>
-    </section>
-    <section id="start_probe">
-        <h3 class="section-title">Start Data Probe <sub>optional</sub></h3>
-        <div class="bq warn">
-            <p><b>Embedded Probe</b></p>
-            <p>
-                If you are using the <a href="#testing">unit test</a> that comes with this example you <b>do not</b>
-                need to start the data probe standalone as this unit test uses embedded probe mode. In this mode, the unit
-                test will automatically start and stop the data probe from within the test itself.
-            </p>
-            <p>
-                <b>If using <a href="#testing">unit test</a> below - skip this step, you only need to start the server.</b>
-            </p>
-        </div>
-        <p>
-            NLPCraft data models get deployed into data probe. Let's start data probe with our newly
-            created data model. To start data probe we need to configure Run Configuration in IDEA with
-            the following parameters:
-        </p>
-        <ul>
             <li>
-                <b>Main class:</b> <code>org.apache.nlpcraft.NCStart</code>
-            </li>
-            <li>
-                <b>VM arguments:</b> <code>-Dconfig.override_with_env_vars=true</code>
-            </li>
-            <li>
-                <b>Environment variable:</b> <code>CONFIG_FORCE_nlpcraft_probe_models.0=org.apache.nlpcraft.examples.sql.SqlModel</code>
-            </li>
-            <li>
-                <b>Program arguments: </b> <code>-probe</code>
+                <code>SqlTest.java</code> - unit test for this example. Note that this test
+                provides additional utility of testing each input sentence against the result SQL statement.
             </li>
         </ul>
-        <div class="bq info">
-            <p>
-                <b>NOTE:</b> instead of supplying a <a href="/server-and-probe.html">full configuration file</a> we just
-                use the default configuration and override one configuration property using
-                configuration override via environment variables.
-            </p>
-        </div>
-        <p>
-            Start this run configuration and make sure you have positive console output indicating that our model
-            has been successfully loaded and probe started.
-        </p>
-    </section>
-    <section id="start_h2">
-        <h3 class="section-title">Start H2 Database <sub>optional</sub></h3>
-        <div class="bq warn">
-            <p><b>Autostart</b></p>
-            <p>
-                If you are using the <a href="#testing">unit test</a> that comes with this example you <b>do not</b>
-                need to start the H2 database standalone as this unit test will start it automatically.
-            </p>
-            <p>
-                <b>If using <a href="#testing">unit test</a> below - skip this step, you only need to start the server.</b>
-            </p>
-        </div>
-        <p>
-            To start H2 database server we need to configure Run Configuration in IDEA with
-            the following parameters:
-        </p>
-        <ul>
-            <li>
-                <b>Main class:</b> <code>org.apache.nlpcraft.examples.sql.db.SqlServerRunner</code>
-            </li>
-        </ul>
-        <p>
-            Start this run configuration and make sure you have positive console output indicating H2
-            database server is running:
-        </p>
-        <pre class="brush: plain">
-Jul-05|08:40:47|INFO | H2 server start parameters: -baseDir /Users/minkovski/nlpcraft-examples/h2 -tcpPort 9092 -tcpAllowOthers
-Jul-05|08:40:47|INFO | H2 server status: TCP server running at tcp://localhost:9092 (others can connect)
-Jul-05|08:40:47|INFO | Database 'jdbc:h2:tcp://localhost:9092/nlp2sql' is NOT initialized because data already exists. To re-initialize - delete files in '/Users/minkovski/nlpcraft-examples/h2' folder and start again.
-        </pre>
     </section>
     <section id="start_server">
-        <h3 class="section-title">Start REST Server</h3>
+        <h3 class="section-title">Start Server</h3>
         <p>
-            REST server listens for requests from client applications and routes them to the requested data models
-            via connected data probes. REST server starts the same way as the data probe. Configure new
-            Run Configuration in IDEA with the following parameters:
+            Run the following command to start local REST server, if it hasn't been started already, from the NLPCraft installation directory:
+        </p>
+        <nav>
+            <div class="nav nav-tabs" role="tablist">
+                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-srv-cmd" role="tab" aria-controls="nav-home" aria-selected="true">Command</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-out" role="tab" aria-controls="nav-home" aria-selected="true">Output <i class="fa fa-desktop output"></i></a>
+            </div>
+        </nav>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="nav-srv-cmd" role="tabpanel">
+                <pre class="brush: bash">
+                    $ bin/nlpcraft.sh start-server
+                </pre>
+            </div>
+            <div class="tab-pane fade show" id="nav-srv-out" role="tabpanel">
+                <p></p>
+                <p>
+                    <img class="img-fluid" alt="" src="/images/server-fig1.png">
+                </p>
+            </div>
+        </div>
+        <p>
+            <b>NOTES:</b>
         </p>
         <ul>
             <li>
-                <b>Main class:</b> <code>org.apache.nlpcraft.NCStart</code>
+                REST server is a "fore-and-forget" component that you generally need to start only once.
             </li>
             <li>
-                <b>Program arguments: </b> <code>-server</code>
+                Run <code>bin/nlpcraft.sh help --cmd=start-server</code> to get a full help on this command.
+            </li>
+            <li>
+                <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for Unix/Linux/MacOS and <code>nlpcraft.cmd</code> for Windows.
             </li>
         </ul>
-        <p>
-            Once started ensure that your REST server console output shows that data probe is connected and the
-            REST server is listening on the default <code>localhost:8081</code> endpoint.
-        </p>
-        <p>
-            At this point we've developed our data model, deployed it into the data probe, and started the REST server.
-            To test it, we'll use the built-in <a href="/tools/test_framework.html">test framework</a>
-            that allows you to write convenient unit tests against your data model.
-        </p>
     </section>
     <section id="testing">
         <h3 class="section-title">Testing</h3>
         <p>
-            NLPCraft comes with easy to use <a href="/tools/test_framework.html">test framework</a> for
-            data models that can be used with
-            any unit testing framework like JUnit or ScalaTest. It is essentially a simplified
-            version of Java REST client that is custom designed for data model testing.
+            Part of the <a href="/tools/test_framework.html">test framework</a>, the auto-validator class <a
+                target="javadoc"
+                href="/apis/latest/org/apache/nlpcraft/model/tools/test/NCTestAutoModelValidator.html">NCTestAutoModelValidator</a> takes one or more model IDs
+            (or class names) and performs validation. Validation consists of starting an  <a href="/tools/embedded_probe.html">embedded probe</a> with a given model,
+            scanning for <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a> annotations
+            and their corresponding callback methods, submitting each sample input
+            sentences from <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a>
+            annotation and checking that resulting intent matches the intent the sample was attached to.
+            Note that auto-testing does not require any additional code to be written - the class gathers all required information from the model
+            itself.
         </p>
         <p>
-            Unit test for this example available in <code>SqlTest.java</code> file. Note that this test
-            provides additional utility of testing each input sentence against the result SQL statement.
+            As always, you can launch model auto-validator as any other Java class but we'll use NLPCraft CLI
+            to do it more conveniently:
         </p>
-        <div class="bq info">
-            <p><b>Embedded Probe & H2 Autostart</b></p>
-            <p>
-                This test uses <a href="/tools/embedded_probe.html">embedded probe</a> which automatically
-                starts and stops the data probe from within the tests itself. This test also starts H2 database
-                automatically.
-            </p>
-            <p>
-                <b>NOTE:</b> when using this test you don't need to start data probe and H2 database standalone in
-                the previous steps.
-            </p>
-        </div>
+        <pre class="brush: bash">
+            $ bin/nlpcraft.sh test-model --cp=~/sql/target/classes --mdls=demo.SqlModel
+        </pre>
+        <p>
+            <b>NOTES:</b>
+        </p>
+        <ul>
+            <li>
+                Run <code>bin/nlpcraft.sh help --cmd=test-model</code> to get a full help on this command.
+            </li>
+            <li>
+                <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for Unix/Linux/MacOS and <code>nlpcraft.cmd</code> for Windows.
+            </li>
+        </ul>
     </section>
     <section>
         <h2 class="section-title">Done! 👌</h2>
         <p>
-            You've created a data model for fairly complete natural language interface to SQL database, deployed it into the data probe, started the
-            REST server and tested this model using JUnit 5 and the built-in test framework.
+            You've created SQL model, started the REST server and tested this model using the built-in test framework.
         </p>
     </section>
 </div>
@@ -362,13 +236,9 @@ Jul-05|08:40:47|INFO | Database 'jdbc:h2:tcp://localhost:9092/nlp2sql' is NOT in
         <li class="side-nav-title">On This Page</li>
         <li><a href="#overview">Overview</a></li>
         <li><a href="#background">Background</a></li>
-        <li><a href="#new_project">New Project</a></li>
-        <li><a href="#add_nlpcraft">Add NLPCraft</a></li>
         <li><a href="#sql">Sample Database</a></li>
         <li><a href="#model">Data Model</a></li>
         <li><a href="#impl">Implementation</a></li>
-        <li><a href="#start_probe">Start Probe <sub>opt</sub></a></li>
-        <li><a href="#start_h2">Start H2 Database <sub>opt</sub></a></li>
         <li><a href="#start_server">Start Server</a></li>
         <li><a href="#testing">Testing</a></li>
         {% include quick-links.html %}
