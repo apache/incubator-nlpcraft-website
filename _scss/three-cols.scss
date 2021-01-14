@@ -66,11 +66,10 @@
     section {
         .section-title {
             color: $color-slack2;
-            font-weight: 500;
+            font-weight: 700;
             margin-top: 0;
-            border-bottom: 1px solid #dfdfdf;
             display: inline-block;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             font-size: 150%;
         }
 
@@ -138,7 +137,7 @@
             }
         }
 
-        margin-bottom: 35px;
+        margin-bottom: 40px;
 
         p, li {
             letter-spacing: 0.02em;

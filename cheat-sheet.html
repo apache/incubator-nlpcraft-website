@@ -31,6 +31,9 @@ id: cheat_sheet
                 <a href="#cs4">Model Auto-Test</a>
             </div>
             <div class="col-6">
+                <a href="#cs5">New Project Stub</a><br/>
+                <a href="#cs6">New Model Stub</a><br/>
+                <a href="#cs7">Testing with REST</a><br/>
             </div>
         </div>
     </section>
@@ -132,9 +135,189 @@ id: cheat_sheet
     </section>
     <section id="cs2">
         <h2 class="section-title">Start <span class="amp">&amp;</span> Stop REST Server</h2>
+        <nav>
+            <div class="nav nav-tabs" role="tablist">
+                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-srv-script" role="tab" aria-controls="nav-home" aria-selected="true">NLPCraft CLI</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-class" role="tab" aria-controls="nav-home" aria-selected="true">Java Class</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-docker" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fab fa-docker"></i> Docker</a>
+            </div>
+        </nav>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="nav-srv-script" role="tabpanel">
+                <pre class="brush: bash">
+                    $ bin/nlpcraft.sh start-server # Start server.
+                </pre>
+                <pre class="brush: bash">
+                    $ bin/nlpcraft.sh stop-server # Stop server.
+                    $ bin/nlpcraft.sh stop # Stop both server and probe.
+                </pre>
+                <p>
+                    <b>NOTES:</b>
+                </p>
+                <ul>
+                    <li>
+                        <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for Unix/Linux/MacOS and <code>nlpcraft.cmd</code> for Windows.
+                    </li>
+                    <li>
+                        Run <code>bin/nlpcraft.sh help --cmd=xxx</code> to get a full help on <code>xxx</code> command.
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-pane fade show" id="nav-srv-class" role="tabpanel">
+                <p></p>
+                <p>
+                    If using just executable JAR:
+                </p>
+                <pre class="brush: bash">
+                    $ java -Xms1024m -jar apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar -server
+                </pre>
+                <p>
+                    If specifying additional classpath components and need <code>-cp</code> parameter:
+                </p>
+                <pre class="brush: bash">
+                    $ java -Xms1024m -cp apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar org.apache.nlpcraft.NCStart -server
+                </pre>
+                <p>
+                    <b>NOTES:</b>
+                </p>
+                <ul>
+                    <li>
+                        Make sure to provide correct path to <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code> file.
+                    </li>
+                    <li>
+                        Class <code>org.apache.nlpcraft.NCStart</code> is a common entry point for all NLPCraft runtime components.
+                    </li>
+                    <li>
+                        Class <code>org.apache.nlpcraft.NCStart</code> should be used to star REST server from IDE.
+                    </li>
+                </ul>
+                <p>
+                    Parameters:
+                </p>
+                <dl>
+                    <dt>
+                        <code>-server</code>
+                    </dt>
+                    <dd>
+                        <em>Mandatory</em> parameter to indicate that you are starting the REST server.
+                    </dd>
+                    <dt><code>-config=path</code></dt>
+                    <dd>
+                        <em>Optional</em> parameter to provide configuration file path.
+                        Server will automatically look for <code>nlpcraft.conf</code> configuration file in the same directory
+                        as <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code> file. If the configuration
+                        file has different name or in different location use <code>-config=path</code> parameter
+                        where <code>path</code> is an absolute path to the configuration file. Note that the server and the data
+                        probe can use the same file for their configuration (just like the
+                        default <code>nlpcraft.conf</code> contains configuration for both the server and the data probe).
+                    </dd>
+                    <dt><code>-igniteConfig=path</code></dt>
+                    <dd>
+                        <em>Optional</em> parameter to provide <a target=_ href="https://ignite.apache.org/">Apache Ignite</a> configuration file path.
+                        Note that Apache Ignite is used as a cluster computing plane and a default distributed storage.
+                        Server will automatically look for <code>ignite.xml</code>
+                        configuration file in the same directory as <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code> file.
+                        If the configuration file has different name or in different location use <code>-igniteConfig=path</code> parameter
+                        where <code>path</code> is an absolute path to the Ignite configuration file.
+                    </dd>
+                </dl>
+            </div>
+            <div class="tab-pane fade show" id="nav-srv-docker" role="tabpanel">
+                <p></p>
+                <p>
+                    If Docker image is available for given version you can start REST server as follows:
+                </p>
+                <pre class="brush: bash">
+                    $ docker run -m 8G -p 8081:8081 -p 8201:8201 -p 8202:8202 nlpcraftserver/server:{{site.latest_version}}
+                </pre>
+            </div>
+        </div>
     </section>
     <section id="cs3">
         <h2 class="section-title">Start <span class="amp">&amp;</span> Stop Standalone Probe</h2>
+        <nav>
+            <div class="nav nav-tabs" role="tablist">
+                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-probe-script" role="tab" aria-controls="nav-home" aria-selected="true">NLPCraft CLI</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-probe-class" role="tab" aria-controls="nav-home" aria-selected="true">Java Class</a>
+            </div>
+        </nav>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="nav-probe-script" role="tabpanel">
+                <pre class="brush: bash">
+                    $ bin/nlpcraft.sh start-probe # Start probe.
+                </pre>
+                <pre class="brush: bash">
+                    $ bin/nlpcraft.sh stop-probe # Start probe.
+                    $ bin/nlpcraft.sh stop # Start server and probe.
+                </pre>
+                <p>
+                    <b>NOTES:</b>
+                </p>
+                <ul>
+                    <li>
+                        <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for Unix/Linux/MacOS and <code>nlpcraft.cmd</code> for Windows.
+                    </li>
+                    <li>
+                        Run <code>bin/nlpcraft.sh help --cmd=xxx</code> to get a full help on <code>xxx</code> command.
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-pane fade show" id="nav-probe-class" role="tabpanel">
+                <p></p>
+                <p>
+                    If using just executable JAR:
+                </p>
+                <pre class="brush: bash">
+                    $ java -jar apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar -probe
+                </pre>
+                <p>
+                    If specifying additional classpath components and need <code>-cp</code> parameter:
+                </p>
+                <pre class="brush: bash">
+                    java -cp apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar:/my/project/classes org.apache.nlpcraft.NCStart -probe -config=/my/project/probe.conf
+                </pre>
+                <p>
+                    <b>NOTES:</b>
+                </p>
+                <ul>
+                    <li>
+                        <code>/my/project</code> directory contains user-defined model implementation
+                    </li>
+                    <li>
+                        Make sure to provide correct path to <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code> file.
+                    </li>
+                    <li>
+                        Class <code>org.apache.nlpcraft.NCStart</code> is a common entry point for all NLPCraft runtime components.
+                    </li>
+                    <li>
+                        Class <code>org.apache.nlpcraft.NCStart</code> should be used to star data probe from IDE.
+                    </li>
+                </ul>
+                <p>
+                    Parameters:
+                </p>
+                <dl>
+                    <dt>
+                        <code>-probe</code>
+                    </dt>
+                    <dd>
+                        <em>Mandatory</em> parameter to indicate that you are starting a data probe.
+                    </dd>
+                    <dt><code>-config=path</code></dt>
+                    <dd>
+                        <p>
+                            <em>Optional</em> parameter to provide probe configuration file path.
+                            Data probe will automatically look for <code>nlpcraft.conf</code> configuration file in the same directory
+                            as <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code> file. If the configuration
+                            file has different name or in different location use <code>-config=path</code> parameter
+                            where <code>path</code> is an absolute path to the data probe configuration file. Note that the server and the data
+                            probe can use the same file for their configuration (just like the
+                            default <code>nlpcraft.conf</code> contains configuration for both the server and the data probe).
+                        </p>
+                    </dd>
+                </dl>
+            </div>
+        </div>
     </section>
     <section id="cs4">
         <h2 class="section-title">Model Auto-Test</h2>
