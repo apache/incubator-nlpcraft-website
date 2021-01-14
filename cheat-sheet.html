@@ -23,6 +23,7 @@ id: cheat_sheet
 
 <div id="cheat-sheet" class="col-md-8 second-column">
     <section>
+        <h2 class="section-title">Frequent Operations</h2>
         <div style="display: flex">
             <div>
                 <a href="#cs1">Quick Install</a><br/>
@@ -122,15 +123,6 @@ id: cheat_sheet
                     download <a href="/download.html#zip">binary</a> ZIP or <a href="/download.html#build">build</a> from <a href="/download.html#src">source</a>.
                 </p>
             </div>
-        </div>
-        <div class="bq success">
-            <p>
-                <b>Latest Version</b>
-            </p>
-            <p>
-                <code>{{site.latest_version}}</code> is the latest version. You can replace it
-                with a desired version.
-            </p>
         </div>
     </section>
     <section id="cs2">
@@ -321,15 +313,137 @@ id: cheat_sheet
     </section>
     <section id="cs4">
         <h2 class="section-title">Model Auto-Test</h2>
+        <nav>
+            <div class="nav nav-tabs" role="tablist">
+                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-script" role="tab" aria-controls="nav-home" aria-selected="true">NLPCraft CLI</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-class" role="tab" aria-controls="nav-home" aria-selected="true">Java Class</a>
+            </div>
+        </nav>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="nav-script" role="tabpanel">
+                <pre class="brush: bash">
+                    $ bin/nlpcraft.sh test-model # All default parameters.
+                    $ bin/nlpcraft.sh test-model --mdls=my.package.Model --cp=~/myapp/target/classes --jmvOpts="-ea -Xms2048m"
+                </pre>
+                <p>
+                    <b>NOTES:</b>
+                </p>
+                <ul>
+                    <li>
+                        <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for Unix/Linux/MacOS and <code>nlpcraft.cmd</code> for Windows.
+                    </li>
+                    <li>
+                        Run <code>bin/nlpcraft.sh help --cmd=test-model</code> to get a full help on this command.
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-pane fade show" id="nav-class" role="tabpanel">
+                <pre class="brush: bash">
+                    java -cp apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar -DNLPCRAFT_TEST_MODELS=my.package.Model org.apache.nlpcraft.model.tools.test.NCTestAutoModelValidator
+                </pre>
+                <p>
+                    <b>NOTES:</b>
+                </p>
+                <ul>
+                    <li>
+                        Make sure to add necessary classpath components.
+                    </li>
+                    <li>
+                        <code>NLPCRAFT_TEST_MODELS</code> system property that should contain comma separate list of the data model classes to test.
+                    </li>
+                    <li>
+                        You can also use <code>org.apache.nlpcraft.model.tools.test.NCTestAutoModelValidator</code> class
+                        directly to call it programmatically from the code or from IDE.
+                    </li>
+                </ul>
+            </div>
+        </div>
     </section>
     <section id="cs5">
         <h2 class="section-title">New Project Stub</h2>
+        <nav>
+            <div class="nav nav-tabs" role="tablist">
+                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-prj-script" role="tab" aria-controls="nav-home" aria-selected="true">NLPCraft CLI</a>
+            </div>
+        </nav>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="nav-prj-script" role="tabpanel">
+                <pre class="brush: bash">
+                    $ bin/nlpcraft.sh gen-project -n=MyProject -l=scala -b=sbt # Scala/SBT project stub.
+                    $ bin/nlpcraft.sh gen-project -n=MyProject -l=kotlin -p=com.mycompany.nlp -o # Kotlin/Maven project stub.
+                </pre>
+                <p>
+                    <b>NOTES:</b>
+                </p>
+                <ul>
+                    <li>
+                        <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for Unix/Linux/MacOS and <code>nlpcraft.cmd</code> for Windows.
+                    </li>
+                    <li>
+                        Run <code>bin/nlpcraft.sh help --cmd=gen-project</code> to get a full help on this command.
+                    </li>
+                </ul>
+            </div>
+        </div>
     </section>
     <section id="cs6">
         <h2 class="section-title">New Model Stub</h2>
+        <nav>
+            <div class="nav nav-tabs" role="tablist">
+                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-mdl-script" role="tab" aria-controls="nav-home" aria-selected="true">NLPCraft CLI</a>
+            </div>
+        </nav>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="nav-mdl-script" role="tabpanel">
+                <pre class="brush: bash">
+                    $ bin/nlpcraft.sh gen-model --filePath=~/myapp/myModel.json --mdlId=my.model.id # JSON model stub.
+                    $ bin/nlpcraft.sh gen-model -f=c:/tmp/myModel.yaml -m=my.model.id -o # YAML model stub.
+                </pre>
+                <p>
+                    <b>NOTES:</b>
+                </p>
+                <ul>
+                    <li>
+                        <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for Unix/Linux/MacOS and <code>nlpcraft.cmd</code> for Windows.
+                    </li>
+                    <li>
+                        Run <code>bin/nlpcraft.sh help --cmd=gen-model</code> to get a full help on this command.
+                    </li>
+                </ul>
+            </div>
+        </div>
     </section>
     <section id="cs7">
         <h2 class="section-title">Testing with REST</h2>
+        <nav>
+            <div class="nav nav-tabs" role="tablist">
+                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-rest-script" role="tab" aria-controls="nav-home" aria-selected="true">NLPCraft CLI</a>
+            </div>
+        </nav>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="nav-rest-script" role="tabpanel">
+                <pre class="brush: bash">
+                    $ bin/nlpcraft.sh ask --txt="User request" --mdlId=my.model.id # REST 'ask/sync' call.
+
+                    $ bin/nlpcraft.sh call -p=signin --email=admin@admin.com --passwd=admin
+                    $ bin/nlpcraft.sh call --path=ask/sync --acsTok=qwerty123456 --txt="User request" --mdlId=my.model.id  --data='{"data1": true, "data2": 123, "data3": "some text"}' --enableLog=false
+
+                    $ bin/nlpcraft.sh rest -p=signin -j='{"email": "admin@admin.com", "passwd": "admin"}' # Linux/Unix/MacOS REST call.
+                    $ bin/nlpcraft.cmd rest --path=signin --json='{\"email\": \"admin@admin.com\", \"passwd\": \"admin\"}' # Window REST call.
+                </pre>
+                <p>
+                    <b>NOTES:</b>
+                </p>
+                <ul>
+                    <li>
+                        <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for Unix/Linux/MacOS and <code>nlpcraft.cmd</code> for Windows.
+                    </li>
+                    <li>
+                        Run <code>bin/nlpcraft.sh help --cmd=xxx</code> to get a full help on <code>xxx</code> command.
+                    </li>
+                </ul>
+            </div>
+        </div>
     </section>
 </div>
 <div class="col-md-2 third-column">
