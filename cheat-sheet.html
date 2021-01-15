@@ -236,11 +236,12 @@ id: cheat_sheet
         <div class="tab-content">
             <div class="tab-pane fade show active" id="nav-probe-script" role="tabpanel">
                 <pre class="brush: bash">
-                    $ bin/nlpcraft.sh start-probe # Start probe.
+                    $ bin/nlpcraft.sh start-probe # Start probe with default config.
+                    $ bin/nlpcraft.sh start-probe --cfg=~/myapp/nlpcraft.conf --mdls=my.package.Model --cp=~/myapp/target/classes --jmvOpts="-ea -Xms2048m" --timeoutMins=5
                 </pre>
                 <pre class="brush: bash">
-                    $ bin/nlpcraft.sh stop-probe # Start probe.
-                    $ bin/nlpcraft.sh stop # Start server and probe.
+                    $ bin/nlpcraft.sh stop-probe # Stop probe.
+                    $ bin/nlpcraft.sh stop # Stop server and probe.
                 </pre>
                 <p>
                     <b>NOTES:</b>

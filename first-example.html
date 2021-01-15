@@ -33,18 +33,15 @@ id: first_example
             or <code>"Could you please switch off all the lights?"</code>.
         </p>
         <p>
-            Let's setup a project for our first example with the following assumptions:
+            NOTE: for this example we'll use Scala and Linux, however, the example works exactly the same
+            way with any other JVM language or operating system.
         </p>
-        <ul>
-            <li>We'll use Mac OS/Linux environment.</li>
-            <li>We'll use Scala/Maven to implement our model - any JVM language works identically.</li>
-            <li>We'll use <a href="/tools/script.html"><code>nlpcraft.sh</code></a> to manage our project's runtime.</li>
-        </ul>
     </section>
     <section id="new_project">
         <h3 class="section-title">New Project</h3>
         <p>
-            Run <code>nlpcraft.sh</code> script from NLPCraft installation directory to create a new project stub (the script is located in <code>bin</code> sub-directory):
+            We'll use <a href="/tools/script.html">NLPCraft CLI</a> to perform all management operations.
+            Run <code>bin/nlpcraft.sh</code> script from NLPCraft installation directory to create a new project stub (the script is located in <code>bin</code> sub-directory):
         </p>
         <nav>
             <div class="nav nav-tabs" role="tablist">
@@ -154,17 +151,26 @@ id: first_example
             actions. We'll use these elements in our model's intent-based matching logic.
         </p>
         <p>
-            Next, let's go ahead and add model's logic which we'll write in Scala (note that this code can be converted to Java or Kotlin almost as is).
+            Next, let's go ahead and add model's logic which we'll write in Scala (with Java and Kotlin versions attached for reference).
             Open <code>src/main/scala/demo/<b>LightSwitch.scala</b></code> file and replace its content with the following
             code:
         </p>
+        <nav>
+            <div class="nav nav-tabs" role="tablist">
+                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-scala" role="tab" aria-controls="nav-home" aria-selected="true">Scala <img src="/images/scala-logo.png" height="20px" alt=""></a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-java" role="tab" aria-controls="nav-home" aria-selected="true">Java <img src="/images/java2.png" height="20px" alt=""></a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-kotlin" role="tab" aria-controls="nav-home" aria-selected="true">Kotlin <img src="/images/kotlin.png" height="20px" alt=""></a>
+            </div>
+        </nav>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="nav-scala" role="tabpanel">
         <pre class="brush: java, highlight: [5, 6, 7, 22, 23]">
 package demo
 
 import org.apache.nlpcraft.model.{NCIntentTerm, _}
 
 class LightSwitchModel extends NCModelFileAdapter("light_switch.yaml") {
-    @NCIntent("intent=ls term(act)={groups @@ 'act'} term(loc)={id == 'ls:loc'}*")
+    @NCIntentRef("ls")
     @NCIntentSample(Array(
         "Turn the lights off in the entire house.",
         "Switch on the illumination in the master bedroom closet.",
@@ -197,6 +203,100 @@ class LightSwitchModel extends NCModelFileAdapter("light_switch.yaml") {
     }
 }
         </pre>
+            </div>
+            <div class="tab-pane fade show" id="nav-java" role="tabpanel">
+        <pre class="brush: java">
+package demo;
+
+import org.apache.nlpcraft.model.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class LightSwitchJavaModel extends NCModelFileAdapter {
+    public LightSwitchJavaModel() {
+        // Loading the model from the file in the classpath.
+        super("lightswitch_model.yaml");
+    }
+
+    @NCIntentRef("ls")
+    @NCIntentSample({
+        "Turn the lights off in the entire house.",
+        "Switch on the illumination in the master bedroom closet.",
+        "Get the lights on.",
+        "Lights up in the kitchen.",
+        "Please, put the light out in the upstairs bedroom.",
+        "Set the lights on in the entire house.",
+        "Turn the lights off in the guest bedroom.",
+        "Could you please switch off all the lights?",
+        "Dial off illumination on the 2nd floor.",
+        "Please, no lights!",
+        "Kill off all the lights now!",
+        "No lights in the bedroom, please.",
+        "Light up the garage, please!",
+        "Kill the illumination now!"
+    })
+    NCResult onMatch(
+        @NCIntentTerm("act") NCToken actTok,
+        @NCIntentTerm("loc") List&lt;NCToken&gt; locToks) {
+        String status = actTok.getId().equals("ls:on") ? "on" : "off";
+        String locations = locToks.isEmpty() ?
+            "entire house" :
+            locToks.stream().map(t -> (String)t.meta("nlpcraft:nlp:origtext"))
+                .collect(Collectors.joining(", "));
+
+        // Add HomeKit, Arduino or other integration here.
+
+        // By default - just return a descriptive action string.
+        return NCResult.text("Lights are [" + status + "] in [" + locations.toLowerCase() + "].");
+    }
+}
+
+        </pre>
+            </div>
+            <div class="tab-pane fade show" id="nav-kotlin" role="tabpanel">
+        <pre class="brush: java">
+package demo
+
+import org.apache.nlpcraft.model.*
+import java.util.stream.Collectors
+
+class LightSwitchKotlinModel : NCModelFileAdapter("lightswitch_model.yaml") {
+    @NCIntentRef("ls")
+    @NCIntentSample(
+        "Turn the lights off in the entire house.",
+        "Switch on the illumination in the master bedroom closet.",
+        "Get the lights on.",
+        "Lights up in the kitchen.",
+        "Please, put the light out in the upstairs bedroom.",
+        "Set the lights on in the entire house.",
+        "Turn the lights off in the guest bedroom.",
+        "Could you please switch off all the lights?",
+        "Dial off illumination on the 2nd floor.",
+        "Please, no lights!",
+        "Kill off all the lights now!",
+        "No lights in the bedroom, please.",
+        "Light up the garage, please!",
+        "Kill the illumination now!"
+    )
+    fun onMatch(
+        @NCIntentTerm("act") actTok: NCToken,
+        @NCIntentTerm("loc") locToks: List&lt;NCToken&gt;
+    ): NCResult {
+        val status = if (actTok.id == "ls:on") "on" else "off"
+        val locations = if (locToks.isEmpty()) "entire house" else locToks.stream()
+            .map { t: NCToken -> t.meta("nlpcraft:nlp:origtext") as String }
+            .collect(Collectors.joining(", "))
+
+        // Add HomeKit, Arduino or other integration here.
+
+        // By default - just return a descriptive action string.
+        return NCResult.text("Lights are [" + status + "] in [" + locations.toLowerCase() + "].")
+    }
+}
+        </pre>
+            </div>
+        </div>
         <p>
             <b>NOTES:</b>
         </p>
@@ -210,9 +310,9 @@ class LightSwitchModel extends NCModelFileAdapter("light_switch.yaml") {
                 a template is matched against user input:
                 <ul>
                     <li>
-                        Line 6 uses <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntent.html">@NCIntent</a>
-                        annotation to define the intent (it can also be defined in the external model definition).
-                        The intent defined here matches
+                        Line 6 uses <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentRef.html">@NCIntentRef</a>
+                        annotation to reference the intent defined in our model (it can also be defined in place).
+                        The intent matches
                         two parts: first should be any token belonging to <code>act</code> group (i.e. "on" or "off" action),
                         and the second should be a zero or more tokens with ID equal to <code>ls:loc</code> (i.e. optional list of locations).
                     </li>
