@@ -366,6 +366,19 @@ public class Weather extends NCModelFileAdapter {
             </li>
         </ul>
     </section>
+    <section id="build_project">
+        <h3 class="section-title">Build Project</h3>
+        <p>
+            Once we have our model ready let's go to <code>~/Weather</code> directory and run the Maven build:
+        </p>
+        <pre class="brush: bash">
+            $ cd ~/Weather
+            $ mvn clean package
+        </pre>
+        <p>
+            At this stage we have our project built and we are ready to start testing.
+        </p>
+    </section>
     <section id="start_server">
         <h3 class="section-title">Start Server</h3>
         <p>
@@ -395,7 +408,7 @@ public class Weather extends NCModelFileAdapter {
         </p>
         <ul>
             <li>
-                REST server is a "fore-and-forget" component that you generally need to start only once.
+                <i style="color: #F39C12" class="fa fa-exclamation-triangle"></i> REST server is a "fore-and-forget" component that you generally need to start only once.
             </li>
             <li>
                 Run <code>bin/nlpcraft.sh help --cmd=start-server</code> to get a full help on this command.
@@ -448,6 +461,29 @@ public class Weather extends NCModelFileAdapter {
             <img style="max-width: 871px !important;" class="img-fluid" alt="" src="/images/weather-bot-test.png">
         </p>
     </section>
+    <section id="rinse">
+        <h2 class="section-title">Rinse <span class="amp">&amp;</span> Repeat</h2>
+        <p>
+            Typical development cycle consists of:
+        </p>
+        <ul>
+            <li>
+                <a href="#model">Modifying the model</a>
+            </li>
+            <li>
+                <a href="#build_project">Re-building the project</a>
+            </li>
+            <li>
+                <a href="#testing">Re-running the test</a>
+            </li>
+        </ul>
+        <p>
+            All of these operations can be performed from <a href="/tools/script.html">NLPCraft CLI</a> in REPL mode or from any IDE.
+        </p>
+        <p>
+            NOTE: you don't need to restart REST server every time - it only needs to be started once.
+        </p>
+    </section>
     <section>
         <h2 class="section-title">Done! 👌</h2>
         <p>
@@ -462,8 +498,10 @@ public class Weather extends NCModelFileAdapter {
         <li><a href="#new_project">New Project</a></li>
         <li><a href="#model">Data Model</a></li>
         <li><a href="#tools">External Tools</a></li>
+        <li><a href="#build_project">Build Project</a></li>
         <li><a href="#start_server">Start Server</a></li>
         <li><a href="#testing">Testing</a></li>
+        <li><a href="#rinse">Rinse <span class="amp">&amp;</span> Repeat</a></li>
         {% include quick-links.html %}
     </ul>
 </div>

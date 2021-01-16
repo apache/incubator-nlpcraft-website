@@ -122,23 +122,12 @@ id: script
             command with a <code>$</code> symbol. For example:
         </p>
         <pre class="brush: bash">
-            > $git pull
+            > $git pull # Runs 'git pull' in the current directory.
+            > $vi /home/myproject/pom.xml # Edit 'pom.xml' using vi.
+            > $emacs /home/myproject/MyModel.scala # Edit 'MyModel.scala' using emacs.
+            > $ls -la # Run 'ls-la' Unix command.
+            > $cmd /c dir # Runs Windows 'dir' command in a separate shell.
         </pre>
-        <p style="margin-left: 20px">
-            Runs <code>git pull</code> command in the current directory.
-        </p>
-        <pre class="brush: bash">
-            > $ls -la
-        </pre>
-        <p style="margin-left: 20px">
-            Runs <code>ls -la</code> Unix shell command.
-        </p>
-        <pre class="brush: bash">
-            > $cmd /c dir
-        </pre>
-        <p style="margin-left: 20px">
-            Runs Windows <code>dir</code> command in the current directory using a separate shell.
-        </p>
         <p>
             Note that <em>stdin</em>, <em>stderr</em> and <em>stdout</em> of the new process will inherit from running <code>bin/nlpcraft.{sh|cmd}</code> script process.
             Running OS commands makes the most sense in REPL mode where you don't want to lose a session context while

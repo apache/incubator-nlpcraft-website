@@ -95,16 +95,18 @@ id: sql_model
             <figcaption><b>Fig 1.</b> SQL Schema</figcaption>
         </figure>
         <p>
-            You can find SQL script creating this database and populating it with the sample data at <code>db/northwind.sql</code>
+            You can find SQL script creating this database and populating it with the sample data at
+            <a href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft/src/main/scala/org/apache/nlpcraft/examples/sql/db/northwind.sql" target="github"><code>db/northwind.sql</code></a>
             file in the root of the example.
         </p>
     </section>
     <section id="h2">
         <h3 class="section-title">H2 Database</h3>
         <p>
-            In our example we are using H2 database instance. For convenience, example provides a command line application <code>db/SqlServer.java</code>
+            In our example we are using H2 database instance. For convenience, example provides a command line application
+            <a href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft/src/main/scala/org/apache/nlpcraft/examples/sql/db/SqlServer.scala" target="github"><code>db/SqlServer.scala</code></a>
             that automatically starts local H2 database instance with default configuration (localhost on port 9092) and initializes it
-            using <code>db/northwind.sql</code> script.
+            using <a href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft/src/main/scala/org/apache/nlpcraft/examples/sql/db/northwind.sql" target="github"><code>db/northwind.sql</code></a> script.
         </p>
     </section>
     <section id="model">
@@ -124,7 +126,7 @@ id: sql_model
         </p>
         <ul>
             <li>
-                <code>sql_model_init.yaml</code> - the initial file that was generated straight out of
+                <a href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft/src/main/scala/org/apache/nlpcraft/examples/sql/sql_model_init.yaml" target="github"><code>sql_model_init.yaml</code></a> - the initial file that was generated straight out of
                 SQL Model Generator (see above for the instructions).
             </li>
         </ul>
@@ -136,21 +138,35 @@ id: sql_model
         </p>
         <ul>
             <li>
-                <code>SqlModel.java</code> - the code behind the data model that loads YAML-defined model and
+                <a href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft/src/main/scala/org/apache/nlpcraft/examples/sql/SqlModel.scala" target="github"><code>SqlModel.scala</code></a> - the code behind the data model that loads YAML-defined model and
                 defines all intents.
             </li>
             <li>
-                <code>db/Builder.java</code> - the main utility that takes object model provided by
+                <a href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft/src/main/scala/org/apache/nlpcraft/examples/sql/db/SqlBuilder.scala" target="github"><code>db/SqlBuilder.scala</code></a> - the main utility that takes object model provided by
                 <a href="/tools/sql_model_gen.html">SQL Model Generation</a>
                 and builds a SQL query to execute. Note that we elected to build this functionality
                 from scratch to illustrate how it can be done. You are free, of course, to use many
                 of the existing libraries to help achieve this goal.
             </li>
             <li>
-                <code>SqlTest.java</code> - unit test for this example. Note that this test
+                <a href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft/src/main/scala/org/apache/nlpcraft/examples/sql/SqlTest.scala" target="github"><code>SqlTest.scala</code></a> - unit test for this example. Note that this test
                 provides additional utility of testing each input sentence against the result SQL statement.
             </li>
         </ul>
+    </section>
+    <section id="build_project">
+        <h3 class="section-title">Build Project</h3>
+        <p>
+            Assuming that project is located in <code>~/SqlModel</code> folder - let's go to into this directory and
+            run the Maven build:
+        </p>
+        <pre class="brush: bash">
+            $ cd ~/SqlModel
+            $ mvn clean package
+        </pre>
+        <p>
+            At this stage we have our project built and we are ready to start testing.
+        </p>
     </section>
     <section id="start_server">
         <h3 class="section-title">Start Server</h3>
@@ -181,7 +197,7 @@ id: sql_model
         </p>
         <ul>
             <li>
-                REST server is a "fore-and-forget" component that you generally need to start only once.
+                <i style="color: #F39C12" class="fa fa-exclamation-triangle"></i> REST server is a "fore-and-forget" component that you generally need to start only once.
             </li>
             <li>
                 Run <code>bin/nlpcraft.sh help --cmd=start-server</code> to get a full help on this command.
@@ -224,6 +240,29 @@ id: sql_model
             </li>
         </ul>
     </section>
+    <section id="rinse">
+        <h2 class="section-title">Rinse <span class="amp">&amp;</span> Repeat</h2>
+        <p>
+            Typical development cycle consists of:
+        </p>
+        <ul>
+            <li>
+                <a href="#model">Modifying the model</a>
+            </li>
+            <li>
+                <a href="#build_project">Re-building the project</a>
+            </li>
+            <li>
+                <a href="#testing">Re-running the test</a>
+            </li>
+        </ul>
+        <p>
+            All of these operations can be performed from <a href="/tools/script.html">NLPCraft CLI</a> in REPL mode or from any IDE.
+        </p>
+        <p>
+            NOTE: you don't need to restart REST server every time - it only needs to be started once.
+        </p>
+    </section>
     <section>
         <h2 class="section-title">Done! 👌</h2>
         <p>
@@ -239,8 +278,10 @@ id: sql_model
         <li><a href="#sql">Sample Database</a></li>
         <li><a href="#model">Data Model</a></li>
         <li><a href="#impl">Implementation</a></li>
+        <li><a href="#build_project">Build Project</a></li>
         <li><a href="#start_server">Start Server</a></li>
         <li><a href="#testing">Testing</a></li>
+        <li><a href="#rinse">Rinse <span class="amp">&amp;</span> Repeat</a></li>
         {% include quick-links.html %}
     </ul>
 </div>
