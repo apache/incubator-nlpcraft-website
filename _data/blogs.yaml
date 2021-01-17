@@ -1,0 +1,70 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+- title: Преобразование текстовых запросов в SQL
+  url: https://habr.com/ru/post/536720/
+  excerpt: Большинство разработчиков, когда-либо сталкивавшихся с NLP задачами, рано или поздно задумывались над проблемой, обозначенной в заголовке статьи. Решений подобного рода создавалось достаточное количество, каждое со своими особенностями, плюсами и минусами. Первое, с которым мы с коллегами встретились лет 10 назад, и ссылку на которое я не смог сейчас даже найти, было оформлено в виде абсолютно нечитаемой диссертации. Мы честно, шаг за шагом пытались прорваться сквозь ее страницы, но отчаялись и утратили интерес к данной тематике на несколько лет. Но, рано или поздно к этой проблеме возвращаешься...
+  author: Сергей Камов
+  publish_date: January 11, 2021
+  avatar_url: images/sergey_kamov_avatar.png
+  twitter_id: apachenlpcraft
+  href_target: habr
+
+- title: Проектируем интенты с Apache NlpCraft
+  url: https://habr.com/ru/post/534034/
+  excerpt: В данной заметке я продолжу знакомить читателей с возможностями проекта Apache NlpCraft. Данная статья посвящена вопросу проектирования интентов при построении диалоговых систем. Напомню, что такое интент. Интент — это сочетание функции и правила, по которому эта функция должна быть вызвана. Правило — это чаще всего шаблон, основанный на наборе ожидаемых именованных сущностей в тексте запроса. В большинстве существующих диалоговых систем данный шаблон — это просто список элементов...
+  author: Сергей Камов
+  publish_date: December 21, 2020
+  avatar_url: images/sergey_kamov_avatar.png
+  twitter_id: apachenlpcraft
+  href_target: habr
+
+- title: Как найти что-то в тексте
+  url: https://habr.com/ru/post/530878/
+  excerpt: Найти объект или распознать понятие в тексте — с этого начинается решение большинства NLP задач. Если вы проектируете поисковую систему, создаете голосового помощника или классифицируете пользовательские запросы, прежде всего вы должны разобрать входной текст и попытаться найти в нем именованные сущности, которые могут быть универсальными, такими как даты, страны и города, или специфичными для конкретной модели. Обратите внимание, мы сейчас говорим лишь о тех видах задач, для которых заранее известно, что именно вы ищете или что может встретиться в тексте...
+  author: Сергей Камов
+  publish_date: December 1, 2020
+  avatar_url: images/sergey_kamov_avatar.png
+  twitter_id: apachenlpcraft
+  href_target: habr
+
+- title: Quick Introduction to Apache NLPCraft
+  url: /blogs/quick_intro_apache_nlpcraft.html
+  excerpt: In this short article I would like to introduce Apache NLPCraft - an open source library for adding Natural Language Interface to any application. The goal of this project from its inception in 2017 was and still is unambiguously straightforward - provide an efficient & highly productive API to develop advanced NLP-based interfaces for modern applications...
+  author: Aaron Radzinski
+  avatar_url: images/lion.jpg
+  publish_date: November 16, 2020
+  twitter_id: aaron_radzinski
+  href_target: _self
+
+- title: Краткий обзор системы Apache NlpCraft
+  url: https://habr.com/ru/post/526950/
+  excerpt: Цель проекта — тотальное упрощение доступа к возможностям NLP (Natural Language Processing) разработчикам приложений. Основная идея системы — это уловить баланс между простотой вхождения в NLP проблематику и поддержкой широкого диапазона возможностей промышленной библиотеки. Задача проекта бескомпромиссна — простота без упрощения...
+  author: Сергей Камов
+  publish_date: November 8, 2020
+  avatar_url: images/sergey_kamov_avatar.png
+  twitter_id: apachenlpcraft
+  href_target: habr
+
+- title: Short-Term Memory - Maintaining Conversation Context
+  url: /blogs/short_term_memory.html
+  excerpt: Short-Term Memory (STM), a technique used to maintain conversational context in NLPCraft. Maintaining the proper conversation context - remembering what the current conversation is about - is essential for all human interaction and thus essential for computer-based natural language understanding...
+  author: Aaron Radzinksi
+  avatar_url: images/lion.jpg
+  publish_date: July 26, 2019
+  twitter_id: aaron_radzinski
+  href_target: _self

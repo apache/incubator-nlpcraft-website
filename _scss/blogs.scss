@@ -16,7 +16,7 @@
  */
 
 img.avatar-img {
-    height: 32px;
+    height: 24px;
     margin-right: 10px;
     vertical-align: middle;
     -webkit-border-radius: 100%;
@@ -53,6 +53,9 @@ img.avatar-img {
 #blogs {
     #blogs-container {
         .blog-block {
+            margin-bottom: 50px;
+        }
+        .blog-block:last-child {
             margin-bottom: 75px;
         }
 
@@ -61,12 +64,16 @@ img.avatar-img {
         }
 
         .blog-title {
-            font-size: 20px;
+            font-size: 24px;
             letter-spacing: 0.02em;
             font-weight: 400;
 
             i.fas {
                 color: $color-asphalt;
+            }
+
+            a {
+                color: #333;
             }
         }
 
@@ -76,6 +83,10 @@ img.avatar-img {
             font-weight: 200;
             letter-spacing: 0.05em;
             margin-bottom: 20px;
+
+            a {
+                color: #999;
+            }
         }
 
         .blog-footer {

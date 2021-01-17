@@ -35,7 +35,7 @@ layout: interior
     </div>
     <div class="col-md-8 second-column">
         <div id="blogs-container" class="row">
-            {% for news in site.data.news %}
+            {% for news in site.data.blogs %}
             <div class="blog-block">
                 <div class="blog-title">
                     <a href="{{ news.url }}" target={{ news.href_target }}>
@@ -43,7 +43,7 @@ layout: interior
                     </a>
                 </div>
                 <div class="blog-excerpt">
-                    <a target={{ news.href_target }} href="{{ news.url }}">{{ news.excerpt}}&nbsp;<i class="fas fa-angle-double-right"></i></a>
+                    <a target={{ news.href_target }} href="{{ news.url }}">{{ news.excerpt}}</a>
                 </div>
                 <div class="blog-footer">
                     {% if news.avatar_url %}<img class="avatar-img" src="{{ news.avatar_url | relative_url}}" alt="">{% endif %}
