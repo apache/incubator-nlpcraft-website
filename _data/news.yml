@@ -15,6 +15,15 @@
 # limitations under the License.
 #
 
+- title: How To Find Something In The Text
+  url: /blogs/how_to_find_something_in_the_text.html
+  excerpt: Most of the NLP tasks start with the basic challenge - how to find or detect something in the text...
+  author: Aaron Radzinski
+  publish_date: January 20, 2021
+  avatar_url: images/lion.jpg
+  twitter_id: aaron_radzinski
+  href_target: _self
+
 - title: Преобразование текстовых запросов в SQL
   url: https://habr.com/ru/post/536720/
   excerpt: На первый взгляд задача преобразования разобранного предложения в SQL — проблема чисто алгоритмическая...

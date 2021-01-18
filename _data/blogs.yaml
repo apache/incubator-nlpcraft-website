@@ -15,8 +15,8 @@
 # limitations under the License.
 #
 
-- title: Преобразование текстовых запросов в SQL
-  url: https://habr.com/ru/post/536720/
+- title: How To Find Something In The Text
+  url: /blogs/how_to_find_something_in_the_text.html
   excerpt: Most of the NLP tasks start with the basic challenge - how to find or detect something in the text. Whether you are designing a search engine, conversational interface or some sort of classificator you will likely start with a problem of how to detect named entities in the input text. These named entities can be universal such as dates, countries, cities as well as domain specific for your model. It is also important to note that we are talking about a class of NLP tasks where you actually know what you are looking for...
   author: Aaron Radzinski
   publish_date: January 20, 2021
@@ -32,6 +32,7 @@
   avatar_url: images/sergey_kamov_avatar.png
   twitter_id: apachenlpcraft
   href_target: habr
+  ru: true
 
 - title: Проектируем интенты с Apache NlpCraft
   url: https://habr.com/ru/post/534034/
@@ -41,6 +42,7 @@
   avatar_url: images/sergey_kamov_avatar.png
   twitter_id: apachenlpcraft
   href_target: habr
+  ru: true
 
 - title: Как найти что-то в тексте
   url: https://habr.com/ru/post/530878/
@@ -50,6 +52,7 @@
   avatar_url: images/sergey_kamov_avatar.png
   twitter_id: apachenlpcraft
   href_target: habr
+  ru: true
 
 - title: Quick Introduction to Apache NLPCraft
   url: /blogs/quick_intro_apache_nlpcraft.html
@@ -68,6 +71,7 @@
   avatar_url: images/sergey_kamov_avatar.png
   twitter_id: apachenlpcraft
   href_target: habr
+  ru: true
 
 - title: Short-Term Memory - Maintaining Conversation Context
   url: /blogs/short_term_memory.html

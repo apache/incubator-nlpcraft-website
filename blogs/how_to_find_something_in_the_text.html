@@ -26,16 +26,16 @@ publish_date: January 20, 2021
 -->
 
 <section>
+    <div class="bq success">
+        This blog is an English adaptation of Sergey Kamov's <a target=habr href="https://habr.com/ru/post/530878/">blog</a> written in Russian.
+    </div>
     <p>
-        In this blog, I'll try to give a high-level overview of STM - Short-Term Memory, a technique used to
-        maintain conversational context in NLPCraft. Maintaining the proper conversation context - remembering
-        what the current conversation is about - is essential for all human interaction and thus essential for
-        computer-based natural language understanding. To my knowledge, NLPCraft provides one of the most advanced
-        implementations of STM, especially considering how tightly it is integrated with NLPCraft's unique
-        intent-based matching (Google's <a target=google href="https://cloud.google.com/dialogflow/">DialogFlow</a> is very similar yet).
-    </p>
-    <p>
-        Let's dive in.
+        Most of the NLP tasks start with the basic challenge - how to find or detect something in the text. Whether
+        you are designing a search engine, conversational interface or some sort of classificator you will likely
+        start with a problem of how to detect <a target="_new" href="https://www.wikiwand.com/en/Named_entity">named entities</a>
+        in the input text. These named entities can be universal
+        such as dates, countries, cities as well as domain specific for your model. It is also important to note that
+        we are talking about a class of NLP tasks where you actually know what you are looking for.
     </p>
 </section>
 <section>
