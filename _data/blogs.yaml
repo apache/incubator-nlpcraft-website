@@ -17,6 +17,15 @@
 
 - title: Преобразование текстовых запросов в SQL
   url: https://habr.com/ru/post/536720/
+  excerpt: Most of the NLP tasks start with the basic challenge - how to find or detect something in the text. Whether you are designing a search engine, conversational interface or some sort of classificator you will likely start with a problem of how to detect named entities in the input text. These named entities can be universal such as dates, countries, cities as well as domain specific for your model. It is also important to note that we are talking about a class of NLP tasks where you actually know what you are looking for...
+  author: Aaron Radzinski
+  publish_date: January 20, 2021
+  avatar_url: images/lion.jpg
+  twitter_id: aaron_radzinski
+  href_target: _self
+
+- title: Преобразование текстовых запросов в SQL
+  url: https://habr.com/ru/post/536720/
   excerpt: Большинство разработчиков, когда-либо сталкивавшихся с NLP задачами, рано или поздно задумывались над проблемой, обозначенной в заголовке статьи. Решений подобного рода создавалось достаточное количество, каждое со своими особенностями, плюсами и минусами. Первое, с которым мы с коллегами встретились лет 10 назад, и ссылку на которое я не смог сейчас даже найти, было оформлено в виде абсолютно нечитаемой диссертации. Мы честно, шаг за шагом пытались прорваться сквозь ее страницы, но отчаялись и утратили интерес к данной тематике на несколько лет. Но, рано или поздно к этой проблеме возвращаешься...
   author: Сергей Камов
   publish_date: January 11, 2021
