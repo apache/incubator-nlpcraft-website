@@ -24,6 +24,13 @@ img.avatar-img {
     border-radius: 100%;
 }
 
+#blog {
+    .img-title {
+        margin-top: 25px;
+        margin-bottom: 10px;
+    }
+}
+
 .blog-header {
     a, a:hover, a:active, i.fas {
         color: $color-asphalt;
