@@ -89,8 +89,95 @@ publish_date: January 20, 2021
         It appears that the main usage pattern of Apache OpenNLP is to build and train your own models from scratch.
     </p>
     <h3 class="section-sub-title">Stanford NLP</h3>
+    <p>
+        <img class="img-title" src="/images/corenlp-logo.png" height="64px" alt="">
+    </p>
+    <p>
+        <a target="_parent" href="https://nlp.stanford.edu/">Stanford NLP</a> is a popular and actively developed, mature NLP library that provides a wide range of
+        functionality. For English it supports the following named entities: person, location, organization,
+        misc, money, number, ordinal, percent, date, time, duration, set. Furthermore, built in regular expressions
+        based NER component allows to recognize the following additional named entities: email, url, city,
+        state_or_province, country, nationality, religion, (job) title, ideology, criminal_charge, cause_of_death,
+        handle. More information <a target="_blank" href="https://stanfordnlp.github.io/CoreNLP/ner.html#description">here</a>.
+    </p>
+    <p>
+        There’s a limited support for German, Spanish and Mandarin languages. <a target="_blank" href="https://corenlp.run/">Live demo</a> allows you to test out
+        various capabilities of Stanford NLP.
+    </p>
+    <p>
+        Stanford NLP is a Java library. Models are available in Maven along with the project itself.
+        I could not find a detailed description of NER components for languages other than English. <a target=_blank href="https://medium.com/sicara/train-ner-model-with-nltk-stanford-tagger-english-french-german-6d90573a9486">Here</a>
+        and <a target=_blank href="https://medium.com/@klintcho/training-a-swedish-ner-model-for-stanford-corenlp-part-2-20a0cfd801dd#.vnow3swam">here</a> you can find instructions on how to train your own NER components for other languages.
+    </p>
+    <p>
+        <b>Pros:</b><br/>
+        Maturity of the project. Live and actively developed project with very good recognition quality
+        (I use the word “good” very subjectively as we won’t go into formal qualitative metrics of each
+        project here).
+    </p>
+    <p>
+        <b>Cons:</b><br/>
+        The biggest gripe is the usage of <a target="_blank" href="https://www.wikiwand.com/ru/GNU_General_Public_License">GNU GPL</a> license which is all but shun away these days due its viral
+        nature and business unfriendliness. In other words - it is not free and you have to buy a commercial
+        license if you intend to use it in any serious way. Documentation is adequate at best and can be a
+        frustrating experience (just like most other academically driven software projects).
+    </p>
     <h3 class="section-sub-title">Google Language API</h3>
+    <img class="img-title" src="/images/google-cloud-logo-small.png" height="56px" alt="">
+    <p>
+        <a target="_blank" href="https://cloud.google.com/natural-language">Google Language API</a> supports the
+        following named entities for the English language: person, location, organization, event, work_of_art,
+        consumer_good, other, phone_number, address, date, number, price.
+    </p>
+    <p>
+        Google Language API is available as REST API with the native client libraries for Java, C#, Python, Go, etc.
+    </p>
+    <p>
+        <b>Pros:</b><br/>
+        Large set of NER components from a trusted NLP-based company like Google. Scalability and availability of
+        modern SaaS platform developed by Google...
+    </p>
+    <p>
+        <b>Cons:</b><br/>
+        REST API inherently limits the performance of the final solution - making it almost impossible to be used
+        in any “real-time” applications. Free only for a small number of transactions, paid after that. Not open source.
+    </p>
     <h3 class="section-sub-title">spacy</h3>
+    <img id="spacy" class="img-title" src="/images/spacy-logo.png" height="48px" alt="">
+    <p>
+        <a target="_blank" href="https://spacy.io">spaCy</a> is a Python library that provides one of the best, if not the best, collection of NER components.
+        <a target="_blank" href="https://spacy.io/api/annotation#named-entities">Here</a> you can see a full list of supported NERs.
+    </p>
+    <p>
+        <b>Pros:</b><br/>
+        Actively developed and mature project. Open source with MIT license. One of the best
+        documentation among similar projects. One of the most popular NLP libraries among a few dozens of available
+        libraries for the Python community.
+    </p>
+    <p>
+        <b>Cons:</b><br/>
+        Python - which is rarely used for production level applications. Slow, often unacceptably slow,
+        performance (due to Python as well). Lack of 1st grade support for language other than English.
+    </p>
+</section>
+<section>
+    <h2 class="section-title">Additional Capabilities of Apache NLPCraft</h2>
+    <p>
+        Let’s take a look at what Apache NLPCraft brings different or additionally to the table.
+    </p>
+    <p>
+        When it comes to NER components, Apache NLPCraft provides the following:
+    </p>
+    <ul>
+        <li>Built-in NER components for date, geographical locations, numerics, sorting, limiting, and few others with all of them supporting the extraction of the normalized values and extensive metadata.</li>
+        <li>Integration with external NER components from Apache OpenNLP, Stanford NLP, Google Language API and spacy.</li>
+        <li>Support for “composable entities” where users can create new detectable named entities out of existing ones.</li>
+    </ul>
+    <p>
+        While built-in NER components and integration with 3rd party ones is rather a “pedestrian”
+        capabilities (and you can read about them <a href="/integrations.html">here</a>) - the “composable entities” is something that is unique for Apache NLPCraft.
+        Let’s look at it in more detail.
+    </p>
 </section>
 
 
