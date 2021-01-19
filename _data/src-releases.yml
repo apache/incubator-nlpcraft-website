@@ -22,7 +22,7 @@
   sha256_url: https://downloads.apache.org/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.7.3.zip.sha256
   pgp_url: https://downloads.apache.org/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.7.3.zip.asc
   github_link: https://github.com/apache/incubator-nlpcraft/tree/v0.7.3
-  backward_compatible: yes
+  backward_compatible: no
 
 - version: 0.7.2
   date: Nov 19, 2020
