@@ -15,8 +15,8 @@
 # limitations under the License.
 #
 
-- title: How To Find Something In The Text
-  url: /blogs/how_to_find_something_in_the_text.html
+- title: Composable Named Entities
+  url: /blogs/composable_named_entities.html
   excerpt: Most of the NLP tasks start with the basic challenge - how to find or detect something in the text...
   author: Aaron Radzinski
   publish_date: January 20, 2021

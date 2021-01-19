@@ -1,7 +1,7 @@
 ---
-active_crumb: How To Find Something In The Text
+active_crumb: Composable Named Entities
 layout: blog
-blog_title: How To Find Something In The Text
+blog_title: Composable Named Entities
 author_name: Aaron Radzinski
 author_avatar: images/lion.jpg
 author_twitter_id: aaron_radzinski
@@ -163,7 +163,7 @@ publish_date: January 20, 2021
 <section>
     <h2 class="section-title">Additional Capabilities of Apache NLPCraft</h2>
     <p>
-        Let’s take a look at what Apache NLPCraft brings different or additionally to the table.
+        Let’s take a look at what Apache NLPCraft brings different or additional to the table.
     </p>
     <p>
         When it comes to NER components, Apache NLPCraft provides the following:
@@ -171,13 +171,116 @@ publish_date: January 20, 2021
     <ul>
         <li>Built-in NER components for date, geographical locations, numerics, sorting, limiting, and few others with all of them supporting the extraction of the normalized values and extensive metadata.</li>
         <li>Integration with external NER components from Apache OpenNLP, Stanford NLP, Google Language API and spacy.</li>
-        <li>Support for “composable entities” where users can create new detectable named entities out of existing ones.</li>
+        <li>Support for “composable <span class="amp">&amp;</span> reusable named entities” where users can create new detectable named entities out of existing ones.</li>
     </ul>
     <p>
         While built-in NER components and integration with 3rd party ones is rather a “pedestrian”
-        capabilities (and you can read about them <a href="/integrations.html">here</a>) - the “composable entities” is something that is unique for Apache NLPCraft.
+        capabilities (and you can read about them <a href="/integrations.html">here</a>) - the “composable <span class="amp">&amp;</span> reusable named entities” is something that is unique for Apache NLPCraft.
         Let’s look at it in more detail.
     </p>
+</section>
+<section>
+    <h2 class="section-title">Reusable <span class="amp">&amp;</span> Composable Named Entities</h2>
+    <p>
+        Apache NLPCraft is the first project that provides direct support for composable named entities - named entities
+        that are defined in terms of other (constituent or part) entities.
+        Let’s illustrate this by an example.
+    </p>
+    <p>
+        Let’s imagine you are building an NLP-based answering application utilizing intent-based matching (Alexa,
+        Google DialogFlow, Apache NLPCraft, etc.). In this application we want to answer questions about geographical
+        locations but <b>only the USA</b>.
+    </p>
+    <p>
+        The one of the ways to accomplish this task is to use any NER providers, for example, <code>nlpcraft:city</code> from
+        Apache NLPCraft, and build your intents using it. Then, when a particular intent is selected and its callback is called you can check the <code>country</code>
+        metadata field of the detected named entity. If it does not equal the <code>USA</code> you need to exit (break) from
+        the intent's callback and continue trying other intents, if any were matched as well.
+    </p>
+    <p>
+        Well, that’s not so easy in real life:
+    </p>
+    <ul>
+        <li>
+            First of all, your intent-based NLP library must support such a back-and-forth between intent’s callback
+            and intent matching logic. And very few indeed do…
+        </li>
+        <li>
+            You are spreading the matching logic between declarative intent definition (YAML file) and a
+            programmable intent’s callback (Java code) which generally leads to a very hard to maintain implementation.
+        </li>
+    </ul>
+    <p>
+        Okay... you can create your own brand new NER component from scratch that would detect only geographical
+        locations in the US. However, this will surely take more than a few minutes.
+    </p>
+    <p>
+        Yet another approach, if supported by your intent-based NLP library, is to enhance the intent definition itself
+        to match only USA geographical locations. At this time, however, I’m not aware of any other NLP libraries
+        supporting this other than Apache NLPCraft. Furthermore, you are complicating your intents that generally should be
+        as simple and maintainable as possible.
+    </p>
+    <p>
+        That’s where <b>composable named entities</b> come to the rescue. Apache NLPCraft allows you to define a new named entity
+        using existing ones - user-defined, built-in or external - named entities (more documentation on this can be found
+        <a href="/data-model.html#dsl">here</a>). Following up on our example application:
+    </p>
+    <pre class="brush: js, highlight: 3, 6">
+"elements": [
+  {
+    "id": "custom:city:usa",
+    "description": "Wrapper for USA cities",
+    "synonyms": [
+      "^^id == 'nlpcraft:city' && lowercase(~city:country) == 'usa')^^"
+    ]
+  }
+]
+    </pre>
+    <p>
+        In this model snippet, we are defining a new named entity <code>custom:city:usa</code> (line 3) that is based on
+        existing <code>nlpcraft:city</code> (line 6) that is also filtered for USA country. Once you have this new named entity
+        defined you can use it to define the intent that will only match cities in the USA.
+    </p>
+    <p>
+    Another example:
+    </p>
+    <pre class="brush: js, highlight: [9, 12]">
+"macros": [
+  {
+    "name": "&lt;AIRPORT&gt;",
+    "macro": "{airport|aerodrome|airdrome|air station}"
+  }
+],
+"elements": [
+  {
+    "id": "custom:airport:usa",
+    "description": "Wrapper for USA airports",
+    "synonyms": [
+      "&lt;AIRPORT&gt; {of|for|*} ^^id == 'nlpcraft:city' && lowercase(~city:country) == 'usa')^^"
+    ]
+  }
+]
+    </pre>
+    <p>
+        In this example, we defined a new named entity <code>custom:airport:usa</code>. In its definition we not only
+        filter cities for the USA but also added a prefix that would indicate that this is an airport (learn more about
+        token DSL syntax <a href="https://nlpcraft.apache.org/data-model.html#dsl">here</a>).
+    </p>
+    <p>
+        Composable named entities can be nested but not recursive. All the normalized metadata of the constituent
+        (part) entities - of any nesting depths - is accessible to the named entity, e.g. metadata
+        from <code>nlpcraft:city</code> is accessible in <code>custom:airport:usa</code> entity.
+        You can also define a new composed named entity based on your own named entities. This way you are
+        essentially <b>mixing in</b> new entities instead of creating something from scratch every time.
+    </p>
+    <p>
+    In the end, composable entities allow you to:
+    </p>
+    <ul>
+        <li>Simplify intents by concentrating matching logic in reusable <span class="amp">&amp;</span> composable named entities.</li>
+        <li>Create new named entities without any coding or expensive model training.</li>
+        <li>Reuse existing named entities to build new ones.</li>
+    </ul>
 </section>
 
 
