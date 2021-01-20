@@ -44,7 +44,7 @@ lock-in:
 - [Apache NLPCraft UI](https://github.com/apache/incubator-nlpcraft-ui) - Web UI for testing and debugging. 
 
 ### Copyright
-Copyright (C) 2020 Apache Software Foundation
+Copyright (C) 2021 Apache Software Foundation
 
 <img src="https://www.apache.org/img/ASF20thAnniversary.jpg" height="64px">
 
