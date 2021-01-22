@@ -25,24 +25,23 @@ id: overview
     <section id="overview">
         <h2 class="section-title">Overview</h2>
         <p>
-            Apache NLPCraft is a Java-based <a target=_blank href="https://www.apache.org/licenses/">open source</a> library for adding a natural language
-            interface to any applications. It can work with
-            any private or public data source, and has no hardware or software lock-in.
-            You can build models and intents for NLPCraft using any JVM-based languages like Java, Scala, Kotlin, Groovy, etc. NLPCraft
-            exposes REST APIs for integration with user applications that can be written in any language or system.
+            Apache NLPCraft is a Java-based <a target=_blank href="https://www.apache.org/licenses/">open source</a> library
+            for adding a natural language interaction interface to any applications. It can connect with
+            any private or public data source, and has no hardware or software lock-in. It is based on advanced intent-based matching
+            of the input utterances. You can build intents for NLPCraft using any JVM-based languages like Java, Scala, Kotlin, Groovy, etc. NLPCraft
+            exposes REST APIs for integration with end-user applications that can be written in any language or system.
         </p>
         <p>
-            One of the key features of NLPCraft is its use of advance semantic modelling that is tailor made for
-            domain-specific natural language interface. It doesn't force developers to use direct ML/DL
-            approach involving time consuming model training or corpora development leading to much <em>simpler <span class="amp">&</span> faster</em>
+            One of the key features of NLPCraft is its use of deterministic intent matching that is tailor made for
+            domain-specific natural language interface. It doesn't force developers to use direct deep learning
+            approach that involves time consuming model training or corpora development - resulting in much <em>simpler <span class="amp">&</span> faster</em>
             implementation.
         </p>
         <p>
-            Another key aspect of NLPCraft is its focus on processing English language. Although it may sound
-            counterintuitive, this narrower focus enables NLPCraft to deliver unprecedented ease of use combined with
-            unparalleled comprehension capabilities for English input out-of-the-box. It's been shown that
-            support for multiple languages in a single framework leads to either watered down functionality or overly
-            complicated configuration, training and usage. It's also important to note that English language is spoken by more
+            Another key aspect of NLPCraft is its initial focus on processing English language. Although it may sound
+            counterintuitive, this narrower initial focus enables NLPCraft to deliver unprecedented ease of use combined with
+            unparalleled comprehension capabilities for English input out-of-the-box. It avoids watered down functionality and overly
+            complicated configuration, training and usage. English language is spoken by more
             than a billion people on this planet and is de facto standard global language of the business and commerce.
         </p>
         <p>
@@ -67,14 +66,13 @@ id: overview
             NLPCraft employs model-as-a-code approach where entire data model is an implementation of
             <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModel.html">NCModel</a> Java interface that
             can be developed using any JVM programming language like Java, Scala, Kotlin or Groovy.
-            Data model implementation defines how to interpret user input, and how to query or control a particular
-            data source. Model-as-a-code natively supports any software lifecycle tools and frameworks in Java ecosystem.
+            Data model defines named entities, various configuration properties as well as intents that use defined named entities. Model-as-a-code natively supports
+            any software lifecycle tools and frameworks in Java ecosystem.
         </p>
         <p>
             Typically, declarative portion of the model will be stored in a separate JSON or YAML file
             for simpler maintenance. There are no practical limitation on how complex or simple a model
-            can be, or what other tools it can use. Data models use comprehensive <a href="/intent-matching.html">intent-based matching</a>
-            provided by NLPCraft out-of-the-box.
+            can be, or what other tools it can use. Data models use comprehensive <a href="/intent-matching.html">intent-based matching</a>.
         </p>
         <p>
             To use data model it has to be deployed into a data probe.
@@ -98,14 +96,13 @@ id: overview
     <section id="server">
         <h3 class="section-title">REST Server</h3>
         <p>
-            REST server (or a cluster of REST servers behind a load balancer) provides URL endpoint for user applications
-            to securely query data sources using NLI via data models deployed in data probes. Its main purpose is to
-            accept REST-over-HTTP calls from user applications, manage connected data probes, and route user requests
-            to and from requested data probes.
+            REST server (or a cluster of REST servers behind a load balancer) provides URL endpoint for end-user applications
+            to securely query data sources using natural language via data models deployed in data probes. Its main purpose is to
+            accept REST-over-HTTP calls from end-user applications and route these requests to and from requested data probes.
         </p>
         <p>
             Unlike data probe that gets restarted every time the model is changed, i.e. during development, the
-            REST server is a "start-and-forget" component that can be launched once while various data probes can
+            REST server is a "fire-and-forget" component that can be launched once while various data probes can
             continuously reconnect to it. It can typically run as a Docker image locally on premise or in the cloud.
         </p>
         <p>
