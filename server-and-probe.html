@@ -195,11 +195,12 @@ id: server_and_probe
             the following additional JVM options to be used when running Apache Ignite 2.x on JDK 11:
         </p>
         <pre class="brush: text">
---add-exports=java.base/jdk.internal.misc=ALL-UNNAMED
---add-exports=java.base/sun.nio.ch=ALL-UNNAMED
---add-exports=java.management/com.sun.jmx.mbeanserver=ALL-UNNAMED
---add-exports=jdk.internal.jvmstat/sun.jvmstat.monitor=ALL-UNNAMED
---add-exports=java.base/sun.reflect.generics.reflectiveObjects=ALL-UNNAMED
+--add-opens=java.base/jdk.internal.misc=ALL-UNNAMED
+--add-opens=java.base/sun.nio.ch=ALL-UNNAMED
+--add-opens=java.base/java.nio=ALL-UNNAMED
+--add-opens=java.management/com.sun.jmx.mbeanserver=ALL-UNNAMED
+--add-opens=jdk.internal.jvmstat/sun.jvmstat.monitor=ALL-UNNAMED
+--add-opens=java.base/sun.reflect.generics.reflectiveObjects=ALL-UNNAMED
 --add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED
 --illegal-access=permit
         </pre>
@@ -455,7 +456,7 @@ nlpcraft {
             To get around this problem NLPCraft uses <a target="github" href="https://github.com/bazaarvoice/maven-process-plugin"><code>process-exec-maven-plugin</code></a>
             Maven plugin in its own build. This plugin allows to start the external process and use configured URL
             endpoint to check whether or not the external process has fully started. This works perfect with NLPCraft server
-            <a href="/using-rest.html#tools">health check REST call</a>. The plugin can be configured in the following way for your own project
+            <a href="/using-rest.html">health check REST call</a>. The plugin can be configured in the following way for your own project
             (taken directly from NLPCraft <a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft/pom.xml"><code>pom.xml</code></a>):
         </p>
         <pre class="brush: xml, highlight: [14, 16, 28]">
@@ -479,11 +480,12 @@ nlpcraft {
                     &lt;argument&gt;java&lt;/argument&gt;
                     &lt;argument&gt;-Xmx4G&lt;/argument&gt;
                     &lt;argument&gt;-Xms4G&lt;/argument&gt;
-                    &lt;argument&gt;--add-exports=java.base/jdk.internal.misc=ALL-UNNAMED&lt;/argument&gt;
-                    &lt;argument&gt;--add-exports=java.base/sun.nio.ch=ALL-UNNAMED&lt;/argument&gt;
-                    &lt;argument&gt;--add-exports=java.management/com.sun.jmx.mbeanserver=ALL-UNNAMED&lt;/argument&gt;
-                    &lt;argument&gt;--add-exports=jdk.internal.jvmstat/sun.jvmstat.monitor=ALL-UNNAMED&lt;/argument&gt;
-                    &lt;argument&gt;--add-exports=java.base/sun.reflect.generics.reflectiveObjects=ALL-UNNAMED&lt;/argument&gt;
+                    &lt;argument&gt;--add-opens=java.base/jdk.internal.misc=ALL-UNNAMED&lt;/argument&gt;
+                    &lt;argument&gt;--add-opens=java.base/sun.nio.ch=ALL-UNNAMED&lt;/argument&gt;
+                    &lt;argument&gt;--add-opens=java.base/java.nio=ALL-UNNAMED&lt;/argument&gt;
+                    &lt;argument&gt;--add-opens=java.management/com.sun.jmx.mbeanserver=ALL-UNNAMED&lt;/argument&gt;
+                    &lt;argument&gt;--add-opens=jdk.internal.jvmstat/sun.jvmstat.monitor=ALL-UNNAMED&lt;/argument&gt;
+                    &lt;argument&gt;--add-opens=java.base/sun.reflect.generics.reflectiveObjects=ALL-UNNAMED&lt;/argument&gt;
                     &lt;argument&gt;--add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED&lt;/argument&gt;
                     &lt;argument&gt;--illegal-access=permit&lt;/argument&gt;
                     &lt;argument&gt;-DNLPCRAFT_ANSI_COLOR_DISABLED=true&lt;/argument&gt;
