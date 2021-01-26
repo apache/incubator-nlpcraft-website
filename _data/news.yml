@@ -15,6 +15,14 @@
 # limitations under the License.
 #
 
+- title: 📢 Apache NLPCraft 0.7.4 Released
+  url: /relnotes/release-notes-0.7.4.html
+  excerpt: Download NLPCraft 0.7.4. Over 28 💪 fixes, improvements and enhancements.
+  publish_date: January 31, 2021
+  avatar_url: images/nlpcraft_logo.png
+  twitter_id: apachenlpcraft
+  href_target: _self
+
 - title: Composable Named Entities
   url: /blogs/composable_named_entities.html
   excerpt: Most of the NLP tasks start with the basic challenge - how to find or detect something in the text...
