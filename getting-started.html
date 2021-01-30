@@ -25,8 +25,8 @@ id: getting_started
     <section id="getting-started">
         <h2 class="section-title">Getting Started</h2>
         <p>
-            In this section we'll take a quick 10 minutes look at running NLPCraft <a href="https://github.com/apache/incubator-nlpcraft/tree/master/nlpcraft/src/main/scala/org/apache/nlpcraft/examples" target="github">examples</a>.
-            Instead of building our own model we will use an example model shipped with NLPCraft along with
+            Lets review how to run NLPCraft <a href="https://github.com/apache/incubator-nlpcraft/tree/master/nlpcraft/src/main/scala/org/apache/nlpcraft/examples" target="github">examples</a>.
+            We will use an example model shipped with NLPCraft along with
             demonstrating the main components of NLPCraft -
             <a href="/server-and-probe.html#probe">data probe</a>,
             <a href="/server-and-probe.html#server">REST server</a>, and
@@ -48,9 +48,9 @@ id: getting_started
             cluster of servers) is used to accept client REST calls and route them to the data model deployed on data probes.
         </p>
         <p>
-            Data probe and REST server are both Java applications and therefore can be started in many different ways.
-            In this tutorial, we'll use <a href="/tools/script.html"><code>nlpcraft.{sh|cmd}</code></a> script that comes with NLPCraft and acts as a central management
-            utility responsible for executing most of the routine tasks in NLPCraft in a simple and productive way.
+            Data probe and REST server are both Java applications.
+            In this tutorial, we'll use <a href="/tools/script.html"><code>nlpcraft.{sh|cmd}</code></a> script that comes with NLPCraft
+            to manage them.
         </p>
         <p>
             To start REST server and data probe with default configurations - run the following two commands:
@@ -83,14 +83,14 @@ id: getting_started
             </div>
         </div>
         <p>
-            At this point you have both the data probe and the REST server started and connected to each other.
+            At this point data probe and the REST server are started and connected.
         </p>
     </section>
     <section id="querying">
         <h2 class="section-title">Weather Forecast</h2>
         <p>
             We'll be testing <a target="github" href="https://github.com/apache/incubator-nlpcraft/tree/master/nlpcraft/src/main/scala/org/apache/nlpcraft/examples/weather">Weather Example</a>
-            to ask questions about weather forecast using REST APIs. This example returns a comprehensive JSON weather
+            to ask questions about weather forecast using REST APIs. This example returns a JSON weather
             data for variety of different inquiries about the past, present or future weather conditions.
         </p>
         <p>
@@ -121,54 +121,70 @@ id: getting_started
         </p>
         <ul>
             <li>
-                Note that when you start NLPCraft CLI it automatically detects the REST server and data probe we have started in
-                the previous step.
-            </li>
-            <li>
-                You can see the status of the REST server and data probe in the prompt and you can always
-                use <code>info</code> command to see a full information.
+                NLPCraft CLI automatically detects the REST server and data probe we have started in
+                the previous step. You can see the status of the REST server and data probe in the REPL prompt or you can
+                use <code>info</code> command to see a status information.
             </li>
             <li>
                 When NLPCraft CLI detects running REST server it automatically signs in with the default user account
                 to obtain access token that is required for all REST calls. It will automatically use this access token
-                while in REPL mode whenever required so that you don't have to specify it manually.
+                while in REPL mode whenever required.
             </li>
             <li>
                 Use <span class="keyboard">Tab</span> key anytime for command auto-suggestion and auto-completion.
-            </li>
-            <li>
-                You can also use <span class="keyboard">↑</span> and <span class="keyboard">↓</span> keys to scroll through command history.
+                Use <span class="keyboard">↑</span> and <span class="keyboard">↓</span> keys to scroll
+                through command history.
             </li>
         </ul>
         <h2 class="section-sub-title">Asking</h2>
         <p>
-            Now that we are in NLPCraft CLI REPL mode and have both REST server and the data probe connected, we can
-            use <code>ask</code> command to issue REST requests to our data model.
+            While in REPL mode lets use <code>ask</code> command to issue REST requests to our data model.
         </p>
-        <p>
-            <b>Q: What is the current forecast for Chicago?</b>
-        </p>
-        <p>
-            <img class="img-fluid" src="/images/getting_started_fig4.png" alt="">
-        </p>
-        <p>
-            ...we get a full 5-day forecast for Chicago:
-        </p>
-        <p>
-            <b>Q: Any chance of snow today in Moscow?</b>
-        </p>
-        <p>
-            <img class="img-fluid" src="/images/getting_started_fig5.png" alt="">
-        </p>
-        <p>
-            ...we get today's Moscow weather report:
-        </p>
+        <div class="accordion" id="questions">
+            <div class="card">
+                <div class="card-header" id="q1">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <b>Q:</b> What is the current forecast for Chicago?
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseOne" class="collapse" aria-labelledby="q1" data-parent="#questions">
+                    <div class="card-body">
+                        <p>
+                            <img class="img-fluid" src="/images/getting_started_fig4.png" alt="">
+                        </p>
+                        <p>
+                            We get a full 5-day forecast for Chicago.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="q2">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            <b>Q:</b> Any chance of snow today in Moscow?
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="q2" data-parent="#questions">
+                    <div class="card-body">
+                        <p>
+                            <img class="img-fluid" src="/images/getting_started_fig5.png" alt="">
+                        </p>
+                        <p>
+                            We get today's Moscow weather report.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
     <section>
         <h2 class="section-title">Done! 👌</h2>
         <p>
-            We've seen how to start REST server and data probe, and ask our weather bot several natural language questions. All we
-            have to do now is to use <code>stop</code> command to stop REST server and the data probe and <code>quit</code>
+            Use <code>stop</code> command to stop REST server and the data probe and <code>quit</code>
             command to quit from REPL mode:
         </p>
         <p>
