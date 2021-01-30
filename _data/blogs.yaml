@@ -15,6 +15,16 @@
 # limitations under the License.
 #
 
+- title: Поиск по синонимам в тексте — контролируем процесс или доверяемся нейросетям
+  url: https://habr.com/ru/post/539528/
+  excerpt: Первое что нужно сделать при разработке поисковых, диалоговых и прочих систем, основанных на natural language processing — это научиться разбирать тексты пользовательских запросов и находить в них сущности рабочей модели. Задача нахождения стандартных сущностей (geo, date, money и т.д.) в целом уже решена, остается лишь выбрать подходящий NER компонент и воспользоваться его функционалом. Если же вам нужно найти элемент, характерный для вашей конкретной модели или вы нуждаетесь в улучшенном качестве поиска стандартного элемента, придется создать свой собственный NER компонент или обучить какой-то уже существующий под свои цели...
+  author: Сергей Камов
+  publish_date: January 28, 2021
+  avatar_url: images/sergey_kamov_avatar.png
+  twitter_id: apachenlpcraft
+  href_target: habr
+  ru: true
+
 - title: Composable Named Entities
   url: /blogs/composable_named_entities.html
   excerpt: Most of the NLP tasks start with the basic challenge - how to find or detect something in the text. Whether you are designing a search engine, conversational interface or some sort of classificator you will likely start with a problem of how to detect named entities in the input text. These named entities can be universal such as dates, countries, cities as well as domain specific for your model. It is also important to note that we are talking about a class of NLP tasks where you actually know what you are looking for...

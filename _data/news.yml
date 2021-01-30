@@ -15,6 +15,15 @@
 # limitations under the License.
 #
 
+- title: Поиск по синонимам в тексте — контролируем процесс или доверяемся нейросетям
+  url: https://habr.com/ru/post/539528/
+  excerpt: Первое что нужно сделать при разработке поисковых, диалоговых и прочих систем, основанных на natural language processing...
+  author: Сергей Камов
+  publish_date: January 28, 2021
+  avatar_url: images/sergey_kamov_avatar.png
+  twitter_id: apachenlpcraft
+  href_target: habr
+
 - title: 📢 Apache NLPCraft 0.7.4 Released
   url: /relnotes/release-notes-0.7.4.html
   excerpt: Download NLPCraft 0.7.4. Over 28 💪 fixes, improvements and enhancements.
