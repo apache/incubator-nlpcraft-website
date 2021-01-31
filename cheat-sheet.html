@@ -32,7 +32,7 @@ id: cheat_sheet
                         </button>
                     </h2>
                 </div>
-                <div id="cheat1" class="collapse" data-parent="#cheats">
+                <div id="cheat1" class="show" data-parent="#cheats">
                     <div class="card-body">
                         <nav>
                             <div class="nav nav-tabs" role="tablist">
@@ -49,7 +49,8 @@ id: cheat_sheet
                             <div class="tab-pane fade show active" id="nav-install-src" role="tabpanel">
                                 <p></p>
                                 <p>
-                                    <a href="/download.html#src">Download</a> latest (<code><b>{{site.latest_version}}</b></code>) source release.
+                                    <a href="/download.html#src">Download</a> latest source
+                                    release (<code>apache-nlpcraft-incubating-<b>{{site.latest_version}}</b>.zip</code>). Once downloaded:
                                 </p>
                                 <pre class="brush: bash">
                                     $ unzip -q apache-nlpcraft-incubating-{{site.latest_version}}.zip
@@ -63,7 +64,8 @@ id: cheat_sheet
                             <div class="tab-pane fade show" id="nav-install-bin" role="tabpanel">
                                 <p></p>
                                 <p>
-                                    <a href="/download.html#zip">Download</a> latest (<code><b>{{site.latest_version}}</b></code>) binary release.
+                                    <a href="/download.html#src">Download</a> latest binary
+                                    release (<code>apache-nlpcraft-incubating-bin-<b>{{site.latest_version}}</b>.zip</code>). Once downloaded:
                                 </p>
                                 <pre class="brush: bash">
                                     $ unzip -q apache-nlpcraft-incubating-bin-{{site.latest_version}}.zip
@@ -145,12 +147,14 @@ id: cheat_sheet
                                 Start the server:
                             </p>
                             <pre class="brush: bash">
+                                $ bin/nlpcraft.sh help -c=start-server # Get help.
                                 $ bin/nlpcraft.sh start-server # Start server.
                             </pre>
                             <p>
                                 Stop the server:
                             </p>
                             <pre class="brush: bash">
+                                $ bin/nlpcraft.sh help -c=stop-server # Get help.
                                 $ bin/nlpcraft.sh stop-server # Stop server.
                                 $ bin/nlpcraft.sh stop # Stop both server and probe.
                             </pre>
@@ -250,6 +254,7 @@ id: cheat_sheet
                                     Start the probe:
                                 </p>
                                 <pre class="brush: bash">
+                                    $ bin/nlpcraft.sh help -c=start-probe # Get help.
                                     $ bin/nlpcraft.sh start-probe # Start probe with default config.
                                     $ bin/nlpcraft.sh start-probe --cfg=~/myapp/nlpcraft.conf --mdls=my.package.Model --cp=~/myapp/target/classes --jmvOpts="-ea -Xms2048m" --timeoutMins=5
                                 </pre>
@@ -257,6 +262,7 @@ id: cheat_sheet
                                     Stop the probe:
                                 </p>
                                 <pre class="brush: bash">
+                                    $ bin/nlpcraft.sh help -c=stop-probe # Get help.
                                     $ bin/nlpcraft.sh stop-probe # Stop probe.
                                     $ bin/nlpcraft.sh stop # Stop server and probe.
                                 </pre>
@@ -330,6 +336,14 @@ id: cheat_sheet
                 </div>
                 <div id="cheat4" class="collapse" data-parent="#cheats">
                     <div class="card-body">
+                        <p></p>
+                        <p>
+                            Auto model validation consists
+                            of starting an <a href="/tools/embedded_probe.html">embedded probe</a>, scanning for
+                            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a> annotations and their corresponding callback methods, submitting each
+                            sample input sentences from <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a> annotation and checking that resulting
+                            intent matches the intent the sample was attached to.
+                        </p>
                         <nav>
                             <div class="nav nav-tabs" role="tablist">
                                 <a class="nav-item nav-link active" data-toggle="tab" href="#nav-script" role="tab">NLPCraft CLI</a>
@@ -339,6 +353,7 @@ id: cheat_sheet
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="nav-script" role="tabpanel">
                                 <pre class="brush: bash">
+                                    $ bin/nlpcraft.sh help -c=test-model # Get help.
                                     $ bin/nlpcraft.sh test-model # All default parameters.
                                     $ bin/nlpcraft.sh test-model --mdls=my.package.Model --cp=~/myapp/target/classes --jmvOpts="-ea -Xms2048m"
                                 </pre>
@@ -385,6 +400,7 @@ id: cheat_sheet
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="nav-prj-script" role="tabpanel">
                                 <pre class="brush: bash">
+                                    $ bin/nlpcraft.sh help -c=gen-project # Get help.
                                     $ bin/nlpcraft.sh gen-project -n=MyProject -l=scala -b=sbt # Scala/SBT project stub.
                                     $ bin/nlpcraft.sh gen-project -n=MyProject -l=kotlin -p=com.mycompany.nlp -o # Kotlin/Maven project stub.
                                 </pre>
@@ -411,6 +427,7 @@ id: cheat_sheet
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="nav-mdl-script" role="tabpanel">
                                 <pre class="brush: bash">
+                                    $ bin/nlpcraft.sh help -c=gen-model # Get help.
                                     $ bin/nlpcraft.sh gen-model --filePath=~/myapp/myModel.json --mdlId=my.model.id # JSON model stub.
                                     $ bin/nlpcraft.sh gen-model -f=c:/tmp/myModel.yaml -m=my.model.id -o # YAML model stub.
                                 </pre>
@@ -441,12 +458,14 @@ id: cheat_sheet
                                     Using <code>ask</code> command:
                                 </p>
                                 <pre class="brush: bash">
+                                    $ bin/nlpcraft.sh help -c=ask # Get help.
                                     $ bin/nlpcraft.sh ask --txt="User request" --mdlId=my.model.id # REST 'ask/sync' call.
                                 </pre>
                                 <p>
                                     Using <code>call</code> command (for REPL mode):
                                 </p>
                                 <pre class="brush: bash">
+                                    $ bin/nlpcraft.sh help -c=call # Get help.
                                     $ bin/nlpcraft.sh call -p=signin --email=admin@admin.com --passwd=admin
                                     $ bin/nlpcraft.sh call --path=ask/sync --acsTok=qwerty123456 --txt="User request" --mdlId=my.model.id  --data='{"data1": true, "data2": 123, "data3": "some text"}' --enableLog=false
                                 </pre>
@@ -454,6 +473,7 @@ id: cheat_sheet
                                     Using <code>rest</code> command (for command line mode):
                                 </p>
                                 <pre class="brush: bash">
+                                    $ bin/nlpcraft.sh help -c=rest # Get help.
                                     $ bin/nlpcraft.sh rest -p=signin -j='{"email": "admin@admin.com", "passwd": "admin"}' # Linux/Unix/MacOS REST call.
                                     $ bin/nlpcraft.cmd rest --path=signin --json='{\"email\": \"admin@admin.com\", \"passwd\": \"admin\"}' # Window REST call.
                                 </pre>

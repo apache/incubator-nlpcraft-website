@@ -42,7 +42,7 @@ id: test_framework
                             target="javadoc"
                             href="/apis/latest/org/apache/nlpcraft/model/tools/test/NCTestAutoModelValidator.html">
                             NCTestAutoModelValidator
-                        </a> - auto-runner for model tests based on <code>@NCIntentSample</code> annotation.
+                        </a> - auto-runner for model tests based on <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a> annotation.
                     </li>
                 </ul>
             </li>
@@ -153,7 +153,7 @@ public class AlarmTest {
         <p>
             The same model from <a href="/examples/alarm_clock.html">Alarm Clock</a> example can be auto validated using
             <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/tools/test/NCTestAutoModelValidator.html">NCTestAutoModelValidator</a>
-            class and the <code>@NCIntentSample</code> annotation from the model's callback method:
+            class and the <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a> annotation from the model's callback method:
         </p>
         <pre class="brush: java, highlight: [4, 5, 6]">
 public class AlarmModel extends NCModelFileAdapter {
@@ -172,10 +172,10 @@ public class AlarmModel extends NCModelFileAdapter {
 }
         </pre>
         <p>
-            Auto mode validator takes one or more model IDs (or class names) and performs validation. Validation consists
+            Auto model validator takes one or more model IDs (or class names) and performs validation. Validation consists
             of starting an <a href="/tools/embedded_probe.html">embedded probe</a> with a given model, scanning for
-            <code>@NCIntentSample</code> annotations and their corresponding callback methods, submitting each
-            sample input sentences from <code>@NCIntentSample</code> annotation and checking that resulting
+            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a> annotations and their corresponding callback methods, submitting each
+            sample input sentences from <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a> annotation and checking that resulting
             intent matches the intent the sample was attached to.
         </p>
         <h3 class="section-sub-title">Running</h3>
