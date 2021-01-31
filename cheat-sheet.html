@@ -140,9 +140,16 @@ id: cheat_sheet
                         </nav>
                         <div class="tab-content">
                         <div class="tab-pane fade show active" id="nav-srv-script" role="tabpanel">
+                            <p></p>
+                            <p>
+                                Start the server:
+                            </p>
                             <pre class="brush: bash">
                                 $ bin/nlpcraft.sh start-server # Start server.
                             </pre>
+                            <p>
+                                Stop the server:
+                            </p>
                             <pre class="brush: bash">
                                 $ bin/nlpcraft.sh stop-server # Stop server.
                                 $ bin/nlpcraft.sh stop # Stop both server and probe.
@@ -167,7 +174,7 @@ id: cheat_sheet
                             </p>
                             <ul>
                                 <li>
-                                    Make sure to provide correct path to <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code> file.
+                                    Make sure to provide correct path to <code>apache-nlpcraft-incubating-<b>{{site.latest_version}}</b>-all-deps.jar</code> file.
                                 </li>
                                 <li>
                                     Class <code>org.apache.nlpcraft.NCStart</code> is a common entry point for all NLPCraft runtime components.
@@ -190,7 +197,7 @@ id: cheat_sheet
                                 <dd>
                                     <em>Optional</em> parameter to provide configuration file path.
                                     Server will automatically look for <code>nlpcraft.conf</code> configuration file in the same directory
-                                    as <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code> file. If the configuration
+                                    as <code>apache-nlpcraft-incubating-<b>{{site.latest_version}}</b>-all-deps.jar</code> file. If the configuration
                                     file has different name or in different location use <code>-config=path</code> parameter
                                     where <code>path</code> is an absolute path to the configuration file. Note that the server and the data
                                     probe can use the same file for their configuration (like the
@@ -201,7 +208,7 @@ id: cheat_sheet
                                     <em>Optional</em> parameter to provide <a target=_ href="https://ignite.apache.org/">Apache Ignite</a> configuration file path.
                                     Note that Apache Ignite is used as a cluster computing plane and a default distributed storage.
                                     Server will automatically look for <code>ignite.xml</code>
-                                    configuration file in the same directory as <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code> file.
+                                    configuration file in the same directory as <code>apache-nlpcraft-incubating-<b>{{site.latest_version}}</b>-all-deps.jar</code> file.
                                     If the configuration file has different name or in different location use <code>-igniteConfig=path</code> parameter
                                     where <code>path</code> is an absolute path to the Ignite configuration file.
                                 </dd>
@@ -238,11 +245,18 @@ id: cheat_sheet
                         </nav>
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="nav-probe-script" role="tabpanel">
+                                <p></p>
+                                <p>
+                                    Start the probe:
+                                </p>
                                 <pre class="brush: bash">
                                     $ bin/nlpcraft.sh start-probe # Start probe with default config.
                                     $ bin/nlpcraft.sh start-probe --cfg=~/myapp/nlpcraft.conf --mdls=my.package.Model --cp=~/myapp/target/classes --jmvOpts="-ea -Xms2048m" --timeoutMins=5
                                 </pre>
-                                                <pre class="brush: bash">
+                                <p>
+                                    Stop the probe:
+                                </p>
+                                <pre class="brush: bash">
                                     $ bin/nlpcraft.sh stop-probe # Stop probe.
                                     $ bin/nlpcraft.sh stop # Stop server and probe.
                                 </pre>
@@ -269,7 +283,7 @@ id: cheat_sheet
                                         <code>/my/project</code> directory contains user-defined model implementation
                                     </li>
                                     <li>
-                                        Make sure to provide correct path to <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code> file.
+                                        Make sure to provide correct path to <code>apache-nlpcraft-incubating-<b>{{site.latest_version}}</b>-all-deps.jar</code> file.
                                     </li>
                                     <li>
                                         Class <code>org.apache.nlpcraft.NCStart</code> is a common entry point for all NLPCraft runtime components.
@@ -293,7 +307,7 @@ id: cheat_sheet
                                         <p>
                                             <em>Optional</em> parameter to provide probe configuration file path.
                                             Data probe will automatically look for <code>nlpcraft.conf</code> configuration file in the same directory
-                                            as <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code> file. If the configuration
+                                            as <code>apache-nlpcraft-incubating-<b>{{site.latest_version}}</b>-all-deps.jar</code> file. If the configuration
                                             file has different name or in different location use <code>-config=path</code> parameter
                                             where <code>path</code> is an absolute path to the data probe configuration file. Note that the server and the data
                                             probe can use the same file for their configuration (like the
@@ -422,12 +436,24 @@ id: cheat_sheet
                         </nav>
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="nav-rest-script" role="tabpanel">
+                                <p></p>
+                                <p>
+                                    Using <code>ask</code> command:
+                                </p>
                                 <pre class="brush: bash">
                                     $ bin/nlpcraft.sh ask --txt="User request" --mdlId=my.model.id # REST 'ask/sync' call.
-
+                                </pre>
+                                <p>
+                                    Using <code>call</code> command (for REPL mode):
+                                </p>
+                                <pre class="brush: bash">
                                     $ bin/nlpcraft.sh call -p=signin --email=admin@admin.com --passwd=admin
                                     $ bin/nlpcraft.sh call --path=ask/sync --acsTok=qwerty123456 --txt="User request" --mdlId=my.model.id  --data='{"data1": true, "data2": 123, "data3": "some text"}' --enableLog=false
-
+                                </pre>
+                                <p>
+                                    Using <code>rest</code> command (for command line mode):
+                                </p>
+                                <pre class="brush: bash">
                                     $ bin/nlpcraft.sh rest -p=signin -j='{"email": "admin@admin.com", "passwd": "admin"}' # Linux/Unix/MacOS REST call.
                                     $ bin/nlpcraft.cmd rest --path=signin --json='{\"email\": \"admin@admin.com\", \"passwd\": \"admin\"}' # Window REST call.
                                 </pre>

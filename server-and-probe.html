@@ -59,7 +59,7 @@ id: server_and_probe
         </ul>
         <p>
             Note that if you downloaded the <a href="/download.html#src">source</a> ZIP you need to run <code class="script">mvn clean package</code> to
-            get the <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code>
+            get the <code>apache-nlpcraft-incubating-<b>{{site.latest_version}}</b>-all-deps.jar</code>
             file. It will be located in <code>nlpcraft/target</code> sub-folder.
         </p>
     </section>
@@ -114,7 +114,7 @@ id: server_and_probe
                 </p>
                 <ul>
                     <li>
-                        Make sure to provide correct path to <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code> file.
+                        Make sure to provide correct path to <code>apache-nlpcraft-incubating-<b>{{site.latest_version}}</b>-all-deps.jar</code> file.
                     </li>
                     <li>
                         Class <code>org.apache.nlpcraft.NCStart</code> is a common entry point for all NLPCraft runtime components.
@@ -137,7 +137,7 @@ id: server_and_probe
                     <dd>
                         <em>Optional</em> parameter to provide configuration file path.
                         Server will automatically look for <code>nlpcraft.conf</code> configuration file in the same directory
-                        as <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code> file. If the configuration
+                        as <code>apache-nlpcraft-incubating-<b>{{site.latest_version}}</b>-all-deps.jar</code> file. If the configuration
                         file has different name or in different location use <code>-config=path</code> parameter
                         where <code>path</code> is an absolute path to the configuration file. Note that the server and the data
                         probe can use the same file for their configuration (like the
@@ -148,7 +148,7 @@ id: server_and_probe
                         <em>Optional</em> parameter to provide <a target=_ href="https://ignite.apache.org/">Apache Ignite</a> configuration file path.
                         Note that Apache Ignite is used as a cluster computing plane and a default distributed storage.
                         Server will automatically look for <code>ignite.xml</code>
-                        configuration file in the same directory as <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code> file.
+                        configuration file in the same directory as <code>apache-nlpcraft-incubating-<b>{{site.latest_version}}</b>-all-deps.jar</code> file.
                         If the configuration file has different name or in different location use <code>-igniteConfig=path</code> parameter
                         where <code>path</code> is an absolute path to the Ignite configuration file.
                     </dd>
@@ -268,7 +268,7 @@ id: server_and_probe
                         <code>/my/project</code> directory contains user-defined model implementation
                     </li>
                     <li>
-                        Make sure to provide correct path to <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code> file.
+                        Make sure to provide correct path to <code>apache-nlpcraft-incubating-<b>{{site.latest_version}}</b>-all-deps.jar</code> file.
                     </li>
                     <li>
                         Class <code>org.apache.nlpcraft.NCStart</code> is a common entry point for all NLPCraft runtime components.
@@ -292,7 +292,7 @@ id: server_and_probe
                         <p>
                             <em>Optional</em> parameter to provide probe configuration file path.
                             Data probe will automatically look for <code>nlpcraft.conf</code> configuration file in the same directory
-                            as <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code> file. If the configuration
+                            as <code>apache-nlpcraft-incubating-<b>{{site.latest_version}}</b>-all-deps.jar</code> file. If the configuration
                             file has different name or in different location use <code>-config=path</code> parameter
                             where <code>path</code> is an absolute path to the data probe configuration file. Note that the server and the data
                             probe can use the same file for their configuration (like the
@@ -320,7 +320,7 @@ id: server_and_probe
         </ul>
         <p>
             By default, when REST server or data probe start they look for <code>nlpcraft.conf</code> configuration file in the same directory
-            as <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code> file and the on their classpath. You can change this behavior with
+            as <code>apache-nlpcraft-incubating-<b>{{site.latest_version}}</b>-all-deps.jar</code> file and the on their classpath. You can change this behavior with
             <code>-config=path</code> parameter.
         </p>
         <h3 class="section-sub-title">Separate Configurations</h3>
