@@ -71,9 +71,9 @@ id: server_and_probe
         </p>
         <nav>
             <div class="nav nav-tabs" role="tablist">
-                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-srv-script" role="tab" aria-controls="nav-home" aria-selected="true">NLPCraft CLI</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-class" role="tab" aria-controls="nav-home" aria-selected="true">Java Class</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-docker" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fab fa-docker"></i> Docker</a>
+                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-srv-script" role="tab">NLPCraft CLI</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-class" role="tab">Java Class <img src="/images/java2-h20.png" alt=""></a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-docker" role="tab"><i class="fab fa-docker"></i> Docker</a>
             </div>
         </nav>
         <div class="tab-content">
@@ -98,7 +98,7 @@ id: server_and_probe
             <div class="tab-pane fade show" id="nav-srv-class" role="tabpanel">
                 <p></p>
                 <p>
-                    If using just executable JAR:
+                    If using executable JAR:
                 </p>
                 <pre class="brush: bash">
                     $ java -Xms1024m -jar apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar -server
@@ -140,7 +140,7 @@ id: server_and_probe
                         as <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code> file. If the configuration
                         file has different name or in different location use <code>-config=path</code> parameter
                         where <code>path</code> is an absolute path to the configuration file. Note that the server and the data
-                        probe can use the same file for their configuration (just like the
+                        probe can use the same file for their configuration (like the
                         default <code>nlpcraft.conf</code> contains configuration for both the server and the data probe).
                     </dd>
                     <dt><code>-igniteConfig=path</code></dt>
@@ -223,8 +223,8 @@ id: server_and_probe
         </p>
         <nav>
             <div class="nav nav-tabs" role="tablist">
-                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-probe-script" role="tab" aria-controls="nav-home" aria-selected="true">NLPCraft CLI</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-probe-class" role="tab" aria-controls="nav-home" aria-selected="true">Java Class</a>
+                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-probe-script" role="tab" >NLPCraft CLI</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-probe-class" role="tab" >Java Class <img src="/images/java2-h20.png" alt=""></a>
             </div>
         </nav>
         <div class="tab-content">
@@ -249,7 +249,7 @@ id: server_and_probe
             <div class="tab-pane fade show" id="nav-probe-class" role="tabpanel">
                 <p></p>
                 <p>
-                    If using just executable JAR:
+                    If using executable JAR:
                 </p>
                 <pre class="brush: bash">
                     $ java -jar apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar -probe
@@ -295,7 +295,7 @@ id: server_and_probe
                             as <code>apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar</code> file. If the configuration
                             file has different name or in different location use <code>-config=path</code> parameter
                             where <code>path</code> is an absolute path to the data probe configuration file. Note that the server and the data
-                            probe can use the same file for their configuration (just like the
+                            probe can use the same file for their configuration (like the
                             default <code>nlpcraft.conf</code> contains configuration for both the server and the data probe).
                         </p>
                     </dd>
@@ -327,7 +327,7 @@ id: server_and_probe
         <p>
             Default configuration is available in <code>build/<b>nlpcraft.conf</b></code> file and it is extensively documented. It has subsections
             for the server and probe configuration. You can also separate server and probe configurations into their own
-            separate files. Each file would have just a subsection of configuration for either server or data probe.
+            separate files. Each file would have a subsection of configuration for either server or data probe.
         </p>
         <p>
             Server configuration file (e.g. <code>server_nlpcraft.conf</code>):
@@ -354,7 +354,7 @@ nlpcraft {
         <h3 class="section-sub-title">Custom Configuration</h3>
         <p>
             While you can change configuration file or files for your own needs (and use <code>-config=...</code>
-            parameter described above to provide path to that file) it is often more convenient to use the default configuration file and just
+            parameter described above to provide path to that file) it is often more convenient to use the default configuration file and
             change one or two properties in it. You can accomplish this by using standard
             <a target=_ href="https://github.com/lightbend/config#optional-system-or-env-variable-overrides">HOCON overriding</a>
             via environment variables:
@@ -399,7 +399,7 @@ nlpcraft {
             <b>Examples</b>
             <p>
                 Note that all examples that come with NLPCraft have instructions that use environment variable overriding
-                for running their data probes. They use default <code>nlpcraft.conf</code> file and just override
+                for running their data probes. They use default <code>nlpcraft.conf</code> file and override
                 one <code>nlpcraft.probe.models</code> property (see above) to specify what model the data probe
                 needs to deploy.
             </p>
@@ -446,7 +446,7 @@ nlpcraft {
             <p>
                 Technically, when a data probe starts up it will initialize, load the models, and will automatically wait for the server to get online
                 if it isn't yet (as well as periodically check for it). Once server is online the data probe will automatically connect to it. However,
-                if the unit tests don't use data probe and just issue REST calls then these tests have to somehow wait for the
+                if the unit tests don't use data probe and only issue REST calls then these tests have to somehow wait for the
                 server to get online.
             </p>
             <p>

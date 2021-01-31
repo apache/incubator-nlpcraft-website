@@ -43,8 +43,8 @@ id: light_switch
         </p>
         <nav>
             <div class="nav nav-tabs" role="tablist">
-                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-prj-cmd" role="tab" aria-controls="nav-home" aria-selected="true">Command</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-prj-out" role="tab" aria-controls="nav-home" aria-selected="true">Output <i class="fa fa-desktop output"></i></a>
+                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-prj-cmd" role="tab">Command</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-prj-out" role="tab">Output <i class="fa fa-desktop output"></i></a>
             </div>
         </nav>
         <div class="tab-content">
@@ -186,7 +186,7 @@ class LightSwitch extends NCModelFileAdapter("light_switch.yaml") {
 
         // Add HomeKit, Arduino or other integration here.
 
-        // By default - just return a descriptive action string.
+        // By default - return a descriptive action string.
         NCResult.text(s"Lights '$status' in '${locations.toLowerCase}'.")
     }
 }
@@ -240,8 +240,8 @@ class LightSwitch extends NCModelFileAdapter("light_switch.yaml") {
         </p>
         <nav>
             <div class="nav nav-tabs" role="tablist">
-                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-srv-cmd" role="tab" aria-controls="nav-home" aria-selected="true">Command</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-out" role="tab" aria-controls="nav-home" aria-selected="true">Output <i class="fa fa-desktop output"></i></a>
+                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-srv-cmd" role="tab">Command</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-out" role="tab">Output <i class="fa fa-desktop output"></i></a>
             </div>
         </nav>
         <div class="tab-content">

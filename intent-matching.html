@@ -585,7 +585,7 @@ id: intent_matching
             matched the next best matching intent will be selected and its callback will be called.
         <p>
         <p>
-            This exception becomes useful when it is hard or impossible to encode the entire matching logic using just
+            This exception becomes useful when it is hard or impossible to encode the entire matching logic using only
             declarative intent DSL. In these cases the intent definition can be relaxed and the "last mile" of intent
             matching can happen inside of the intent callback's user logic. If it is determined that intent in fact does
             not match then throwing this exception allows to try next best matching intent, if any.
@@ -603,7 +603,7 @@ id: intent_matching
             </p>
             <p>
                 Note that usage of <code>NCIntentSkip</code> exception (as well as model's life-cycle callbacks) is a
-                required technique when you cannot express the desired matching logic with just intent DSL alone.
+                required technique when you cannot express the desired matching logic with only intent DSL alone.
                 Intent DSL is a high-level declarative language and it does
                 not support programmable logic or other types of complex matching algorithms. In such cases, you can
                 define a broad intent that would <em>broadly match</em> and then define the rest of the more complex matching logic in the callback

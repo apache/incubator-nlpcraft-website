@@ -40,8 +40,8 @@ id: first_example
         </p>
         <nav>
             <div class="nav nav-tabs" role="tablist">
-                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-cmd" role="tab" aria-controls="nav-home" aria-selected="true">Command</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-out" role="tab" aria-controls="nav-home" aria-selected="true">Output <i class="fa fa-desktop output"></i></a>
+                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-cmd" role="tab">Command</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-out" role="tab">Output <i class="fa fa-desktop output"></i></a>
             </div>
         </nav>
         <div class="tab-content">
@@ -153,9 +153,9 @@ id: first_example
         </p>
         <nav>
             <div class="nav nav-tabs" role="tablist">
-                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-scala" role="tab" aria-controls="nav-home" aria-selected="true">Scala <img src="/images/scala-logo.png" height="20px" alt=""></a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-java" role="tab" aria-controls="nav-home" aria-selected="true">Java <img src="/images/java2.png" height="20px" alt=""></a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-kotlin" role="tab" aria-controls="nav-home" aria-selected="true">Kotlin <img src="/images/kotlin.png" height="20px" alt=""></a>
+                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-scala" role="tab">Scala <img src="/images/scala-logo.png" height="20px" alt=""></a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-java" role="tab">Java <img src="/images/java2-h20.png" alt=""></a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-kotlin" role="tab">Kotlin <img src="/images/kotlin.png" height="20px" alt=""></a>
             </div>
         </nav>
         <div class="tab-content">
@@ -194,7 +194,7 @@ class LightSwitchModel extends NCModelFileAdapter("light_switch.yaml") {
 
         // Add HomeKit, Arduino or other integration here.
 
-        // By default - just return a descriptive action string.
+        // By default - return a descriptive action string.
         NCResult.text(s"Lights '$status' in '${locations.toLowerCase}'.")
     }
 }
@@ -243,7 +243,7 @@ public class LightSwitchJavaModel extends NCModelFileAdapter {
 
         // Add HomeKit, Arduino or other integration here.
 
-        // By default - just return a descriptive action string.
+        // By default - return a descriptive action string.
         return NCResult.text("Lights are [" + status + "] in [" + locations.toLowerCase() + "].");
     }
 }
@@ -286,7 +286,7 @@ class LightSwitchKotlinModel : NCModelFileAdapter("lightswitch_model.yaml") {
 
         // Add HomeKit, Arduino or other integration here.
 
-        // By default - just return a descriptive action string.
+        // By default - return a descriptive action string.
         return NCResult.text("Lights are [" + status + "] in [" + locations.toLowerCase() + "].")
     }
 }
@@ -350,8 +350,8 @@ class LightSwitchKotlinModel : NCModelFileAdapter("lightswitch_model.yaml") {
         </p>
         <nav>
             <div class="nav nav-tabs" role="tablist">
-                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-srv-cmd" role="tab" aria-controls="nav-home" aria-selected="true">Command</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-out" role="tab" aria-controls="nav-home" aria-selected="true">Output <i class="fa fa-desktop output"></i></a>
+                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-srv-cmd" role="tab">Command</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-out" role="tab">Output <i class="fa fa-desktop output"></i></a>
             </div>
         </nav>
         <div class="tab-content">
@@ -391,8 +391,8 @@ class LightSwitchKotlinModel : NCModelFileAdapter("lightswitch_model.yaml") {
         </p>
         <nav>
             <div class="nav nav-tabs" role="tablist">
-                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-test-cmd" role="tab" aria-controls="nav-home" aria-selected="true">Command</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-test-out" role="tab" aria-controls="nav-home" aria-selected="true">Output <i class="fa fa-desktop output"></i></a>
+                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-test-cmd" role="tab">Command</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-test-out" role="tab">Output <i class="fa fa-desktop output"></i></a>
             </div>
         </nav>
         <div class="tab-content">

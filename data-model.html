@@ -51,8 +51,8 @@ id: data_model
         </p>
         <nav>
             <div class="nav nav-tabs" role="tablist">
-                <a class="nav-item nav-link active" data-toggle="tab" href="#scala-model-ex" role="tab" aria-controls="nav-home" aria-selected="true"><code>LightSwitchModel.scala</code></a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#java-model-ex" role="tab" aria-controls="nav-home" aria-selected="true"><code>AlarmModel.java</code></a>
+                <a class="nav-item nav-link active" data-toggle="tab" href="#scala-model-ex" role="tab"><code>LightSwitchModel.scala</code></a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#java-model-ex" role="tab"><code>AlarmModel.java</code></a>
             </div>
         </nav>
         <div class="tab-content">
@@ -92,7 +92,7 @@ class LightSwitchModel extends NCModelFileAdapter("org/apache/nlpcraft/examples/
 
         // Add HomeKit, Arduino or other integration here.
 
-        // By default - just return a descriptive action string.
+        // By default - return a descriptive action string.
         NCResult.text(s"Lights are [$status] in [${locations.toLowerCase}].")
     }
 }
@@ -406,8 +406,8 @@ public class AlarmModel extends NCModelFileAdapter {
 
         <nav>
             <div class="nav nav-tabs" role="tablist">
-                <a class="nav-item nav-link active" data-toggle="tab" href="#model-json" role="tab" aria-controls="nav-home" aria-selected="true">JSON</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#model-yaml" role="tab" aria-controls="nav-home" aria-selected="true">YAML</a>
+                <a class="nav-item nav-link active" data-toggle="tab" href="#model-json" role="tab">JSON</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#model-yaml" role="tab">YAML</a>
             </div>
         </nav>
         <div class="tab-content">
@@ -641,7 +641,7 @@ intents:
             <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMacros()">getMacros()</a> method on
             <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html">NCModelView</a> interface. Each macro
             has a name in a form of <code>&lt;X&gt;</code> where <code>X</code>
-            is just any string, and a string value. Note that macros can be nested (but not recursive), i.e. macro value can include
+            is any string, and a string value. Note that macros can be nested (but not recursive), i.e. macro value can include
             references to other macros. When macro name <code>X</code> is encountered in the synonym it gets recursively
             replaced with its value.
         </p>
