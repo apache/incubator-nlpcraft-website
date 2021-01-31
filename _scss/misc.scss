@@ -458,3 +458,11 @@ i.fa.output {
         border-color: #fff #fff $color-blue3 !important;
     }
 }
+
+code.script {
+    border: 1px solid $color-blue3;
+    padding: 1px 6px 2px 6px;
+    border-radius: 4px;
+    color: #fb51b1;
+    background-color: #f3f9ff;
+}

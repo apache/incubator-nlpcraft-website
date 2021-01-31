@@ -37,6 +37,21 @@ id: cheat_sheet
                 <a href="#cs7">Testing with REST</a><br/>
             </div>
         </div>
+        <div class="bq success">
+            <p>
+                <b>NOTES:</b>
+            </p>
+            <ul>
+                <li>
+                    <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for
+                    <i class="fab fa-fw fa-linux"></i> and <code>nlpcraft.cmd</code>
+                    for <i class="fab fa-fw fa-windows"></i>.
+                </li>
+                <li>
+                    Run <code class="script">bin/nlpcraft.sh help --cmd=xxx</code> to get a full help on <code>xxx</code> command.
+                </li>
+            </ul>
+        </div>
     </section>
     <section id="cs1">
         <h2 class="section-title">Quick Install</h2>
@@ -143,19 +158,6 @@ id: cheat_sheet
                     $ bin/nlpcraft.sh stop-server # Stop server.
                     $ bin/nlpcraft.sh stop # Stop both server and probe.
                 </pre>
-                <p>
-                    <b>NOTES:</b>
-                </p>
-                <ul>
-                    <li>
-                        <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for
-                        <i class="fab fa-fw fa-linux"></i> and <code>nlpcraft.cmd</code>
-                        for <i class="fab fa-fw fa-windows"></i>.
-                    </li>
-                    <li>
-                        Run <code>bin/nlpcraft.sh help --cmd=xxx</code> to get a full help on <code>xxx</code> command.
-                    </li>
-                </ul>
             </div>
             <div class="tab-pane fade show" id="nav-srv-class" role="tabpanel">
                 <p></p>
@@ -245,19 +247,6 @@ id: cheat_sheet
                     $ bin/nlpcraft.sh stop-probe # Stop probe.
                     $ bin/nlpcraft.sh stop # Stop server and probe.
                 </pre>
-                <p>
-                    <b>NOTES:</b>
-                </p>
-                <ul>
-                    <li>
-                        <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for
-                        <i class="fab fa-fw fa-linux"></i> and <code>nlpcraft.cmd</code>
-                        for <i class="fab fa-fw fa-windows"></i>.
-                    </li>
-                    <li>
-                        Run <code>bin/nlpcraft.sh help --cmd=xxx</code> to get a full help on <code>xxx</code> command.
-                    </li>
-                </ul>
             </div>
             <div class="tab-pane fade show" id="nav-probe-class" role="tabpanel">
                 <p></p>
@@ -330,19 +319,6 @@ id: cheat_sheet
                     $ bin/nlpcraft.sh test-model # All default parameters.
                     $ bin/nlpcraft.sh test-model --mdls=my.package.Model --cp=~/myapp/target/classes --jmvOpts="-ea -Xms2048m"
                 </pre>
-                <p>
-                    <b>NOTES:</b>
-                </p>
-                <ul>
-                    <li>
-                        <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for
-                        <i class="fab fa-fw fa-linux"></i> and <code>nlpcraft.cmd</code>
-                        for <i class="fab fa-fw fa-windows"></i>.
-                    </li>
-                    <li>
-                        Run <code>bin/nlpcraft.sh help --cmd=test-model</code> to get a full help on this command.
-                    </li>
-                </ul>
             </div>
             <div class="tab-pane fade show" id="nav-class" role="tabpanel">
                 <pre class="brush: bash">
@@ -379,19 +355,6 @@ id: cheat_sheet
                     $ bin/nlpcraft.sh gen-project -n=MyProject -l=scala -b=sbt # Scala/SBT project stub.
                     $ bin/nlpcraft.sh gen-project -n=MyProject -l=kotlin -p=com.mycompany.nlp -o # Kotlin/Maven project stub.
                 </pre>
-                <p>
-                    <b>NOTES:</b>
-                </p>
-                <ul>
-                    <li>
-                        <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for
-                        <i class="fab fa-fw fa-linux"></i> and <code>nlpcraft.cmd</code>
-                        for <i class="fab fa-fw fa-windows"></i>.
-                    </li>
-                    <li>
-                        Run <code>bin/nlpcraft.sh help --cmd=gen-project</code> to get a full help on this command.
-                    </li>
-                </ul>
             </div>
         </div>
     </section>
@@ -408,19 +371,6 @@ id: cheat_sheet
                     $ bin/nlpcraft.sh gen-model --filePath=~/myapp/myModel.json --mdlId=my.model.id # JSON model stub.
                     $ bin/nlpcraft.sh gen-model -f=c:/tmp/myModel.yaml -m=my.model.id -o # YAML model stub.
                 </pre>
-                <p>
-                    <b>NOTES:</b>
-                </p>
-                <ul>
-                    <li>
-                        <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for
-                        <i class="fab fa-fw fa-linux"></i> and <code>nlpcraft.cmd</code>
-                        for <i class="fab fa-fw fa-windows"></i>.
-                    </li>
-                    <li>
-                        Run <code>bin/nlpcraft.sh help --cmd=gen-model</code> to get a full help on this command.
-                    </li>
-                </ul>
             </div>
         </div>
     </section>
@@ -442,19 +392,6 @@ id: cheat_sheet
                     $ bin/nlpcraft.sh rest -p=signin -j='{"email": "admin@admin.com", "passwd": "admin"}' # Linux/Unix/MacOS REST call.
                     $ bin/nlpcraft.cmd rest --path=signin --json='{\"email\": \"admin@admin.com\", \"passwd\": \"admin\"}' # Window REST call.
                 </pre>
-                <p>
-                    <b>NOTES:</b>
-                </p>
-                <ul>
-                    <li>
-                        <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for
-                        <i class="fab fa-fw fa-linux"></i> and <code>nlpcraft.cmd</code>
-                        for <i class="fab fa-fw fa-windows"></i>.
-                    </li>
-                    <li>
-                        Run <code>bin/nlpcraft.sh help --cmd=xxx</code> to get a full help on <code>xxx</code> command.
-                    </li>
-                </ul>
             </div>
         </div>
     </section>

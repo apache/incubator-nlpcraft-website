@@ -25,23 +25,18 @@ id: first_example
     <section id="setup">
         <h2 class="section-title">Overview</h2>
         <p>
-            Let's develop a prototypical light switch that can be controlled through the natural language.
+            Let's develop a light switch prototype that can be controlled through the natural language.
             We'll keep <a target=_ href="https://cloud.google.com/speech-to-text/">speech-to-text conversion</a> and integration
             with <a target=_    href="https://developer.apple.com/homekit/">HomeKit</a> or
-            <a href="https://www.arduino.cc/" target=_>Ardunio</a> outside of this example - and concentrate only on understanding the natural
-            language commands. At the end, we should be able to say <code>"Turn the lights off in the guest bedroom"</code>
-            or <code>"Could you please switch off all the lights?"</code>.
-        </p>
-        <p>
-            NOTE: for this example we'll use Scala and Linux, however, the example works exactly the same
-            way with any other JVM language or operating system.
+            <a href="https://www.arduino.cc/" target=_>Ardunio</a> outside of this example - and concentrate on understanding the natural
+            language commands.
         </p>
     </section>
     <section id="new_project">
         <h3 class="section-title">New Project</h3>
         <p>
             We'll use <a href="/tools/script.html">NLPCraft CLI</a> to perform all management operations.
-            Run <code>bin/nlpcraft.sh</code> script from NLPCraft installation directory to create a new project stub (the script is located in <code>bin</code> sub-directory):
+            Run <code>bin/nlpcraft.sh</code> script to create a new project stub:
         </p>
         <nav>
             <div class="nav nav-tabs" role="tablist">
@@ -73,7 +68,7 @@ id: first_example
                 <code>gen-project</code> command defaults to Maven as its built tool.
             </li>
             <li>
-                Run <code>bin/nlpcraft.sh help --cmd=gen-project</code> to get a full help on <code>gen-project</code> command.
+                Run <code class="script">bin/nlpcraft.sh help --cmd=gen-project</code> to get a full help on <code>gen-project</code> command.
             </li>
             <li>
                 <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for
@@ -85,17 +80,16 @@ id: first_example
     <section id="data_model">
         <h2 class="section-title">Data Model</h2>
         <p>
-            In NLPCraft a data model is simply an implementation of <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModel.html">NCModel</a>
+            In NLPCraft a data model is an implementation of <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModel.html">NCModel</a>
             interface. You can move most of the model configuration out to an external JSON or YAML file and use
             <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelFileAdapter.html">NCModelFileAdapter</a> to
-            load this external configuration when creating a new model. Note that this is a canonical pattern to build
-            models in NLPCraft and it allows you cleanly separate the logic of the model from its declarative configuration.
+            load this external configuration when creating a new model.
         </p>
         <p>
-            Open <code>src/main/resources/<b>light_switch.yaml</b></code> file and replace its default content with
+            Open <code>src/main/resources/<b>light_switch.yaml</b></code> file and replace its content with
             the following model declaration:
         </p>
-        <pre class="brush: js, highlight: [16, 23, 31]">
+        <pre class="brush: js, highlight: [16, 23, 31, 42]">
             id: "nlpcraft.lightswitch.ex"
             name: "Light Switch Example Model"
             version: "1.0"
@@ -140,7 +134,7 @@ id: first_example
               - "intent=ls term(act)={groups @@ 'act'} term(loc)={id == 'ls:loc'}*"
         </pre>
         <p>
-            Notice three model elements that we'll use later in our intent definition (lines 16, 23, and 31):
+            Notice three model elements at lines 16, 23, and 31:
         </p>
         <ul>
             <li><code>ls:loc</code></li>
@@ -150,10 +144,10 @@ id: first_example
         <p>
             Model element <code>ls:loc</code> defines a location where we want to control the lights. Model
             elements <code>ls:on</code> and <code>ls:off</code> define corresponding "on" and "off" lights
-            actions. We'll use these elements in our model's intent-based matching logic.
+            actions. We use these elements in our model's intent definition at line 42 as well as in intent callback below.
         </p>
         <p>
-            Next, let's go ahead and add model's logic which we'll write in Scala (with Java and Kotlin versions attached for reference).
+            Next, let's go ahead and add model's logic which we'll write in Scala wtih Java and Kotlin versions provided for reference.
             Open <code>src/main/scala/demo/<b>LightSwitch.scala</b></code> file and replace its content with the following
             code:
         </p>
@@ -313,15 +307,14 @@ class LightSwitchKotlinModel : NCModelFileAdapter("lightswitch_model.yaml") {
                 <ul>
                     <li>
                         Line 6 uses <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentRef.html">@NCIntentRef</a>
-                        annotation to reference the intent defined in our model (it can also be defined in place).
+                        annotation to reference the intent defined in our model (<code>light_switch.yaml</code>, line 42).
                         The intent matches
                         two parts: first should be any token belonging to <code>act</code> group (i.e. "on" or "off" action),
                         and the second should be a zero or more tokens with ID equal to <code>ls:loc</code> (i.e. optional list of locations).
                     </li>
                     <li>
                         Line 7 uses <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a>
-                        annotation that is  used for auto-testing of the model. See below the <a href="#test">testing</a>
-                        section for details.
+                        annotation that is  used for <a href="#test">auto-testing</a> of the model.
                     </li>
                 </ul>
             </li>
@@ -330,11 +323,10 @@ class LightSwitchKotlinModel : NCModelFileAdapter("lightswitch_model.yaml") {
                 annotations to connect the matched result with a callback method formal parameters.
             </li>
             <li>
-                When our intent is selected as a matching winner the method <code>onMatch(...)</code> on line 20 is invoked. It simply
+                When our intent is selected as a matching winner the method <code>onMatch(...)</code> on line 20 is invoked. It
                 returns a text response that indicates the light status at a requested location. That's where you can
                 also add <a target=_ href="https://developer.apple.com/homekit/">HomeKit</a>,
-                <a href="https://www.arduino.cc/" target=_>Ardunio</a> or other integrations to make a real
-                lightswitch in your home.
+                <a href="https://www.arduino.cc/" target=_>Ardunio</a> or other integrations to finish this implementation.
             </li>
             <li>
                 Chapter <a href="/data-model.html">Data Model</a> provides detailed explanation on how data models work.
@@ -344,20 +336,17 @@ class LightSwitchKotlinModel : NCModelFileAdapter("lightswitch_model.yaml") {
     <section id="build_project">
         <h3 class="section-title">Build Project</h3>
         <p>
-            Once we have our model ready let's go to <code>~/LightSwitch</code> directory and run the Maven build:
+            Once the  model ready, run the Maven build:
         </p>
         <pre class="brush: bash">
             $ cd ~/LightSwitch
             $ mvn clean package
         </pre>
-        <p>
-            At this stage we have our project built and we are ready to start testing.
-        </p>
     </section>
     <section id="server">
         <h3 class="section-title">Start Server</h3>
         <p>
-            Run the following command to start local REST server, if it hasn't been started already, from the NLPCraft installation directory:
+            Start local REST server, if it hasn't been started already:
         </p>
         <nav>
             <div class="nav nav-tabs" role="tablist">
@@ -378,28 +367,12 @@ class LightSwitchKotlinModel : NCModelFileAdapter("lightswitch_model.yaml") {
                 </p>
             </div>
         </div>
-        <p>
-            <b>NOTES:</b>
-        </p>
-        <ul>
-            <li>
-                REST server is a "fore-and-forget" component that you generally need to start only once.
-            </li>
-            <li>
-                Run <code>bin/nlpcraft.sh help --cmd=start-server</code> to get a full help on this command.
-            </li>
-            <li>
-                <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for
-                <i class="fab fa-fw fa-linux"></i> and <code>nlpcraft.cmd</code>
-                for <i class="fab fa-fw fa-windows"></i>.
-            </li>
-        </ul>
     </section>
     <section id="test">
         <h3 class="section-title">Testing</h3>
         <p>
-            Remember the <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a>
-            annotation we have used in our Scala code next to intent definition?
+            Recall the <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a>
+            annotation we have used in our code next to intent reference.
         </p>
         <p>
             Part of the <a href="/tools/test_framework.html">test framework</a>, the auto-validator class <a
@@ -414,35 +387,27 @@ class LightSwitchKotlinModel : NCModelFileAdapter("lightswitch_model.yaml") {
             itself.
         </p>
         <p>
-            As always, you can launch model auto-validator as any other Java class but we'll use <code>nlpcraft.sh</code>
-            script to do it more conveniently:
+            Run model auto-validator:
         </p>
-        <pre class="brush: bash">
-            $ bin/nlpcraft.sh test-model --cp=~/LightSwitch/target/classes --mdls=demo.LightSwitch
-        </pre>
-        <p>
-            <b>NOTES:</b>
-        </p>
-        <ul>
-            <li>
-                Run <code>bin/nlpcraft.sh help --cmd=test-model</code> to get a full help on this command.
-            </li>
-            <li>
-                <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for
-                <i class="fab fa-fw fa-linux"></i> and <code>nlpcraft.cmd</code>
-                for <i class="fab fa-fw fa-windows"></i>.
-            </li>
-        </ul>
-        <p>
-            Look at the output of this command and you will see the test results for all our sample utterances:
-        </p>
-        <p>
-            <img style="max-width: 910px !important;" class="img-fluid" alt="" src="/images/first_example_fig4.png">
-        </p>
-        <p>
-            To play with this project change the model and/or the mode logic, <a href="#build_project">build</a> project again,
-            and run the <a href="#test">auto-test</a>.
-        </p>
+        <nav>
+            <div class="nav nav-tabs" role="tablist">
+                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-test-cmd" role="tab" aria-controls="nav-home" aria-selected="true">Command</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-test-out" role="tab" aria-controls="nav-home" aria-selected="true">Output <i class="fa fa-desktop output"></i></a>
+            </div>
+        </nav>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="nav-test-cmd" role="tabpanel">
+                <pre class="brush: bash">
+                    $ bin/nlpcraft.sh test-model --cp=~/LightSwitch/target/classes --mdls=demo.LightSwitch
+                </pre>
+            </div>
+            <div class="tab-pane fade show" id="nav-test-out" role="tabpanel">
+                <p></p>
+                <p>
+                    <img style="max-width: 910px !important;" class="img-fluid" alt="" src="/images/first_example_fig4.png">
+                </p>
+            </div>
+        </div>
     </section>
     <section>
         <h2 class="section-title">Congratulation! 👌</h2>

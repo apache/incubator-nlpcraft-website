@@ -65,8 +65,8 @@ id: sql_model
             match the user input against a defined set of intents. If it finds the matching intent - it guarantees that
             match for a given intent. If no matching intent can be found - it returns the negative
             result without any ambiguity. In other words, if the answer is given, it is deterministically guaranteed to be correct.
-            Another positive side-effect of this approach is the fact that such matching logic is easily traceable, i.e.
-            the user can easily see why given user input was matched against a certain intent (and not any other). Such
+            Another positive side-effect of this approach is the fact that such matching logic is traceable, i.e.
+            the user can see why given user input was matched against a certain intent (and not any other). Such
             traceability of the comprehension logic (or explainability vs "black box" approach resulting from deep
             learning techniques) is often critical for many real-life business applications.
         </p>
@@ -200,7 +200,7 @@ id: sql_model
                 <i style="color: #F39C12" class="fa fa-exclamation-triangle"></i> REST server is a "fore-and-forget" component that you generally need to start only once.
             </li>
             <li>
-                Run <code>bin/nlpcraft.sh help --cmd=start-server</code> to get a full help on this command.
+                Run <code class="script">bin/nlpcraft.sh help --cmd=start-server</code> to get a full help on this command.
             </li>
             <li>
                 <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for
@@ -235,7 +235,7 @@ id: sql_model
         </p>
         <ul>
             <li>
-                Run <code>bin/nlpcraft.sh help --cmd=test-model</code> to get a full help on this command.
+                Run <code class="script">bin/nlpcraft.sh help --cmd=test-model</code> to get a full help on this command.
             </li>
             <li>
                 <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for

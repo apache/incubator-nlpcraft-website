@@ -27,7 +27,7 @@ id: light_switch
         <p>
             This example provides very simple implementation for NLI-powered light switch. You can say something like
             "Turn the lights off in the entire house" or "Switch on the illumination in the master bedroom closet".
-            You can easily modify intent callbacks to perform the actual light switching using HomeKit or Arduino-based
+            You can modify intent callbacks to perform the actual light switching using HomeKit or Arduino-based
             controllers.
         </p>
         <p>
@@ -63,7 +63,7 @@ id: light_switch
                         <code>gen-project</code> command defaults to Java and  Maven as its built tool.
                     </li>
                     <li>
-                        Run <code>bin/nlpcraft.sh help --cmd=gen-project</code> to get a full help on <code>gen-project</code> command.
+                        Run <code class="script">bin/nlpcraft.sh help --cmd=gen-project</code> to get a full help on <code>gen-project</code> command.
                     </li>
                     <li>
                         <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for
@@ -193,7 +193,7 @@ class LightSwitch extends NCModelFileAdapter("light_switch.yaml") {
         </pre>
         <p>
             The intent callback logic is very simple - we simply return a descriptive confirmation message
-            back (explaining what lights were changed). With action and location detected - you can easily add
+            back (explaining what lights were changed). With action and location detected - you can add
             the actual light switching using HomeKit or Arduino devices. Let's review this implementation step by step:
         </p>
         <ul>
@@ -265,7 +265,7 @@ class LightSwitch extends NCModelFileAdapter("light_switch.yaml") {
                 <i style="color: #F39C12" class="fa fa-exclamation-triangle"></i> REST server is a "fore-and-forget" component that you generally need to start only once.
             </li>
             <li>
-                Run <code>bin/nlpcraft.sh help --cmd=start-server</code> to get a full help on this command.
+                Run <code class="script">bin/nlpcraft.sh help --cmd=start-server</code> to get a full help on this command.
             </li>
             <li>
                 <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for
@@ -304,7 +304,7 @@ class LightSwitch extends NCModelFileAdapter("light_switch.yaml") {
         </p>
         <ul>
             <li>
-                Run <code>bin/nlpcraft.sh help --cmd=test-model</code> to get a full help on this command.
+                Run <code class="script">bin/nlpcraft.sh help --cmd=test-model</code> to get a full help on this command.
             </li>
             <li>
                 <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for
