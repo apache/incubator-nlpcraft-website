@@ -434,3 +434,27 @@ i.fa.output {
     margin-left: 5px;
     font-size: 80%;
 }
+
+.card {
+    border-color: $color-blue3;
+
+    .card-header {
+        background-color: #f4f7ff;
+        border-bottom-color:  $color-blue3;
+
+        button.btn {
+            padding-left: 0;
+        }
+    }
+}
+
+.nav-tabs {
+    border-bottom-color: $color-blue3 !important;
+
+    .nav-link.active {
+        border-color: $color-blue3 $color-blue3 #fff !important;
+    }
+    .nav-link {
+        border-color: #fff #fff $color-blue3 !important;
+    }
+}

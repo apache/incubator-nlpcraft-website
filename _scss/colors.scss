@@ -79,12 +79,14 @@ $color-beta: #FC664C;
 $color-peach: #ff6530;
 $color-blue2: #337ab7;
 $color-neon-green: #a4fb05;
+$color-blue3: rgb(224, 232, 251);
 
 // Table border colors.
 $tbl-border-color: #eee;
 $tbl-border-hor-color: #eee;
 $tbl-hdr-bgcolor: lighten($color-river, 40%);
 
+.color-blue3 { color: $color-blue3 }
 .color-turquoise { color: $color-turquoise }
 .color-emerald { color: $color-emerald }
 .color-river { color: $color-river }
