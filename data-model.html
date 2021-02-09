@@ -562,7 +562,7 @@ intents:
         <p>
             Note that you can't directly change group membership, parent-child relationship or metadata of the
             built-in elements. You can, however, "wrap" built-in entity into your own one using <code>^^id == 'external.id'^^</code>
-            token DSL expression where you can define all necessary additional configuration properties (more on that below).
+            <a href="#dsl">token DSL</a> expression where you can define all necessary additional configuration properties (more on that below).
         </p>
         <span id="synonyms" class="section-sub-title">Synonyms</span>
         <p>
@@ -619,6 +619,7 @@ intents:
             <li><a href="#regex">Regular expressions</a></li>
             <li><a href="#option-groups">Option Groups</a></li>
             <li><a href="#dsl">Token DSL</a></li>
+            <li><a href="#programmable_ners">Programmable NERs</a> - to provide custom NER logic and bypass declarative synonym representation all together.</li>
         </ul>
         <p>
             Each whitespace separated string in the synonym can be either a regular word (like in the above transportation example
@@ -1710,22 +1711,19 @@ intents:
             <code>^^[alias](my:list[0] >= 1_000_000 <b>&&</b> alias1.groups @@ 'clients')^^</code><br>
             <code>^^<b>(</b>id == 'myid' && ~score > 10<b>)</b> <b>||</b> <b>(</b>alias1.groups @@ 'clients' && ~score <= 10<b>)</b>^^</code><br>
         </p>
-        <span id="custom" class="section-sub-title">Custom Parsers</span>
+    </section>
+    <section id="programmable_ners">
+        <h2 class="section-title">Programmable NERs</h2>
         <p>
-            In cases when declarative synonyms (macros, option groups, regexp and token DSL) are not expressive enough
-            you create your model element recognizer programmatically:
+            By default, the data model detects its elements by their synonyms, regexp or DSL expressions. However, in some cases
+            these methods are either not expressive enough or cannot be used. For example, detecting model elements based
+            on neural networks or integrating with a non-standard 3rd-party NER components. In such cases, a user-defined parser
+            can be defined for the model that would allow the user to define its own arbitrary NER logic to detect the model elements
+            in the user input programmatically. Note that a custom parser can detect any number of model elements.
         </p>
-        <ul>
-            <li>
-                Model provides its custom parsers via <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getParsers()">getParsers()</a> method.
-            </li>
-            <li>
-                Custom parser is defined by the following classes:
-                <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCustomElement.html">NCCustomElement</a>,
-                <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCustomParser.html">NCCustomParser</a> and
-                <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCustomWord.html">NCCustomWord</a>.
-            </li>
-        </ul>
+        <p>
+            Model provides its custom parsers via <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getParsers()">getParsers()</a> method.
+        </p>
     </section>
     <section id="logic">
         <h2 class="section-title">Model Logic</h2>
@@ -1832,9 +1830,10 @@ intents:
         </p>
         <h3 class="section-title">Class <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCResult.html">NCResult</a></h3>
         <p>
-            This class defines data model result returned from model's intent callbacks. Result consists of the
-            text body and the type. The type is similar in notion to MIME types. Intent callbacks must use this class
-            to provide their results.
+            This class defines the result returned from model's intent callbacks. Result consists of the
+            text body and the type. The result types are similar in notion to MIME type and have specific meaning only for REST applications
+            that interpret them accordingly. For example, the REST client interfacing between NLPCraft and Amazon Alexa or Apple HomeKit could
+            only accept text result type and ignore everything else.
         </p>
     </section>
     <section id="builtin">
@@ -3388,6 +3387,7 @@ intents:
         <li><a href="#config">Model Configuration</a></li>
         <li><a href="#elements">Model Elements</a></li>
         <li><a href="#dsl">Token DSL</a></li>
+        <li><a href="#programmable_ners">Programmable NERs</a></li>
         <li><a href="#logic">Model Logic</a></li>
         <li><a href="#builtin">Built-In Tokens</a></li>
         <li><a href="#meta">Token Metadata</a></li>
