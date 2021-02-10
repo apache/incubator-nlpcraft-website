@@ -23,7 +23,7 @@
   pgp_url: https://github.com/aradzinski/binstore/releases/download/v0.7.4/apache-nlpcraft-incubating-bin-0.7.4.zip.asc
   github_link: https://github.com/apache/incubator-nlpcraft/tree/v0.7.4
   #  dockerhub_link: https://hub.docker.com/r/nlpcraftserver/server
-  backward_compatible: no
+  backward_compatible: yes
 
 - version: 0.7.3
   date: Dec 31, 2020
