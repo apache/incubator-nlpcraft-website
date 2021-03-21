@@ -26,17 +26,17 @@ id: intent_matching
         <h2 class="section-title">Overview</h2>
         <p>
             <a href="/data-model.html#logic">Data Model</a> processing logic is
-            encoded in intents and their callbacks. Sections below will explain how to declare an intent and how to develop
-            a callback method when the intent is matched.
+            encoded using intents and their corresponding callbacks. The sections below will explain how to declare an intent
+            and how to develop a callback method when that intent is selected as the best match for the user input.
         </p>
     </section>
     <section id="matching">
         <h2 class="section-title">Intent-Based Matching</h2>
         <p>
-            The intent matching is based on an idea of defining one or more templates for user input and let the
-            algorithm choose the best matching intent given the user input. Such template is called an <em>intent</em>.
+            The intent matching is based on an idea of defining one or more templates for the user input and let the
+            algorithm choose the best matching intent given that user input. Such template is called an <em>intent</em>.
             Each intent defines a pattern of the user input and associated action to take - <em>a callback method to call</em> - when that pattern is detected
-            and selected as a best match. While selecting the best matching intent NLPCraft uses a fully deterministic, traceable, algorithm.
+            and selected as the best match. While selecting the best matching intent NLPCraft uses a fully deterministic, traceable, algorithm.
             When more than one intent matches the user input - the system automatically selects the <em>most specific one</em> as its best match.
         </p>
         <p>
