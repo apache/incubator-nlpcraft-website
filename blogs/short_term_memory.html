@@ -295,13 +295,13 @@ publish_date: July 26, 2019
         have the following 4 intents:
     </p>
     <ul>
-        <li><code>id=sale term={id=='sale'}</code></li>
-        <li><code>id=best_sale_person term={id=='sale'} term={id==best_employee}</code></li>
-        <li><code>id=buy term={id=='buy'}</code></li>
-        <li><code>id=buy_best_person term={id=='buy'} term={id==best_employee}</code></li>
+        <li><code>id=sale term={tok_id() == 'sale'}</code></li>
+        <li><code>id=best_sale_person term={tok_id() == 'sale'} term={tok_id() == best_employee}</code></li>
+        <li><code>id=buy term={tok_id() == 'buy'}</code></li>
+        <li><code>id=buy_best_person term={tok_id() == 'buy'} term={tok_id() == best_employee}</code></li>
     </ul>
     <p>
-        (this is actual <a href="/intent-matching.html#syntax">Intent DSL</a> used by NLPCraft -  
+        (this is actual <a href="/intent-matching.html">Intent Definition Language</a> (IDL) used by NLPCraft -
         <code>term</code> here is basically what's often referred to as a slot in other systems).
     </p>
     <p>
