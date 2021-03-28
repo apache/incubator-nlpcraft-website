@@ -128,19 +128,19 @@ intents:
         <p>There are number of important points here:</p>
         <ul>
             <li>
-                <code>Line 10</code> defines several macros that are used later on throughout the model's elements
+                <code>Line 5</code> defines several macros that are used later on throughout the model's elements
                 to shorten the synonym declarations. Note how macros coupled with option groups  
                 shorten overall synonym declarations 1000:1 vs. manually listing all possible word permutations.
             </li>
             <li>
-                <code>Lines 19, 26, 34</code> define three model elements: the location of the light, and actions to turn
+                <code>Lines 14, 21, 29</code> define three model elements: the location of the light, and actions to turn
                 the light on and off. Note that action elements belong to the same group <code>act</code> which
                 will be used in our intent (<code>line 42</code>).
             </li>
             <li>
-                On <code>line 42</code> we define a non-conversational intent <code>ls</code> that requires
-                one action (a token belonging to the group <code>act</code>) and optional light location - we assume
-                all lights by default.
+                On <code>line 37</code> we define a non-conversational intent <code>ls</code> that requires
+                one action (a token belonging to the group <code>act</code>) and optional list of light locations
+                (tokens with ID <code>ls:loc</code>) - by default we assume all lights.
             </li>
         </ul>
         <p>
@@ -151,7 +151,7 @@ intents:
     <section id="code">
         <h3 class="section-title">Model Class</h3>
         <p>
-            Open <code>src/main/scala/demo/<b>LightSwitch.scala</b></code> with the following code:
+            Open <code>src/main/scala/demo/<b>LightSwitch.scala</b></code> file and replace its content with the following code:
         </p>
         <pre class="brush: java, highlight: [5, 6, 7, 21, 22, 34]">
 package demo
@@ -192,19 +192,20 @@ class LightSwitch extends NCModelFileAdapter("light_switch.yaml") {
 }
         </pre>
         <p>
-            The intent callback logic is very simple - we simply return a descriptive confirmation message
-            back (explaining what lights were changed). With action and location detected - you can add
+            The intent callback logic is very simple - we return a descriptive confirmation message
+            back (explaining what lights were changed). With action and location detected, you can add
             the actual light switching using HomeKit or Arduino devices. Let's review this implementation step by step:
         </p>
         <ul>
             <li>
                 On <code>line 5</code> our class extends <code>NCModelFileAdapter</code> that allows us to load most
                 of the model declaration from the external YAML file and only provide functionality that we
-                couldn't express in declarative portion in JSON.
+                couldn't express in declarative portion in YAML.
             </li>
             <li>
                 <code>Line 6</code> annotates method <code>onMatch</code> as a callback for the intent <code>ls</code>
-                when it is detected in the user input.
+                when it is detected in the user input. Note that intent <code>ls</code> is defined in the <code>light_switch.yaml</code>
+                file that was loaded by <code>NCModelFileAdapter</code> class.
             </li>
             <li>
                 Note the line 7 where we use <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a>
@@ -262,7 +263,8 @@ class LightSwitch extends NCModelFileAdapter("light_switch.yaml") {
         </p>
         <ul>
             <li>
-                <i style="color: #F39C12" class="fa fa-exclamation-triangle"></i> REST server is a "fore-and-forget" component that you generally need to start only once.
+                <i style="color: #F39C12" class="fa fa-exclamation-triangle"></i> REST server is a "fore-and-forget" component that you generally need to start only once
+                for this and other examples.
             </li>
             <li>
                 Run <code class="script">bin/nlpcraft.sh help --cmd=start-server</code> to get a full help on this command.

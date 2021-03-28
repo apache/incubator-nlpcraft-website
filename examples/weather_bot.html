@@ -168,6 +168,15 @@ id: weather_bot
                 and third sentences.
             </dd>
         </dl>
+        <div class="bq info">
+            <p><b>Temporal <i class="amp">&amp;</i> Geographical Ambiguity</b></p>
+            <p>
+                Despite seeming triviality of these ambiguities for the human comprehension, these represent a significant problem
+                for the most deep learning neural networks unless specifically trained to resolve these particular cases. Procedural
+                (deterministic) approach - as shown below - often yields a dramatically simpler and more robust solution, albeit the
+                one that works only in a specific context.
+            </p>
+        </div>
         <p>
             Open <code>src/main/java/demo/<b>Weather.java</b></code> file and replace its content with the
             following code:
@@ -245,10 +254,10 @@ public class Weather extends NCModelFileAdapter {
                     
     @NCIntent(
         "intent=req " +
-        "term~{tok_id() == 'wt:phen'}+ " + // One or more weather phenomenon (at least is mandatory).
-        "term(ind)~{has(tok_groups(), 'indicator')}* " + // Optional indicator words (zero or more).
-        "term(city)~{tok_id() == 'nlpcraft:city'}? " + // Optional city.
-        "term(date)~{tok_id() == 'nlpcraft:date'}?" // Optional date (overrides indicator words).
+        "  term~{tok_id() == 'wt:phen'}* " + // Zero or more weather phenomenon.
+        "  term(ind)~{has(tok_groups(), 'indicator')}* " + // Optional indicator words (zero or more).
+        "  term(city)~{tok_id() == 'nlpcraft:city'}? " + // Optional city.
+        "  term(date)~{tok_id() == 'nlpcraft:date'}?" // Optional date (overrides indicator words).
     )
     @NCIntentSample({
         "What's the local weather forecast?",

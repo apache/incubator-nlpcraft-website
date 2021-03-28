@@ -45,7 +45,7 @@ id: sql_model
             Many of modern existing natural language-to-SQL implementations use variations of
             deep learning approach where you first train the neural network on a pre-created training set and
             then get to use the trained network to provide (infer) probabilistic answers for the new input sentences. Although the latest
-            attempts to implement this approach are getting into 90% percentile of accuracy - they remain largely
+            natural language-to-SQL attempts to implement this approach are getting into 90% percentile of accuracy - they remain largely
             unusable for the vast swath of enterprise applications where non-deterministic nature of such systems
             renders them practically useless. The apparent problem with non-deterministic systems like that is that the user
             never knows whether a given answer is correct or incorrect. In these use cases users can't tolerate the fact that
@@ -67,7 +67,7 @@ id: sql_model
             result without any ambiguity. In other words, if the answer is given, it is deterministically guaranteed to be correct.
             Another positive side-effect of this approach is the fact that such matching logic is traceable, i.e.
             the user can see why given user input was matched against a certain intent (and not any other). Such
-            traceability of the comprehension logic (or explainability vs "black box" approach resulting from deep
+            traceability of the comprehension logic (or explainability vs "black box" approach from deep
             learning techniques) is often critical for many real-life business applications.
         </p>
         <p>
@@ -75,7 +75,7 @@ id: sql_model
             domain-specific model
             for each SQL database (when dealing with SQL databases). Building such a
             model can be a non-trivial and time consuming experience. That is where NLPCraft brings a lot of built-in tooling
-            and machinery to simplify this task dramatically.
+            to simplify this task dramatically.
         </p>
         <div class="bq info">
             <b>Source Code</b>
@@ -197,7 +197,8 @@ id: sql_model
         </p>
         <ul>
             <li>
-                <i style="color: #F39C12" class="fa fa-exclamation-triangle"></i> REST server is a "fore-and-forget" component that you generally need to start only once.
+                <i style="color: #F39C12" class="fa fa-exclamation-triangle"></i> REST server is a "fore-and-forget" component
+                that you generally need to start only once for this and any other examples.
             </li>
             <li>
                 Run <code class="script">bin/nlpcraft.sh help --cmd=start-server</code> to get a full help on this command.
