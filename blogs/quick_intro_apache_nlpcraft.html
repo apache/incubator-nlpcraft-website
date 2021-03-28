@@ -31,7 +31,8 @@ publish_date: November 16, 2020
     </div>
     <p>
         In this short article I would like to introduce Apache NLPCraft - an open source library for adding Natural
-        Language Interface to any application. The goal of this project from its inception in 2017 was and still is
+        Language Interface to any application. It enables people to interact with your products using voice
+        or text. The goal of this project from its inception in 2017 was and still is
         unambiguously straightforward - provide an efficient & highly productive API to develop advanced NLP-based
         interfaces for modern applications.
     </p>
@@ -48,15 +49,17 @@ publish_date: November 16, 2020
     <div class="container-fluid" style="padding: 0">
         <div class="row">
             <div class="col-6">
-                <b>Programmable Intents</b><br/>
+                <b>Intent Definition Language</b><br/>
                 <p>
-                    Fully programmable, advanced intent DSL with deterministic matching provides easy to use and expressive mechanism for a complex intent logic.
+                    Advanced <a href="/intent-matching.html">Intent Definition Language</a> (IDL) coupled with deterministic intent matching
+                    provide ease of use and unprecedented expressiveness for designing real-life, non-trivial intents.
                 </p>
             </div>
             <div class="col-6">
-                <b>Java First</b><br/>
+                <b>Composable Named Entities</b><br/>
                 <p>
-                    REST API and Java-based implementation natively supports the world's largest ecosystem of development tools, multiple programming languages, frameworks and services.
+                    Easily compose, mix and match new named entities out of built-in or external ones, creating new
+                    reusable named entity recognizers on the fly.
                 </p>
             </div>
         </div>
@@ -64,27 +67,30 @@ publish_date: November 16, 2020
             <div class="col-6">
                 <b>Model-As-A-Code</b><br/>
                 <p>
-                    Model-as-a-code convention natively supports any development life cycle tools and frameworks in the Java ecosystem.
+                    Everything you do with NLPCraft is part of your source code. No more awkward web UIs
+                    splitting your logic across different incompatible places. Model-as-a-code is built by
+                    engineers, and it reflects how engineers work.
                 </p>
             </div>
+            <div class="col-6">
+                <b>Java First</b><br/>
+                <p>
+                    REST API and Java-based implementation natively supports the world's largest ecosystem of development tools,
+                    multiple programming languages, frameworks and services.
+                </p>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-6">
                 <b>Any Data Source</b><br/>
                 <p>
                     NLPCraft can work with any data source, device, or service - public or private. From databases and SaaS systems, to smart home devices, voice assistants and chatbots.
                 </p>
             </div>
-        </div>
-        <div class="row">
             <div class="col-6">
                 <b>Short-Term-Memory</b><br/>
                 <p>
                     Advanced out-of-the-box support for maintaining and managing conversational context that is fully integrated with intent matching.
-                </p>
-            </div>
-            <div class="col-6">
-                <b>Composable Named Entities</b><br/>
-                <p>
-                    Compose new reusable Named Entities out of existing internal or external ones, build new ones and mix and match using comprehensive DSL.
                 </p>
             </div>
         </div>
@@ -188,7 +194,8 @@ publish_date: November 16, 2020
     <p>
         In NLPCraft the default built-in approach for detecting NEs is a synonym matching. For each NE you provide
         a list of synonyms by which it will be found in the input text. To make this task really simple NLPCraft
-        comes with a set of tools including macros and Synonym DSL. Here’s the static model configuration for our
+        comes with a set of tools including <a href="/data-model.html#macros">Macro DSL</a> and <a href="/intent-matching.html">Intent Definition Language</a> (IDL).
+        Here’s the static model configuration for our
         example as <code>lightswitch_model.yaml</code> file that includes NE definitions and one intent:
     </p>
     <pre class="brush: js, highlight: [14, 21, 29, 38]">
@@ -242,20 +249,21 @@ publish_date: November 16, 2020
             </ul>
         </li>
         <li>
-            We grouped <code>"ls:on"</code> and <code>"ls:off"</code> into group <code>"act"</code> for easier use in intent.
+            We grouped <code>"ls:on"</code> and <code>"ls:off"</code> into group <code>"act"</code> for easier use in the intent.
         </li>
         <li>
-            Each model element is defined through synonyms using macros and Synonym DSL which is similar to Regular Expressions.
+            Each model element is defined through synonyms using <a href="/data-model.html#macros">Macro DSL</a>.
         </li>
         <li>
-            Intent <code>"ls"</code> uses Intent DSL. In short - this intent will match if we can detect one element
+            Intent <code>"ls"</code> uses <a href="/intent-matching.html">Intent Definition Language</a>. In short - this intent
+            will match if we can detect one element
             from the group <code>"act"</code> and zero or more <code>"ls:loc"</code> elements in any order.
         </li>
     </ul>
     <p>
-        Notice that macros and Synonym DSL allow you to define hundreds and often thousands of synonyms for each model
+        Notice that <a href="/data-model.html#macros">Macro DSL</a> allow you to define hundreds and often thousands of synonyms for each model
         element with only a few lines of YAML (or JSON). In the above model, for example, the three elements have <b>over
-        7,700 unique synonyms</b> after all macros and Synonym DSL expansions.
+        7,700 unique synonyms</b> after all <a href="/data-model.html#macros">Macro DSL</a> processing.
     </p>
     <p>
         Now, dealing with synonyms may sound limiting at first. It is, however, a surprisingly powerful and flexible mechanism
@@ -264,7 +272,8 @@ publish_date: November 16, 2020
     <ul>
         <li>
             Synonyms can be developed, extended and tested using many tools that NLPCraft provides like
-            macros, Synonym DSL and synonym suggester (that uses Google’ BERT and Facebook fastText models).
+            <a href="/data-model.html#macros">Macro DSL</a>, <a href="/intent-matching.html">Intent Definition Language</a> and
+            <a href="/tools/syn_tool.html">Synonym Suggester</a> (that uses Google’ BERT and Facebook fastText models).
         </li>
         <li>
             Classic NLP problems like word-sense disambiguation (“bass” the fish, and “bass” the sound) are
@@ -285,7 +294,7 @@ publish_date: November 16, 2020
     </p>
 </section>
 <section>
-    <h2 clas="section-title">Intent Matching</h2>
+    <h2 class="section-title">Intent Matching</h2>
     <p>
         Although full explanation of the <a href="/intent-matching.html">intent matching</a> algorithm is outside the scope of this article, the basic workflow looks like this:
     </p>
@@ -361,7 +370,7 @@ publish_date: November 16, 2020
         We’ll leave outside of this article the details of the particular integration with HomeKit or Arduino devices. We’ll also defer
         to the NLPCraft <a href="/docs.html">documentation</a> to learn about other topics such as
         <a href="/basic-concepts.html#stm">conversation management</a>,
-        details of <a href="/intent-matching.html">Intent and Synonym DSLs</a>,
+        details of <a href="/data-model.html#macros">Macro DSL</a> and <a href="/intent-matching.html">Intent Definition Language</a>,
         built-in <a href="/tools/test_framework.html">testing tools</a>,
         3rd party NER <a href="/integrations.html">integrations</a>, etc.
     </p>
