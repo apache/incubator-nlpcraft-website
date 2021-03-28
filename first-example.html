@@ -131,7 +131,7 @@ id: first_example
                   - "&lt;LIGHT&gt; &lt;KILL&gt;"
                   - "no &lt;LIGHT&gt;"
             intents:
-              - "intent=ls term(act)={groups @@ 'act'} term(loc)={id == 'ls:loc'}*"
+              - "intent=ls term(act)={has(tok_groups(), 'act')} term(loc)={tok_id() == 'ls:loc'}*"
         </pre>
         <p>
             Notice three model elements at lines 16, 23, and 31:

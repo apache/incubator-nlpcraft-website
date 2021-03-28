@@ -546,7 +546,7 @@ id: intent_matching
             For example:
         </p>
         <pre class="brush: java">
-            &#64;NCIntent("intent=id term(termId)~{id == 'my_token'}?")
+            &#64;NCIntent("intent=id term(termId)~{tok_id() == 'my_token'}?")
             private NCResult onMatch(
                &#64;NCIntentTerm("termId") Optional&lt;NCToken&gt; myTok
             ) {
@@ -742,8 +742,8 @@ id: intent_matching
         </p>
         <pre class="brush: js">
             intent=id1
-                term~{id == 'x:id'}
-                term(nums)~{id == 'nlpcraft:num' && lowercase(~nlpcraft:num:unittype) == 'datetime'}[0,2]
+                term~{tok_id() == 'x:id'}
+                term(nums)~{tok_id() == 'nlpcraft:num' && lowercase(meta_tok('nlpcraft:num:unittype')) == 'datetime'}[0,2]
         </pre>
         <p><b>NOTES:</b></p>
         <ul>
@@ -754,7 +754,7 @@ id: intent_matching
                 Intent uses default conversational support (<code>true</code>) and default order (<code>false</code>).
             </li>
             <li>
-                Intent has two converstaional terms that have to be found for the intent to match. Note that second term is optional as it
+                Intent has two conversational terms that have to be found for the intent to match. Note that second term is optional as it
                 has <code>[0,2]</code> quantifier.
             </li>
             <li>
@@ -784,8 +784,8 @@ id: intent_matching
         <pre class="brush: js">
             intent=id2
                 flow='id1 id2'
-                term={id == 'mytok' && signum(~score['best']) != -1}
-                term={(groups @@ 'actors' || groups @@ 'owners') && size(partAlias.~text) > 10}
+                term={tok_id() == 'mytok' && signum(get(meta_tok('score'), 'best')) != -1}
+                term={has_all(tok_groups(), list('actors', 'owners')) && size(meta_part('partAlias, 'text')) > 10}
         </pre>
         <p><b>NOTES:</b></p>
         <ul>

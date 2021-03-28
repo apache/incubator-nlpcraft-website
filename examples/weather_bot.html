@@ -245,10 +245,10 @@ public class Weather extends NCModelFileAdapter {
                     
     @NCIntent(
         "intent=req " +
-        "term~{id == 'wt:phen'}+ " + // One or more weather phenomenon (at least is mandatory).
-        "term(ind)~{groups @@ 'indicator'}* " + // Optional indicator words (zero or more).
-        "term(city)~{id == 'nlpcraft:city'}? " + // Optional city.
-        "term(date)~{id == 'nlpcraft:date'}?" // Optional date (overrides indicator words).
+        "term~{tok_id() == 'wt:phen'}+ " + // One or more weather phenomenon (at least is mandatory).
+        "term(ind)~{has(tok_groups(), 'indicator')}* " + // Optional indicator words (zero or more).
+        "term(city)~{tok_id() == 'nlpcraft:city'}? " + // Optional city.
+        "term(date)~{tok_id() == 'nlpcraft:date'}?" // Optional date (overrides indicator words).
     )
     @NCIntentSample({
         "What's the local weather forecast?",
