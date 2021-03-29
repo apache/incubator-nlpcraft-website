@@ -25,20 +25,32 @@ id: intent_matching
     <section id="overview">
         <h2 class="section-title">Overview</h2>
         <p>
-            <a href="/data-model.html#logic">Data Model</a> processing logic is
-            encoded using intents and their corresponding callbacks. The sections below will explain how to declare an intent
-            and how to develop a callback method when that intent is selected as the best match for the user input.
+            <a href="/data-model.html#logic">Data Model</a> processing logic is defined as a collection of intents. The sections
+            below will explain what intent is and how to define it in your model.
         </p>
     </section>
     <section id="matching">
-        <h2 class="section-title">Intent-Based Matching</h2>
+        <h2 class="section-title">Intent</h2>
         <p>
-            The intent matching is based on an idea of defining one or more templates for the user input and let the
-            algorithm choose the best matching intent given that user input. Such template is called an <em>intent</em>.
-            Each intent defines a pattern of the user input and associated action to take - <em>a callback method to call</em> - when that pattern is detected
-            and selected as the best match. While selecting the best matching intent NLPCraft uses a fully deterministic, traceable, algorithm.
-            When more than one intent matches the user input - the system automatically selects the <em>most specific one</em> as its best match.
+            The main goal of the data model is to take the input utterance and
+            match it to a piece of user-defined code that will execute for that particular input. The mechanism that
+            matches the input utterances and user-defined code is called an <em>intent</em>.
         </p>
+        <p>
+            The intent is a declarative template of a particular form of input utterances, not unlike a familiar regular expression.
+            Intent has an associated
+            callback method that will be called when such template is detected as the best match for a given input utterance.
+            A typical data model will have multiple intents defined for each individual form of expected user input.
+        </p>
+        <p>
+            As with regular expressions, intents can be very specific and or very general in terms of what user input they will match.
+            Multiple intents can often overlap and NLPCraft uses sophisticated algorithms to
+            disambiguate such cases and select the overall best matching intent. In general, the most specific
+            intent match wins.
+        </p>
+    </section>
+    <section id="define_intent">
+        <h2 class="section-title">Intent Definition Language</h2>
         <p>
             In NLPCraft intents are specified using the Java annotations that are attached to the callback methods. Note
             that intents can either be defined in the annotation itself or in the external model YAML/JSON representation
