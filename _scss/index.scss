@@ -28,10 +28,11 @@
         #banner {
             min-height: 300px;
             padding: 35px 0 0 40px;
-
+N
             a#get-started-btn {
                 border-color: #c17dac !important;
                 background-color: #fff !important;
+                border-radius: 4px;
                 color: #f67484 !important;
                 font-weight: 500;
                 margin-left: 2px;
@@ -271,7 +272,7 @@ div.quick-link {
     border: 1px solid #e0ded2;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
-    border-radius: 2px;
+    border-radius: 4px;
     background-color: $color-magnolia;
     white-space: nowrap;
 

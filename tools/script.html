@@ -139,7 +139,7 @@ id: script
         <h3 class="section-title">Tips <span class="amp">&amp;</span> Tricks</h3>
         <p>
             NLPCraft CLI is standard command line utility that can be used in the familiar ways both in
-            Linux/Unix/MacOS <i class="fab fa-fw fa-linux"></i> and Window <i class="fab fa-fw fa-windows"></i> environments.
+            Linux/Unix/MacOS and Window environments.
         </p>
         <span class="section-sub-title">Typical Development Workflow</span>
         <p>
@@ -153,7 +153,8 @@ id: script
                 or Kotlin that is ready to run.
             </li>
             <li>
-                <code>start-server</code> command starts the local REST server.
+                <code>start-server</code> command starts the local REST server. You only need to do it once as it is a
+                "fire and forget" component.
             </li>
             <li>
                 Modify <span class="amp">&amp;</span> build the project using IDE or editor of your choice. You can
@@ -165,12 +166,18 @@ id: script
                 start the local data probe and issue REST requests.
             </li>
             <li>
-                <code>stop</code> command stops both local REST server and data probe.
+                Repeat steps 3 and 4 as you develop, test and debug your models and applications.
+            </li>
+            <li>
+                Once finished - <code>stop</code> command stops both local REST server and data probe. Note that stopping
+                the server once again is an optional step as it is a "fire and forget" component and it can be reused between development
+                sessions.
             </li>
         </ol>
         <div class="bq info">
             <p>
-                Steps 3 and 4 define a typical development cycle for change, build and test.
+                Steps 3 and 4 define a typical development cycle for change, build and test. In most cases you <b>don't need</b>
+                to restart the server between multiple sessions.
             </p>
         </div>
         <span class="section-sub-title">Using <code>start-server</code> Command</span>
@@ -190,6 +197,7 @@ id: script
         </p>
         <span class="section-sub-title">Using NLPCraft CLI In Scripts</span>
         <p>
+            NLPCraft CLI can be used in your own scripts to automate your own specific workflow and tasks.
             All of the commands that utilize REST API produce JSON responses, for a example:
         </p>
         <p>
@@ -213,7 +221,7 @@ id: script
         </p>
         <ul>
             <li>
-                We use <code>no-ansi</code> and <code>no-logo</code> special commands that clean up and simplify the
+                We use <code>no-ansi</code> and <code>no-logo</code> commands that clean up and simplify the
                 output so that it would be easier to parse the resulting JSON.
             </li>
             <li>
