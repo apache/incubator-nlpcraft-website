@@ -24,7 +24,7 @@
 </div>
 
 ## Website
-This repo is for Apache NLPCraft [website](https://nlpcraft.apache.org/).
+This repo is for the Apache NLPCraft [website](https://nlpcraft.apache.org/).
 
 ## What is Apache NLPCraft?
 [Apache NLPCraft](https://nlpcraft.apache.org/) is an open source library for adding a natural language interface to any applications. 
