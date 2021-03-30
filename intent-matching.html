@@ -34,46 +34,57 @@ id: intent_matching
         <p>
             The main goal of the data model is to take the input utterance and
             match it to a piece of user-defined code that will execute for that particular input. The mechanism that
-            matches the input utterances and user-defined code is called an <em>intent</em>.
+            provides this match between the input utterance and the user-defined code is called an <em>intent</em>.
         </p>
         <p>
-            The intent is a declarative template of a particular form of input utterances, not unlike a familiar regular expression.
-            Intent has an associated
-            callback method that will be called when such template is detected as the best match for a given input utterance.
-            A typical data model will have multiple intents defined for each individual form of expected user input.
+            The intent is a <em>declarative template</em> of an input utterance written in <a href="#idl">Intent Definition Language</a>.
+            Intent is <a href="#annotations">bound</a> to a callback method that will be called when such template is detected as the best match
+            for a given input utterance.
+            A typical data model will have multiple intents defined for each "form" of the expected user input.
         </p>
         <p>
-            As with regular expressions, intents can be very specific and or very general in terms of what user input they will match.
-            Multiple intents can often overlap and NLPCraft uses sophisticated algorithms to
-            disambiguate such cases and select the overall best matching intent. In general, the most specific
+            Intents can be specific and or generic in terms of what user input they match.
+            Multiple intents can overlap and NLPCraft will
+            disambiguate such cases to select the intent with the overall best match. In general, the most specific
             intent match wins.
         </p>
     </section>
-    <section id="define_intent">
+    <section id="idl">
         <h2 class="section-title">Intent Definition Language</h2>
         <p>
-            In NLPCraft intents are specified using the Java annotations that are attached to the callback methods. Note
-            that intents can either be defined in the annotation itself or in the external model YAML/JSON representation
-            and then referenced in annotation. Both methods are equally supported and their usage is the matter of
-            preference or convenience:
+            NLPCraft intents are written in Intent Definition Language (IDL).
+        </p>
+    </section>
+    <section id="annotations">
+        <h2 class="section-title">Binding Intent</h2>
+        <p>
+            Intents are bound to their callback methods using Java annotations:
         </p>
         <table class="gradient-table">
             <thead>
             <tr>
                 <th>Annotation</th>
+                <th>Target</th>
                 <th>Description</th>
             </tr>
             </thead>
             <tbody>
                 <tr>
                     <td><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntent.html">@NCIntent</a></td>
+                    <td>Callback method or model class</td>
                     <td>
-                        This annotation defines an intent in-place on the method serving as its callback. It takes a string value
-                        that specifies an intent using intent <a href="#syntax">DSL syntax</a>.
+                        When applied to a method this annotation allows to defines IDL intent in-place on the method
+                        serving as its callback.
+                        This annotation can also be applied to a model's class in which case it will just declare the intent
+                        without binding it and the
+                        callback method will need to use <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentRef.html">@NCIntentRef</a> annotation to actually bind it to the
+                        declared intent above. Note that multiple intents can be bound to the same callback method, but only
+                        one callback method can be bound with a given intent.
                     </td>
                 </tr>
                 <tr>
                     <td><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentRef.html">@NCIntentRef</a></td>
+                    <td>Callback method</td>
                     <td>
                         This annotation allows to reference an intent defined in external JSON or YAML model definition.
                         Similarly to <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntent.html">@NCIntent</a>
@@ -82,6 +93,7 @@ id: intent_matching
                 </tr>
                 <tr>
                     <td><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentTerm.html">@NCIntentTerm</a></td>
+                    <td>Callback method parameter</td>
                     <td>
                         This annotation marks a formal callback method parameter to receive term's tokens when the intent
                         to which this term belongs is selected as the best match.
@@ -89,6 +101,7 @@ id: intent_matching
                 </tr>
                 <tr>
                     <td><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a></td>
+                    <td>Callback method</td>
                     <td>
                         Annotation that provides one or more sample of the input that associated intent should match on.
                         Although this annotation is optional it's <b>highly recommended</b> to provide at least several samples per intent. There's no upper
