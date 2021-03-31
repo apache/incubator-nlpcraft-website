@@ -14,16 +14,17 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
-
+<div align="center">
 <img src="https://nlpcraft.apache.org/images/nlpcraft_logo_black.gif" height="80px">
 <br>
 
 [![License](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/apache/opennlp/master/LICENSE)
 [![Documentation Status](https://img.shields.io/:docs-latest-green.svg)](https://nlpcraft.apache.org/docs.html)
 [![Gitter](https://badges.gitter.im/apache-nlpcraft/community.svg)](https://gitter.im/apache-nlpcraft/community)
+</div>
 
 ## Website
-This repo is for Apache NLPCraft [website](https://nlpcraft.apache.org/).
+This repo is for the Apache NLPCraft [website](https://nlpcraft.apache.org/).
 
 ## What is Apache NLPCraft?
 [Apache NLPCraft](https://nlpcraft.apache.org/) is an open source library for adding a natural language interface to any applications. 
