@@ -25,28 +25,32 @@ id: intent_matching
     <section id="overview">
         <h2 class="section-title">Overview</h2>
         <p>
-            <a href="/data-model.html#logic">Data Model</a> processing logic is defined as a collection of intents. The sections
-            below will explain what intent is and how to define it in your model.
+            <a href="/data-model.html#logic">Data Model</a> processing logic is defined as a collection of one or more intents. The sections
+            below explain what intent is, how to define it in your model, and how it works.
         </p>
     </section>
     <section id="matching">
         <h2 class="section-title">Intent</h2>
         <p>
-            The main goal of the data model is to take the input utterance and
-            match it to a piece of user-defined code that will execute for that particular input. The mechanism that
+            The goal of the data model implementation is to take the input utterance and
+            match it to a specific user-defined code that will execute for that input. The mechanism that
             provides this match between the input utterance and the user-defined code is called an <em>intent</em>.
         </p>
         <p>
-            The intent is a <em>declarative template</em> of an input utterance written in <a href="#idl">Intent Definition Language</a>.
-            Intent is <a href="#annotations">bound</a> to a callback method that will be called when such template is detected as the best match
-            for a given input utterance.
-            A typical data model will have multiple intents defined for each "form" of the expected user input.
+            The intent is a <em>declarative template</em> written in <a href="#idl">Intent Definition Language</a> that describes
+            a particular form or type of the input utterance.
+            Intent is also <a href="#annotations">bound</a> to a callback method that will be called when that intent is detected as the best match
+            for a given input utterance. A typical data model will have multiple intents defined for each form of the expected user input
+            that model wants to react differently to.
         </p>
         <p>
-            Intents can be specific and or generic in terms of what user input they match.
-            Multiple intents can overlap and NLPCraft will
-            disambiguate such cases to select the intent with the overall best match. In general, the most specific
-            intent match wins.
+            For example, a banking application data model can have multiple intents for each domain-specific group of utterances such as
+            opening an account, closing an account, transferring money, getting statements, etc.
+        </p>
+        <p>
+            Intents can be specific or generic in terms of what input they match.
+            Multiple intents can overlap and NLPCraft will disambiguate such cases to select the intent with the
+            overall best match. In general, the most specific intent match wins.
         </p>
     </section>
     <section id="idl">
