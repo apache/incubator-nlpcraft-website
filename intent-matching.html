@@ -25,7 +25,7 @@ id: intent_matching
     <section id="overview">
         <h2 class="section-title">Overview</h2>
         <p>
-            <a href="/data-model.html#logic">Data Model</a> processing logic is defined as a collection of one or more intents. The sections
+            <a href="/data-model.html">Data Model</a> processing logic is defined as a collection of one or more intents. The sections
             below explain what intent is, how to define it in your model, and how it works.
         </p>
     </section>
@@ -54,10 +54,27 @@ id: intent_matching
         </p>
     </section>
     <section id="idl">
-        <h2 class="section-title">Intent Definition Language</h2>
+        <h2 class="section-title">IDL - Intent Definition Language</h2>
         <p>
-            NLPCraft intents are written in Intent Definition Language (IDL).
+            NLPCraft intents are written in Intent Definition Language (IDL). IDL declarations can be placed in
+            different locations based on user preferences:
         </p>
+        <ul>
+            <li>
+                <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntent.html">@NCIntent</a> annotation
+                takes a string as its parameter that should be a valid IDL declaration.
+            </li>
+            <li>
+                External JSON/YAML <a href="/data-model.html#config">data model configuration</a> can provide one or more
+                IDL declarations.
+            </li>
+            <li>
+                External <code>*.idl</code> files have IDL declarations and can be imported in any other places where
+                IDL declarations are allowed.
+            </li>
+        </ul>
+        <h2 class="section-sub-title">IDL Grammar</h2>
+        <h2 class="section-sub-title">IDL Syntax Highlighting</h2>
     </section>
     <section id="annotations">
         <h2 class="section-title">Binding Intent</h2>
