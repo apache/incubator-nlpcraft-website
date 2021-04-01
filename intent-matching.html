@@ -37,9 +37,10 @@ id: intent_matching
             provides this match between the input utterance and the user-defined code is called an <em>intent</em>.
         </p>
         <p>
-            The intent is a <em>declarative template</em> written in <a href="#idl">Intent Definition Language</a> that describes
+            The intent refers to the goal that the end-user had in mind when speaking or typing the input utterance.
+            The intent has a <em>declarative part or template</em> written in <a href="#idl">Intent Definition Language</a> that describes
             a particular form or type of the input utterance.
-            Intent is also <a href="#annotations">bound</a> to a callback method that will be called when that intent is detected as the best match
+            Intent is also <a href="#annotations">bound</a> to a callback method that will be executed when that intent, i.e. its template, is detected as the best match
             for a given input utterance. A typical data model will have multiple intents defined for each form of the expected user input
             that model wants to react differently to.
         </p>
@@ -61,16 +62,71 @@ id: intent_matching
         </p>
         <ul>
             <li>
-                <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntent.html">@NCIntent</a> annotation
-                takes a string as its parameter that should be a valid IDL declaration.
+                <p>
+                    <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntent.html">@NCIntent</a> annotation
+                    takes a string as its parameter that should be a valid IDL declaration. For example, Scala snippet:
+                </p>
+                <pre class="brush: scala, highlight: [1, 2]">
+                &#64;NCIntent("import('/opt/myproj/global_fragments.idl')")
+                &#64;NCIntent("intent=act term(act)={has(tok_groups(), 'act')} fragment(f1)")
+                def onMatch(
+                    &#64;NCIntentTerm("act") actTok: NCToken,
+                    &#64;NCIntentTerm("loc") locToks: List[NCToken]
+                ): NCResult = {
+                    ...
+                }
+            </pre>
+
             </li>
             <li>
-                External JSON/YAML <a href="/data-model.html#config">data model configuration</a> can provide one or more
-                IDL declarations.
+                <p>
+                    External JSON/YAML <a href="/data-model.html#config">data model configuration</a> can provide one or more
+                    IDL declarations in <code>intents</code> field. For example:
+                </p>
+                <pre class="brush: js, highlight: [7]">
+                {
+                    "id": "nlpcraft.alarm.ex",
+                    "name": "Alarm Example Model",
+                    .
+                    .
+                    .
+                    "intents": [
+                        "import('/opt/myproj/global_fragments.idl')",
+                        "import('/opt/myproj/my_intents.idl')",
+                        "intent=alarm term~{tok_id()=='x:alarm'}"
+                    ]
+                }
+            </pre>
             </li>
             <li>
                 External <code>*.idl</code> files have IDL declarations and can be imported in any other places where
-                IDL declarations are allowed.
+                IDL declarations are allowed. See <code>import()</code> expression below. For example:
+                <pre class="brush: idl">
+                    /*
+                     * File 'my_intents.idl'.
+                     * ======================
+                     */
+
+                    import('/opt/globals.idl') // Import global intents and fragments.
+
+                    // Fragments.
+                    // ----------
+                    fragment=buzz term~{tok_id() == 'x:alarm'}
+                    fragment=when
+                        term(nums)~{
+                            // Term variables.
+                            @type = meta_tok('nlpcraft:num:unittype')
+                            @iseq = meta_tok('nlpcraft:num:isequalcondition')
+
+                            tok_id() == 'nlpcraft:num' && @type != 'datetime' && @iseq == true
+                        }[0,7]
+
+                    // Intents.
+                    // --------
+                    intent=alarm
+                        fragment(buzz)
+                        fragment(when)
+                </pre>
             </li>
         </ul>
         <h2 class="section-sub-title">IDL Grammar</h2>
@@ -94,6 +150,7 @@ id: intent_matching
                     <td><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntent.html">@NCIntent</a></td>
                     <td>Callback method or model class</td>
                     <td>
+                        <p>
                         When applied to a method this annotation allows to defines IDL intent in-place on the method
                         serving as its callback.
                         This annotation can also be applied to a model's class in which case it will just declare the intent
@@ -101,6 +158,14 @@ id: intent_matching
                         callback method will need to use <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentRef.html">@NCIntentRef</a> annotation to actually bind it to the
                         declared intent above. Note that multiple intents can be bound to the same callback method, but only
                         one callback method can be bound with a given intent.
+                        </p>
+                        <p>
+                            This method is ideal for simple intents and quick declaration right in the source code and has
+                            all the benefits of having IDL be part of the source code. However, multi-line IDL declaration can be awkward
+                            to add and maintain depending on JVM language, i.e. multi-line string literal support. In such
+                            cases it is advisable to move IDL declarations into separate <code>*.idl</code> file or files
+                            and import them either in the JSON/YAML model or at the model class level.
+                        </p>
                     </td>
                 </tr>
                 <tr>
@@ -140,7 +205,7 @@ id: intent_matching
              An intent from
             <a href="examples/light_switch.html">Light Switch</a> Scala example:
         </p>
-        <pre class="brush: java">
+        <pre class="brush: scala">
             &#64;NCIntent("intent=act term(act)={groups @@ 'act'} term(loc)={trim(id) == 'ls:loc'}*")
             &#64;NCIntentSample(Array(
                 "Turn the lights off in the entire house.",
