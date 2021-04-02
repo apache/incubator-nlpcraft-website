@@ -146,7 +146,8 @@ id: intent_matching
             </li>
             <li>
                 String literals can use either single quotes (<code>'text'</code>) or double quotes (<code>"text"</code>) simplifying IDL usage in JSON or Java languages - you
-                don't have to escape double quotes.
+                don't have to escape double quotes. Both quotes can be escaped in string, i.e. <code>"text with \" quote"</code> or
+                <code>'text with \' quote'</code>
             </li>
             <li>
                 Built-in literals <code>true</code>, <code>false</code> and <code>null</code> for boolean and null values.
@@ -162,6 +163,9 @@ id: intent_matching
             </li>
             <li>
                 Only 10 reserved keywords: <code>flow fragment import intent meta ordered term true false null</code>
+            </li>
+            <li>
+                Identifiers and literals can use the same Unicode space as Java.
             </li>
             <li>
                 IDL provides over 50 built-in functions to aid in intent matching. IDL functions are pure immutable mathematical functions
@@ -200,6 +204,32 @@ id: intent_matching
                 <p>
                     <b>Intent Definition</b>
                 </p>
+                <pre class="brush: idl">
+                    intent=xa
+                        flow="^(?:xx)(^:zz)*$"
+                        meta={'a': 42, 'b': {'Москва': [1, 2, 3]}}
+                        term(a)={month() >= 6 && !(tok_id()) != -25 && meta_model('a') == 42}[1,3]
+                        term(b)~{
+                            @a = meta_model('a')
+                            @list = list(1, 2, 3, 4)
+
+                            @a == 42 && has_all(@list, list(3, 2))
+                        }
+
+                    intent=xb
+                        flow=/#flowModelMethod/
+                        ordered=true
+                        term(a)=/org.mypackage.MyClass#termMethod/?
+                        term(b)~{
+                            @x = 2
+                            @xx = ((@x * @x) / 2) * 3
+
+                            @xx == 6 && has(
+                                json(meta_req('user_json_payload')),
+                                list("موسكو\"", 'v1\'v1', "k2", "v2")
+                            )
+                        }
+                </pre>
             </li>
             <li>
                 <p>
