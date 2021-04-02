@@ -145,7 +145,7 @@ id: intent_matching
                 IDL supports C-style comments, both single line <code>// Comment.</code> as well as multi-line <code>/* Comment. */</code>.
             </li>
             <li>
-                String literals can use either single or double quotes simplifying IDL usage in JSON or Java languages - you
+                String literals can use either single quotes (<code>'text'</code>) or double quotes (<code>"text"</code>) simplifying IDL usage in JSON or Java languages - you
                 don't have to escape double quotes.
             </li>
             <li>
@@ -165,16 +165,35 @@ id: intent_matching
             </li>
             <li>
                 IDL provides over 50 built-in functions to aid in intent matching. IDL functions are pure immutable mathematical functions
-                that work on a runtime stack. In other words - IDL <code>length(trim(" text "))</code> vs. OOP-style <code>" text ".trim().length()</code>.
+                that work on a runtime stack. In other words, they look like Python functions: IDL <code>length(trim(" text "))</code> vs.
+                OOP-style <code>" text ".trim().length()</code>.
             </li>
         </ul>
         <p>
-            IDL declaration consists of one or more statements, where a statement can be one of the following three types:
+            IDL script consists of one or more statements, where each statement can be one of the following three types:
         </p>
         <ul>
             <li>
                 <p>
                     <b>Import</b>
+                </p>
+                <pre class="brush: idl">
+                    // Import using absolute path.
+                    import('/opt/globals.idl')
+
+                    // Import using classpath resource.
+                    import('org/apache/nlpcraft/examples/alarm/intents.idl')
+
+                    // Import using URL.
+                    import('ftp://user:password@myhost:22/opt/globals.idl')
+                </pre>
+                <p>
+                    Import statement allows to import IDL declarations from either local file, classpath resource or URL.
+                    The effect of importing is the same as if the imported declarations were inserted in place of import
+                    statement. Note that recursive and cyclic imports are detected and ignored. Import statement starts
+                    with <code>import</code> keyword and has a string parameter that indicates
+                    the location of the resource to import. Note that for the classpath resource you don't need to specify
+                    leading forward slash.
                 </p>
             </li>
             <li>
