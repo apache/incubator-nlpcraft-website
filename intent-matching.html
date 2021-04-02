@@ -64,7 +64,7 @@ id: intent_matching
             <li>
                 <p>
                     <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntent.html">@NCIntent</a> annotation
-                    takes a string as its parameter that should be a valid IDL declaration. For example, Scala snippet:
+                    takes a string as its parameter that should be a valid IDL declaration. For example, Scala code snippet:
                 </p>
                 <pre class="brush: scala, highlight: [1, 2]">
                 &#64;NCIntent("import('/opt/myproj/global_fragments.idl')")
@@ -99,8 +99,8 @@ id: intent_matching
             </pre>
             </li>
             <li>
-                External <code>*.idl</code> files have IDL declarations and can be imported in any other places where
-                IDL declarations are allowed. See <code>import()</code> expression below. For example:
+                External <code>*.idl</code> files contain IDL declarations and can be imported in any other places where
+                IDL declarations are allowed. See <code>import()</code> statement explanation below. For example:
                 <pre class="brush: idl">
                     /*
                      * File 'my_intents.idl'.
@@ -130,6 +130,64 @@ id: intent_matching
             </li>
         </ul>
         <h2 class="section-sub-title">IDL Grammar</h2>
+        <p>
+            IDL is relatively straightforward and simple language. You can review the formal
+            <a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft/src/main/scala/org/apache/nlpcraft/model/intent/compiler/antlr4/NCIdl.g4">ANTLR4 grammar</a> for IDL. Here
+            are the common properties of IDL:
+        </p>
+        <ul>
+            <li>
+                IDL is a context-independent and has
+                <a target="wiki" href="https://en.wikipedia.org/wiki/Context-free_grammar">context-free grammar</a>. In simpler terms,
+                all whitespaces outside of string literals are ignored.
+            </li>
+            <li>
+                IDL supports C-style comments, both single line <code>// Comment.</code> as well as multi-line <code>/* Comment. */</code>.
+            </li>
+            <li>
+                String literals can use either single or double quotes simplifying IDL usage in JSON or Java languages - you
+                don't have to escape double quotes.
+            </li>
+            <li>
+                Built-in literals <code>true</code>, <code>false</code> and <code>null</code> for boolean and null values.
+            </li>
+            <li>
+                Algebraic and logical expression including operator precedence follow standard C language conventions.
+            </li>
+            <li>
+                Both integer and real numeric literals can use underscore <code>'_'</code> character for separation as in <code>200_000</code>.
+            </li>
+            <li>
+                Numeric literals use Java string conversions.
+            </li>
+            <li>
+                Only 10 reserved keywords: <code>flow fragment import intent meta ordered term true false null</code>
+            </li>
+            <li>
+                IDL provides over 50 built-in functions to aid in intent matching. IDL functions are pure immutable mathematical functions
+                that work on a runtime stack. In other words - IDL <code>length(trim(" text "))</code> vs. OOP-style <code>" text ".trim().length()</code>.
+            </li>
+        </ul>
+        <p>
+            IDL declaration consists of one or more statements, where a statement can be one of the following three types:
+        </p>
+        <ul>
+            <li>
+                <p>
+                    <b>Import</b>
+                </p>
+            </li>
+            <li>
+                <p>
+                    <b>Intent Definition</b>
+                </p>
+            </li>
+            <li>
+                <p>
+                    <b>Fragment Definition</b>
+                </p>
+            </li>
+        </ul>
         <h2 class="section-sub-title">IDL Syntax Highlighting</h2>
     </section>
     <section id="annotations">
