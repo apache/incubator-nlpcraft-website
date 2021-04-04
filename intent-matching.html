@@ -54,8 +54,8 @@ id: intent_matching
             overall best match. In general, the most specific intent match wins.
         </p>
     </section>
-    <section id="idl">
-        <h2 class="section-title">IDL - Intent Definition Language</h2>
+    <section>
+        <h2 id="idl" class="section-title">IDL - Intent Definition Language</h2>
         <p>
             NLPCraft intents are written in Intent Definition Language (IDL). IDL declarations can be placed in
             different locations based on user preferences:
@@ -129,9 +129,9 @@ id: intent_matching
                 </pre>
             </li>
         </ul>
-        <h2 class="section-sub-title">IDL Grammar</h2>
+        <h2 id="ild_grammar" class="section-sub-title">IDL Grammar</h2>
         <p>
-            IDL is relatively straightforward and simple language. You can review the formal
+            IDL is a relatively straightforward and simple language. You can review the formal
             <a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft/src/main/scala/org/apache/nlpcraft/model/intent/compiler/antlr4/NCIdl.g4">ANTLR4 grammar</a> for IDL. Here
             are the common properties of IDL:
         </p>
@@ -194,7 +194,7 @@ id: intent_matching
                 <p>
                     Import statement allows to import IDL declarations from either local file, classpath resource or URL.
                     The effect of importing is the same as if the imported declarations were inserted in place of import
-                    statement. Note that recursive and cyclic imports are detected and ignored. Import statement starts
+                    statement. Recursive and cyclic imports are detected and ignored. Import statement starts
                     with <code>import</code> keyword and has a string parameter that indicates
                     the location of the resource to import. Note that for the classpath resource you don't need to specify
                     leading forward slash.
@@ -237,12 +237,13 @@ id: intent_matching
                 </p>
             </li>
         </ul>
-        <h2 class="section-sub-title">IDL Syntax Highlighting</h2>
+        <h2 id="idl_functions" class="section-sub-title">IDL Functions</h2>
+        <h2 id="idl_syntax_highlight" class="section-sub-title">IDL Syntax Highlighting</h2>
     </section>
     <section id="annotations">
         <h2 class="section-title">Binding Intent</h2>
         <p>
-            Intents are bound to their callback methods using Java annotations:
+            Intents are bound to their callback methods using the following Java annotations:
         </p>
         <table class="gradient-table">
             <thead>
@@ -279,9 +280,9 @@ id: intent_matching
                     <td><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentRef.html">@NCIntentRef</a></td>
                     <td>Callback method</td>
                     <td>
-                        This annotation allows to reference an intent defined in external JSON or YAML model definition.
-                        Similarly to <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntent.html">@NCIntent</a>
-                        annotation the intent should be defined using <a href="#syntax">DSL syntax</a>.
+                        This annotation allows to reference an intent defined elsewhere like an external JSON or YAML
+                        model definition, <code>*.idl</code> file, or other <code>@NCIntent</code> annotations. In real
+                        applications, this is a most common way to bound an externally defined intent to its callback method.
                     </td>
                 </tr>
                 <tr>
