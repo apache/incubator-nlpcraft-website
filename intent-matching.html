@@ -101,7 +101,8 @@ id: intent_matching
             </li>
         </ul>
         <p>
-            IDL program consists of one or more statements of type <code>import</code>, <code>intent</code>, or <code>fragment</code>:
+            IDL program consists of one or more statements of type <code>import</code>, <code>intent</code>, or <code>fragment</code>
+            in any order or combination:
         </p>
         <ul>
             <li>
@@ -161,7 +162,7 @@ id: intent_matching
                             @a = meta_model('a')
                             @list = list(1, 2, 3, 4)
 
-                            @a == 42 && has_all(@list, list(3, 2))
+                            has_all(@list, list(@a, 2))
                         }
 
                     intent=xb
@@ -176,7 +177,7 @@ id: intent_matching
                         <code>intent=xb</code> <sup><small>line 12</small></sup>
                     </dt>
                     <dd>
-                        Mandatory intent IDs. Intent ID is any arbitrary unique string matching the following lexer template:
+                        <code>xa</code> and <code>xb</code> are the mandatory intent IDs. Intent ID is any arbitrary unique string matching the following lexer template:
                         <code>(UNI_CHAR|UNDERSCORE|LETTER|DOLLAR)+(UNI_CHAR|DOLLAR|LETTER|[0-9]|COLON|MINUS|UNDERSCORE)*</code>
                     </dd>
                     <dt><code>ordered=true</code> <sup><small>line 14</small></sup></dt>
@@ -203,21 +204,36 @@ id: intent_matching
                             <li>
                                 <p><b>Regular Expression</b></p>
                                 <p>
-                                    Dialog flow specification is a standard <a target=_blank href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/regex/Pattern.html">Java regular expression</a>.
+                                    In this case dialog flow specification is a string with the standard <a target=_blank href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/regex/Pattern.html">Java regular expression</a>.
                                     The history of previously matched intents is presented as a space separated string of intent IDs that were
                                     selected as the best match during the current conversation, in the chronological order with the most
                                     recent matched intent ID being the first element in the string. Dialog flow regular expression
                                     will be matched against that string representing intent IDs.
                                 </p>
                                 <p>
-                                    In this example, the <code>^(?:xx)(^:zz)*$</code> dialog flow regular expression defines that intent
+                                    In the line 2, the <code>^(?:xx)(^:zz)*$</code> dialog flow regular expression defines that intent
                                     should only match when the immediate previous intent was <code>xx</code> and no <code>zz</code> intents
-                                    are in the history. If history is <code>"xx yy yy"</code> - this intent will match. However, for
+                                    are in the history. If the history is <code>"xx yy yy"</code> - this intent will match. However, for
                                     <code>"xx zz"</code> or <code>"yy xx"</code> history this dialog flow will not match.
                                 </p>
                             </li>
                             <li>
                                 <p><b>User-Defined Callback</b></p>
+                                <p>
+                                    In this case the dialog flow specification is defined as a callback in a form <code>/x.y.z.Cass#method/</code>,
+                                    where <code>x.y.z.Class</code> should be a fully qualified name of the class where callback is defined, and
+                                    <code>method</code> must be the name of the callback method. This method should take one
+                                    parameter of type <code>java.util.List[<a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCDialogFlowItem.html">NCDialogFlowItem</a>]</code>
+                                    and return <code>boolean</code> result.
+                                </p>
+                                <p>
+                                    Class name is optional in which case the model class will be used by default. Note that if the custom class
+                                    is in fact specified, the instance of this class will be created for each dialog flow test.
+                                    This class must have a no-arg constructor to instantiate via standard Java reflection
+                                    and its creation must be as light as possible to avoid performance degradation during its
+                                    instantiation. For this reasons it is recommended to have dialog flow callback
+                                    on the model class itself which will avoid instantiating the class on each dialog flow evaluation.
+                                </p>
                             </li>
                         </ul>
                         <p>
@@ -225,37 +241,74 @@ id: intent_matching
                         </p>
                     </dd>
                     <dt>
-                        <code>term(term1)={group @@ 'my_group'}?</code><br>
-                        <code>term(term2)~{trim(partId.partAlias.id) == 'token1:id'}[1,3]</code>
+                        <code>meta={'a': 42, 'b': {'Москва': [1, 2, 3]}}</code> <sup><small>line 3</small></sup>
                     </dt>
                     <dd>
                         <p>
-                            Term, also known as a slot, is a building block of the intent. Term has optional ID, predicate and quantifiers.
-                            It can support conversation context if it uses <code>'~'</code> symbol or not if it uses <code>'='</code>
-                            symbol in its definition. For conversational term the system will search for a match using tokens from
+                            <em>Optional.</em>
+                            Just like the most of the components in NLPCraft, the intent can have its own metadata.
+                            Intent metadata is defined as a standard JSON object which will be converted into <code>java.util.Map</code>
+                            instance and can be accessed in intent's terms via
+                            <a href="#idl_functions"><code>meta_intent()</code></a> IDL function.
+                            The typical use case for declarative intent metadata is to parameterize its behavior, i.e. the behavior of its terms,
+                            with a clearly defined properties that are provided right inside of intent definition itself.
+                        </p>
+                    </dd>
+                    <dt>
+                        <code>term(a)={month() >= 6 && !(tok_id()) != "z`" && meta_model('a') == 100_500}[1,3]</code> <sup><small>line 4</small></sup><br>
+                        <code>term(b)~{</code> <sup><small>line 5</small></sup><br>
+                        <code style="padding-left: 20px">@a = meta_model('a')</code><br>
+                        <code style="padding-left: 20px">@list = list(1, 2, 3, 4)</code><br>
+                        <code style="padding-left: 20px">has_all(@list, list(@a, 2))</code><br>
+                        <code>}</code><br>
+                        <code>term(a)=/org.mypackage.MyClass#termMethod/?</code> <sup><small>line 15</small></sup>
+                    </dt>
+                    <dd>
+                        <p>
+                            Term, also known as a slot, is a building block of the intent. Term has optional ID, a token predicate and optional quantifiers.
+                            It supports conversation context if it uses <code>'~'</code> symbol or not if it uses <code>'='</code>
+                            symbol in its definition. For the conversational term the system will search for a match using tokens from
                             the current request as well as the tokens from conversation STM (short-term-memory). For a non-conversational
                             term - only tokens from the current request will be considered.
                         </p>
                         <p>
-                            A term represents one or more tokens, sequential or not, detected in the user input. Intent has a list of terms
-                            (always at least one) that all have to be found in the user input for the intent to match. Note that term
+                            A term is matched if its token predicate return true result.
+                            The matched term represents one or more tokens, sequential or not, that were detected in the user input. Intent has a list of terms
+                            (always at least one) that all have to be matched in the user input for the intent to match. Note that term
                             can be optional if its min quantifier is zero. Whether or not the order of the terms is important
-                            for matching is governed by <code>ordered=true</code> parameter.
+                            for matching is governed by intent's <code>ordered</code> parameter.
                         </p>
                         <p>
-                            Term ID (<code>term1</code> and <code>term2</code>) is optional, and when provided, is used by <code>@NCIntentTerm</code>
+                            Term ID (<code>a</code> and <code>b</code>) is optional, and when provided, is required by
+                            <a href="#binding"><code>@NCIntentTerm</code></a>
                             annotation to link term's tokens to a formal parameter of the callback method. Note that term ID follows
                             the same lexical rules as intent ID.
                         </p>
                         <p>
-                            Inside of curly brackets <code>{</code> <code>}</code> is a <a href="data-model.html#dsl">token DSL</a>
-                            expression: <code>group @@ 'my_group'</code> and <code>trim(partId.partAlias.id) == 'token1:id'</code>.
-                            Note that exactly the same syntax is used for token DSL as well as for intent DSL for defining a token predicate.
-                            Consult <a href="data-model.html#dsl">token DSL</a> documentation for details on its syntax.
+                            Term's body can be defined in two ways:
                         </p>
+                        <ul>
+                            <li>
+                                <p><b>IDL Expression</b></p>
+                                <p>
+                                    Inside of curly brackets <code>{</code> <code>}</code> you can have an optional list of term variables
+                                    and the mandatory term expression that must evaluate to a boolean value. Term variable name must start with
+                                    <code>@</code> symbol and be unique within the scope of the current term. All term variables must be defined
+                                    and initialized before term expression which must be the last statement in the term.
+                                </p>
+                                <p>
+                                    Term variable initialization expression as well as term's expression follow Java-like expression
+                                    grammar including precedence rules, brackets and logical combinators. Most of the functionality
+                                    expressed in these expressions is provided by <a href="#idl_functions">IDL functions</a>.
+                                </p>
+                            </li>
+                            <li>
+                                <p><b>User-Defined Callback</b></p>
+                            </li>
+                        </ul>
                         <p>
-                            <code>?</code> and <code>[1,3]</code> define an inclusive quantifier for that term (how many time this term should appear
-                            for it to be considered found). You can also use the following standard abbreviations:
+                            <code>?</code> and <code>[1,3]</code> define an inclusive quantifier for that term, i.e. how many times
+                            the match for this term should found. You can use the following quick abbreviations:
                         </p>
                         <ul>
                             <li><code>*</code> is equal to <code>[0,∞]</code></li>
@@ -348,8 +401,8 @@ id: intent_matching
         </ul>
         <h2 id="idl_syntax_highlight" class="section-sub-title">IDL Syntax Highlighting</h2>
     </section>
-    <section id="annotations">
-        <h2 class="section-title">Binding Intent</h2>
+    <section>
+        <h2 id="binding" class="section-title">Binding Intent</h2>
         <p>
             Intents are bound to their callback methods using the following Java annotations:
         </p>
