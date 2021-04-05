@@ -394,31 +394,31 @@ id: intent_matching
                     <b><code>fragment</code> statement</b>
                 </p>
                 <p>
-                    Fragments allow to group and name a set of terms. Such groups can be further parameterized
+                    Fragments allow to group and name a set of reusable terms. Such groups can be further parameterized
                     at the place of reference and enable the reuse of one or more terms by multiple intents. For
                     example:
                 </p>
                 <pre class="brush: idl, highlight: [2, 3, 14, 15]">
-                    // Fragments (mostly for demo purposes here).
+                    // Fragments.
                     fragment=buzz term~{tok_id() == 'x:alarm'}
                     fragment=when
                         term(nums)~{
-                            // Demonstrating term variable.
+                            // Term variable.
                             @type = meta_tok('nlpcraft:num:unittype')
                             @iseq = meta_tok('nlpcraft:num:isequalcondition')
 
                             tok_id() == 'nlpcraft:num' && @type == 'datetime' && @iseq == true
                         }[0,7]
 
-                    // Intents
+                    // Intents.
                     intent=alarm
-                        fragment(buzz)
-                        fragment(when)
+                        fragment(buzz) // Insert terms from fragment 'buzz'.
+                        fragment(when) // insert terms from fragment 'when'.
                 </pre>
                 <p><b>NOTES:</b></p>
                 <ul>
                     <li>
-                        Fragment statement has a name (<code>buzz</code> and <code>when</code>) and a list of terms.
+                        Fragment statements (line 2 and 3) have a name (<code>buzz</code> and <code>when</code>) and a list of terms.
                     </li>
                     <li>
                         Terms follow the same syntax as in intent definition.
