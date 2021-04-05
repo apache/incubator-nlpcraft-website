@@ -169,8 +169,9 @@ id: intent_matching
                         flow=/#flowModelMethod/
                         ordered=true
                         term(a)=/org.mypackage.MyClass#termMethod/?
-                        fragment(frag1)
+                        fragment(frag1, {'p1': 25, 'p2': {'a': false}})
                 </pre>
+                <p><b>NOTES:</b></p>
                 <dl>
                     <dt>
                         <code>intent=xa</code> <sup><small>line 1</small></sup><br/>
@@ -376,9 +377,15 @@ id: intent_matching
                         </ul>
                     </dd>
                     <dt>
-                        <code>fragment(frag1)</code> <sup><small>line 16 </small></sup><br>
+                        <code>fragment(frag1, {'p1': 25, 'p2': {'a': false}})</code> <sup><small>line 16 </small></sup><br>
                     </dt>
                     <dd>
+                        <p>
+                            Fragment reference allows to insert the terms defined by that fragment in place of this fragment reference.
+                            Fragment reference has mandatory fragment ID parameter and optional JSON second parameter. Optional
+                            JSON parameter allows to parameterize the inserted terms' behavior and it is available to the
+                            terms via <code>meta_frag()</code> <a href="#idl_functions">IDL function.</a>
+                        </p>
                     </dd>
                 </dl>
             </li>
@@ -386,6 +393,40 @@ id: intent_matching
                 <p>
                     <b><code>fragment</code> statement</b>
                 </p>
+                <p>
+                    Fragments allow to group and name a set of terms. Such groups can be further parameterized
+                    at the place of reference and enable the reuse of one or more terms by multiple intents. For
+                    example:
+                </p>
+                <pre class="brush: idl, highlight: [2, 3, 14, 15]">
+                    // Fragments (mostly for demo purposes here).
+                    fragment=buzz term~{tok_id() == 'x:alarm'}
+                    fragment=when
+                        term(nums)~{
+                            // Demonstrating term variable.
+                            @type = meta_tok('nlpcraft:num:unittype')
+                            @iseq = meta_tok('nlpcraft:num:isequalcondition')
+
+                            tok_id() == 'nlpcraft:num' && @type == 'datetime' && @iseq == true
+                        }[0,7]
+
+                    // Intents
+                    intent=alarm
+                        fragment(buzz)
+                        fragment(when)
+                </pre>
+                <p><b>NOTES:</b></p>
+                <ul>
+                    <li>
+                        Fragment statement has a name (<code>buzz</code> and <code>when</code>) and a list of terms.
+                    </li>
+                    <li>
+                        Terms follow the same syntax as in intent definition.
+                    </li>
+                    <li>
+                        When a fragment is referenced in intent (lines 14 and 15) it is replaced with its terms.
+                    </li>
+                </ul>
             </li>
         </ul>
         <h2 id="idl_functions" class="section-sub-title">IDL Functions</h2>
