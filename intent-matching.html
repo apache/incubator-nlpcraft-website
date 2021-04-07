@@ -42,7 +42,7 @@ id: intent_matching
             a particular form or type of the input utterance.
             Intent is also <a href="#annotations">bound</a> to a callback method that will be executed when that intent, i.e. its template, is detected as the best match
             for a given input utterance. A typical data model will have multiple intents defined for each form of the expected user input
-            that model wants to react differently to.
+            that model wants to react to.
         </p>
         <p>
             For example, a banking application data model can have multiple intents for each domain-specific group of utterances such as
@@ -101,8 +101,7 @@ id: intent_matching
             </li>
         </ul>
         <p>
-            IDL program consists of one or more statements of type <code>import</code>, <code>intent</code>, or <code>fragment</code>
-            in any order or combination:
+            IDL program consists of one or more of the following statements (in any order or combination):
         </p>
         <ul>
             <li>
@@ -430,6 +429,60 @@ id: intent_matching
             </li>
         </ul>
         <h2 id="idl_functions" class="section-sub-title">IDL Functions</h2>
+        <p>
+            IDL functions provide most of the functionality of IDL. IDL functions operate on stack - each
+            functions takes its parameters
+            from the stack and puts its result back onto stack which in turn can become a parameter for the next function
+            call. IDL functions can have zero or more
+            parameters and always have one result value.
+        </p>
+        <p>
+            For their parameters and return values IDL functions support the following types:
+        </p>
+        <table class="gradient-table">
+            <thead>
+            <tr>
+                <th>Java Type</th>
+                <th>Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr><td><code>java.lang.String</code></td><td>String</td></tr>
+                <tr><td><code>java.lang.Integer</code></td><td>Int</td></tr>
+                <tr><td><code>java.lang.Double</code></td><td>Double</td></tr>
+                <tr><td><code>java.lang.Boolean</code></td><td>Bool</td></tr>
+                <tr><td><code>java.util.List</code></td><td>List</td></tr>
+                <tr><td><code>java.util.Map</code></td><td>Map</td></tr>
+            </tbody>
+        </table>
+        <p>
+            <b>String Functions:</b>
+        </p>
+        <table class="gradient-table">
+            <thead>
+            <tr>
+                <th>Function</th>
+                <th>Description</th>
+                <th>Example</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code><b>length</b>(p: {String|List|Map}) ⇒ Int</code><br>
+                        <code><b>count</b>(p: {String|List|Map}) ⇒ Int</code><br>
+                        <code><b>size</b>(p: {String|List|Map}) ⇒ Int</code>
+                    </td>
+                    <td>Returns size or length of the given string, list or map.</td>
+                    <td>
+                        <pre class="brush:idl">
+                            length("some text") // 9.
+                            size(list(1, 2, 3)) // 3.
+                        </pre>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
         <h2 id="idl_location" class="section-sub-title">IDL Location</h2>
         <p>
             IDL declarations can be placed in different locations based on user preferences:
