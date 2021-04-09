@@ -476,11 +476,119 @@ id: intent_matching
                     <td>Returns size or length of the given string, list or map.</td>
                     <td>
                         <pre class="brush:idl">
-                            length("some text") // 9.
-                            size(list(1, 2, 3)) // 3.
+                            length("some text") // 9
+                            size(list(1, 2, 3)) // 3
                         </pre>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <code><b>trim</b>(p: String) ⇒ String</code><br>
+                        <code><b>strip</b>(p: String) ⇒ String</code>
+                    </td>
+                    <td>Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#trim()"><code>String.trim()</code></a> function on given parameter and returns its result.</td>
+                    <td>
+                        <pre class="brush:idl">
+                            trim(" text ") // "text"
+                        </pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code><b>uppercase</b>(p: String) ⇒ String</code>
+                    </td>
+                    <td>Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#toUpperCase()"><code>String.toUpperCase()</code></a> function on given parameter and returns its result.</td>
+                    <td>
+                        <pre class="brush:idl">
+                            uppercase("text") // "TEXT"
+                        </pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code><b>lowercase</b>(p: String) ⇒ String</code>
+                    </td>
+                    <td>Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#toLowerCase()"><code>String.toLowerCase()</code></a> function on given parameter and returns its result.</td>
+                    <td>
+                        <pre class="brush:idl">
+                            lowercase("TeXt") // "text"
+                        </pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code><b>is_alpha</b>(p: String) ⇒ Boolean</code>
+                    </td>
+                    <td>Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlpha-java.lang.CharSequence-"><code>StringUtils.isAlpha()</code></a> function on given parameter and returns its result.</td>
+                    <td>
+                        <pre class="brush:idl">
+                            is_alpha("text") // true
+                        </pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code><b>is_alphanum</b>(p: String) ⇒ Boolean</code>
+                    </td>
+                    <td>Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlphanumeric-java.lang.CharSequence-"><code>StringUtils.isAlphanumeric()</code></a> function on given parameter and returns its result.</td>
+                    <td>
+                        <pre class="brush:idl">
+                            is_alphanum("text123") // true
+                        </pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code><b>is_whitespace</b>(p: String) ⇒ Boolean</code>
+                    </td>
+                    <td>Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isWhitespace-java.lang.CharSequence-"><code>StringUtils.isWhitespace()</code></a> function on given parameter and returns its result.</td>
+                    <td>
+                        <pre class="brush:idl">
+                            is_whitespace("  ") // true
+                        </pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code><b>is_num</b>(p: String) ⇒ Boolean</code>
+                    </td>
+                    <td>Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isNumeric-java.lang.CharSequence-"><code>StringUtils.isNumeric()</code></a> function on given parameter and returns its result.</td>
+                    <td>
+                        <pre class="brush:idl">
+                            is_num("123") // true
+                            is_num("text") // false
+                        </pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code><b>is_numspace</b>(p: String) ⇒ Boolean</code>
+                    </td>
+                    <td>Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isNumericSpace-java.lang.CharSequence-"><code>StringUtils.isNumericSpace()</code></a> function on given parameter and returns its result.</td>
+                    <td>
+                        <pre class="brush:idl">
+                            is_numspace("  123  ") // true
+                        </pre>
+                    </td>
+                </tr>
+
+
+
+<!--
+            case "is_alphaspace" ⇒ z[ST](arg1, { x ⇒ val Z(v, f) = x(); Z(StringUtils.isAlphaSpace(toStr(v)), f) })
+            case "is_alphanumspace" ⇒ z[ST](arg1, { x ⇒ val Z(v, f) = x(); Z(StringUtils.isAlphanumericSpace(toStr(v)), f) })
+            case "split" ⇒ doSplit()
+            case "split_trim" ⇒ doSplitTrim()
+            case "start_with" ⇒ doStartWith()
+            case "end_with" ⇒ doEndWith()
+            case "contains" ⇒ doContains()
+            case "index_of" ⇒ doIndexOf()
+            case "substr" ⇒ doSubstr()
+            case "replace" ⇒ doReplace()
+            case "to_double" ⇒ doToDouble()
+            case "to_int" ⇒ doToInt()
+
+-->
             </tbody>
         </table>
         <h2 id="idl_location" class="section-sub-title">IDL Location</h2>
