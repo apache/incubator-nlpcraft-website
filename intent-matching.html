@@ -22,14 +22,14 @@ id: intent_matching
 -->
 
 <div class="col-md-8 second-column">
-    <section id="overview">
+    <section>
         <h2 class="section-title">Overview</h2>
         <p>
             <a href="/data-model.html">Data Model</a> processing logic is defined as a collection of one or more intents. The sections
             below explain what intent is, how to define it in your model, and how it works.
         </p>
     </section>
-    <section id="matching">
+    <section id="intent">
         <h2 class="section-title">Intent</h2>
         <p>
             The goal of the data model implementation is to take the input utterance and
@@ -54,8 +54,8 @@ id: intent_matching
             overall best match. In general, the most specific intent match wins.
         </p>
     </section>
-    <section>
-        <h2 id="idl" class="section-title">IDL - Intent Definition Language</h2>
+    <section id="idl">
+        <h2 class="section-title">IDL - Intent Definition Language</h2>
         <p>
             NLPCraft intents are written in Intent Definition Language (IDL).
             IDL is a relatively straightforward and simple language. You can review the formal
@@ -737,10 +737,10 @@ id: intent_matching
         </p>
         <h2 id="idl_syntax_highlight" class="section-sub-title">IDL Syntax Highlighting</h2>
     </section>
-    <section>
-        <h2 id="binding" class="section-title">Binding Intent</h2>
+    <section id="binding">
+        <h2 class="section-title">Binding Intent</h2>
         <p>
-            IDL defined intents must be bound to their callback methods. This binding is accomplished using the
+            IDL intents must be bound to their callback methods. This binding is accomplished using the
             following Java annotations:
         </p>
         <table class="gradient-table">
@@ -767,7 +767,7 @@ id: intent_matching
                         </p>
                         <p>
                             This method is ideal for simple intents and quick declaration right in the source code and has
-                            all the benefits of having IDL be part of the source code. However, multi-line IDL declaration can be awkward
+                            all the benefits of having IDL to be part of the source code. However, multi-line IDL declaration can be awkward
                             to add and maintain depending on JVM language, i.e. multi-line string literal support. In such
                             cases it is advisable to move IDL declarations into separate <code>*.idl</code> file or files
                             and import them either in the JSON/YAML model or at the model class level.
@@ -963,7 +963,9 @@ id: intent_matching
                 </ul>
             </li>
         </ul>
-        <h3 id="logic" class="section-sub-title">Matching Logic</h3>
+    </section>
+    <section id="logic">
+        <h3 class="section-title">Intent Matching Logic</h3>
         <p>
             In order to understand the intent matching logic lets review the overall user request processing workflow:
         </p>
@@ -1084,114 +1086,7 @@ id: intent_matching
             </li>
         </ul>
     </section>
-    <section id="syntax">
-        <h2 class="section-title">Intent DSL</h2>
-        <p>
-            Regardless of how intent is defined - directly in <code>@NCIntent</code> annotation or in external model
-            declaration - it follow the exactly the same syntax (here's a full <a target=github href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft/src/main/scala/org/apache/nlpcraft/model/intent/impl/antlr4/NCIntentDsl.g4">ANTRL4 grammar</a>).
-        </p>
-        <p>
-            Intent DSL grammar can be informally described using the following example (order of individual declarations is important):
-        </p>
-        <pre class="brush: js">
-             intent=my_intent
-                ordered=true
-                flow='^(?:id1)(^:id2)*$'
-                term(term1)={group @@ 'my_group'}?
-                term(term2)~{trim(partId.partAlias.id) == 'token1:id'}[1,3]
-        </pre>
-        <dl>
-            <dt><code>intent=my_intent</code></dt>
-            <dd>
-                Mandatory intent ID. Any arbitrary unique string matching the following template: <code>(UNDERSCORE|[a-z]|[A-Z])+([a-z]|[A-Z]|[0-9]|COLON|MINUS|UNDERSCORE)*</code>
-            </dd>
-            <dt><code>ordered=true</code></dt>
-            <dd>
-                <em>Optional.</em>
-                Whether or not this intent is ordered. Default is <code>false</code>.
-                For ordered intent the specified order of terms is important for matching this intent.
-                If intent is unordered its terms can be found anywhere in the input text and in any order.
-                Note that ordered intent significantly limits the user input it can match. In most cases
-                the ordered intent is only applicable to processing formal strict grammar (like a programming language)
-                and unsuitable for  natural language processing.
-            </dd>
-            <dt><code>flow='^(?:id1)(^:id2)*$'</code></dt>
-            <dd>
-                <p>
-                    <em>Optional.</em> Dialog flow is a history of previously matched intents to match on. If provided,
-                    the intent will match not only on the user input but also on the history of the previously matched
-                    intents.
-                </p>
-                <p>
-                    Dialog flow specification is a standard <a target=_blank href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/regex/Pattern.html">Java regular expression</a>.
-                    The history of previously matched intents is presented as a space separated string of intent IDs that were
-                    selected as the best match during the current conversation, in the chronological order with the most
-                    recent matched intent ID being the first element in the string. Dialog flow regular expression
-                    will be matched against that string representing intent IDs.
-                </p>
-                <p>
-                    In this example, the <code>^(?:id1)(^:id2)*$</code> dialog flow regular expression defines that intent
-                    should only match when the immediate previous intent was <code>id1</code> and no <code>id2</code> intents
-                    are in the history. If history is <code>"id1 id3 id3"</code> - this intent will match. However, for
-                    <code>"id1 id2"</code> or <code>"id3 id1"</code> history this dialog flow will not match.
-                </p>
-                <p>
-                    Note that if dialog flow is defined and it doesn't match the history the terms of the intent won't be tested at all.
-                </p>
-            </dd>
-            <dt>
-                <code>term(term1)={group @@ 'my_group'}?</code><br>
-                <code>term(term2)~{trim(partId.partAlias.id) == 'token1:id'}[1,3]</code>
-            </dt>
-            <dd>
-                <p>
-                    Term, also known as a slot, is a building block of the intent. Term has optional ID, predicate and quantifiers.
-                    It can support conversation context if it uses <code>'~'</code> symbol or not if it uses <code>'='</code>
-                    symbol in its definition. For conversational term the system will search for a match using tokens from
-                    the current request as well as the tokens from conversation STM (short-term-memory). For a non-conversational
-                    term - only tokens from the current request will be considered.
-                </p>
-                <p>
-                    A term represents one or more tokens, sequential or not, detected in the user input. Intent has a list of terms
-                    (always at least one) that all have to be found in the user input for the intent to match. Note that term
-                    can be optional if its min quantifier is zero. Whether or not the order of the terms is important
-                    for matching is governed by <code>ordered=true</code> parameter.
-                </p>
-                <p>
-                    Term ID (<code>term1</code> and <code>term2</code>) is optional, and when provided, is used by <code>@NCIntentTerm</code>
-                    annotation to link term's tokens to a formal parameter of the callback method. Note that term ID follows
-                    the same lexical rules as intent ID.
-                </p>
-                <p>
-                    Inside of curly brackets <code>{</code> <code>}</code> is a <a href="data-model.html#dsl">token DSL</a>
-                    expression: <code>group @@ 'my_group'</code> and <code>trim(partId.partAlias.id) == 'token1:id'</code>.
-                    Note that exactly the same syntax is used for token DSL as well as for intent DSL for defining a token predicate.
-                    Consult <a href="data-model.html#dsl">token DSL</a> documentation for details on its syntax.
-                </p>
-                <p>
-                    <code>?</code> and <code>[1,3]</code> define an inclusive quantifier for that term (how many time this term should appear
-                    for it to be considered found). You can also use the following standard abbreviations:
-                </p>
-                <ul>
-                    <li><code>*</code> is equal to <code>[0,∞]</code></li>
-                    <li><code>+</code> is equal to <code>[1,∞]</code></li>
-                    <li><code>?</code> is equal to <code>[0,1]</code></li>
-                    <li>No quantifier defaults to <code>[1,1]</code></li>
-                </ul>
-            </dd>
-        </dl>
-        <div class="bq success">
-            <p>
-                <b>Token DSL</b>
-            </p>
-            <p>
-                Intent DSL is built on top of the <a href="data-model.html#dsl">Token DSL</a> that provides comprehensive support for
-                defining predicates over detected model elements.
-                Make sure to read about <a href="data-model.html#dsl">Token DSL</a> as well.
-            </p>
-        </div>
-    </section>
-    <section id="callback">
+    <section id="intent_callback">
         <h2 class="section-title">Intent Callback</h2>
         <p>
             Whether the intent is defined directly in <code>@NCIntent</code> annotation or indirectly via <code>@NCIntentRef</code>
@@ -1284,7 +1179,7 @@ id: intent_matching
                 parameter.
             </li>
         </ul>
-        <h3 class="section-title"><code>NCRejection</code> and <code>NCIntentSkip</code> Exceptions</h3>
+        <h3 class="section-sub-title"><code>NCRejection</code> and <code>NCIntentSkip</code> Exceptions</h3>
         <p>
             There are two exceptions that can be used by intent callback logic to control intent matching process.
         </p>
@@ -1303,7 +1198,7 @@ id: intent_matching
         <p>
         <p>
             This exception becomes useful when it is hard or impossible to encode the entire matching logic using only
-            declarative intent DSL. In these cases the intent definition can be relaxed and the "last mile" of intent
+            declarative IDL. In these cases the intent definition can be relaxed and the "last mile" of intent
             matching can happen inside of the intent callback's user logic. If it is determined that intent in fact does
             not match then throwing this exception allows to try next best matching intent, if any.
         </p>
@@ -1316,25 +1211,25 @@ id: intent_matching
         </p>
         <div class="bq info">
             <p>
-                <b>Intent DSL Expressiveness</b>
+                <b>IDL Expressiveness</b>
             </p>
             <p>
                 Note that usage of <code>NCIntentSkip</code> exception (as well as model's life-cycle callbacks) is a
-                required technique when you cannot express the desired matching logic with only intent DSL alone.
-                Intent DSL is a high-level declarative language and it does
-                not support programmable logic or other types of complex matching algorithms. In such cases, you can
+                required technique when you cannot express the desired matching logic with only IDL alone.
+                IDL is a high-level declarative language and it does
+                not support a complex programmable logic or other types of sophisticated matching algorithms. In such cases, you can
                 define a broad intent that would <em>broadly match</em> and then define the rest of the more complex matching logic in the callback
                 using <code>NCIntentSkip</code> exception to effectively indicate when intent doesn't match and other
                 intents, if any, have to be tried.
             </p>
             <p>
-                There are many use cases where DSL is not expressive enough. For example, if you intent matching depends
-                on the date and time, financial market conditions, weather, state from external systems or current user geographical
-                location - you will need to use <code>NCIntentSkip</code>-based logic or model's callbacks to support
+                There are many use cases where IDL is not expressive enough. For example, if your intent matching depends
+                on financial market conditions, weather, state from external systems or details of the current user geographical
+                location or social network status - you will need to use <code>NCIntentSkip</code>-based logic or model's callbacks to support
                 that type of matching.
             </p>
         </div>
-        <h3 class="section-title"><code>NCIntentMatch</code> Interface</h3>
+        <h3 class="section-sub-title"><code>NCIntentMatch</code> Interface</h3>
         <p>
             <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentMatch.html">NCIntentMatch</a> interface
             can be passed into intent callback as its first parameter. This interface provide runtime information
@@ -1366,7 +1261,7 @@ id: intent_matching
                     <p>
                         A callback to accept or reject a parsed variant. This callback is called before any other
                         callbacks at the beginning of the processing pipeline and it is called for each parsed variant.
-                        Note that a given user input can have one or more possible different parsing variants. Depending on
+                        Note that a given user input can have one or more possible parsing variants. Depending on
                         model configuration a user input can produce hundreds or even thousands of parsing variants that
                         can significantly slow down the overall processing. This method allows to filter out unnecessary
                         parsing variants based on variety of user-defined factors like number of tokens, presence
@@ -1396,7 +1291,7 @@ id: intent_matching
                         is called and may be called multiple times depending on its return value. If <code>true</code> is
                         returned than the default workflow will continue and the matched intent's callback will be called.
                         However, if <code>false</code> is returned than the entire existing set of parsing variants will be
-                        matched against all declared intents again. Returning false allows this method to alter the state
+                        re-matched against all declared intents again. Returning <code>false</code> allows this method to alter the state
                         of the model (like soft-reset conversation or change metadata) and force the full re-evaluation
                         of the parsing variants against all declared intents. Note that user logic should be careful not
                         to induce infinite loop in this behavior.
@@ -1405,7 +1300,9 @@ id: intent_matching
                         Note that this callback may not be called at all based on the return value of
                         <a href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onContext(org.apache.nlpcraft.model.NCContext)"><code>onContext(...)</code></a> callback.
                         Typical use case for this callback is to perform logging, debugging, statistic or usage collection,
-                        explicit update or initialization of conversation context, security audit or validation, etc.
+                        explicit update or initialization of conversation context, security audit or validation, etc. This
+                        callback is especially useful for a soft reset of the conversation context when a condition for such
+                        reset can only be derived from within of intent callback.
                     </p>
                 </td>
             </tr>
@@ -1451,28 +1348,27 @@ id: intent_matching
     <section id="examples">
         <h2 class="section-title">Intent Examples</h2>
         <p>
-            Here's number of intent examples with explanations. These intents can be defined directly in <code>@NCIntent</code>
-            annotation or in external JSON or YAML mode definition.
+            Here's number of intent examples with explanations:
         </p>
         <p>
             <b>Example 1:</b>
         </p>
-        <pre class="brush: js">
-            intent=id1
+        <pre class="brush: idl">
+            intent=a
                 term~{tok_id() == 'x:id'}
                 term(nums)~{tok_id() == 'nlpcraft:num' && lowercase(meta_tok('nlpcraft:num:unittype')) == 'datetime'}[0,2]
         </pre>
         <p><b>NOTES:</b></p>
         <ul>
             <li>
-                Intent has ID <code>id1</code>.
+                Intent has ID <code>a</code>.
             </li>
             <li>
                 Intent uses default conversational support (<code>true</code>) and default order (<code>false</code>).
             </li>
             <li>
-                Intent has two conversational terms that have to be found for the intent to match. Note that second term is optional as it
-                has <code>[0,2]</code> quantifier.
+                Intent has two conversational terms that have to be found for the intent to match. Note that second
+                term is optional as it has <code>[0,2]</code> quantifier.
             </li>
             <li>
                 First term matches any single token with ID <code>x:id</code>.
@@ -1482,23 +1378,18 @@ id: intent_matching
                 <code>nlpcraft:num:unittype</code> metadata property equal to <code>'datetime'</code> string.
             </li>
             <li>
-                Function <code>lowercase</code> used on <code>nlpcraft:num:unittype</code> metadata property value. Note
-                that built-in functions can only be used on left values.
+                IDL function <code>lowercase</code> used on <code>nlpcraft:num:unittype</code> metadata property value.
             </li>
             <li>
                 Note that since second term has ID (<code>nums</code>) it can be references by <code>@NCIntentTerm</code>
                 annotation by the callback formal parameter.
-            </li>
-            <li>
-                Read more on built-in functions and token metadata properties in <a href="data-model.html#dsl">Token DSL</a>
-                section.
             </li>
         </ul>
         <br/>
         <p>
             <b>Example 2:</b>
         </p>
-        <pre class="brush: js">
+        <pre class="brush: idl">
             intent=id2
                 flow='id1 id2'
                 term={tok_id() == 'mytok' && signum(get(meta_tok('score'), 'best')) != -1}
@@ -1524,34 +1415,21 @@ id: intent_matching
             </li>
             <li>
                 Second term should be a token that belongs to either <code>actors</code> or <code>owners</code> group.
-                It should have a part token whose <a href="data-model.html#dsl">Token DSL</a> expression should have alias <code>partAlias</code>. That
-                part token should have metadata property <code>text</code> of type string or collection. The length of
-                this string or collection should be greater than <code>10</code>.
-            </li>
-            <li>
-                Read more on built-in functions and token metadata properties in <a href="data-model.html#dsl">Token DSL</a>
-                section.
+                It should have a part token whose with alias <code>partAlias</code>. That
+                part token should have metadata property <code>text</code> of type string, list or map. The length of
+                this string, list or map should be greater than <code>10</code>.
             </li>
         </ul>
-        <div class="bq success">
-            <p>
-                <b>Token DSL</b>
-            </p>
-            <p>
-                Intent DSL is built on top of the <a href="data-model.html#dsl">Token DSL</a> that provides comprehensive support for
-                defining predicates over detected model elements.
-                Make sure to read about <a href="data-model.html#dsl">Token DSL</a> as well.
-            </p>
-        </div>
     </section>
 </div>
 <div class="col-md-2 third-column">
     <ul class="side-nav">
         <li class="side-nav-title">On This Page</li>
-        <li><a href="#overview">Overview</a></li>
-        <li><a href="#matching">Intent Matching</a></li>
-        <li><a href="#syntax">Intent DSL</a></li>
-        <li><a href="#callback">Intent Callback</a></li>
+        <li><a href="#intent">Overview</a></li>
+        <li><a href="#idl">IDL Syntax</a></li>
+        <li><a href="#binding">Intent Binding</a></li>
+        <li><a href="#logic">Intent Matching</a></li>
+        <li><a href="#intent_callback">Intent Callback</a></li>
         <li><a href="#model_callbacks">Model Callbacks</a></li>
         <li><a href="#examples">Intent Examples</a></li>
         {% include quick-links.html %}
