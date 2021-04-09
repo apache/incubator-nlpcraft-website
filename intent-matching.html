@@ -299,13 +299,13 @@ id: intent_matching
                                 <p>
                                     Term variable initialization expression as well as term's expression follow Java-like expression
                                     grammar including precedence rules, brackets and logical combinators. Most of the functionality
-                                    expressed in these expressions is provided by <a href="#idl_functions">IDL functions</a>.
+                                    in these expressions is provided by <a href="#idl_functions">IDL functions</a>.
                                 </p>
                                 <p>
                                     IDL expression is mostly defined by the following ANTLR4 grammar productions that closely
                                     matches Java-like expression style:
                                 </p>
-                                <pre class="brush: java">
+                                <pre class="brush: java, highlight: [10, 11, 12]">
                                     expr
                                         // NOTE: order of productions defines precedence.
                                         : op=(MINUS | NOT) expr # unaryExpr
@@ -335,9 +335,25 @@ id: intent_matching
                                         | qstring // Single or double quoted string.
                                         ;
                                 </pre>
+                                <p><b>NOTES:</b></p>
+                                <ul>
+                                    <li>
+                                        Line 10 defines an expression atom - a terminal literal like a number,
+                                        double or single quoted string, true and false boolean value as well as
+                                        null value.
+                                    </li>
+                                    <li>
+                                        Line 11 provides grammar for the IDL function call. <a href="#idl_functions">IDL functions</a>
+                                        provide most of the IDL functionality.
+                                    </li>
+                                    <li>
+                                        Line 12 provides grammar for variable reference. Note that variable must be defined
+                                        prior to referencing it.
+                                    </li>
+                                </ul>
                                 <div class="bq info">
                                     <p>
-                                        <b>NOTE:</b> while term variable initialization expressions can have any type - but the
+                                        <b>NOTE:</b> while term variable initialization expressions can have any type - the
                                         term's expression itself, i.e. the last expression in the term's body, <em>must evaluate to a boolean result only.</em>
                                         Failure to do so will result in a runtime exception during intent evaluation. Note also
                                         that such errors cannot be detected during intent compilation phase.
@@ -444,15 +460,28 @@ id: intent_matching
             <tr>
                 <th>Java Type</th>
                 <th>Name</th>
+                <th>Notes</th>
             </tr>
             </thead>
             <tbody>
-            <tr><td><code>java.lang.String</code></td><td>String</td></tr>
-                <tr><td><code>java.lang.Integer</code></td><td>Int</td></tr>
-                <tr><td><code>java.lang.Double</code></td><td>Double</td></tr>
-                <tr><td><code>java.lang.Boolean</code></td><td>Bool</td></tr>
-                <tr><td><code>java.util.List</code></td><td>List</td></tr>
-                <tr><td><code>java.util.Map</code></td><td>Map</td></tr>
+            <tr><td><code>java.lang.String</code></td><td>String</td><td></td></tr>
+                <tr>
+                    <td><code>java.lang.Long</code></td>
+                    <td>Int</td>
+                    <td>
+                        Smaller integer numerical types will be converted to <code>java.lang.Long</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>java.lang.Double</code></td>
+                    <td>Double</td>
+                    <td>
+                        <code>java.lang.Float</code> will be converted to <code>java.lang.Double</code>.
+                    </td>
+                </tr>
+                <tr><td><code>java.lang.Boolean</code></td><td>Bool</td><td></td></tr>
+                <tr><td><code>java.util.List</code></td><td>List</td><td></td></tr>
+                <tr><td><code>java.util.Map</code></td><td>Map</td><td></td></tr>
             </tbody>
         </table>
         <p>
