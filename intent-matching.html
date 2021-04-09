@@ -99,6 +99,12 @@ id: intent_matching
                 that work on a runtime stack. In other words, they look like Python functions: IDL <code>length(trim(" text "))</code> vs.
                 OOP-style <code>" text ".trim().length()</code>.
             </li>
+            <li>
+                IDL is a lazily evaluated language, i.e. expressions are evaluated only when required during runtime. That
+                means that evaluated left-to-right logical AND and OR operators, for example, skip their right-part expressions if the left expression result is
+                determinative for the overall result - so called short-circuit evaluation. Some IDL functions like <code>if</code> also provide the similar
+                short-circuit evaluation.
+            </li>
         </ul>
         <p>
             IDL program consists of one or more of the following statements (in any order or combination):
@@ -168,7 +174,7 @@ id: intent_matching
                         flow=/#flowModelMethod/
                         ordered=true
                         term(a)=/org.mypackage.MyClass#termMethod/?
-                        fragment(frag1, {'p1': 25, 'p2': {'a': false}})
+                        fragment(frag, {'p1': 25, 'p2': {'a': false}})
                 </pre>
                 <p><b>NOTES:</b></p>
                 <dl>
@@ -393,7 +399,7 @@ id: intent_matching
                         </ul>
                     </dd>
                     <dt>
-                        <code>fragment(frag1, {'p1': 25, 'p2': {'a': false}})</code> <sup><small>line 16 </small></sup><br>
+                        <code>fragment(frag, {'p1': 25, 'p2': {'a': false}})</code> <sup><small>line 16 </small></sup><br>
                     </dt>
                     <dd>
                         <p>
@@ -486,6 +492,7 @@ id: intent_matching
                 <tr><td><code>java.lang.Boolean</code></td><td>Bool</td><td></td></tr>
                 <tr><td><code>java.util.List</code></td><td>List</td><td></td></tr>
                 <tr><td><code>java.util.Map</code></td><td>Map</td><td></td></tr>
+                <tr><td><code>java.lang.Object</code></td><td>Any</td><td>Any of the supported type above.</td></tr>
             </tbody>
         </table>
         <p>
@@ -523,9 +530,14 @@ id: intent_matching
                     <tbody>
                     <tr>
                         <td>
-                            <code><b>length</b>(p: {String|List|Map}) ⇒ Int</code><br>
-                            <code><b>count</b>(p: {String|List|Map}) ⇒ Int</code><br>
-                            <code><b>size</b>(p: {String|List|Map}) ⇒ Int</code>
+                            <p>
+                                <code><b>length</b>(</code><br>
+                                <code style="padding-left: 15px">p: {String|List|Map}</code><br>
+                                <code>) ⇒ Int</code>
+                            </p>
+                            <p>
+                                Aliases: <code><b>size</b></code>, <code><b>count</b></code>
+                            </p>
                         </td>
                         <td>Returns size or length of the given string, list or map.</td>
                         <td>
@@ -676,6 +688,36 @@ id: intent_matching
             <div class="tab-pane fade show" id="fn_company" role="tabpanel">
             </div>
             <div class="tab-pane fade show" id="fn_other" role="tabpanel">
+                <table class="gradient-table">
+                    <thead>
+                    <tr>
+                        <th>Function</th>
+                        <th>Description</th>
+                        <th>Example</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <code><b>if</b>(</code><br>
+                                <code style="padding-left: 15px">c: Boolean,</code><br>
+                                <code style="padding-left: 15px">then: Any,</code><br>
+                                <code style="padding-left: 15px">else: Any</code><br>
+                                <code>) ⇒ Any</code>
+                            </td>
+                            <td>Returns size or length of the given string, list or map.</td>
+                            <td>
+                                <pre class="brush:idl">
+                                    // Result: 9
+                                    length("some text")
+
+                                    // Result: 3
+                                    size(list(1, 2, 3))
+                                </pre>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <h2 id="idl_location" class="section-sub-title">IDL Location</h2>
