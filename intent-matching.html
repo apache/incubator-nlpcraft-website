@@ -150,7 +150,7 @@ id: intent_matching
                     Intent is defined as one or more terms. Each term is a predicate over a instance of
                     <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html">NCToken</a> interface.
                     For an intent to match all of its terms have to evaluate to true.
-                    Intent definition statement can be informally explained using the following example:
+                    Intent definition can be informally explained using the following example:
                 </p>
                 <pre class="brush: idl">
                     intent=xa
@@ -339,8 +339,9 @@ id: intent_matching
                                 <ul>
                                     <li>
                                         Line 10 defines an expression atom - a terminal literal like a number,
-                                        double or single quoted string, true and false boolean value as well as
-                                        null value.
+                                        double or single quoted string, <code>true</code> and
+                                        <code>false</code> boolean value as well as
+                                        <code>null</code> value.
                                     </li>
                                     <li>
                                         Line 11 provides grammar for the IDL function call. <a href="#idl_functions">IDL functions</a>
@@ -446,14 +447,17 @@ id: intent_matching
         </ul>
         <h2 id="idl_functions" class="section-sub-title">IDL Functions</h2>
         <p>
-            IDL functions provide most of the functionality of IDL. IDL functions operate on stack - each
-            functions takes its parameters
-            from the stack and puts its result back onto stack which in turn can become a parameter for the next function
-            call. IDL functions can have zero or more
-            parameters and always have one result value.
+            IDL functions provide the actual functionality of IDL. IDL function operates on stack - its parameters
+            are taken from the stack and its result is put back onto stack which in turn can become a parameter for the next function
+            call and so on. IDL functions can have zero or more parameters and always have one result value. Some IDL
+            functions support variable number of parameters.
         </p>
         <p>
-            For their parameters and return values IDL functions support the following types:
+            Note also that IDL functions are pure immutable mathematical functions. In other words, when chaining the function
+            calls IDL uses mathematical notations rather than object oriented one: IDL <code>length(trim(" text "))</code> vs. OOP-style <code>" text ".trim().length()</code>.
+        </p>
+        <p>
+            IDL functions operate with the following types:
         </p>
         <table class="gradient-table">
             <thead>
@@ -485,6 +489,11 @@ id: intent_matching
             </tbody>
         </table>
         <p>
+            Encountering other incompatible types will result in a runtime error during intent matching. It is
+            especially important to watch out for the types when adding objects to various metadata contaioners
+            and using that metadata in the IDL expressions.
+        </p>
+        <p>
             <b>String Functions:</b>
         </p>
         <table class="gradient-table">
@@ -505,8 +514,11 @@ id: intent_matching
                     <td>Returns size or length of the given string, list or map.</td>
                     <td>
                         <pre class="brush:idl">
-                            length("some text") // 9
-                            size(list(1, 2, 3)) // 3
+                            // Result: 9
+                            length("some text")
+
+                            // Result: 3
+                            size(list(1, 2, 3))
                         </pre>
                     </td>
                 </tr>
@@ -518,7 +530,8 @@ id: intent_matching
                     <td>Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#trim()"><code>String.trim()</code></a> function on given parameter and returns its result.</td>
                     <td>
                         <pre class="brush:idl">
-                            trim(" text ") // "text"
+                            // Result: "text"
+                            trim(" text ")
                         </pre>
                     </td>
                 </tr>
@@ -529,7 +542,8 @@ id: intent_matching
                     <td>Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#toUpperCase()"><code>String.toUpperCase()</code></a> function on given parameter and returns its result.</td>
                     <td>
                         <pre class="brush:idl">
-                            uppercase("text") // "TEXT"
+                            // Result: "TEXT"
+                            uppercase("text")
                         </pre>
                     </td>
                 </tr>
@@ -540,7 +554,8 @@ id: intent_matching
                     <td>Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#toLowerCase()"><code>String.toLowerCase()</code></a> function on given parameter and returns its result.</td>
                     <td>
                         <pre class="brush:idl">
-                            lowercase("TeXt") // "text"
+                            // Result: "text"
+                            lowercase("TeXt")
                         </pre>
                     </td>
                 </tr>
@@ -551,7 +566,8 @@ id: intent_matching
                     <td>Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlpha-java.lang.CharSequence-"><code>StringUtils.isAlpha()</code></a> function on given parameter and returns its result.</td>
                     <td>
                         <pre class="brush:idl">
-                            is_alpha("text") // true
+                            // Result: true
+                            is_alpha("text")
                         </pre>
                     </td>
                 </tr>
@@ -562,7 +578,8 @@ id: intent_matching
                     <td>Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlphanumeric-java.lang.CharSequence-"><code>StringUtils.isAlphanumeric()</code></a> function on given parameter and returns its result.</td>
                     <td>
                         <pre class="brush:idl">
-                            is_alphanum("text123") // true
+                            // Result: true
+                            is_alphanum("text123")
                         </pre>
                     </td>
                 </tr>
@@ -573,7 +590,8 @@ id: intent_matching
                     <td>Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isWhitespace-java.lang.CharSequence-"><code>StringUtils.isWhitespace()</code></a> function on given parameter and returns its result.</td>
                     <td>
                         <pre class="brush:idl">
-                            is_whitespace("  ") // true
+                            // Result: true
+                            is_whitespace("  ")
                         </pre>
                     </td>
                 </tr>
@@ -584,8 +602,11 @@ id: intent_matching
                     <td>Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isNumeric-java.lang.CharSequence-"><code>StringUtils.isNumeric()</code></a> function on given parameter and returns its result.</td>
                     <td>
                         <pre class="brush:idl">
-                            is_num("123") // true
-                            is_num("text") // false
+                            // Result: true
+                            is_num("123")
+
+                            // Result: false
+                            is_num("text")
                         </pre>
                     </td>
                 </tr>
@@ -596,7 +617,8 @@ id: intent_matching
                     <td>Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isNumericSpace-java.lang.CharSequence-"><code>StringUtils.isNumericSpace()</code></a> function on given parameter and returns its result.</td>
                     <td>
                         <pre class="brush:idl">
-                            is_numspace("  123  ") // true
+                            // Result: true
+                            is_numspace("  123  ")
                         </pre>
                     </td>
                 </tr>
