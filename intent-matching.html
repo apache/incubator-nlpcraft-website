@@ -519,27 +519,27 @@ id: intent_matching
         </nav>
         <div class="tab-content">
             <div class="tab-pane fade show active" id="fn_text" role="tabpanel">
-                <table class="gradient-table">
+                <table style="width: 100%" class="gradient-table">
                     <thead>
                     <tr>
                         <th>Function</th>
-                        <th>Description</th>
-                        <th>Example</th>
+                        <th>Usage</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
                         <td>
                             <p>
-                                <code><b>length</b>(</code><br>
-                                <code style="padding-left: 15px">p: {String|List|Map}</code><br>
-                                <code>) ⇒ Int</code>
+                                <code><b>length</b>(p: {String|List|Map}) ⇒ Int</code>
                             </p>
                             <p>
-                                Aliases: <code><b>size</b></code>, <code><b>count</b></code>
+                                <b>Description:</b><br>
+                                Returns size or length of the given string, list or map.
+                            </p>
+                            <p>
+                                <b>Aliases:</b> <code><b>size</b></code>, <code><b>count</b></code>
                             </p>
                         </td>
-                        <td>Returns size or length of the given string, list or map.</td>
                         <td>
                         <pre class="brush:idl">
                             // Result: 9
@@ -550,6 +550,7 @@ id: intent_matching
                         </pre>
                         </td>
                     </tr>
+                    <!--
                     <tr>
                         <td>
                             <code><b>trim</b>(p: String) ⇒ String</code><br>
@@ -650,6 +651,7 @@ id: intent_matching
                         </pre>
                         </td>
                     </tr>
+                    -->
 
 
 
