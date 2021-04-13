@@ -21,7 +21,7 @@ id: intent_matching
  limitations under the License.
 -->
 
-<div class="col-md-8 second-column">
+<div id="intent-matching"  class="col-md-8 second-column">
     <section>
         <h2 class="section-title">Overview</h2>
         <p>
@@ -107,11 +107,14 @@ id: intent_matching
             </li>
         </ul>
         <p>
-            IDL program consists of one or more of the following statements (in any order or combination):
+            IDL program consists of one or more of
+            <a href="#import_statement">import</a>,
+            <a href="#intent_statement">intent</a> or
+            <a href="#fragment_statement">fragment</a> statement:
         </p>
         <ul>
             <li>
-                <p>
+                <p id="import_statement">
                     <b><code>import</code> statement</b>
                 </p>
                 <p>
@@ -149,7 +152,7 @@ id: intent_matching
                 <p></p>
             </li>
             <li>
-                <p>
+                <p id="intent_statement">
                     <b><code>intent</code> statement</b>
                 </p>
                 <p>
@@ -412,7 +415,7 @@ id: intent_matching
                 </dl>
             </li>
             <li>
-                <p>
+                <p id="fragment_statement">
                     <b><code>fragment</code> statement</b>
                 </p>
                 <p>
@@ -497,7 +500,7 @@ id: intent_matching
         </table>
         <p>
             Encountering other incompatible types will result in a runtime error during intent matching. It is
-            especially important to watch out for the types when adding objects to various metadata contaioners
+            especially important to watch out for the types when adding objects to various metadata containers
             and using that metadata in the IDL expressions.
         </p>
         <p>
@@ -530,14 +533,14 @@ id: intent_matching
                     <tr>
                         <td>
                             <p>
-                                <code><b>length</b>(p: {String|List|Map}) ⇒ Int</code>
+                                <code class="fn"><b>length</b>(p: {String|List|Map}) ⇒ Int</code>
                             </p>
-                            <p>
-                                <b>Description:</b><br>
+                            <p class="fn-desc">
+                                <em>Description:</em><br>
                                 Returns size or length of the given string, list or map.
                             </p>
-                            <p>
-                                <b>Aliases:</b> <code><b>size</b></code>, <code><b>count</b></code>
+                            <p class="fn-desc">
+                                <em>Aliases:</em> <code><b>size</b></code>, <code><b>count</b></code>
                             </p>
                         </td>
                         <td>
@@ -550,13 +553,19 @@ id: intent_matching
                         </pre>
                         </td>
                     </tr>
-                    <!--
                     <tr>
                         <td>
-                            <code><b>trim</b>(p: String) ⇒ String</code><br>
-                            <code><b>strip</b>(p: String) ⇒ String</code>
+                            <p>
+                                <code class="fn"><b>trim</b>(p: String) ⇒ Int</code>
+                            </p>
+                            <p class="fn-desc">
+                                <em>Description:</em><br>
+                                Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#trim()"><code>String.trim()</code></a> on given parameter and returns its result.
+                            </p>
+                            <p class="fn-desc">
+                                <em>Aliases:</em> <code><b>strip</b></code>
+                            </p>
                         </td>
-                        <td>Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#trim()"><code>String.trim()</code></a> function on given parameter and returns its result.</td>
                         <td>
                         <pre class="brush:idl">
                             // Result: "text"
@@ -566,9 +575,14 @@ id: intent_matching
                     </tr>
                     <tr>
                         <td>
-                            <code><b>uppercase</b>(p: String) ⇒ String</code>
+                            <p>
+                                <code class="fn"><b>uppercase</b>(p: String) ⇒ String</code>
+                            </p>
+                            <p class="fn-desc">
+                                <em>Description:</em><br>
+                                Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#toUpperCase()"><code>String.toUpperCase()</code></a> on given parameter and returns its result.
+                            </p>
                         </td>
-                        <td>Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#toUpperCase()"><code>String.toUpperCase()</code></a> function on given parameter and returns its result.</td>
                         <td>
                         <pre class="brush:idl">
                             // Result: "TEXT"
@@ -578,9 +592,14 @@ id: intent_matching
                     </tr>
                     <tr>
                         <td>
-                            <code><b>lowercase</b>(p: String) ⇒ String</code>
+                            <p>
+                                <code class="fn"><b>lowercase</b>(p: String) ⇒ String</code>
+                            </p>
+                            <p class="fn-desc">
+                                <em>Description:</em><br>
+                                Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#toLowerCase()"><code>String.toLowerCase()</code></a> on given parameter and returns its result.
+                            </p>
                         </td>
-                        <td>Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#toLowerCase()"><code>String.toLowerCase()</code></a> function on given parameter and returns its result.</td>
                         <td>
                         <pre class="brush:idl">
                             // Result: "text"
@@ -590,9 +609,14 @@ id: intent_matching
                     </tr>
                     <tr>
                         <td>
-                            <code><b>is_alpha</b>(p: String) ⇒ Boolean</code>
+                            <p>
+                                <code class="fn"><b>is_alpha</b>(p: String) ⇒ Boolean</code>
+                            </p>
+                            <p class="fn-desc">
+                                <em>Description:</em><br>
+                                Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlpha-java.lang.CharSequence-"><code>StringUtils.isAlpha()</code></a> on given parameter and returns its result.
+                            </p>
                         </td>
-                        <td>Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlpha-java.lang.CharSequence-"><code>StringUtils.isAlpha()</code></a> function on given parameter and returns its result.</td>
                         <td>
                         <pre class="brush:idl">
                             // Result: true
@@ -602,9 +626,14 @@ id: intent_matching
                     </tr>
                     <tr>
                         <td>
-                            <code><b>is_alphanum</b>(p: String) ⇒ Boolean</code>
+                            <p>
+                                <code class="fn"><b>is_alphanum</b>(p: String) ⇒ Boolean</code>
+                            </p>
+                            <p class="fn-desc">
+                                <em>Description:</em><br>
+                                Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlphanumeric-java.lang.CharSequence-"><code>StringUtils.isAlphanumeric()</code></a> on given parameter and returns its result.
+                            </p>
                         </td>
-                        <td>Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlphanumeric-java.lang.CharSequence-"><code>StringUtils.isAlphanumeric()</code></a> function on given parameter and returns its result.</td>
                         <td>
                         <pre class="brush:idl">
                             // Result: true
@@ -614,9 +643,14 @@ id: intent_matching
                     </tr>
                     <tr>
                         <td>
-                            <code><b>is_whitespace</b>(p: String) ⇒ Boolean</code>
+                            <p>
+                                <code class="fn"><b>is_whitespace</b>(p: String) ⇒ Boolean</code>
+                            </p>
+                            <p class="fn-desc">
+                                <em>Description:</em><br>
+                                Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isWhitespace-java.lang.CharSequence-"><code>StringUtils.isWhitespace()</code></a> on given parameter and returns its result.
+                            </p>
                         </td>
-                        <td>Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isWhitespace-java.lang.CharSequence-"><code>StringUtils.isWhitespace()</code></a> function on given parameter and returns its result.</td>
                         <td>
                         <pre class="brush:idl">
                             // Result: true
@@ -626,9 +660,14 @@ id: intent_matching
                     </tr>
                     <tr>
                         <td>
-                            <code><b>is_num</b>(p: String) ⇒ Boolean</code>
+                            <p>
+                                <code class="fn"><b>is_num</b>(p: String) ⇒ Boolean</code>
+                            </p>
+                            <p class="fn-desc">
+                                <em>Description:</em><br>
+                                Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isNumeric-java.lang.CharSequence-"><code>StringUtils.isNumeric()</code></a> on given parameter and returns its result.
+                            </p>
                         </td>
-                        <td>Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isNumeric-java.lang.CharSequence-"><code>StringUtils.isNumeric()</code></a> function on given parameter and returns its result.</td>
                         <td>
                         <pre class="brush:idl">
                             // Result: true
@@ -641,9 +680,14 @@ id: intent_matching
                     </tr>
                     <tr>
                         <td>
-                            <code><b>is_numspace</b>(p: String) ⇒ Boolean</code>
+                            <p>
+                                <code class="fn"><b>is_numspace</b>(p: String) ⇒ Boolean</code>
+                            </p>
+                            <p class="fn-desc">
+                                <em>Description:</em><br>
+                                Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isNumericSpace-java.lang.CharSequence-"><code>StringUtils.isNumericSpace()</code></a> on given parameter and returns its result.
+                            </p>
                         </td>
-                        <td>Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isNumericSpace-java.lang.CharSequence-"><code>StringUtils.isNumericSpace()</code></a> function on given parameter and returns its result.</td>
                         <td>
                         <pre class="brush:idl">
                             // Result: true
@@ -651,9 +695,6 @@ id: intent_matching
                         </pre>
                         </td>
                     </tr>
-                    -->
-
-
 
                     <!--
                                 case "is_alphaspace" ⇒ z[ST](arg1, { x ⇒ val Z(v, f) = x(); Z(StringUtils.isAlphaSpace(toStr(v)), f) })
@@ -694,28 +735,34 @@ id: intent_matching
                     <thead>
                     <tr>
                         <th>Function</th>
-                        <th>Description</th>
-                        <th>Example</th>
+                        <th>Usage</th>
                     </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>
-                                <code><b>if</b>(</code><br>
-                                <code style="padding-left: 15px">c: Boolean,</code><br>
-                                <code style="padding-left: 15px">then: Any,</code><br>
-                                <code style="padding-left: 15px">else: Any</code><br>
-                                <code>) ⇒ Any</code>
+                                <p>
+                                    <code class="fn"><b>if</b>(c: Boolean, then: Any: else: Any) ⇒ Any</code>
+                                </p>
+                                <!--<editor-fold desc="b">-->
+                                <p class="fn-desc">
+                                    <em>Description:</em><br>
+                                    This function provides 'if-then-else' equivalent as IDL does not provide branching
+                                    on the language level. This function will evaluate <code>c</code> parameter and either
+                                    return <code><b>then</b></code> value if it evaluates to <code>true</code> or <code><b>else</b></code>
+                                    value in case if it evaluates to <code>false</code>. Note that evaluation will be
+                                    short-circuit, i.e. either <code><b>then</b></code> or <code><b>else</b></code> will actually be
+                                    computed but not both.
+                                </p>
+                                <!--</editor-fold>-->
                             </td>
-                            <td>Returns size or length of the given string, list or map.</td>
                             <td>
-                                <pre class="brush:idl">
-                                    // Result: 9
-                                    length("some text")
-
-                                    // Result: 3
-                                    size(list(1, 2, 3))
-                                </pre>
+                            <pre class="brush:idl">
+                                // Result:
+                                //  - 'list(1, 2, 3)' if 1st parameter is evaluated to 'true'.
+                                //  - 'null' if 1st parameter is evaluated to 'false'.
+                                if(meta_model('my_prop') == true, list(1, 2, 3), null)
+                            </pre>
                             </td>
                         </tr>
                     </tbody>
