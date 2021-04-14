@@ -695,11 +695,79 @@ id: intent_matching
                         </pre>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            <p>
+                                <code class="fn"><b>is_alphaspace</b>(p: String) ⇒ Boolean</code>
+                            </p>
+                            <p class="fn-desc">
+                                <em>Description:</em><br>
+                                Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlphaSpace-java.lang.CharSequence-"><code>StringUtils.isAlphaSpace()</code></a> on given parameter and returns its result.
+                            </p>
+                        </td>
+                        <td>
+                        <pre class="brush:idl">
+                            // Result: true
+                            is_numspace("  abc  ")
+                        </pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>
+                                <code class="fn"><b>is_alphanumspace</b>(p: String) ⇒ Boolean</code>
+                            </p>
+                            <p class="fn-desc">
+                                <em>Description:</em><br>
+                                Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlphaNumericSpace-java.lang.CharSequence-"><code>StringUtils.isAlphaNumericSpace()</code></a> on given parameter and returns its result.
+                            </p>
+                        </td>
+                        <td>
+                        <pre class="brush:idl">
+                            // Result: true
+                            is_alphanumspace("  123 abc  ")
+                        </pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>
+                                <code class="fn"><b>split</b>(p1: String, p2: String) ⇒ List</code>
+                            </p>
+                            <p class="fn-desc">
+                                <em>Description:</em><br>
+                                Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#split(java.lang.String)"><code>split(<b>p2</b>)</code></a> and returns its result converted to the list.
+                            </p>
+                        </td>
+                        <td>
+                        <pre class="brush:idl">
+                            // Result: ["a", "b", "c"]
+                            split("a|b|c", "|")
+                        </pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>
+                                <code class="fn"><b>split_trim</b>(p1: String, p2: String) ⇒ List</code>
+                            </p>
+                            <p class="fn-desc">
+                                <em>Description:</em><br>
+                                Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#split(java.lang.String)"><code>split(<b>p2</b>)</code></a>
+                                converting the result to the list. Then
+                                calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#strip()">String.strip()</a> on each
+                                element.
+                            </p>
+                        </td>
+                        <td>
+                        <pre class="brush:idl">
+                            // Result: ["a", "b", "c"]
+                            split_trim("a | b |c ", "|")
+                        </pre>
+                        </td>
+                    </tr>
 
                     <!--
-                                case "is_alphaspace" ⇒ z[ST](arg1, { x ⇒ val Z(v, f) = x(); Z(StringUtils.isAlphaSpace(toStr(v)), f) })
-                                case "is_alphanumspace" ⇒ z[ST](arg1, { x ⇒ val Z(v, f) = x(); Z(StringUtils.isAlphanumericSpace(toStr(v)), f) })
-                                case "split" ⇒ doSplit()
                                 case "split_trim" ⇒ doSplitTrim()
                                 case "start_with" ⇒ doStartWith()
                                 case "end_with" ⇒ doEndWith()
