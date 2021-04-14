@@ -766,19 +766,146 @@ id: intent_matching
                         </pre>
                         </td>
                     </tr>
-
-                    <!--
-                                case "split_trim" ⇒ doSplitTrim()
-                                case "start_with" ⇒ doStartWith()
-                                case "end_with" ⇒ doEndWith()
-                                case "contains" ⇒ doContains()
-                                case "index_of" ⇒ doIndexOf()
-                                case "substr" ⇒ doSubstr()
-                                case "replace" ⇒ doReplace()
-                                case "to_double" ⇒ doToDouble()
-                                case "to_int" ⇒ doToInt()
-
-                    -->
+                    <tr>
+                        <td>
+                            <p>
+                                <code class="fn"><b>starts_with</b>(p1: String, p2: String) ⇒ Boolean</code>
+                            </p>
+                            <p class="fn-desc">
+                                <em>Description:</em><br>
+                                Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#split(java.lang.String)"><code>startsWith(<b>p2</b>)</code></a> and returns its result.
+                            </p>
+                        </td>
+                        <td>
+                        <pre class="brush:idl">
+                            // Result: true
+                            starts_width("abc", "ab")
+                        </pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>
+                                <code class="fn"><b>ends_with</b>(p1: String, p2: String) ⇒ Boolean</code>
+                            </p>
+                            <p class="fn-desc">
+                                <em>Description:</em><br>
+                                Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#split(java.lang.String)"><code>endsWith(<b>p2</b>)</code></a> and returns its result.
+                            </p>
+                        </td>
+                        <td>
+                        <pre class="brush:idl">
+                            // Result: true
+                            ends_width("abc", "bc")
+                        </pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>
+                                <code class="fn"><b>contains</b>(p1: String, p2: String) ⇒ Boolean</code>
+                            </p>
+                            <p class="fn-desc">
+                                <em>Description:</em><br>
+                                Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#contains(java.lang.CharSequence)"><code>contains(<b>p2</b>)</code></a> and returns its result.
+                            </p>
+                        </td>
+                        <td>
+                        <pre class="brush:idl">
+                            // Result: true
+                            contains("abc", "bc")
+                        </pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>
+                                <code class="fn"><b>index_of</b>(p1: String, p2: String) ⇒ Int</code>
+                            </p>
+                            <p class="fn-desc">
+                                <em>Description:</em><br>
+                                Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#indexOf(java.lang.String)"><code>indexOf(<b>p2</b>)</code></a> and returns its result.
+                            </p>
+                        </td>
+                        <td>
+                        <pre class="brush:idl">
+                            // Result: 1
+                            index_of("abc", "bc")
+                        </pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>
+                                <code class="fn"><b>substr</b>(p1: String, p2: Int, p3: Int) ⇒ String</code>
+                            </p>
+                            <p class="fn-desc">
+                                <em>Description:</em><br>
+                                Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#substring(int,int)"><code>substring(<b>p2</b>, <b>p3</b>)</code></a> and returns its result.
+                            </p>
+                        </td>
+                        <td>
+                        <pre class="brush:idl">
+                            // Result: "bc"
+                            substr("abc", 1, 3)
+                        </pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>
+                                <code class="fn"><b>replace</b>(p1: String, p2: String, p3: String) ⇒ String</code>
+                            </p>
+                            <p class="fn-desc">
+                                <em>Description:</em><br>
+                                Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#replace(java.lang.CharSequence,java.lang.CharSequence)"><code>replace(<b>p2</b>, <b>p3</b>)</code></a> and returns its result.
+                            </p>
+                        </td>
+                        <td>
+                        <pre class="brush:idl">
+                            // Result: "aBC"
+                            replace("abc", "bc", "BC")
+                        </pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>
+                                <code class="fn"><b>to_double</b>(p1: {Int|String}) ⇒ Double</code>
+                            </p>
+                            <p class="fn-desc">
+                                <em>Description:</em><br>
+                                Converts given integer or string to double value.
+                            </p>
+                        </td>
+                        <td>
+                        <pre class="brush:idl">
+                            // Result: 1.2
+                            to_double("1.2")
+                            // Result: 1.0
+                            to_double(1)
+                        </pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>
+                                <code class="fn"><b>to_int</b>(p1: {Double|String}) ⇒ Double</code>
+                            </p>
+                            <p class="fn-desc">
+                                <em>Description:</em><br>
+                                Converts given double or string to integer value. In case of double
+                                value it will be rounded to the nearest integer value.
+                            </p>
+                        </td>
+                        <td>
+                        <pre class="brush:idl">
+                            // Result: 1
+                            to_int("1.2")
+                            to_int(1.2)
+                        </pre>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
