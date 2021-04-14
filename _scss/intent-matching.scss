@@ -20,6 +20,16 @@
         font-size: 110%
     }
 
+    ul.fn-toc {
+        margin-top: 15px;
+        list-style-type: circle;
+        padding-left: 20px;
+    }
+
+    div.syntaxhighlighter.idl {
+        margin-top: 0 !important;
+    }
+
     p.fn-desc {
         padding-left: 20px;
 

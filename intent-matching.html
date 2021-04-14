@@ -454,16 +454,20 @@ id: intent_matching
                 </ul>
             </li>
         </ul>
-        <h2 id="idl_functions" class="section-sub-title">IDL Functions</h2>
+        <h2 id="idl_functions" class="section-title">IDL Functions</h2>
         <p>
-            IDL functions provide the actual functionality of IDL. IDL function operates on stack - its parameters
+            IDL provides over 50 built-in functions that can be used in IDL intent definitions.
+            IDL function call takes on traditional
+            <code><b>fun_name</b>(p1, p2, ... pk)</code> syntax form.
+            IDL function operates on stack - its parameters
             are taken from the stack and its result is put back onto stack which in turn can become a parameter for the next function
-            call and so on. IDL functions can have zero or more parameters and always have one result value. Some IDL
-            functions support variable number of parameters.
+            call and so on. IDL functions can have zero or more parameters and always have one result value (i.e. no pure side-effect functions). Some IDL
+            functions support variable number of parameters. Note that you cannot define your own functions in IDL - in such
+            cases you need to use the term with the user-defined callback method.
         </p>
         <p>
             Note also that IDL functions are pure immutable mathematical functions. In other words, when chaining the function
-            calls IDL uses mathematical notations rather than object oriented one: IDL <code>length(trim(" text "))</code> vs. OOP-style <code>" text ".trim().length()</code>.
+            calls IDL uses mathematical notation (a-la Python) rather than object-oriented one: IDL <code>length(trim(" text "))</code> vs. OOP-style <code>" text ".trim().length()</code>.
         </p>
         <p>
             IDL functions operate with the following types:
@@ -522,6 +526,29 @@ id: intent_matching
         </nav>
         <div class="tab-content">
             <div class="tab-pane fade show active" id="fn_text" role="tabpanel">
+                <ul class="fn-toc">
+                    <li><a href=""><code><b>length</b>(p: {String|List|Map}) ⇒ Int</code></a></li>
+                    <li><a href=""><code><b>trim</b>(p: String) ⇒ Int</code></a></li>
+                    <li><a href=""><code><b>uppercase</b>(p: String) ⇒ String</code></a></li>
+                    <li><a href=""><code><b>lowercase</b>(p: String) ⇒ String</code></a></li>
+                    <li><a href=""><code><b>is_alpha</b>(p: String) ⇒ Boolean</code></a></li>
+                    <li><a href=""><code><b>is_alphanum</b>(p: String) ⇒ Boolean</code></a></li>
+                    <li><a href=""><code><b>is_whitespace</b>(p: String) ⇒ Boolean</code></a></li>
+                    <li><a href=""><code><b>is_num</b>(p: String) ⇒ Boolean</code></a></li>
+                    <li><a href=""><code><b>is_numspace</b>(p: String) ⇒ Boolean</code></a></li>
+                    <li><a href=""><code><b>is_alphaspace</b>(p: String) ⇒ Boolean</code></a></li>
+                    <li><a href=""><code><b>is_alphanumspace</b>(p: String) ⇒ Boolean</code></a></li>
+                    <li><a href=""><code><b>split</b>(p1: String, p2: String) ⇒ List</code></a></li>
+                    <li><a href=""><code><b>split_trim</b>(p1: String, p2: String) ⇒ List</code></a></li>
+                    <li><a href=""><code><b>starts_with</b>(p1: String, p2: String) ⇒ Boolean</code></a></li>
+                    <li><a href=""><code><b>ends_with</b>(p1: String, p2: String) ⇒ Boolean</code></a></li>
+                    <li><a href=""><code><b>contains</b>(p1: String, p2: String) ⇒ Boolean</code></a></li>
+                    <li><a href=""><code><b>index_of</b>(p1: String, p2: String) ⇒ Int</code></a></li>
+                    <li><a href=""><code><b>substr</b>(p1: String, p2: Int, p3: Int) ⇒ String</code></a></li>
+                    <li><a href=""><code><b>replace</b>(p1: String, p2: String, p3: String) ⇒ String</code></a></li>
+                    <li><a href=""><code><b>to_double</b>(p1: {Int|String}) ⇒ Double</code></a></li>
+                    <li><a href=""><code><b>to_int</b>(p1: {Double|String}) ⇒ Double</code></a></li>
+                </ul>
                 <table style="width: 100%" class="gradient-table">
                     <thead>
                     <tr>
@@ -926,6 +953,11 @@ id: intent_matching
             <div class="tab-pane fade show" id="fn_company" role="tabpanel">
             </div>
             <div class="tab-pane fade show" id="fn_other" role="tabpanel">
+                <ul class="fn-toc">
+                    <li><a href="#fn_if"><code><b>if</b>(c: Boolean, then: Any: else: Any) ⇒ Any</code></a></li>
+                    <li><a href="#fn_json"><code><b>json</b>(p: String) ⇒ Map</code></a></li>
+                    <li><a href="#fn_to_string"><code><b>to_string</b>(p: Any) ⇒ {String|List}</code></a></li>
+                </ul>
                 <table class="gradient-table">
                     <thead>
                     <tr>
@@ -934,12 +966,11 @@ id: intent_matching
                     </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr id="fn_if">
                             <td>
                                 <p>
                                     <code class="fn"><b>if</b>(c: Boolean, then: Any: else: Any) ⇒ Any</code>
                                 </p>
-                                <!--<editor-fold desc="b">-->
                                 <p class="fn-desc">
                                     <em>Description:</em><br>
                                     This function provides 'if-then-else' equivalent as IDL does not provide branching
@@ -949,7 +980,6 @@ id: intent_matching
                                     short-circuit, i.e. either <code><b>then</b></code> or <code><b>else</b></code> will actually be
                                     computed but not both.
                                 </p>
-                                <!--</editor-fold>-->
                             </td>
                             <td>
                             <pre class="brush:idl">
@@ -960,18 +990,16 @@ id: intent_matching
                             </pre>
                             </td>
                         </tr>
-                        <tr>
+                        <tr id="fn_json">
                             <td>
                                 <p>
                                     <code class="fn"><b>json</b>(p: String) ⇒ Map</code>
                                 </p>
-                                <!--<editor-fold desc="b">-->
                                 <p class="fn-desc">
                                     <em>Description:</em><br>
                                     Converts JSON in <code><b>p</b></code> parameter to a map. Use single quoted
                                     string to avoid escaping double quotes in JSON.
                                 </p>
-                                <!--</editor-fold>-->
                             </td>
                             <td>
                             <pre class="brush:idl">
@@ -980,7 +1008,7 @@ id: intent_matching
                             </pre>
                             </td>
                         </tr>
-                        <tr>
+                        <tr id="fn_to_string">
                             <td>
                                 <p>
                                     <code class="fn"><b>to_string</b>(p: Any) ⇒ {String|List}</code>
@@ -1790,6 +1818,7 @@ id: intent_matching
         <li class="side-nav-title">On This Page</li>
         <li><a href="#intent">Overview</a></li>
         <li><a href="#idl">IDL Syntax</a></li>
+        <li><a href="#idl_functions">IDL Functions</a></li>
         <li><a href="#binding">Intent Binding</a></li>
         <li><a href="#logic">Intent Matching</a></li>
         <li><a href="#intent_callback">Intent Callback</a></li>
