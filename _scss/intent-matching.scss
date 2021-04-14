@@ -30,13 +30,19 @@
         margin-top: 0 !important;
     }
 
-    p.fn-desc {
-        padding-left: 20px;
-
+    p.fn-desc, p.fn-usage {
         em {
             font-weight: 600;
             font-style: normal;
             font-size: 95%;
         }
+    }
+
+    div.card-header {
+        padding: 0 20px !important;
+    }
+
+    p.fn-usage {
+        margin-bottom: 5px !important;
     }
 }

@@ -953,24 +953,17 @@ id: intent_matching
             <div class="tab-pane fade show" id="fn_company" role="tabpanel">
             </div>
             <div class="tab-pane fade show" id="fn_other" role="tabpanel">
-                <ul class="fn-toc">
-                    <li><a href="#fn_if"><code><b>if</b>(c: Boolean, then: Any: else: Any) ⇒ Any</code></a></li>
-                    <li><a href="#fn_json"><code><b>json</b>(p: String) ⇒ Map</code></a></li>
-                    <li><a href="#fn_to_string"><code><b>to_string</b>(p: Any) ⇒ {String|List}</code></a></li>
-                </ul>
-                <table class="gradient-table">
-                    <thead>
-                    <tr>
-                        <th>Function</th>
-                        <th>Usage</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr id="fn_if">
-                            <td>
-                                <p>
-                                    <code class="fn"><b>if</b>(c: Boolean, then: Any: else: Any) ⇒ Any</code>
-                                </p>
+                <div class="accordion" id="other_fns">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_if">
+                                    <code><b>if</b>(c: Boolean, then: Any: else: Any) ⇒ Any</code>
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="fn_if" class="collapse" data-parent="#other_fns">
+                            <div class="card-body">
                                 <p class="fn-desc">
                                     <em>Description:</em><br>
                                     This function provides 'if-then-else' equivalent as IDL does not provide branching
@@ -980,57 +973,72 @@ id: intent_matching
                                     short-circuit, i.e. either <code><b>then</b></code> or <code><b>else</b></code> will actually be
                                     computed but not both.
                                 </p>
-                            </td>
-                            <td>
-                            <pre class="brush:idl">
-                                // Result:
-                                //  - 'list(1, 2, 3)' if 1st parameter is 'true'.
-                                //  - 'null' if 1st parameter is 'false'.
-                                if(meta_model('my_prop') == true, list(1, 2, 3), null)
-                            </pre>
-                            </td>
-                        </tr>
-                        <tr id="fn_json">
-                            <td>
-                                <p>
-                                    <code class="fn"><b>json</b>(p: String) ⇒ Map</code>
+                                <p class="fn-usage">
+                                    <em>Usage:</em><br>
                                 </p>
+                                <pre class="brush:idl">
+                                    // Result:
+                                    //  - 'list(1, 2, 3)' if 1st parameter is 'true'.
+                                    //  - 'null' if 1st parameter is 'false'.
+                                    if(meta_model('my_prop') == true, list(1, 2, 3), null)
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_json">
+                                    <code><b>json</b>(p: String) ⇒ Map</code>
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="fn_json" class="collapse" data-parent="#other_fns">
+                            <div class="card-body">
                                 <p class="fn-desc">
                                     <em>Description:</em><br>
                                     Converts JSON in <code><b>p</b></code> parameter to a map. Use single quoted
                                     string to avoid escaping double quotes in JSON.
                                 </p>
-                            </td>
-                            <td>
-                            <pre class="brush:idl">
-                                // Result: Map.
-                                json('{"a": 2, "b": [1, 2, 3]}')
-                            </pre>
-                            </td>
-                        </tr>
-                        <tr id="fn_to_string">
-                            <td>
-                                <p>
-                                    <code class="fn"><b>to_string</b>(p: Any) ⇒ {String|List}</code>
+                                <p class="fn-usage">
+                                    <em>Usage:</em><br>
                                 </p>
+                                <pre class="brush:idl">
+                                    // Result: Map.
+                                    json('{"a": 2, "b": [1, 2, 3]}')
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_to_string">
+                                    <code><b>to_string</b>(p: Any) ⇒ {String|List}</code>
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="fn_to_string" class="collapse" data-parent="#other_fns">
+                            <div class="card-body">
                                 <p class="fn-desc">
                                     <em>Description:</em><br>
                                     Converts <code><b>p</b></code> parameter to a string. In case of a list
                                     this function will convert individual list elements to string and return the
                                     list of strings.
                                 </p>
-                            </td>
-                            <td>
-                            <pre class="brush:idl">
-                                // Result: "1.25"
-                                to_string(1.25)
-                                // Result: list("1", "2", "3")
-                                to_string(list(1, 2, 3))
-                            </pre>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                                <p class="fn-usage">
+                                    <em>Usage:</em><br>
+                                </p>
+                                <pre class="brush:idl">
+                                    // Result: "1.25"
+                                    to_string(1.25)
+                                    // Result: list("1", "2", "3")
+                                    to_string(list(1, 2, 3))
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <h2 id="idl_location" class="section-sub-title">IDL Location</h2>
