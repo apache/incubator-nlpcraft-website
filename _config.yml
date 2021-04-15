@@ -62,8 +62,6 @@ exclude:
   - apis/javadoc-0.7.2
   - apis/javadoc-0.7.3
   - apis/javadoc-0.7.4
-  - ext
-  - fonts
   - javadoc
   - _site
 

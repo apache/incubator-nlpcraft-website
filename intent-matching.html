@@ -394,7 +394,7 @@ id: intent_matching
                         fragment(when) // insert terms from fragment 'when'.
                 </pre>
                 <p><b>NOTES:</b></p>
-                <ul>
+                <ul class="recover_bottom_margin">
                     <li>
                         Fragment statements (line 2 and 3) have a name (<code>buzz</code> and <code>when</code>) and a list of terms.
                     </li>
@@ -426,7 +426,7 @@ id: intent_matching
                 <p>
                     <b>NOTES:</b>
                 </p>
-                <ul>
+                <ul class="recover_bottom_margin">
                     <li>
                         The effect of importing is the same as if the imported declarations were inserted in place of import
                         statement.
@@ -443,6 +443,100 @@ id: intent_matching
                     </li>
                 </ul>
                 <p></p>
+            </li>
+        </ul>
+        <h2 class="section-sub-title">Intent Lifecycle</h2>
+        <p>
+            During NLPCraft data probe start it scans the models provided in its configuration for the intents. The
+            scanning process goes through JSON/YAML external configurations as well as model classes when looking
+            for IDL intents. All found intents are compiled into an internal representation before the data probe
+            completes its start up sequence.
+        </p>
+        <p>
+            Note that not all intents problems can be detected at the compilation phase, and probe can start with intents
+            not being completely validated. For example, each term in the intent must evaluate to a boolean result. This can
+            only be checked at runtime. Another example is the number and the types of parameters passed into IDL function
+            which can only be checked at runtime as well.
+        </p>
+        <p>
+            Intents are compiled only once during the data probe start up sequence and cannot be re-compiled
+            without data probe restart. Model logic, however, can affect the intent behavior through <a href="/data-model.html#callbacks">model callbacks</a>,
+            <a target=_ href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMetadata()">model metadata</a>,
+            user and company metadata, as well as request data all of which can change at runtime and
+            are accessible through IDL functions.
+        </p>
+        <h2 class="section-sub-title">Intent Examples</h2>
+        <p>
+            Here's number of intent examples with explanations:
+        </p>
+        <p>
+            <b>Example 1:</b>
+        </p>
+        <pre class="brush: idl">
+        intent=a
+            term~{tok_id() == 'x:id'}
+            term(nums)~{tok_id() == 'nlpcraft:num' && lowercase(meta_tok('nlpcraft:num:unittype')) == 'datetime'}[0,2]
+        </pre>
+        <p><b>NOTES:</b></p>
+        <ul>
+            <li>
+                Intent has ID <code>a</code>.
+            </li>
+            <li>
+                Intent uses default conversational support (<code>true</code>) and default order (<code>false</code>).
+            </li>
+            <li>
+                Intent has two conversational terms that have to be found for the intent to match. Note that second
+                term is optional as it has <code>[0,2]</code> quantifier.
+            </li>
+            <li>
+                First term matches any single token with ID <code>x:id</code>.
+            </li>
+            <li>
+                Second term can appear zero, once or two times and it matches token with ID <code>nlpcraft:num</code> with
+                <code>nlpcraft:num:unittype</code> metadata property equal to <code>'datetime'</code> string.
+            </li>
+            <li>
+                IDL function <code>lowercase</code> used on <code>nlpcraft:num:unittype</code> metadata property value.
+            </li>
+            <li>
+                Note that since second term has ID (<code>nums</code>) it can be references by <code>@NCIntentTerm</code>
+                annotation by the callback formal parameter.
+            </li>
+        </ul>
+        <br/>
+        <p>
+            <b>Example 2:</b>
+        </p>
+        <pre class="brush: idl">
+        intent=id2
+            flow='id1 id2'
+            term={tok_id() == 'mytok' && signum(get(meta_tok('score'), 'best')) != -1}
+            term={has_all(tok_groups(), list('actors', 'owners')) && size(meta_part('partAlias, 'text')) > 10}
+        </pre>
+        <p><b>NOTES:</b></p>
+        <ul>
+            <li>
+                Intent has ID <code>id2</code>.
+            </li>
+            <li>
+                Intent has dialog flow pattern: <code>'id1 id2'</code>. It expect sequence of intents <code>id1</code> and
+                <code>id2</code> somewhere in the history of previously matched intents in the course of the current conversation.
+            </li>
+            <li>
+                Intent has two non-conversational terms. Both terms have to be present only once (their implicit quantifiers are <code>[1,1]</code>).
+            </li>
+            <li>
+                First term should be a token with ID <code>mytok</code> and have metadata property <code>score</code> of type
+                map. This map should have a value with the string key <code>'best'</code>. <code>signum</code> of this map value
+                should not equal <code>-1</code>. Note that built-in functions (i.e. <code>signum</code>) can only be
+                used on the left values.
+            </li>
+            <li>
+                Second term should be a token that belongs to either <code>actors</code> or <code>owners</code> group.
+                It should have a part token whose with alias <code>partAlias</code>. That
+                part token should have metadata property <code>text</code> of type string, list or map. The length of
+                this string, list or map should be greater than <code>10</code>.
             </li>
         </ul>
         <h2 id="idl_functions" class="section-title">IDL Functions</h2>
@@ -1159,27 +1253,6 @@ id: intent_matching
                 </pre>
             </li>
         </ul>
-        <h2 class="section-sub-title">Intent Lifecycle</h2>
-        <p>
-            During NLPCraft data probe start it scans the models provided in its configuration for the intents. The
-            scanning process goes through JSON/YAML external configurations as well as model classes when looking
-            for IDL intents. All found intents are compiled into an internal representation before the data probe
-            completes its start up sequence.
-        </p>
-        <p>
-            Note that not all intents problems can be detected at the compilation phase, and probe can start with intents
-            not being completely validated. For example, each term in the intent must evaluate to a boolean result. This can
-            only be checked at runtime. Another example is the number and the types of parameters passed into IDL function
-            which can only be checked at runtime as well.
-        </p>
-        <p>
-            Intents are compiled only once during the data probe start up sequence and cannot be re-compiled
-            without data probe restart. Model logic, however, can affect the intent behavior through <a href="/data-model.html#callbacks">model callbacks</a>,
-            <a target=_ href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMetadata()">model metadata</a>,
-            user and company metadata, as well as request data all of which can change at runtime and
-            are accessible through IDL functions.
-        </p>
-        <h2 id="idl_syntax_highlight" class="section-sub-title">IDL Syntax Highlighting</h2>
     </section>
     <section id="binding">
         <h2 class="section-title">Binding Intent</h2>
@@ -1788,82 +1861,6 @@ id: intent_matching
             </tr>
             </tbody>
         </table>
-    </section>
-    <section id="examples">
-        <h2 class="section-title">Intent Examples</h2>
-        <p>
-            Here's number of intent examples with explanations:
-        </p>
-        <p>
-            <b>Example 1:</b>
-        </p>
-        <pre class="brush: idl">
-            intent=a
-                term~{tok_id() == 'x:id'}
-                term(nums)~{tok_id() == 'nlpcraft:num' && lowercase(meta_tok('nlpcraft:num:unittype')) == 'datetime'}[0,2]
-        </pre>
-        <p><b>NOTES:</b></p>
-        <ul>
-            <li>
-                Intent has ID <code>a</code>.
-            </li>
-            <li>
-                Intent uses default conversational support (<code>true</code>) and default order (<code>false</code>).
-            </li>
-            <li>
-                Intent has two conversational terms that have to be found for the intent to match. Note that second
-                term is optional as it has <code>[0,2]</code> quantifier.
-            </li>
-            <li>
-                First term matches any single token with ID <code>x:id</code>.
-            </li>
-            <li>
-                Second term can appear zero, once or two times and it matches token with ID <code>nlpcraft:num</code> with
-                <code>nlpcraft:num:unittype</code> metadata property equal to <code>'datetime'</code> string.
-            </li>
-            <li>
-                IDL function <code>lowercase</code> used on <code>nlpcraft:num:unittype</code> metadata property value.
-            </li>
-            <li>
-                Note that since second term has ID (<code>nums</code>) it can be references by <code>@NCIntentTerm</code>
-                annotation by the callback formal parameter.
-            </li>
-        </ul>
-        <br/>
-        <p>
-            <b>Example 2:</b>
-        </p>
-        <pre class="brush: idl">
-            intent=id2
-                flow='id1 id2'
-                term={tok_id() == 'mytok' && signum(get(meta_tok('score'), 'best')) != -1}
-                term={has_all(tok_groups(), list('actors', 'owners')) && size(meta_part('partAlias, 'text')) > 10}
-        </pre>
-        <p><b>NOTES:</b></p>
-        <ul>
-            <li>
-                Intent has ID <code>id2</code>.
-            </li>
-            <li>
-                Intent has dialog flow pattern: <code>'id1 id2'</code>. It expect sequence of intents <code>id1</code> and
-                <code>id2</code> somewhere in the history of previously matched intents in the course of the current conversation.
-            </li>
-            <li>
-                Intent has two non-conversational terms. Both terms have to be present only once (their implicit quantifiers are <code>[1,1]</code>).
-            </li>
-            <li>
-                First term should be a token with ID <code>mytok</code> and have metadata property <code>score</code> of type
-                map. This map should have a value with the string key <code>'best'</code>. <code>signum</code> of this map value
-                should not equal <code>-1</code>. Note that built-in functions (i.e. <code>signum</code>) can only be
-                used on the left values.
-            </li>
-            <li>
-                Second term should be a token that belongs to either <code>actors</code> or <code>owners</code> group.
-                It should have a part token whose with alias <code>partAlias</code>. That
-                part token should have metadata property <code>text</code> of type string, list or map. The length of
-                this string, list or map should be greater than <code>10</code>.
-            </li>
-        </ul>
     </section>
 </div>
 <div class="col-md-2 third-column">
