@@ -45,7 +45,7 @@ id: intent_matching
             that model wants to react to.
         </p>
         <p>
-            For example, a banking application data model can have multiple intents for each domain-specific group of utterances such as
+            For example, a data model for banking chat bot or analytics application can have multiple intents for each domain-specific group of utterances such as
             opening an account, closing an account, transferring money, getting statements, etc.
         </p>
         <p>
@@ -58,9 +58,15 @@ id: intent_matching
         <h2 class="section-title">IDL - Intent Definition Language</h2>
         <p>
             NLPCraft intents are written in Intent Definition Language (IDL).
-            IDL is a relatively straightforward and simple language. You can review the formal
-            <a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft/src/main/scala/org/apache/nlpcraft/model/intent/compiler/antlr4/NCIdl.g4">ANTLR4 grammar</a> for IDL. Here
-            are the common properties of IDL:
+            IDL is a relatively straightforward and simple language:
+        </p>
+        <pre class="brush: idl">
+            intent=x term(a)~{tok_id() == 'my_elm'} term(b)={has(tok_groups(), "my_group")}
+        </pre>
+        <p>
+            You can review the formal
+            <a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft/src/main/scala/org/apache/nlpcraft/model/intent/compiler/antlr4/NCIdl.g4">ANTLR4 grammar</a> for IDL,
+            but here are the common properties of IDL:
         </p>
         <ul>
             <li>
@@ -108,49 +114,11 @@ id: intent_matching
         </ul>
         <p>
             IDL program consists of one or more of
-            <a href="#import_statement">import</a>,
-            <a href="#intent_statement">intent</a> or
-            <a href="#fragment_statement">fragment</a> statement:
+            <a href="#intent_statement">intent</a>,
+            <a href="#fragment_statement">fragment</a>, or
+            <a href="#import_statement">import</a> statement:
         </p>
         <ul>
-            <li>
-                <p id="import_statement">
-                    <b><code>import</code> statement</b>
-                </p>
-                <p>
-                    Import statement allows to import IDL declarations from either local file, classpath resource or URL:
-                </p>
-                <pre class="brush: idl">
-                    // Import using absolute path.
-                    import('/opt/globals.idl')
-
-                    // Import using classpath resource.
-                    import('org/apache/nlpcraft/examples/alarm/intents.idl')
-
-                    // Import using URL.
-                    import('ftp://user:password@myhost:22/opt/globals.idl')
-                </pre>
-                <p>
-                    <b>NOTES:</b>
-                </p>
-                <ul>
-                    <li>
-                        The effect of importing is the same as if the imported declarations were inserted in place of import
-                        statement.
-                    </li>
-                    <li>
-                        Recursive and cyclic imports are detected and safely ignored.
-                    </li>
-                    <li>
-                        Import statement starts with <code>import</code> keyword and has a string parameter that indicates
-                        the location of the resource to import.
-                    </li>
-                    <li>
-                        For the classpath resource you don't need to specify leading forward slash.
-                    </li>
-                </ul>
-                <p></p>
-            </li>
             <li>
                 <p id="intent_statement">
                     <b><code>intent</code> statement</b>
@@ -159,7 +127,7 @@ id: intent_matching
                     Intent is defined as one or more terms. Each term is a predicate over a instance of
                     <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html">NCToken</a> interface.
                     For an intent to match all of its terms have to evaluate to true.
-                    Intent definition can be informally explained using the following example:
+                    Intent definition can be informally explained using the following full-feature example:
                 </p>
                 <pre class="brush: idl">
                     intent=xa
@@ -274,7 +242,7 @@ id: intent_matching
                     </dt>
                     <dd>
                         <p>
-                            Term, also known as a slot, is a building block of the intent. Term has optional ID, a token predicate and optional quantifiers.
+                            Term is a building block of the intent. Term has optional ID, a token predicate and optional quantifiers.
                             It supports conversation context if it uses <code>'~'</code> symbol or not if it uses <code>'='</code>
                             symbol in its definition. For the conversational term the system will search for a match using tokens from
                             the current request as well as the tokens from conversation STM (short-term-memory). For a non-conversational
@@ -452,6 +420,44 @@ id: intent_matching
                         When a fragment is referenced in intent (lines 14 and 15) it is replaced with its terms.
                     </li>
                 </ul>
+            </li>
+            <li>
+                <p id="import_statement">
+                    <b><code>import</code> statement</b>
+                </p>
+                <p>
+                    Import statement allows to import IDL declarations from either local file, classpath resource or URL:
+                </p>
+                <pre class="brush: idl">
+                    // Import using absolute path.
+                    import('/opt/globals.idl')
+
+                    // Import using classpath resource.
+                    import('org/apache/nlpcraft/examples/alarm/intents.idl')
+
+                    // Import using URL.
+                    import('ftp://user:password@myhost:22/opt/globals.idl')
+                </pre>
+                <p>
+                    <b>NOTES:</b>
+                </p>
+                <ul>
+                    <li>
+                        The effect of importing is the same as if the imported declarations were inserted in place of import
+                        statement.
+                    </li>
+                    <li>
+                        Recursive and cyclic imports are detected and safely ignored.
+                    </li>
+                    <li>
+                        Import statement starts with <code>import</code> keyword and has a string parameter that indicates
+                        the location of the resource to import.
+                    </li>
+                    <li>
+                        For the classpath resource you don't need to specify leading forward slash.
+                    </li>
+                </ul>
+                <p></p>
             </li>
         </ul>
         <h2 id="idl_functions" class="section-title">IDL Functions</h2>
