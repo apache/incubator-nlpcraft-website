@@ -284,61 +284,29 @@ id: intent_matching
                                     }
                                 </pre>
                                 <p>
-                                    Term variable initialization expression as well as term's expression follow Java-like expression
-                                    grammar including precedence rules, brackets and logical combinators. Most of the functionality
-                                    in these expressions is provided by <a href="#idl_functions">IDL functions</a>.
+                                    Term variable initialization expression as well as term's expression follow
+                                    <em>Java-like expression grammar</em> including precedence rules, brackets and logical combinators, as well as
+                                    built-in <a href="#idl_functions">IDL functions</a> calls:
                                 </p>
-                                <p>
-                                    IDL expression is mostly defined by the following ANTLR4 grammar productions that closely
-                                    matches Java-like expression style:
-                                </p>
-                                <pre class="brush: java, highlight: [10, 11, 12]">
-                                    expr
-                                        // NOTE: order of productions defines precedence.
-                                        : op=(MINUS | NOT) expr # unaryExpr
-                                        | LPAR expr RPAR # parExpr
-                                        | expr op=(MULT | DIV | MOD) expr # multDivModExpr
-                                        | expr op=(PLUS | MINUS) expr # plusMinusExpr
-                                        | expr op=(LTEQ | GTEQ | LT | GT) expr # compExpr
-                                        | expr op=(EQ | NEQ) expr # eqNeqExpr
-                                        | expr op=(AND | OR) expr # andOrExpr
-                                        | atom # atomExpr
-                                        | FUN_NAME LPAR paramList? RPAR # callExpr
-                                        | AT id # varRef
-                                        ;
-                                    vars
-                                        : varDecl
-                                        | vars varDecl
-                                        ;
-                                    varDecl: AT id ASSIGN expr;
-                                    paramList
-                                        : expr
-                                        | paramList COMMA expr
-                                        ;
-                                    atom
-                                        : NULL // 'null'.
-                                        | INT REAL? EXP? // Numeric (int and real).
-                                        | BOOL // 'true' or 'false'
-                                        | qstring // Single or double quoted string.
-                                        ;
+                                <pre class="brush: idl">
+                                    term={true} // Special case of 'constant' term.
+                                    term={
+                                        // Variable declarations.
+                                        @a = round(1.25)
+                                        @b = meta_model('my_prop')
+
+                                        // Last expression must evaluate to boolean.
+                                        (@a + 2) * @b > 0
+                                    }
+                                    term={
+                                        // Variable declarations.
+                                        @c = meta_tok('prop')
+                                        @lst = list(1, 2, 3)
+
+                                        // Last expression must evaluate to boolean.
+                                        abs(@c) > 1 && size(@lst) != 5
+                                    }
                                 </pre>
-                                <p><b>NOTES:</b></p>
-                                <ul>
-                                    <li>
-                                        Line 10 defines an expression atom - a terminal literal like a number,
-                                        double or single quoted string, <code>true</code> and
-                                        <code>false</code> boolean value as well as
-                                        <code>null</code> value.
-                                    </li>
-                                    <li>
-                                        Line 11 provides grammar for the IDL function call. <a href="#idl_functions">IDL functions</a>
-                                        provide most of the IDL functionality.
-                                    </li>
-                                    <li>
-                                        Line 12 provides grammar for variable reference. Note that variable must be defined
-                                        prior to referencing it.
-                                    </li>
-                                </ul>
                                 <div class="bq info">
                                     <p>
                                         <b>NOTE:</b> while term variable initialization expressions can have any type - the
@@ -383,7 +351,7 @@ id: intent_matching
                         </ul>
                         <p>
                             As mentioned above the quantifier is inclusive, i.e. the <code>[1,3]</code> means that
-                            term should appear once, two times or three times.
+                            the term should appear once, two times or three times.
                         </p>
                     </dd>
                     <dt>
