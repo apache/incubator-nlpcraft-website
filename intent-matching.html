@@ -457,7 +457,7 @@ id: intent_matching
             cases you need to use the term with the user-defined callback method.
         </p>
         <p>
-            Note also that IDL functions are pure immutable mathematical functions. In other words, when chaining the function
+            Note also that when chaining the function
             calls IDL uses mathematical notation (a-la Python) rather than object-oriented one: IDL <code>length(trim(" text "))</code> vs. OOP-style <code>" text ".trim().length()</code>.
         </p>
         <p>
@@ -932,6 +932,60 @@ id: intent_matching
             <div class="tab-pane fade show" id="fn_collection" role="tabpanel">
             </div>
             <div class="tab-pane fade show" id="fn_token" role="tabpanel">
+                <div class="accordion" id="token_fns">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_tok_id">
+                                    <code><b>tok_id</b>() ⇒ String</code>
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="fn_tok_id" class="collapse" data-parent="#token_fns">
+                            <div class="card-body">
+                                <p class="fn-desc">
+                                    <em>Description:</em><br>
+                                    Returns <a target="javadoc" href="http://127.0.0.1:4000/apis/latest/org/apache/nlpcraft/model/NCToken.html#getId()">token ID.</a>
+                                </p>
+                                <p class="fn-usage">
+                                    <em>Usage:</em><br>
+                                </p>
+                                <pre class="brush:idl">
+                                    // Result: 'true' if the current token ID is equal to 'my_id'.
+                                    tok_id() == 'my_id'
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                    <!--
+                        case "tok_id" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).getId, 1) }) }
+                        case "tok_lemma" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).getLemma, 1) }) }
+                        case "tok_stem" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).getStem, 1) }) }
+                        case "tok_pos" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).getPos, 1) }) }
+                        case "tok_sparsity" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).getSparsity, 1) }) }
+                        case "tok_unid" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).getUnid, 1) }) }
+                        case "tok_is_abstract" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).isAbstract, 1) }) }
+                        case "tok_is_bracketed" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).isBracketed, 1) }) }
+                        case "tok_is_direct" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).isDirect, 1) }) }
+                        case "tok_is_english" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).isEnglish, 1) }) }
+                        case "tok_is_freeWord" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).isFreeWord, 1) }) }
+                        case "tok_is_quoted" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).isQuoted, 1) }) }
+                        case "tok_is_stopword" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).isStopWord, 1) }) }
+                        case "tok_is_swear" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).isSwear, 1) }) }
+                        case "tok_is_user" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).isUserDefined, 1) }) }
+                        case "tok_is_wordnet" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).isWordnet, 1) }) }
+                        case "tok_ancestors" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).getAncestors, 1) }) }
+                        case "tok_parent" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).getParentId, 1) }) }
+                        case "tok_groups" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).getGroups, 1) }) }
+                        case "tok_value" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).getValue, 1) }) }
+                        case "tok_aliases" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).getAliases, 1) }) }
+                        case "tok_start_idx" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).getStartCharIndex, 1) }) }
+                        case "tok_end_idx" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).getEndCharIndex, 1) }) }
+                        case "tok_this" ⇒ z0(() ⇒ Z(tok, 1))
+                        case "tok_find_part" ⇒ doFindPart()
+                        case "tok_find_parts" ⇒ doFindParts()
+                -->
+                </div>
             </div>
             <div class="tab-pane fade show" id="fn_metadata" role="tabpanel">
             </div>
