@@ -58,7 +58,8 @@ id: intent_matching
         <h2 class="section-title">IDL - Intent Definition Language</h2>
         <p>
             NLPCraft intents are written in Intent Definition Language (IDL).
-            IDL is a relatively straightforward and simple language:
+            IDL is a relatively straightforward and simple language. For example,
+            here's a simple intent with two terms:
         </p>
         <pre class="brush: idl">
             intent=x term(a)~{tok_id() == 'my_elm'} term(b)={has(tok_groups(), "my_group")}
@@ -66,11 +67,11 @@ id: intent_matching
         <p>
             You can review the formal
             <a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft/src/main/scala/org/apache/nlpcraft/model/intent/compiler/antlr4/NCIdl.g4">ANTLR4 grammar</a> for IDL,
-            but here are the common properties of IDL:
+            but here are the general properties of IDL:
         </p>
         <ul>
             <li>
-                IDL is a context-independent and has
+                IDL has
                 <a target="wiki" href="https://en.wikipedia.org/wiki/Context-free_grammar">context-free grammar</a>. In simpler terms,
                 all whitespaces outside of string literals are ignored.
             </li>
@@ -113,10 +114,10 @@ id: intent_matching
             </li>
         </ul>
         <p>
-            IDL program consists of one or more of
+            IDL program consists of
             <a href="#intent_statement">intent</a>,
             <a href="#fragment_statement">fragment</a>, or
-            <a href="#import_statement">import</a> statement:
+            <a href="#import_statement">import</a> statements in any order or combination:
         </p>
         <ul>
             <li>
@@ -242,14 +243,15 @@ id: intent_matching
                     </dt>
                     <dd>
                         <p>
-                            Term is a building block of the intent. Term has optional ID, a token predicate and optional quantifiers.
+                            Term is a building block of the intent. Intent must have at least one term.
+                            Term has optional ID, a token predicate and optional quantifiers.
                             It supports conversation context if it uses <code>'~'</code> symbol or not if it uses <code>'='</code>
                             symbol in its definition. For the conversational term the system will search for a match using tokens from
                             the current request as well as the tokens from conversation STM (short-term-memory). For a non-conversational
                             term - only tokens from the current request will be considered.
                         </p>
                         <p>
-                            A term is matched if its token predicate returns true result.
+                            A term is matched if its token predicate returns true.
                             The matched term represents one or more tokens, sequential or not, that were detected in the user input. Intent has a list of terms
                             (always at least one) that all have to be matched in the user input for the intent to match. Note that term
                             can be optional if its min quantifier is zero. Whether or not the order of the terms is important
@@ -271,8 +273,16 @@ id: intent_matching
                                     Inside of curly brackets <code>{</code> <code>}</code> you can have an optional list of term variables
                                     and the mandatory term expression that must evaluate to a boolean value. Term variable name must start with
                                     <code>@</code> symbol and be unique within the scope of the current term. All term variables must be defined
-                                    and initialized before term expression which must be the last statement in the term.
+                                    and initialized before term expression which must be the last statement in the term:
                                 </p>
+                                <pre class="brush: idl">
+                                    term(b)~{
+                                        @a = meta_model('a')
+                                        @list = list(1, 2, 3, 4)
+
+                                        has_all(@list, list(@a, 2))
+                                    }
+                                </pre>
                                 <p>
                                     Term variable initialization expression as well as term's expression follow Java-like expression
                                     grammar including precedence rules, brackets and logical combinators. Most of the functionality
@@ -346,8 +356,11 @@ id: intent_matching
                                     <code>method</code> must be the name of the callback method. This method should take one
                                     parameter of type <code><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCTokenPredicateContext.html">NCTokenPredicateContext</a></code>
                                     and return an instance of <code><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCTokenPredicateResult.html">NCTokenPredicateResult</a></code>
-                                    as its result.
+                                    as its result:
                                 </p>
+                                <pre class="brush: idl">
+                                    term(a)=/org.mypackage.MyClass#termMethod/?
+                                </pre>
                                 <p>
                                     Class name is optional in which case the model class will be used by default. Note that if the custom class
                                     is in fact specified, the instance of this class will be created for each term evaluation.
@@ -362,12 +375,16 @@ id: intent_matching
                             <code>?</code> and <code>[1,3]</code> define an inclusive quantifier for that term, i.e. how many times
                             the match for this term should found. You can use the following quick abbreviations:
                         </p>
-                        <ul>
+                        <ul class="recover_bottom_margin">
                             <li><code>*</code> is equal to <code>[0,∞]</code></li>
                             <li><code>+</code> is equal to <code>[1,∞]</code></li>
                             <li><code>?</code> is equal to <code>[0,1]</code></li>
                             <li>No quantifier defaults to <code>[1,1]</code></li>
                         </ul>
+                        <p>
+                            As mentioned above the quantifier is inclusive, i.e. the <code>[1,3]</code> means that
+                            term should appear once, two times or three times.
+                        </p>
                     </dd>
                     <dt>
                         <code>fragment(frag, {'p1': 25, 'p2': {'a': false}})</code> <sup><small>line 16 </small></sup><br>
@@ -502,10 +519,10 @@ id: intent_matching
                         <code>java.lang.Float</code> will be converted to <code>java.lang.Double</code>.
                     </td>
                 </tr>
-                <tr><td><code>java.lang.Boolean</code></td><td>Bool</td><td></td></tr>
+                <tr><td><code>java.lang.Boolean</code></td><td>Boolean</td><td>You can use <code><b>true</b></code> or <code><b>false</b></code> literals.</td></tr>
                 <tr><td><code>java.util.List</code></td><td>List</td><td></td></tr>
                 <tr><td><code>java.util.Map</code></td><td>Map</td><td></td></tr>
-                <tr><td><code>java.lang.Object</code></td><td>Any</td><td>Any of the supported type above.</td></tr>
+                <tr><td><code>java.lang.Object</code></td><td>Any</td><td>Any of the supported type above. Use <code><b>null</b></code> literal for null value.</td></tr>
             </tbody>
         </table>
         <p>
