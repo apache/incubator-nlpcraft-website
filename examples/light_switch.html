@@ -23,7 +23,7 @@ id: light_switch
 
 <div class="col-md-8 second-column">
     <section id="overview">
-        <h2 class="section-title">Overview</h2>
+        <h2 class="section-title">Overview <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             This example provides very simple implementation for NLI-powered light switch. You can say something like
             "Turn the lights off in the entire house" or "Switch on the illumination in the master bedroom closet".
@@ -36,7 +36,7 @@ id: light_switch
         </p>
     </section>
     <section id="new_project">
-        <h3 class="section-title">Create New Project</h3>
+        <h2 class="section-title">Create New Project <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             You can create new Scala project in many different ways - we'll use <a href="/tools/script.html">NLPCraft CLI</a>
             to accomplish this task:
@@ -79,7 +79,7 @@ id: light_switch
         </div>
     </section>
     <section id="model">
-        <h3 class="section-title">Data Model</h3>
+        <h2 class="section-title">Data Model <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             We are going to start with declaring the static part of our model using YAML which we will later load using
             <code>NCModelFileAdapter</code> in our Scala-based model implementation. Open <code>src/main/resources/<b>light_switch.yaml</b></code>
@@ -149,7 +149,7 @@ intents:
         </p>
     </section>
     <section id="code">
-        <h3 class="section-title">Model Class</h3>
+        <h2 class="section-title">Model Class <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             Open <code>src/main/scala/demo/<b>LightSwitch.scala</b></code> file and replace its content with the following code:
         </p>
@@ -222,7 +222,7 @@ class LightSwitch extends NCModelFileAdapter("light_switch.yaml") {
         </ul>
     </section>
     <section id="build_project">
-        <h3 class="section-title">Build Project</h3>
+        <h2 class="section-title">Build Project <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             Once we have our model ready let's go to <code>~/LightSwitch</code> directory and run the Maven build:
         </p>
@@ -235,7 +235,7 @@ class LightSwitch extends NCModelFileAdapter("light_switch.yaml") {
         </p>
     </section>
     <section id="start_server">
-        <h3 class="section-title">Start Server</h3>
+        <h2 class="section-title">Start Server <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             Run the following command to start local REST server, if it hasn't been started already, from the NLPCraft installation directory:
         </p>
@@ -277,7 +277,7 @@ class LightSwitch extends NCModelFileAdapter("light_switch.yaml") {
         </ul>
     </section>
     <section id="testing">
-        <h3 class="section-title">Testing</h3>
+        <h2 class="section-title">Testing <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             Remember the <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a>
             annotation we have used in our model code next to intent definition?
@@ -322,7 +322,7 @@ class LightSwitch extends NCModelFileAdapter("light_switch.yaml") {
         </p>
     </section>
     <section id="rinse">
-        <h2 class="section-title">Rinse <span class="amp">&amp;</span> Repeat</h2>
+        <h2 class="section-title">Rinse <span class="amp">&amp;</span> Repeat <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             Typical development cycle consists of:
         </p>
@@ -345,7 +345,7 @@ class LightSwitch extends NCModelFileAdapter("light_switch.yaml") {
         </p>
     </section>
     <section>
-        <h2 class="section-title">Done! 👌</h2>
+        <h2 class="section-title">Done! 👌 <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             You've created light switch data model, started the REST server and tested this model using the built-in test framework.
         </p>

@@ -24,13 +24,13 @@ id: rest
 <!--suppress HtmlDeprecatedTag -->
 <div class="col-md-8 second-column">
     <section>
-        <h2 class="section-title">TL;DR;</h2>
+        <h2 class="section-title">TL;DR; <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             View <a target="swaggerhub" href="https://app.swaggerhub.com/apis-docs/Apache-NLPCraft/apache-nlpcraft/{{site.latest_version}}">Open API Specification</a> in a separate window. 👌
         </p>
     </section>
     <section id="overview">
-        <h2 class="section-title">...bit more details</h2>
+        <h2 class="section-title">...bit more details <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             REST API provides a universal integration path for any type of user application to connect to and use NLPCraft.
             By using REST API these applications can ask natural language questions, get results and perform
@@ -51,7 +51,7 @@ id: rest
         </div>
     </section>
     <section id="java-client">
-        <h3 class="section-title">Java Client <i class="fab fa-java"></i></h3>
+        <h2 class="section-title">Java Client <i class="fab fa-java"></i> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             NLPCraft provide native Java client that enables easy-to-use Java-based API wrapping standard
             NLPCraft REST APIs. It can be used by any JVM language that provides Java interop such as Scala, Groovy, or Kotlin:
@@ -64,7 +64,7 @@ id: rest
 
     </section>
     <section id="format">
-        <h3 class="section-title">REST URL</h3>
+        <h2 class="section-title">REST URL <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             REST API accepts only <code>POST</code> HTTP calls and <code>application/json</code> content type
             for JSON payload and responses. When issuing a REST call you will be using the following URL:
@@ -96,7 +96,7 @@ id: rest
         </div>
     </section>
     <section id="users">
-        <h3 class="section-title">Users <span class="amp">&amp;</span> Organizations</h3>
+        <h2 class="section-title">Users <span class="amp">&amp;</span> Organizations <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             In NLPCraft most of the REST calls require ID of the user. Every user belongs to a company, and each user
             has administrative privileges flag. The notion of the user and company IDs additionally to the model ID provide
@@ -143,7 +143,7 @@ id: rest
         </p>
     </section>
     <section id="server_errors">
-        <h2 class="section-title">Server Errors</h2>
+        <h2 class="section-title">Server Errors <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             When REST server returns HTTP error the response body contains JSON object (<code>Content-Type → application/json</code>)
             with two fields <code>code</code> and <code>msg</code>:

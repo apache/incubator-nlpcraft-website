@@ -23,7 +23,7 @@ id: weather_bot
 
 <div class="col-md-8 second-column">
     <section id="overview">
-        <h2 class="section-title">Overview</h2>
+        <h2 class="section-title">Overview <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             This example demonstrates relatively complete NLI-based weather service with JSON output and a non-trivial
             intent matching logic. It uses Apple's <a target="new" href="https://darksky.net">DarkSky</a>
@@ -35,7 +35,7 @@ id: weather_bot
         </p>
     </section>
     <section id="new_project">
-        <h3 class="section-title">Create New Project</h3>
+        <h2 class="section-title">Create New Project <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             You can create new Java project in many different ways - we'll use <a href="/tools/script.html">NLPCraft CLI</a>
             to accomplish this task:
@@ -78,7 +78,7 @@ id: weather_bot
         </div>
     </section>
     <section id="model">
-        <h3 class="section-title">Data Model</h3>
+        <h2 class="section-title">Data Model <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             We are going to start with declaring the static part of our model using JSON which we will later load using
             <code>NCModelFileAdapter</code> in our Java-based model implementation. Open <code>src/main/resources/<b>weather.json</b></code>
@@ -142,7 +142,7 @@ id: weather_bot
             Now that our model is ready let's create a Java class that would load this model and define the intent
             that uses the model elements we have just defined.
         </p>
-        <h3 class="section-title">Model Class</h3>
+        <h2 class="section-title">Model Class <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             Below is a full source code for our implementation. Note that this code uses several
             <a href="#tools">external tools</a> for IP-based geo-location and the weather information
@@ -359,7 +359,7 @@ public class Weather extends NCModelFileAdapter {
         </ul>
     </section>
     <section id="tools">
-        <h3 class="section-title">External Tools</h3>
+        <h2 class="section-title">External Tools <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             This example uses several external tools to implement its functionality:
         </p>
@@ -378,7 +378,7 @@ public class Weather extends NCModelFileAdapter {
         </ul>
     </section>
     <section id="build_project">
-        <h3 class="section-title">Build Project</h3>
+        <h2 class="section-title">Build Project <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             Once we have our model ready let's go to <code>~/Weather</code> directory and run the Maven build:
         </p>
@@ -391,7 +391,7 @@ public class Weather extends NCModelFileAdapter {
         </p>
     </section>
     <section id="start_server">
-        <h3 class="section-title">Start Server</h3>
+        <h2 class="section-title">Start Server <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             Run the following command to start local REST server, if it hasn't been started already, from the NLPCraft installation directory:
         </p>
@@ -432,7 +432,7 @@ public class Weather extends NCModelFileAdapter {
         </ul>
     </section>
     <section id="testing">
-        <h3 class="section-title">Testing</h3>
+        <h2 class="section-title">Testing <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             Remember the <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a>
             annotation we have used in our model code next to intent definition?
@@ -477,7 +477,7 @@ public class Weather extends NCModelFileAdapter {
         </p>
     </section>
     <section id="rinse">
-        <h2 class="section-title">Rinse <span class="amp">&amp;</span> Repeat</h2>
+        <h2 class="section-title">Rinse <span class="amp">&amp;</span> Repeat <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             Typical development cycle consists of:
         </p>
@@ -500,7 +500,7 @@ public class Weather extends NCModelFileAdapter {
         </p>
     </section>
     <section>
-        <h2 class="section-title">Done! 👌</h2>
+        <h2 class="section-title">Done! 👌 <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             You've created alarm clock data model, started the REST server and tested this model using the built-in test framework.
         </p>

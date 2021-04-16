@@ -39,7 +39,7 @@ publish_date: July 26, 2019
     </p>
 </section>
 <section>
-    <h2 class="section-title">Parsing User Input</h2>
+    <h2 class="section-title">Parsing User Input <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
     <p>
         One of the key objectives when parsing user input sentence for Natural Language Understanding (NLU) is to
         detect all possible semantic entities, a.k.a <em>named entities</em>. Let's consider a few examples:
@@ -72,7 +72,7 @@ publish_date: July 26, 2019
     </p>
 </section>
 <section>
-    <h2 class="section-title">Semantic Entities</h2>
+    <h2 class="section-title">Semantic Entities <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
     <p>
         Let's take a closer look at the named entities from the above examples:
     </p>
@@ -122,7 +122,7 @@ publish_date: July 26, 2019
     </div>
 </section>
 <section>
-    <h2 class="section-title">Incomplete Sentences</h2>
+    <h2 class="section-title">Incomplete Sentences <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
     <p>
         Assuming previously asked questions about the weather in Tokyo (in the span of the ongoing conversation) one
         could presumably ask the following questions using a <em>shorter, incomplete</em>, form:
@@ -154,7 +154,7 @@ publish_date: July 26, 2019
     </p>
 </section>
 <section>
-    <h2 class="section-title">Short-Term Memory</h2>
+    <h2 class="section-title">Short-Term Memory <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
     <p>
         The short-term memory is exactly that... a memory that keeps only small amount of recently used information
         and that evicts its contents after a short period of inactivity.
@@ -170,7 +170,7 @@ publish_date: July 26, 2019
     </p>
 </section>
 <section>
-    <h2 class="section-title">Context Switch</h2>
+    <h2 class="section-title">Context Switch <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
     <p>
         Resetting the context by the timeout is, obviously, not a hard thing to do. What can be trickier is to detect
         when conversation topic is switched and the previous context needs to be forgotten to avoid very
@@ -204,7 +204,7 @@ publish_date: July 26, 2019
     </p>
 </section>
 <section>
-    <h2 class="section-title">Overriding Entities</h2>
+    <h2 class="section-title">Overriding Entities <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
     <p>
         As we've seen above one named entity can replace or override an older entity in the STM, e.g. <code>"Peet's"</code>
         replaced <code>"Starbucks"</code> in our previous questions. <b>The actual algorithm that governs this logic is one
@@ -261,7 +261,7 @@ publish_date: July 26, 2019
     </ul>
 </section>
 <section>
-    <h2 class="section-title">Overriding Rule</h2>
+    <h2 class="section-title">Overriding Rule <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
     <p>
         Here's the rule we developed at NLPCraft and have been successfully using in various models:
     </p>
@@ -353,7 +353,7 @@ publish_date: July 26, 2019
     </p>
 </section>
 <section>
-    <h2 class="section-title">Explicit Context Switch</h2>
+    <h2 class="section-title">Explicit Context Switch <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
     <p>
         In some cases you may need to explicitly clear the conversation STM without relying on algorithmic behavior.
         It happens when current and new topic of the conversation share some of the same entities. Although at first
@@ -385,7 +385,7 @@ publish_date: July 26, 2019
     </p>
 </section>
 <section>
-    <h2 class="section-title">Summary</h2>
+    <h2 class="section-title">Summary <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
     <p>
         Let’s collect all our thoughts on STM into a few bullet points:
     </p>

@@ -23,7 +23,7 @@ id: sql_model
 
 <div class="col-md-8 second-column">
     <section id="overview">
-        <h2 class="section-title">Overview</h2>
+        <h2 class="section-title">Overview <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             This example demonstrates a relatively complete implementation of natural language interface to a
             SQL database. This is a non-trivial example, spanning over a  thousand lines of code, and it can
@@ -40,7 +40,7 @@ id: sql_model
         </p>
     </section>
     <section id="background">
-        <h2 class="section-title">Background</h2>
+        <h2 class="section-title">Background <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             Many of modern existing natural language-to-SQL implementations use variations of
             deep learning approach where you first train the neural network on a pre-created training set and
@@ -85,7 +85,7 @@ id: sql_model
         </div>
     </section>
     <section id="sql">
-        <h3 class="section-title">Sample Database</h3>
+        <h2 class="section-title">Sample Database <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             We are going to be building natural language interface against slightly modified "Northwind" sample database
             from <a target="_" href="https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/sql/linq/downloading-sample-databases#get-the-northwind-sample-database-for-sql-server">Microsoft SQL Server</a>:
@@ -101,7 +101,7 @@ id: sql_model
         </p>
     </section>
     <section id="h2">
-        <h3 class="section-title">H2 Database</h3>
+        <h2 class="section-title">H2 Database <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             In our example we are using H2 database instance. For convenience, example provides a command line application
             <a href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft/src/main/scala/org/apache/nlpcraft/examples/sql/db/SqlServer.scala" target="github"><code>db/SqlServer.scala</code></a>
@@ -110,7 +110,7 @@ id: sql_model
         </p>
     </section>
     <section id="model">
-        <h3 class="section-title">Data Model</h3>
+        <h2 class="section-title">Data Model <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             Creating data model manually for the existing SQL schema can be a daunting task. NLPCraft provides the tool
             that can scan SQL schema and create working stub of such model automatically. All you have to do then is to
@@ -132,7 +132,7 @@ id: sql_model
         </ul>
     </section>
     <section id="impl">
-        <h2 class="section-title">Implementation</h2>
+        <h2 class="section-title">Implementation <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             Implementation mainly consists of these files:
         </p>
@@ -155,7 +155,7 @@ id: sql_model
         </ul>
     </section>
     <section id="build_project">
-        <h3 class="section-title">Build Project</h3>
+        <h2 class="section-title">Build Project <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             Assuming that project is located in <code>~/SqlModel</code> folder - let's go to into this directory and
             run the Maven build:
@@ -169,7 +169,7 @@ id: sql_model
         </p>
     </section>
     <section id="start_server">
-        <h3 class="section-title">Start Server</h3>
+        <h2 class="section-title">Start Server <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             Run the following command to start local REST server, if it hasn't been started already, from the NLPCraft installation directory:
         </p>
@@ -211,7 +211,7 @@ id: sql_model
         </ul>
     </section>
     <section id="testing">
-        <h3 class="section-title">Testing</h3>
+        <h2 class="section-title">Testing <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             Part of the <a href="/tools/test_framework.html">test framework</a>, the auto-validator class <a
                 target="javadoc"
@@ -246,7 +246,7 @@ id: sql_model
         </ul>
     </section>
     <section id="rinse">
-        <h2 class="section-title">Rinse <span class="amp">&amp;</span> Repeat</h2>
+        <h2 class="section-title">Rinse <span class="amp">&amp;</span> Repeat <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             Typical development cycle consists of:
         </p>
@@ -269,7 +269,7 @@ id: sql_model
         </p>
     </section>
     <section>
-        <h2 class="section-title">Done! 👌</h2>
+        <h2 class="section-title">Done! 👌 <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             You've created SQL model, started the REST server and tested this model using the built-in test framework.
         </p>

@@ -337,8 +337,13 @@ $bq-success-border-color: $brand-success;
     }
 }
 
-.recover_bottom_margin {
+.recover-bottom-margin {
     margin-bottom: 16px;
+}
+
+i.top-link {
+    font-size: 60%;
+    color: $color-turquoise;
 }
 
 .max-width {
