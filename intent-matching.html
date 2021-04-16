@@ -376,9 +376,9 @@ id: intent_matching
                     at the place of reference and enable the reuse of one or more terms by multiple intents. For
                     example:
                 </p>
-                <pre class="brush: idl, highlight: [2, 3, 14, 15]">
+                <pre class="brush: idl, highlight: [2, 3, 15, 18]">
                     // Fragments.
-                    fragment=buzz term~{tok_id() == 'x:alarm'}
+                    fragment=buzz term~{tok_id() == meta_frag('id')}
                     fragment=when
                         term(nums)~{
                             // Term variable.
@@ -390,8 +390,11 @@ id: intent_matching
 
                     // Intents.
                     intent=alarm
-                        fragment(buzz) // Insert terms from fragment 'buzz'.
-                        fragment(when) // insert terms from fragment 'when'.
+                        // Insert parameterized terms from fragment 'buzz'.
+                        fragment(buzz, {"id": "x:alarm"})
+
+                        // Insert terms from fragment 'when'.
+                        fragment(when)
                 </pre>
                 <p><b>NOTES:</b></p>
                 <ul class="recover_bottom_margin">
@@ -456,14 +459,14 @@ id: intent_matching
             Note that not all intents problems can be detected at the compilation phase, and probe can start with intents
             not being completely validated. For example, each term in the intent must evaluate to a boolean result. This can
             only be checked at runtime. Another example is the number and the types of parameters passed into IDL function
-            which can only be checked at runtime as well.
+            which is only checked at runtime as well.
         </p>
         <p>
             Intents are compiled only once during the data probe start up sequence and cannot be re-compiled
             without data probe restart. Model logic, however, can affect the intent behavior through <a href="/data-model.html#callbacks">model callbacks</a>,
             <a target=_ href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMetadata()">model metadata</a>,
             user and company metadata, as well as request data all of which can change at runtime and
-            are accessible through IDL functions.
+            are accessible through <a href="#idl_functions">IDL functions.</a>
         </p>
         <h2 class="section-sub-title">Intent Examples</h2>
         <p>
@@ -520,7 +523,7 @@ id: intent_matching
                 Intent has ID <code>id2</code>.
             </li>
             <li>
-                Intent has dialog flow pattern: <code>'id1 id2'</code>. It expect sequence of intents <code>id1</code> and
+                Intent has dialog flow pattern: <code>'id1 id2'</code>. It expects the sequence of intents <code>id1</code> and
                 <code>id2</code> somewhere in the history of previously matched intents in the course of the current conversation.
             </li>
             <li>
@@ -529,8 +532,8 @@ id: intent_matching
             <li>
                 First term should be a token with ID <code>mytok</code> and have metadata property <code>score</code> of type
                 map. This map should have a value with the string key <code>'best'</code>. <code>signum</code> of this map value
-                should not equal <code>-1</code>. Note that built-in functions (i.e. <code>signum</code>) can only be
-                used on the left values.
+                should not equal <code>-1</code>. Note that <code>meta_tok()</code>, <code>get()</code> and
+                <code>signum()</code> are all built-in <a href="#idl_functions">IDL functions</a>.
             </li>
             <li>
                 Second term should be a token that belongs to either <code>actors</code> or <code>owners</code> group.
