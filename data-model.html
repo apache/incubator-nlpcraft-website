@@ -276,7 +276,7 @@ public class AlarmModel extends NCModelFileAdapter {
                 own data model in the most uses cases.
             </p>
         </div>
-        <h3 id="deployment" class="section-title">Deployment</h3>
+        <h2 id="deployment" class="section-title">Deployment <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             Data models get <a href="/server-and-probe.html">deployed</a> to and hosted by the data probes - a lightweight
             container whose job is to host data models and securely transfer requests between REST server and the data
@@ -288,7 +288,7 @@ public class AlarmModel extends NCModelFileAdapter {
             the data probe. Note also that data probe can be started in embedded mode, i.e. it can be started
             from within an existing JVM process like user application.
         </p>
-        <h3 id="callbacks" class="section-title">Callbacks</h3>
+        <h2 id="callbacks" class="section-title">Callbacks <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             There are two lifecycle callbacks on
             <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModel.html">NCModel</a> interface
@@ -564,7 +564,7 @@ intents:
             built-in elements. You can, however, "wrap" built-in entity into your own one using <code>^^id == 'external.id'^^</code>
             <a href="#dsl">token DSL</a> expression where you can define all necessary additional configuration properties (more on that below).
         </p>
-        <span id="synonyms" class="section-sub-title">Synonyms</span>
+        <span id="synonyms" class="section-sub-title">Synonyms <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
         <p>
             NLPCraft uses fully deterministic named entity recognition and is not based on statistical approaches that
             would require pre-existing marked up data sets and extensive training. For each model element you can either provide a
@@ -633,7 +633,7 @@ intents:
             <li><code>getSynonyms()</code> - gets synonyms to match on.</li>
             <li><code>getValues()</code> - get values to match on (see <a href="#values">below</a>).</li>
         </ul>
-        <span id="macros" class="section-sub-title">Macros</span>
+        <span id="macros" class="section-sub-title">Macros <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
         <p>
             Listing all possible multi-word synonyms for a given element can be a time-consuming task. Macros
             together with option groups allow for significant simplification of this task.
@@ -665,7 +665,7 @@ intents:
                 }
              ]
         </pre>
-        <span id="option-groups" class="section-sub-title">Option Groups</span>
+        <span id="option-groups" class="section-sub-title">Option Groups <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
         <p>
             Option groups are similar to wildcard patterns that operates on a single word base. One line of
             option group expands into one or more individual synonyms. Option groups is the key mechanism for shortened
@@ -811,7 +811,7 @@ intents:
             ]
             ...
         </pre>
-        <span id="regex" class="section-sub-title">Regular Expressions</span>
+        <span id="regex" class="section-sub-title">Regular Expressions <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
         <p>
             Any individual synonym word that starts and ends with <code>//</code> (two forward slashes) is
             considered to be Java regular expression as defined in <code>java.util.regex.Pattern</code>. Note that
@@ -841,7 +841,7 @@ intents:
                 of your model to ensure it meets your expectations.
             </p>
         </div>
-        <span id="values" class="section-sub-title">Element Values</span>
+        <span id="values" class="section-sub-title">Element Values <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
         <p>
             Model element can have an optional set of special synonyms called <em>values</em> or proper nouns for this element.
             Unlike basic synonyms, each value is a pair of a name and a set of standard synonyms by which that value,
@@ -911,7 +911,7 @@ intents:
         <p>
             Note that element value can be used in token and intent DSLs.
         </p>
-        <span id="groups" class="section-sub-title">Element Groups</span>
+        <span id="groups" class="section-sub-title">Element Groups <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
         <p>
             Each model element belongs to one or more groups. Model element provides its groups via
             <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCElement.html#getGroups()">getGroups()</a> method.
@@ -937,7 +937,7 @@ intents:
         <p>
             Note that token's groups can be used in token and intent DSLs.
         </p>
-        <span id="parent" class="section-sub-title">Element Parent</span>
+        <span id="parent" class="section-sub-title">Element Parent <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
         <p>
             Each model element can form an optional hierarchical relationship with other element by specifying its
             parent element ID via <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCElement.html#getParentId()">getParentID()</a> method. The main idea here is that sometimes model elements can act not only individually but
@@ -1041,7 +1041,7 @@ intents:
             ]
             ...
         </pre>
-        <span id="dsl-syntax" class="section-sub-title">Token DSL Syntax</span>
+        <span id="dsl-syntax" class="section-sub-title">Token DSL Syntax <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
         <p>
             Token DSL is a simple expression language for defining a single predicate over a token - a detected model
             element. Remember that unlike token DSL all other types of synonyms work with simple words (vs. tokens).
@@ -1701,7 +1701,7 @@ intents:
             </tr>
             </tbody>
         </table>
-        <span id="combinators" class="section-sub-title">Logical Combinators</span>
+        <span id="combinators" class="section-sub-title">Logical Combinators <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
         <p>
             Individual token expressions can be combined with <code>&&</code>, <code>||</code> and <code>!</code>
             logical combinators and <code>( )</code> brackets that obey standard precedence rules as well as short-cut
@@ -2163,7 +2163,7 @@ intents:
                 metadata name with some unique prefix based on the token ID.
             </p>
         </div>
-        <span id="nlpcraft:nlp" class="section-sub-title">Token ID <code>nlpcraft:nlp</code></span>
+        <span id="nlpcraft:nlp" class="section-sub-title">Token ID <code>nlpcraft:nlp</code> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
         <p>
             This token's metadata provides common basic NLP properties that are part of any token.
             <b>All tokens</b> without exception have these metadata properties. This metadata
@@ -2370,7 +2370,7 @@ intents:
             </tbody>
         </table>
         <br/>
-        <span id="nlpcraft:date" class="section-sub-title">Token ID <code>nlpcraft:date</code></span>
+        <span id="nlpcraft:date" class="section-sub-title">Token ID <code>nlpcraft:date</code> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
         <p>
             This token denotes a date range including single days.
             Additionally to <code><b>nlpcraft:nlp:xxx</b></code> properties this type of token will have the following
@@ -2402,7 +2402,7 @@ intents:
             </tbody>
         </table>
         <br/>
-        <span id="nlpcraft:num" class="section-sub-title">Token ID <code>nlpcraft:num</code></span>
+        <span id="nlpcraft:num" class="section-sub-title">Token ID <code>nlpcraft:num</code> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
         <p>
             This token denotes a single numerical value or a numeric condition.
             Additionally to <code><b>nlpcraft:nlp:xxx</b></code> properties this type of token will have the following
@@ -2566,7 +2566,7 @@ intents:
             </tbody>
         </table>
         <br/>
-        <span id="nlpcraft:city" class="section-sub-title">Token ID <code>nlpcraft:city</code></span>
+        <span id="nlpcraft:city" class="section-sub-title">Token ID <code>nlpcraft:city</code> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
         <p>
             This token denotes a city.
             Additionally to <code><b>nlpcraft:nlp:xxx</b></code> properties this type of token will have the following
@@ -2751,7 +2751,7 @@ intents:
             </tbody>
         </table>
         <br/>
-        <span id="nlpcraft:continent" class="section-sub-title">Token ID <code>nlpcraft:continent</code></span>
+        <span id="nlpcraft:continent" class="section-sub-title">Token ID <code>nlpcraft:continent</code> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
         <p>
             This token denotes a continent.
             Additionally to <code><b>nlpcraft:nlp:xxx</b></code> properties this type of token will have the following
@@ -2774,7 +2774,7 @@ intents:
             </tbody>
         </table>
         <br/>
-        <span id="nlpcraft:subcontinent" class="section-sub-title">Token ID <code>nlpcraft:subcontinent</code></span>
+        <span id="nlpcraft:subcontinent" class="section-sub-title">Token ID <code>nlpcraft:subcontinent</code> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
         <p>
             This token denotes a subcontinent.
             Additionally to <code><b>nlpcraft:nlp:xxx</b></code> properties this type of token will have the following
@@ -2802,7 +2802,7 @@ intents:
             </tbody>
         </table>
         <br/>
-        <span id="nlpcraft:metro" class="section-sub-title">Token ID <code>nlpcraft:metro</code></span>
+        <span id="nlpcraft:metro" class="section-sub-title">Token ID <code>nlpcraft:metro</code> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
         <p>
             This token denotes a metro area.
             Additionally to <code><b>nlpcraft:nlp:xxx</b></code> properties this type of token will have the following
@@ -2825,7 +2825,7 @@ intents:
             </tbody>
         </table>
         <br/>
-        <span id="nlpcraft:region" class="section-sub-title">Token ID <code>nlpcraft:region</code></span>
+        <span id="nlpcraft:region" class="section-sub-title">Token ID <code>nlpcraft:region</code> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
         <p>
             This token denotes a geographical region.
             Additionally to <code><b>nlpcraft:nlp:xxx</b></code> properties this type of token will have the following
@@ -2963,7 +2963,7 @@ intents:
             </tbody>
         </table>
         <br/>
-        <span id="nlpcraft:country" class="section-sub-title">Token ID <code>nlpcraft:country</code></span>
+        <span id="nlpcraft:country" class="section-sub-title">Token ID <code>nlpcraft:country</code> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
         <p>
             This token denotes a country.
             Additionally to <code><b>nlpcraft:nlp:xxx</b></code> properties this type of token will have the following
@@ -3101,7 +3101,7 @@ intents:
             </tbody>
         </table>
         <br/>
-        <span id="nlpcraft:coordinate" class="section-sub-title">Token ID <code>nlpcraft:coordinate</code></span>
+        <span id="nlpcraft:coordinate" class="section-sub-title">Token ID <code>nlpcraft:coordinate</code> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
         <p>
             This token denotes a latitude and longitude coordinate.
             Additionally to <code><b>nlpcraft:nlp:xxx</b></code> properties this type of token will have the following
@@ -3129,7 +3129,7 @@ intents:
             </tbody>
         </table>
         <br/>
-        <span id="nlpcraft:sort" class="section-sub-title">Token ID <code>nlpcraft:sort</code></span>
+        <span id="nlpcraft:sort" class="section-sub-title">Token ID <code>nlpcraft:sort</code> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
         <p>
             This token denotes a sorting or ordering function.
             Additionally to <code><b>nlpcraft:nlp:xxx</b></code> properties this type of token will have the following
@@ -3164,7 +3164,7 @@ intents:
             </tbody>
         </table>
         <br/>
-        <span id="nlpcraft:limit" class="section-sub-title">Token ID <code>nlpcraft:limit</code></span>
+        <span id="nlpcraft:limit" class="section-sub-title">Token ID <code>nlpcraft:limit</code> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
         <p>
             This token denotes a numeric limit value (like in "top 10" or "bottom five").
             Additionally to <code><b>nlpcraft:nlp:xxx</b></code> properties this type of token will have the following
@@ -3201,7 +3201,7 @@ intents:
             </tbody>
         </table>
         <br/>
-        <span id="nlpcraft:relation" class="section-sub-title">Token ID <code>nlpcraft:relation</code></span>
+        <span id="nlpcraft:relation" class="section-sub-title">Token ID <code>nlpcraft:relation</code> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
         <p>
             This token denotes a numeric limit value (like in "top 10" or "bottom five").
             Additionally to <code><b>nlpcraft:nlp:xxx</b></code> properties this type of token will have the following
@@ -3235,7 +3235,7 @@ intents:
             </tbody>
         </table>
         <br/>
-        <span id="google:xxx" class="section-sub-title">Token ID <code>google:xxx</code></span>
+        <span id="google:xxx" class="section-sub-title">Token ID <code>google:xxx</code> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
         <p>
             These tokens denote <code>xxx</code> that is a lower case name of the named entity
             in <a target=_ href="https://cloud.google.com/natural-language/">Google APIs</a>, i.e.
@@ -3288,7 +3288,7 @@ intents:
             </tbody>
         </table>
         <br/>
-        <span id="stanford:xxx" class="section-sub-title">Token ID <code>stanford:xxx</code></span>
+        <span id="stanford:xxx" class="section-sub-title">Token ID <code>stanford:xxx</code> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
         <p>
             These tokens denote <code>xxx</code> that is a lower case name of the named entity
             in <a target=_ href="https://stanfordnlp.github.io/CoreNLP">Stanford CoreNLP</a>, i.e.
@@ -3320,7 +3320,7 @@ intents:
             </tbody>
         </table>
         <br/>
-        <span id="spacy:xxx" class="section-sub-title">Token ID <code>spacy:xxx</code></span>
+        <span id="spacy:xxx" class="section-sub-title">Token ID <code>spacy:xxx</code> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
         <p>
             These tokens denote <code>xxx</code> that is a lower case name of the named entity
             in <a target=_ href="https://spacy.io/">spaCy</a>, i.e.

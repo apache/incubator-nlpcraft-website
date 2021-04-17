@@ -448,7 +448,7 @@ id: intent_matching
                 <p></p>
             </li>
         </ul>
-        <h2 class="section-sub-title">Intent Lifecycle</h2>
+        <h2 class="section-sub-title">Intent Lifecycle <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             During NLPCraft data probe start it scans the models provided in its configuration for the intents. The
             scanning process goes through JSON/YAML external configurations as well as model classes when looking
@@ -468,7 +468,7 @@ id: intent_matching
             user and company metadata, as well as request data all of which can change at runtime and
             are accessible through <a href="#idl_functions">IDL functions.</a>
         </p>
-        <h2 class="section-sub-title">Intent Examples</h2>
+        <h2 class="section-sub-title">Intent Examples <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             Here's number of intent examples with explanations:
         </p>
@@ -542,7 +542,7 @@ id: intent_matching
                 this string, list or map should be greater than <code>10</code>.
             </li>
         </ul>
-        <h2 id="idl_functions" class="section-title">IDL Functions</h2>
+        <h2 id="idl_functions" class="section-title">IDL Functions <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             IDL provides over 50 built-in functions that can be used in IDL intent definitions.
             IDL function call takes on traditional
@@ -554,7 +554,7 @@ id: intent_matching
             cases you need to use the term with the user-defined callback method.
         </p>
         <p>
-            Note also that when chaining the function
+            When chaining the function
             calls IDL uses mathematical notation (a-la Python) rather than object-oriented one: IDL <code>length(trim(" text "))</code> vs. OOP-style <code>" text ".trim().length()</code>.
         </p>
         <p>
@@ -591,10 +591,19 @@ id: intent_matching
             </tbody>
         </table>
         <p>
+            Some IDL functions are polymorphic, i.e. they can accept arguments of multiple type
             Encountering other incompatible types will result in a runtime error during intent matching. It is
             especially important to watch out for the types when adding objects to various metadata containers
             and using that metadata in the IDL expressions.
         </p>
+        <div class="bq warn">
+            <p><b>Unsupported Types</b></p>
+            <p>
+                Detection of the unsupported types by IDL functions cannot be done during IDL compilation and
+                can <em>only be done during runtime execution</em>. This means that even though the data probe compiles IDL
+                intents and starts successfully - it does not guarantee that intents will operate correctly.
+            </p>
+        </div>
         <p>
             IDL functions can be organized into the following groups:
         </p>
@@ -1392,7 +1401,7 @@ id: intent_matching
         </div>
     </section>
     <section>
-        <h2 id="idl_location" class="section-title">IDL Location</h2>
+        <h2 id="idl_location" class="section-title">IDL Location <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             IDL declarations can be placed in different locations based on user preferences:
         </p>
@@ -1694,7 +1703,7 @@ id: intent_matching
         </ul>
     </section>
     <section id="logic">
-        <h2 class="section-title">Intent Matching Logic</h2>
+        <h2 class="section-title">Intent Matching Logic <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             In order to understand the intent matching logic lets review the overall user request processing workflow:
         </p>
@@ -1908,7 +1917,7 @@ id: intent_matching
                 parameter.
             </li>
         </ul>
-        <h3 class="section-sub-title"><code>NCRejection</code> and <code>NCIntentSkip</code> Exceptions</h3>
+        <h2 class="section-sub-title"><code>NCRejection</code> and <code>NCIntentSkip</code> Exceptions <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             There are two exceptions that can be used by intent callback logic to control intent matching process.
         </p>
@@ -1958,7 +1967,7 @@ id: intent_matching
                 that type of matching.
             </p>
         </div>
-        <h3 class="section-sub-title"><code>NCIntentMatch</code> Interface</h3>
+        <h2 class="section-sub-title"><code>NCIntentMatch</code> Interface <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentMatch.html">NCIntentMatch</a> interface
             can be passed into intent callback as its first parameter. This interface provide runtime information
