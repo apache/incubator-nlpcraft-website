@@ -24,6 +24,10 @@
         margin-top: 0 !important;
     }
 
+    div.card-header {
+        padding: 0 20px !important;
+    }
+
     p.fn-desc, p.fn-usage {
         em {
             font-weight: 600;
@@ -32,8 +36,13 @@
         }
     }
 
-    div.card-header {
-        padding: 0 20px !important;
+    .card-body {
+        background-color: #efefef;
+    }
+
+    span.fn-short-desc {
+        float: right;
+        color: #333;
     }
 
     p.fn-usage {

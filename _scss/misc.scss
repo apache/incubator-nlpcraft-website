@@ -349,7 +349,7 @@ i.top-link {
 .max-width {
     width: 100%;
 }
-a[target=javadoc] {
+a[target=javadoc]:not(.not-code) {
     font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     word-break: keep-all;
     white-space: nowrap !important;

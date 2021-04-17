@@ -591,8 +591,8 @@ id: intent_matching
             </tbody>
         </table>
         <p>
-            Some IDL functions are polymorphic, i.e. they can accept arguments of multiple type
-            Encountering other incompatible types will result in a runtime error during intent matching. It is
+            Some IDL functions are polymorphic, i.e. they can accept arguments and return result of multiple types.
+            Encountering unsupported types will result in a runtime error during intent matching. It is
             especially important to watch out for the types when adding objects to various metadata containers
             and using that metadata in the IDL expressions.
         </p>
@@ -605,7 +605,7 @@ id: intent_matching
             </p>
         </div>
         <p>
-            IDL functions can be organized into the following groups:
+            IDL functions are organized into the following groups:
         </p>
         <nav>
             <div class="nav nav-tabs" role="tablist">
@@ -624,11 +624,42 @@ id: intent_matching
         <div class="tab-content">
             <div class="tab-pane fade show active" id="fn_token" role="tabpanel">
                 <div class="accordion" id="token_fns">
+                    {% for fn in site.data.idl-fns.fn-token %}
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_{{fn.name}}">
+                                    <span><code>{{fn.sig}}</code></span>
+                                    <span class="fn-short-desc">{{fn.synopsis}}</span>
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="fn_{{fn.name}}" class="collapse" data-parent="#token_fns">
+                            <div class="card-body">
+                                <p class="fn-desc">
+                                    <em>Description:</em><br>
+                                    {{fn.desc}}
+                                </p>
+                                <p class="fn-usage">
+                                    <em>Usage:</em><br>
+                                </p>
+                                <pre class="brush:idl">{{fn.usage}}</pre>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    <!--
                     <div class="card">
                         <div class="card-header">
                             <h2 class="mb-0">
                                 <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_tok_id">
-                                    <code><b>tok_id</b>() ⇒ String</code>
+                                    <span>
+                                        <code><b>tok_id</b>() ⇒ String</code>
+                                    </span>
+                                    <span class="fn-short-desc">
+                                        Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getId()">token ID</a>
+                                    </span>
                                 </button>
                             </h2>
                         </div>
@@ -636,7 +667,7 @@ id: intent_matching
                             <div class="card-body">
                                 <p class="fn-desc">
                                     <em>Description:</em><br>
-                                    Returns <a target="javadoc" href="http://127.0.0.1:4000/apis/latest/org/apache/nlpcraft/model/NCToken.html#getId()">token ID.</a>
+                                    Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getId()">token ID.</a>
                                 </p>
                                 <p class="fn-usage">
                                     <em>Usage:</em><br>
@@ -652,7 +683,12 @@ id: intent_matching
                         <div class="card-header">
                             <h2 class="mb-0">
                                 <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_tok_lemma">
-                                    <code><b>tok_lemma</b>() ⇒ String</code>
+                                    <span>
+                                        <code><b>tok_lemma</b>() ⇒ String</code>
+                                    </span>
+                                    <span class="fn-short-desc">
+                                        Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getLemma()">token lemma</a>
+                                    </span>
                                 </button>
                             </h2>
                         </div>
@@ -660,7 +696,7 @@ id: intent_matching
                             <div class="card-body">
                                 <p class="fn-desc">
                                     <em>Description:</em><br>
-                                    Returns <a target="javadoc" href="http://127.0.0.1:4000/apis/latest/org/apache/nlpcraft/model/NCToken.html#getLemma()">token lemma.</a>
+                                    Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getLemma()">token lemma.</a>
                                 </p>
                                 <p class="fn-usage">
                                     <em>Usage:</em><br>
@@ -676,7 +712,12 @@ id: intent_matching
                         <div class="card-header">
                             <h2 class="mb-0">
                                 <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_tok_stem">
-                                    <code><b>tok_stem</b>() ⇒ String</code>
+                                    <span>
+                                        <code><b>tok_stem</b>() ⇒ String</code>
+                                    </span>
+                                    <span class="fn-short-desc">
+                                        Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getStem()">token stem</a>
+                                    </span>
                                 </button>
                             </h2>
                         </div>
@@ -684,7 +725,7 @@ id: intent_matching
                             <div class="card-body">
                                 <p class="fn-desc">
                                     <em>Description:</em><br>
-                                    Returns <a target="javadoc" href="http://127.0.0.1:4000/apis/latest/org/apache/nlpcraft/model/NCToken.html#getStem()">token stem.</a>
+                                    Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getStem()">token stem.</a>
                                 </p>
                                 <p class="fn-usage">
                                     <em>Usage:</em><br>
@@ -700,7 +741,12 @@ id: intent_matching
                         <div class="card-header">
                             <h2 class="mb-0">
                                 <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_tok_pos">
-                                    <code><b>tok_pos</b>() ⇒ String</code>
+                                    <span>
+                                        <code><b>tok_pos</b>() ⇒ String</code>
+                                    </span>
+                                    <span class="fn-short-desc">
+                                        Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getPos()">token PoS</a> tag
+                                    </span>
                                 </button>
                             </h2>
                         </div>
@@ -708,13 +754,13 @@ id: intent_matching
                             <div class="card-body">
                                 <p class="fn-desc">
                                     <em>Description:</em><br>
-                                    Returns <a target="javadoc" href="http://127.0.0.1:4000/apis/latest/org/apache/nlpcraft/model/NCToken.html#getPos()">token POS</a> tag.
+                                    Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getPos()">token PoS</a> tag.
                                 </p>
                                 <p class="fn-usage">
                                     <em>Usage:</em><br>
                                 </p>
                                 <pre class="brush:idl">
-                                    // Result: 'true' if the current token POS tag is equal to 'NN'.
+                                    // Result: 'true' if the current token PoS tag is equal to 'NN'.
                                     tok_pos() == 'NN'
                                 </pre>
                             </div>
@@ -724,7 +770,12 @@ id: intent_matching
                         <div class="card-header">
                             <h2 class="mb-0">
                                 <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_tok_sparsity">
-                                    <code><b>tok_sparsity</b>() ⇒ Boolean</code>
+                                    <span>
+                                        <code><b>tok_sparsity</b>() ⇒ Int</code>
+                                    </span>
+                                    <span class="fn-short-desc">
+                                        Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isSpars()">token sparsity</a> value
+                                    </span>
                                 </button>
                             </h2>
                         </div>
@@ -732,7 +783,7 @@ id: intent_matching
                             <div class="card-body">
                                 <p class="fn-desc">
                                     <em>Description:</em><br>
-                                    Returns <a target="javadoc" href="http://127.0.0.1:4000/apis/latest/org/apache/nlpcraft/model/NCToken.html#isSpars()">token sparsity</a> flag.
+                                    Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isSpars()">token sparsity</a> value.
                                 </p>
                                 <p class="fn-usage">
                                     <em>Usage:</em><br>
@@ -748,7 +799,12 @@ id: intent_matching
                         <div class="card-header">
                             <h2 class="mb-0">
                                 <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_tok_unid">
-                                    <code><b>tok_unid</b>() ⇒ String</code>
+                                    <span>
+                                        <code><b>tok_unid</b>() ⇒ String</code>
+                                    </span>
+                                    <span class="fn-short-desc">
+                                        Returns internal <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isSpars()">token globally unique ID</a>
+                                    </span>
                                 </button>
                             </h2>
                         </div>
@@ -756,7 +812,7 @@ id: intent_matching
                             <div class="card-body">
                                 <p class="fn-desc">
                                     <em>Description:</em><br>
-                                    Returns internal <a target="javadoc" href="http://127.0.0.1:4000/apis/latest/org/apache/nlpcraft/model/NCToken.html#isSpars()">token globally unique ID</a>.
+                                    Returns internal <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isSpars()">token globally unique ID</a>.
                                 </p>
                                 <p class="fn-usage">
                                     <em>Usage:</em><br>
@@ -772,7 +828,12 @@ id: intent_matching
                         <div class="card-header">
                             <h2 class="mb-0">
                                 <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_tok_is_abstract">
-                                    <code><b>tok_is_abstract</b>() ⇒ Boolean</code>
+                                    <span>
+                                        <code><b>tok_is_abstract</b>() ⇒ Boolean</code>
+                                    </span>
+                                    <span class="fn-short-desc">
+                                        Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isAbstract()">token abstract</a> flag
+                                    </span>
                                 </button>
                             </h2>
                         </div>
@@ -780,7 +841,7 @@ id: intent_matching
                             <div class="card-body">
                                 <p class="fn-desc">
                                     <em>Description:</em><br>
-                                    Returns <a target="javadoc" href="http://127.0.0.1:4000/apis/latest/org/apache/nlpcraft/model/NCToken.html#isAbstract()">token abstract</a> flag.
+                                    Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isAbstract()">token abstract</a> flag.
                                 </p>
                                 <p class="fn-usage">
                                     <em>Usage:</em><br>
@@ -796,7 +857,12 @@ id: intent_matching
                         <div class="card-header">
                             <h2 class="mb-0">
                                 <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_tok_is_bracketed">
-                                    <code><b>tok_is_abstract</b>() ⇒ Boolean</code>
+                                    <span>
+                                        <code><b>tok_is_bracketed</b>() ⇒ Boolean</code>
+                                    </span>
+                                    <span class="fn-short-desc">
+                                        Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isBracketed()">token bracketed</a> flag
+                                    </span>
                                 </button>
                             </h2>
                         </div>
@@ -804,7 +870,7 @@ id: intent_matching
                             <div class="card-body">
                                 <p class="fn-desc">
                                     <em>Description:</em><br>
-                                    Returns <a target="javadoc" href="http://127.0.0.1:4000/apis/latest/org/apache/nlpcraft/model/NCToken.html#isBracketed()">token bracketed</a> flag.
+                                    Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isBracketed()">token bracketed</a> flag.
                                 </p>
                                 <p class="fn-usage">
                                     <em>Usage:</em><br>
@@ -820,7 +886,12 @@ id: intent_matching
                         <div class="card-header">
                             <h2 class="mb-0">
                                 <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_tok_is_direct">
-                                    <code><b>tok_is_direct</b>() ⇒ Boolean</code>
+                                    <span>
+                                        <code><b>tok_is_direct</b>() ⇒ Boolean</code>
+                                    </span>
+                                    <span class="fn-short-desc">
+                                        Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isDirect()">token direct</a> flag
+                                    </span>
                                 </button>
                             </h2>
                         </div>
@@ -828,7 +899,7 @@ id: intent_matching
                             <div class="card-body">
                                 <p class="fn-desc">
                                     <em>Description:</em><br>
-                                    Returns <a target="javadoc" href="http://127.0.0.1:4000/apis/latest/org/apache/nlpcraft/model/NCToken.html#isDirect()">token direct</a> flag.
+                                    Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isDirect()">token direct</a> flag.
                                 </p>
                                 <p class="fn-usage">
                                     <em>Usage:</em><br>
@@ -844,7 +915,12 @@ id: intent_matching
                         <div class="card-header">
                             <h2 class="mb-0">
                                 <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_tok_is_permutated">
-                                    <code><b>tok_is_direct</b>() ⇒ Boolean</code>
+                                    <span>
+                                        <code><b>tok_is_permutated</b>() ⇒ Boolean</code>
+                                    </span>
+                                    <span class="fn-short-desc">
+                                        Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isPermutated()">token permutated</a> flag
+                                    </span>
                                 </button>
                             </h2>
                         </div>
@@ -852,7 +928,7 @@ id: intent_matching
                             <div class="card-body">
                                 <p class="fn-desc">
                                     <em>Description:</em><br>
-                                    Returns <a target="javadoc" href="http://127.0.0.1:4000/apis/latest/org/apache/nlpcraft/model/NCToken.html#isPermutated()">token permutated</a> flag.
+                                    Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isPermutated()">token permutated</a> flag.
                                 </p>
                                 <p class="fn-usage">
                                     <em>Usage:</em><br>
@@ -864,8 +940,37 @@ id: intent_matching
                             </div>
                         </div>
                     </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_tok_is_english">
+                                    <span>
+                                        <code><b>tok_is_english</b>() ⇒ Boolean</code>
+                                    </span>
+                                    <span class="fn-short-desc">
+                                        Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isEnglish()">token English</a> detection flag
+                                    </span>
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="fn_tok_is_english" class="collapse" data-parent="#token_fns">
+                            <div class="card-body">
+                                <p class="fn-desc">
+                                    <em>Description:</em><br>
+                                    Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isEnglish()">token English</a> detection flag.
+                                </p>
+                                <p class="fn-usage">
+                                    <em>Usage:</em><br>
+                                </p>
+                                <pre class="brush:idl">
+                                    // Result: token permutated flag.
+                                    tok_is_permutated()
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                    -->
                     <!--
-                        case "tok_is_english" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).isEnglish, 1) }) }
                         case "tok_is_freeWord" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).isFreeWord, 1) }) }
                         case "tok_is_quoted" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).isQuoted, 1) }) }
                         case "tok_is_stopword" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).isStopWord, 1) }) }
@@ -1816,9 +1921,9 @@ id: intent_matching
                         Tokens for user-defined elements are more important than built-in tokens.
                     </li>
                     <li>
-                        A more specific match has bigger weight. In other words, a match that uses token from the conversation
+                        A more specific match has bigger weight. In other words, a match that uses a token from the conversation
                         context (i.e short-term-memory) has less weight than a match that only uses tokens from the current request. In the same
-                        way older tokens from the conversation produce less weight than the younger ones.
+                        way older tokens from the conversation give less weight than the more recent ones.
                     </li>
                 </ul>
             </li>
@@ -1828,7 +1933,7 @@ id: intent_matching
         <h2 class="section-title">Intent Callback <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             Whether the intent is defined directly in <code>@NCIntent</code> annotation or indirectly via <code>@NCIntentRef</code>
-            annotation - it is always attached to a callback method:
+            annotation - it is always bound to a callback method:
         </p>
         <ul>
             <li>
@@ -1980,7 +2085,7 @@ id: intent_matching
         <p>
             <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModel.html">NCModel</a> interface provides
             several callbacks that are invoked before, during and after intent matching. They provide an opportunity to inject
-            user-provided cross-cutting concerns into a standard intent matching workflow of NLPCraft. Usage of these callbacks
+            user cross-cutting concerns into a standard intent matching workflow of NLPCraft. Usage of these callbacks
             is completely optional, yet they provide convenient joint points for logging, statistic collections, security
             audit and validation, explicit conversation context management, model metadata updates, and many other aspects
             that may depend on the standard intent matching workflow:
