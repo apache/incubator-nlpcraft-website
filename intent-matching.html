@@ -564,30 +564,31 @@ id: intent_matching
             <thead>
             <tr>
                 <th>Java Type</th>
-                <th>Name</th>
+                <th>IDL Name</th>
                 <th>Notes</th>
             </tr>
             </thead>
             <tbody>
-            <tr><td><code>java.lang.String</code></td><td>String</td><td></td></tr>
+            <tr><td><code>java.lang.String</code></td><td><code>String</code></td><td></td></tr>
                 <tr>
                     <td><code>java.lang.Long</code></td>
-                    <td>Int</td>
+                    <td><code>Int</code></td>
                     <td>
                         Smaller integer numerical types will be converted to <code>java.lang.Long</code>.
                     </td>
                 </tr>
                 <tr>
                     <td><code>java.lang.Double</code></td>
-                    <td>Double</td>
+                    <td><code>Double</code></td>
                     <td>
                         <code>java.lang.Float</code> will be converted to <code>java.lang.Double</code>.
                     </td>
                 </tr>
-                <tr><td><code>java.lang.Boolean</code></td><td>Boolean</td><td>You can use <code><b>true</b></code> or <code><b>false</b></code> literals.</td></tr>
-                <tr><td><code>java.util.List</code></td><td>List</td><td></td></tr>
-                <tr><td><code>java.util.Map</code></td><td>Map</td><td></td></tr>
-                <tr><td><code>java.lang.Object</code></td><td>Any</td><td>Any of the supported types above. Use <code><b>null</b></code> literal for null value.</td></tr>
+                <tr><td><code>java.lang.Boolean</code></td><td><code>Boolean</code></td><td>You can use <code><b>true</b></code> or <code><b>false</b></code> literals.</td></tr>
+                <tr><td><code>java.util.List&lt;T&gt;</code></td><td><code>List[T]</code></td><td></td></tr>
+                <tr><td><code>java.util.Map&lt;K,V&gt;</code></td><td><code>Map[K,V]</code></td><td></td></tr>
+                <tr><td><code><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken">NCToken</a></code></td><td><code>Token</code></td><td></td></tr>
+                <tr><td><code>java.lang.Object</code></td><td><code>Any</code></td><td>Any of the supported types above. Use <code><b>null</b></code> literal for null value.</td></tr>
             </tbody>
         </table>
         <p>
@@ -648,346 +649,6 @@ id: intent_matching
                         </div>
                     </div>
                     {% endfor %}
-
-                    <!--
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_tok_id">
-                                    <span>
-                                        <code><b>tok_id</b>() ⇒ String</code>
-                                    </span>
-                                    <span class="fn-short-desc">
-                                        Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getId()">token ID</a>
-                                    </span>
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="fn_tok_id" class="collapse" data-parent="#token_fns">
-                            <div class="card-body">
-                                <p class="fn-desc">
-                                    <em>Description:</em><br>
-                                    Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getId()">token ID.</a>
-                                </p>
-                                <p class="fn-usage">
-                                    <em>Usage:</em><br>
-                                </p>
-                                <pre class="brush:idl">
-                                    // Result: 'true' if the current token ID is equal to 'my_id'.
-                                    tok_id() == 'my_id'
-                                </pre>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_tok_lemma">
-                                    <span>
-                                        <code><b>tok_lemma</b>() ⇒ String</code>
-                                    </span>
-                                    <span class="fn-short-desc">
-                                        Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getLemma()">token lemma</a>
-                                    </span>
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="fn_tok_lemma" class="collapse" data-parent="#token_fns">
-                            <div class="card-body">
-                                <p class="fn-desc">
-                                    <em>Description:</em><br>
-                                    Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getLemma()">token lemma.</a>
-                                </p>
-                                <p class="fn-usage">
-                                    <em>Usage:</em><br>
-                                </p>
-                                <pre class="brush:idl">
-                                    // Result: 'true' if the current token lemma is equal to 'work'.
-                                    tok_lemma() == 'work'
-                                </pre>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_tok_stem">
-                                    <span>
-                                        <code><b>tok_stem</b>() ⇒ String</code>
-                                    </span>
-                                    <span class="fn-short-desc">
-                                        Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getStem()">token stem</a>
-                                    </span>
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="fn_tok_stem" class="collapse" data-parent="#token_fns">
-                            <div class="card-body">
-                                <p class="fn-desc">
-                                    <em>Description:</em><br>
-                                    Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getStem()">token stem.</a>
-                                </p>
-                                <p class="fn-usage">
-                                    <em>Usage:</em><br>
-                                </p>
-                                <pre class="brush:idl">
-                                    // Result: 'true' if the current token stem is equal to 'work'.
-                                    tok_stem() == 'work'
-                                </pre>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_tok_pos">
-                                    <span>
-                                        <code><b>tok_pos</b>() ⇒ String</code>
-                                    </span>
-                                    <span class="fn-short-desc">
-                                        Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getPos()">token PoS</a> tag
-                                    </span>
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="fn_tok_pos" class="collapse" data-parent="#token_fns">
-                            <div class="card-body">
-                                <p class="fn-desc">
-                                    <em>Description:</em><br>
-                                    Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getPos()">token PoS</a> tag.
-                                </p>
-                                <p class="fn-usage">
-                                    <em>Usage:</em><br>
-                                </p>
-                                <pre class="brush:idl">
-                                    // Result: 'true' if the current token PoS tag is equal to 'NN'.
-                                    tok_pos() == 'NN'
-                                </pre>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_tok_sparsity">
-                                    <span>
-                                        <code><b>tok_sparsity</b>() ⇒ Int</code>
-                                    </span>
-                                    <span class="fn-short-desc">
-                                        Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isSpars()">token sparsity</a> value
-                                    </span>
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="fn_tok_sparsity" class="collapse" data-parent="#token_fns">
-                            <div class="card-body">
-                                <p class="fn-desc">
-                                    <em>Description:</em><br>
-                                    Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isSpars()">token sparsity</a> value.
-                                </p>
-                                <p class="fn-usage">
-                                    <em>Usage:</em><br>
-                                </p>
-                                <pre class="brush:idl">
-                                    // Result: token sparsity flag.
-                                    tok_sparsity()
-                                </pre>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_tok_unid">
-                                    <span>
-                                        <code><b>tok_unid</b>() ⇒ String</code>
-                                    </span>
-                                    <span class="fn-short-desc">
-                                        Returns internal <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isSpars()">token globally unique ID</a>
-                                    </span>
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="fn_tok_unid" class="collapse" data-parent="#token_fns">
-                            <div class="card-body">
-                                <p class="fn-desc">
-                                    <em>Description:</em><br>
-                                    Returns internal <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isSpars()">token globally unique ID</a>.
-                                </p>
-                                <p class="fn-usage">
-                                    <em>Usage:</em><br>
-                                </p>
-                                <pre class="brush:idl">
-                                    // Result: internal token globally unique ID.
-                                    tok_unid()
-                                </pre>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_tok_is_abstract">
-                                    <span>
-                                        <code><b>tok_is_abstract</b>() ⇒ Boolean</code>
-                                    </span>
-                                    <span class="fn-short-desc">
-                                        Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isAbstract()">token abstract</a> flag
-                                    </span>
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="fn_tok_is_abstract" class="collapse" data-parent="#token_fns">
-                            <div class="card-body">
-                                <p class="fn-desc">
-                                    <em>Description:</em><br>
-                                    Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isAbstract()">token abstract</a> flag.
-                                </p>
-                                <p class="fn-usage">
-                                    <em>Usage:</em><br>
-                                </p>
-                                <pre class="brush:idl">
-                                    // Result: token abstract flag.
-                                    tok_is_abstract()
-                                </pre>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_tok_is_bracketed">
-                                    <span>
-                                        <code><b>tok_is_bracketed</b>() ⇒ Boolean</code>
-                                    </span>
-                                    <span class="fn-short-desc">
-                                        Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isBracketed()">token bracketed</a> flag
-                                    </span>
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="fn_tok_is_bracketed" class="collapse" data-parent="#token_fns">
-                            <div class="card-body">
-                                <p class="fn-desc">
-                                    <em>Description:</em><br>
-                                    Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isBracketed()">token bracketed</a> flag.
-                                </p>
-                                <p class="fn-usage">
-                                    <em>Usage:</em><br>
-                                </p>
-                                <pre class="brush:idl">
-                                    // Result: token bracketed flag.
-                                    tok_is_bracketed()
-                                </pre>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_tok_is_direct">
-                                    <span>
-                                        <code><b>tok_is_direct</b>() ⇒ Boolean</code>
-                                    </span>
-                                    <span class="fn-short-desc">
-                                        Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isDirect()">token direct</a> flag
-                                    </span>
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="fn_tok_is_direct" class="collapse" data-parent="#token_fns">
-                            <div class="card-body">
-                                <p class="fn-desc">
-                                    <em>Description:</em><br>
-                                    Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isDirect()">token direct</a> flag.
-                                </p>
-                                <p class="fn-usage">
-                                    <em>Usage:</em><br>
-                                </p>
-                                <pre class="brush:idl">
-                                    // Result: token direct flag.
-                                    tok_is_direct()
-                                </pre>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_tok_is_permutated">
-                                    <span>
-                                        <code><b>tok_is_permutated</b>() ⇒ Boolean</code>
-                                    </span>
-                                    <span class="fn-short-desc">
-                                        Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isPermutated()">token permutated</a> flag
-                                    </span>
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="fn_tok_is_permutated" class="collapse" data-parent="#token_fns">
-                            <div class="card-body">
-                                <p class="fn-desc">
-                                    <em>Description:</em><br>
-                                    Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isPermutated()">token permutated</a> flag.
-                                </p>
-                                <p class="fn-usage">
-                                    <em>Usage:</em><br>
-                                </p>
-                                <pre class="brush:idl">
-                                    // Result: token permutated flag.
-                                    tok_is_permutated()
-                                </pre>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_tok_is_english">
-                                    <span>
-                                        <code><b>tok_is_english</b>() ⇒ Boolean</code>
-                                    </span>
-                                    <span class="fn-short-desc">
-                                        Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isEnglish()">token English</a> detection flag
-                                    </span>
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="fn_tok_is_english" class="collapse" data-parent="#token_fns">
-                            <div class="card-body">
-                                <p class="fn-desc">
-                                    <em>Description:</em><br>
-                                    Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isEnglish()">token English</a> detection flag.
-                                </p>
-                                <p class="fn-usage">
-                                    <em>Usage:</em><br>
-                                </p>
-                                <pre class="brush:idl">
-                                    // Result: token permutated flag.
-                                    tok_is_permutated()
-                                </pre>
-                            </div>
-                        </div>
-                    </div>
-                    -->
-                    <!--
-                        case "tok_is_freeWord" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).isFreeWord, 1) }) }
-                        case "tok_is_quoted" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).isQuoted, 1) }) }
-                        case "tok_is_stopword" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).isStopWord, 1) }) }
-                        case "tok_is_swear" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).isSwear, 1) }) }
-                        case "tok_is_user" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).isUserDefined, 1) }) }
-                        case "tok_is_wordnet" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).isWordnet, 1) }) }
-                        case "tok_ancestors" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).getAncestors, 1) }) }
-                        case "tok_parent" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).getParentId, 1) }) }
-                        case "tok_groups" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).getGroups, 1) }) }
-                        case "tok_value" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).getValue, 1) }) }
-                        case "tok_aliases" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).getAliases, 1) }) }
-                        case "tok_start_idx" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).getStartCharIndex, 1) }) }
-                        case "tok_end_idx" ⇒ arg1Tok() match { case x ⇒ stack.push(() ⇒ { Z(toToken(x().value).getEndCharIndex, 1) }) }
-                        case "tok_this" ⇒ z0(() ⇒ Z(tok, 1))
-                        case "tok_find_part" ⇒ doFindPart()
-                        case "tok_find_parts" ⇒ doFindParts()
-                -->
                 </div>
             </div>
             <div class="tab-pane fade show" id="fn_text" role="tabpanel">
