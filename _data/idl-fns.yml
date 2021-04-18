@@ -31,228 +31,345 @@ fn-token:
   - name: tok_lemma
     sig: |
       <b>tok_lemma</b>(t: Token<em><sub>opt</sub></em>) ⇒ String
-    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getLemma()">token lemma</a>
-    desc: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getLemma()">token lemma</a>.
+    synopsis: |
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getLemma()">token lemma</a>
+    desc: |
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getLemma()">token lemma</a>
+      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
     usage: |
       // Result: 'true' if the current token lemma is equal to 'work'.
       tok_lemma() == 'work'
+      tok_lemma(tok_this()) == 'work'
 
   - name: tok_stem
     sig: |
       <b>tok_stem</b>(t: Token<em><sub>opt</sub></em>) ⇒ String
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getStem()">token stem</a>
-    desc: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getStem()">token stem</a>.
+    desc: |
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getStem()">token stem</a>
+      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
     usage: |
       // Result: 'true' if the current token stem is equal to 'work'.
       tok_stem() == 'work'
+      tok_stem(tok_this()) == 'work'
 
   - name: tok_pos
     sig: |
       <b>tok_pos</b>(t: Token<em><sub>opt</sub></em>) ⇒ String
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getPos()">token PoS</a> tag
-    desc: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getPos()">token PoS</a> tag.
+    desc: |
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getPos()">token PoS</a> tag
+      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
     usage: |
       // Result: 'true' if the current token PoS tag is equal to 'NN'.
       tok_pos() == 'NN'
+      tok_pos(tok_this()) == 'NN'
 
   - name: tok_sparsity
     sig: |
       <b>tok_sparsity</b>(t: Token<em><sub>opt</sub></em>) ⇒ Int
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getSparsity()">token sparsity</a> value
-    desc: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getSparsity()">token sparsity</a> value.
+    desc: |
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getSparsity()">token sparsity</a> value
+      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
     usage: |
       // Result: token sparsity value.
       tok_sparsity()
+      tok_sparsity(tok_this())
 
   - name: tok_unid
     sig: |
       <b>tok_unid</b>(t: Token<em><sub>opt</sub></em>) ⇒ String
     synopsis: Returns internal <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getUnid()">token globally unique ID</a>
-    desc: Returns internal <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getUnid()">token globally unique ID</a>.
+    desc: |
+      Returns internal <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getUnid()">token globally unique ID</a>
+      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
     usage: |
       // Result: internal token globally unique ID.
       tok_unid()
+      tok_unid(tok_this())
 
   - name: tok_is_abstract
     sig: |
       <b>tok_is_abstract</b>(t: Token<em><sub>opt</sub></em>) ⇒ Boolean
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isAbstract()">token abstract</a> flag
-    desc: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isAbstract()">token abstract</a> flag.
+    desc: |
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isAbstract()">token abstract</a> flag
+      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
     usage: |
       // Result: token abstract flag.
       tok_is_abstract()
+      tok_is_abstract(tok_this())
 
   - name: tok_is_bracketed
     sig: |
       <b>tok_is_bracketed</b>(t: Token<em><sub>opt</sub></em>) ⇒ Boolean
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isBracketed()">token bracketed</a> flag
-    desc: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isBracketed()">token bracketed</a> flag.
+    desc: |
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isBracketed()">token bracketed</a> flag
+      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
     usage: |
       // Result: token bracketed flag.
       tok_is_bracketed()
+      tok_is_bracketed(tok_this())
 
   - name: tok_is_direct
     sig: |
       <b>tok_is_direct</b>(t: Token<em><sub>opt</sub></em>) ⇒ Boolean
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isDirect()">token direct</a> flag
-    desc: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isDirect()">token direct</a> flag.
+    desc: |
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isDirect()">token direct</a> flag
+      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
     usage: |
       // Result: token direct flag.
       tok_is_direct()
+      tok_is_direct(tok_this())
 
   - name: tok_is_permutated
     sig: |
       <b>tok_is_permutated</b>(t: Token<em><sub>opt</sub></em>) ⇒ Boolean
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isPermutated()">token permutated</a> flag
-    desc: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isPermutated()">token permutated</a> flag.
+    desc: |
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isPermutated()">token permutated</a> flag
+      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
     usage: |
       // Result: token permutated flag.
       tok_is_permutated()
+      tok_is_permutated(tok_this())
 
   - name: tok_is_english
     sig: |
       <b>tok_is_english</b>(t: Token<em><sub>opt</sub></em>) ⇒ Boolean
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isEnglish()">token English</a> detection flag
-    desc: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isEnglish()">token English</a> detection flag.
+    desc: |
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isEnglish()">token English</a> detection flag
+      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
     usage: |
       // Result: token English detection flag.
       tok_is_english()
+      tok_is_english(tok_this())
 
   - name: tok_is_freeword
     sig: |
       <b>tok_is_freeword</b>(t: Token<em><sub>opt</sub></em>) ⇒ Boolean
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isFreeWord()">token freeword</a> flag
-    desc: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isFreeWord()">token freeword</a> flag.
+    desc: |
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isFreeWord()">token freeword</a> flag
+      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
     usage: |
       // Result: token freeword flag.
       tok_is_freeword()
+      tok_is_freeword(tok_this())
 
   - name: tok_is_quoted
     sig: |
       <b>tok_is_quoted</b>(t: Token<em><sub>opt</sub></em>) ⇒ Boolean
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isQuoted()">token quoted</a> flag
-    desc: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isQuoted()">token quoted</a> flag.
+    desc: |
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isQuoted()">token quoted</a> flag
+      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
     usage: |
       // Result: token quoted flag.
       tok_is_quoted()
+      tok_is_quoted(tok_this())
 
   - name: tok_is_stopword
     sig: |
       <b>tok_is_stopword</b>(t: Token<em><sub>opt</sub></em>) ⇒ Boolean
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isStopWord()">token stopword</a> flag
-    desc: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isStopWord()">token stopword</a> flag.
+    desc: |
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isStopWord()">token stopword</a> flag
+      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
     usage: |
       // Result: token stopword flag.
       tok_is_stopword()
+      tok_is_stopword(tok_this())
 
   - name: tok_is_swear
     sig: |
       <b>tok_is_swear</b>(t: Token<em><sub>opt</sub></em>) ⇒ Boolean
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isSwearWord()">token swear word</a> flag
-    desc: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isSwearWord()">token swear word</a> flag.
+    desc: |
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isSwearWord()">token swear word</a> flag
+      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
     usage: |
       // Result: token swear flag.
       tok_is_swear()
+      tok_is_swear(tok_this())
 
   - name: tok_is_user
     sig: |
       <b>tok_is_user</b>(t: Token<em><sub>opt</sub></em>) ⇒ Boolean
     synopsis: Returns if this token is <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isUserDefined()">user-defined</a>
-    desc: Returns if this token is defined by <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isUserDefined()">user-defined</a> model element or a built-in element.
+    desc: |
+      Returns if this token is defined by <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isUserDefined()">user-defined</a> model element or a built-in element
+      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
     usage: |
       // Result: wether or not this is defined by user model element vs. built-in,
       tok_is_user()
+      tok_is_user(tok_this())
 
   - name: tok_is_wordnet
     sig: |
       <b>tok_is_wordnet</b>(t: Token<em><sub>opt</sub></em>) ⇒ Boolean
     synopsis: Returns if this token is part of <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isWordnet()">WordNet</a> dictionary
-    desc: Returns if this token's text is a known part of <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isWordnet()">WordNet</a> dictionary.
+    desc: |
+      Returns if this token's text is a known part of <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isWordnet()">WordNet</a> dictionary
+      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
     usage: |
       // Result: whether or not this token is part of WordNet dictionary.
       tok_is_wordnet()
+      tok_is_wordnet(tok_this())
 
   - name: tok_ancestors
     sig: |
       <b>tok_ancestors</b>(t: Token<em><sub>opt</sub></em>) ⇒ List[String]
     synopsis: Gets the <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getAncestors()">list of all parent IDs</a> for this token
     desc: |
-      Gets the <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getAncestors()">list of all parent IDs</a> from this token up to the root.
+      Gets the <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getAncestors()">list of all parent IDs</a>
+      for the current token (default) or the provided one by the optional paremeter <code>t</code> up to the root.
       This only available for user-defined model elements - built-in tokens do not have parents and will return an empty list.
+      May return an empty list but never a <code>null</code>.
     usage: |
       // Result: list of all ancestors.
       tok_ancestors()
+      tok_ancestors(tok_this())
 
   - name: tok_parent
     sig: |
       <b>tok_parent</b>(t: Token<em><sub>opt</sub></em>) ⇒ String
     synopsis: Gets optional <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getParentId()">parent ID</a> for this token
     desc: |
-      Gets the optional <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getParentId()">parent ID</a> of the model element this token represents. This only available
-      for user-defined model elements - built-in tokens do not have parents and this will return <code>null</code>.
+      Gets the optional <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getParentId()">parent ID</a> of the
+      model element the current token (default) or the provided one by the optional paremeter <code>t</code>
+      represents. This only available for user-defined model elements - built-in tokens do not have parents and
+      this will return <code>null</code>.
     usage: |
       // Result: list of all ancestors.
       tok_parent()
+      tok_parent(tok_this())
 
   - name: tok_groups
     sig: |
       <b>tok_groups</b>(t: Token<em><sub>opt</sub></em>) ⇒ List[String]
     synopsis: Gets the list of <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getGroups()">groups</a> this token belongs to
     desc: |
-      Gets the list of <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getGroups()">groups</a> this token belongs to. Note that, by default, if not specified explicitly,
-      token always belongs to one group with ID equal to token ID.
+      Gets the list of <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getGroups()">groups</a>
+      the current token (default) or the provided one by the optional paremeter <code>t</code> belongs to. Note that,
+      by default, if not specified explicitly, token always belongs to one group with ID equal to token ID.
+      May return an empty list but never a <code>null</code>.
     usage: |
       // Result: list of groups this token belongs to.
       tok_groups()
+      tok_groups(tok_this())
 
   - name: tok_value
     sig: |
       <b>tok_value</b>(t: Token<em><sub>opt</sub></em>) ⇒ String
     synopsis: Gets the <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getValue()">value</a> if this token was detected via element's value
     desc: |
-      Gets the <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getValue()">value</a> if this token was detected via element's value (or its synonyms). Otherwise
-      returns <code>null</code>. Only applicable for user-defined model elements - built-in tokens
-      do not have values and it will return <code>null</code>.
+      Gets the <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getValue()">value</a> if
+      the current token (default) or the provided one by the optional paremeter <code>t</code> was detected via
+      element's value (or its synonyms). Otherwise returns <code>null</code>. Only applicable for user-defined
+      model elements - built-in tokens do not have values and it will return <code>null</code>.
     usage: |
       // Result: the token value if this token was detected via element's value
       tok_value()
+      tok_value(tok_this())
 
   - name: tok_aliases
     sig: |
       <b>tok_aliases</b>(t: Token<em><sub>opt</sub></em>) ⇒ List[String]
     synopsis: Gets optional <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getAliases()">list of aliases</a> this token is known by
     desc: |
-      Gets optional <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getAliases()">list of aliases</a> this token is known by. Token can get an alias if it is a part of
+      Gets optional <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getAliases()">list of aliases</a>
+      the current token (default) or the provided one by the optional paremeter <code>t</code> is known by. Token can get an alias if it is a part of
       other composed token and IDL expression that was used to match it specified an alias. Note
-      that token can have zero, one or more aliases.
+      that token can have zero, one or more aliases. May return an empty list but never a <code>null</code>.
     usage: |
       // Result: checks if this token is known by 'alias' alias.
       has(tok_aliases(), 'alias')
+      has(tok_aliases(tok_this()), 'alias')
 
   - name: tok_start_idx
     sig: |
       <b>tok_start_idx</b>(t: Token<em><sub>opt</sub></em>) ⇒ Int
     synopsis: Gets <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getStartCharIndex()">start character index</a> of this token in the original text
     desc: |
-      Gets <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getStartCharIndex()">start character index</a> of this token in the original text.
+      Gets <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getStartCharIndex()">start character index</a>
+      of the current token (default) or the provided one by the optional paremeter <code>t</code> in the original text.
     usage: |
       // Result: start character index of this token in the original text.
       tok_start_idx()
+      tok_start_idx(tok_this())
 
   - name: tok_end_idx
     sig: |
       <b>tok_end_idx</b>(t: Token<em><sub>opt</sub></em>) ⇒ Int
     synopsis: Gets <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getEndCharIndex()">end character index</a> of this token in the original text
     desc: |
-      Gets <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getEndCharIndex()">end character index</a> of this token in the original text.
+      Gets <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getEndCharIndex()">end character index</a>
+      of the current token (default) or the provided one by the optional paremeter <code>t</code> in the original text.
     usage: |
       // Result: end character index of this token in the original text.
       tok_end_idx()
+      tok_end_idx(tok_this())
 
+  - name: tok_this
+    sig: |
+      <b>tok_this</b>() ⇒ Token
+    synopsis: Returns current token.
+    desc: |
+      Returns current token.
+    usage: |
+      // Result: current token.
+      tok_this()
 
-#                        case "tok_this" ⇒ z0(() ⇒ Z(tok, 1))
-#                        case "tok_find_part" ⇒ doFindPart()
-#                        case "tok_find_parts" ⇒ doFindParts()
+  - name: tok_find_part
+    sig: |
+      <b>tok_find_part</b>(t: Token, a: String) ⇒ Token
+    synopsis: Finds part token with given alias or ID.
+    desc: |
+      Finds part token with given ID or aliase traversing entire part token graph. The start token is provided
+      by <code>t</code> parameter. Token ID or alias to find is defined by <code>a</code> parameter. This function
+      throws runtime exception if given alias or ID cannot be found or more than one token is found. This function
+      never returns <code>null</code>. If more than one token is expected - use <code>tok_find_parts()</code>
+      function instead. See also <code>tok_has_part()</code> function to check if certain part token exists.
+    usage: |
+      // Result: part token of the current token found by 'alias' alias,
+      //         if any, or throws runtime exception.
+      tok_find_part(tok_this(), 'alias')
+
+  - name: tok_has_part
+    sig: |
+      <b>tok_has_part</b>(t: Token, a: String) ⇒ Boolean
+    synopsis: Checks if part token with given alias or ID exists.
+    desc: |
+      Checks the existence of the part token with given ID or aliase traversing entire part token graph.
+      The start token is provided by <code>t</code> parameter. Token ID or alias to find is defined by <code>a</code>
+      parameter. See also <code>if()</code> function for 'if-then-else' branching support.
+    usage: |
+      // Result: 'true' if part token of the current token found by 'alias' alias, 'false' otherwise.
+      tok_has_part(tok_this(), 'alias')
+
+      // Result: part token 'alias' if it exists or the current token if it does not.
+      @tok = if(tok_has_part(tok_this(), 'alias'), tok_find_part(tok_this(), 'alias'), tok_this())
+
+  - name: tok_find_parts
+    sig: |
+      <b>tok_find_parts</b>(t: Token, a: String) ⇒ List[Token]
+    synopsis: Finds part tokens with given alias or ID.
+    desc: |
+      Finds part tokens with given ID or aliase traversing entire part token graph. The start token is provided
+      by <code>t</code> parameter. Token ID or alias to find is defined by <code>a</code> parameter. This function
+      may return an empty list but never a <code>null</code>.
+    usage: |
+      // Result: list of part tokens, potentially empty, of the current token found by 'alias' alias.
+      tok_find_parts(tok_this(), 'alias')
+
+      // Result: part token 'alias' if it exists or the current token if it does not.
+      @parts = tok_find_parts(tok_this(), 'alias')
+      @tok = if(is_empty(@parts), tok_this(), first(@parts))
 
 
 fn-datetime:
