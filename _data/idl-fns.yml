@@ -374,3 +374,385 @@ fn-token:
 
 fn-datetime:
 fn-math:
+
+fn-text:
+  - name: length
+    sig: |
+      <b>length</b>(p: {String|List|Map}) ⇒ Int
+    synopsis: Returns size or length of the given string, list or map
+    desc: |
+      Returns size or length of the given string, list or map. This function has
+      aliases: <code><b>size()</b></code> and <code><b>count()</b></code>.
+    usage: |
+      // Result: 9
+      length("some text")
+
+      // Result: 3
+      @lst = list(1, 2, 3)
+      size(@lst)
+      count(@lst)
+
+  - name: trim
+    sig: |
+      <b>trim</b>(p: String) ⇒ Int
+    synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#trim()"><code>String.trim()</code></a>
+    desc: |
+      Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#trim()"><code>String.trim()</code></a> on
+      given parameter <code>p</code> and returns its result. This function has alias: <code><b>strip()</b></code>
+    usage: |
+      // Result: "text"
+      trim(" text ")
+      strip(" text ")
+
+  - name: uppercase
+    sig: |
+      <b>uppercase</b>(p: String) ⇒ String
+    synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#toUpperCase()"><code>String.toUpperCase()</code></a>
+    desc: |
+      Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#toUpperCase()"><code>String.toUpperCase()</code></a>
+      on given parameter <code>p</code> and returns its result.
+    usage: |
+      // Result: "TEXT"
+      uppercase("text")
+
+  - name: lowercase
+    sig: |
+      <b>lowercase</b>(p: String) ⇒ String
+    synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#toLowerCase()"><code>String.toLowerCase()</code></a>
+    desc: |
+      Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#toLowerCase()"><code>String.toLowerCase()</code></a>
+      on given parameter <code>p</code> and returns its result.
+    usage: |
+      // Result: "text"
+      lowercase("TEXT")
+
+#    <code class="fn"><b>uppercase</b>(p: String) ⇒ String</code>
+#    </p>
+#    <p class="fn-desc">
+#    <em>Description:</em><br>
+#    Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#toUpperCase()"><code>String.toUpperCase()</code></a> on given parameter and returns its result.
+#    </p>
+#    </td>
+#    <td>
+#    <pre class="brush:idl">
+#    </pre>
+#    </td>
+#    </tr>
+#    <tr>
+#    <td>
+#    <p>
+#    <code class="fn"></code>
+#    </p>
+#    <p class="fn-desc">
+#    <em>Description:</em><br>
+#    Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#toLowerCase()"><code>String.toLowerCase()</code></a> on given parameter and returns its result.
+#    </p>
+#    </td>
+#    <td>
+#    <pre class="brush:idl">
+#    // Result: "text"
+#    lowercase("TeXt")
+#    </pre>
+#    </td>
+#    </tr>
+#    <tr>
+#    <td>
+#    <p>
+#    <code class="fn"><b>is_alpha</b>(p: String) ⇒ Boolean</code>
+#    </p>
+#    <p class="fn-desc">
+#    <em>Description:</em><br>
+#    Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlpha-java.lang.CharSequence-"><code>StringUtils.isAlpha()</code></a> on given parameter and returns its result.
+#    </p>
+#    </td>
+#    <td>
+#    <pre class="brush:idl">
+#    // Result: true
+#    is_alpha("text")
+#    </pre>
+#    </td>
+#    </tr>
+#    <tr>
+#    <td>
+#    <p>
+#    <code class="fn"><b>is_alphanum</b>(p: String) ⇒ Boolean</code>
+#    </p>
+#    <p class="fn-desc">
+#    <em>Description:</em><br>
+#    Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlphanumeric-java.lang.CharSequence-"><code>StringUtils.isAlphanumeric()</code></a> on given parameter and returns its result.
+#    </p>
+#    </td>
+#    <td>
+#    <pre class="brush:idl">
+#    // Result: true
+#    is_alphanum("text123")
+#    </pre>
+#    </td>
+#    </tr>
+#    <tr>
+#    <td>
+#    <p>
+#    <code class="fn"><b>is_whitespace</b>(p: String) ⇒ Boolean</code>
+#    </p>
+#    <p class="fn-desc">
+#    <em>Description:</em><br>
+#    Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isWhitespace-java.lang.CharSequence-"><code>StringUtils.isWhitespace()</code></a> on given parameter and returns its result.
+#    </p>
+#    </td>
+#    <td>
+#    <pre class="brush:idl">
+#    // Result: true
+#    is_whitespace("  ")
+#    </pre>
+#    </td>
+#    </tr>
+#    <tr>
+#    <td>
+#    <p>
+#    <code class="fn"><b>is_num</b>(p: String) ⇒ Boolean</code>
+#    </p>
+#    <p class="fn-desc">
+#    <em>Description:</em><br>
+#    Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isNumeric-java.lang.CharSequence-"><code>StringUtils.isNumeric()</code></a> on given parameter and returns its result.
+#    </p>
+#    </td>
+#    <td>
+#    <pre class="brush:idl">
+#    // Result: true
+#    is_num("123")
+#
+#    // Result: false
+#    is_num("text")
+#    </pre>
+#    </td>
+#    </tr>
+#    <tr>
+#    <td>
+#    <p>
+#    <code class="fn"><b>is_numspace</b>(p: String) ⇒ Boolean</code>
+#    </p>
+#    <p class="fn-desc">
+#    <em>Description:</em><br>
+#    Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isNumericSpace-java.lang.CharSequence-"><code>StringUtils.isNumericSpace()</code></a> on given parameter and returns its result.
+#    </p>
+#    </td>
+#    <td>
+#    <pre class="brush:idl">
+#    // Result: true
+#    is_numspace("  123  ")
+#    </pre>
+#    </td>
+#    </tr>
+#    <tr>
+#    <td>
+#    <p>
+#    <code class="fn"><b>is_alphaspace</b>(p: String) ⇒ Boolean</code>
+#    </p>
+#    <p class="fn-desc">
+#    <em>Description:</em><br>
+#    Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlphaSpace-java.lang.CharSequence-"><code>StringUtils.isAlphaSpace()</code></a> on given parameter and returns its result.
+#    </p>
+#    </td>
+#    <td>
+#    <pre class="brush:idl">
+#    // Result: true
+#    is_numspace("  abc  ")
+#    </pre>
+#    </td>
+#    </tr>
+#    <tr>
+#    <td>
+#    <p>
+#    <code class="fn"><b>is_alphanumspace</b>(p: String) ⇒ Boolean</code>
+#    </p>
+#    <p class="fn-desc">
+#    <em>Description:</em><br>
+#    Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlphaNumericSpace-java.lang.CharSequence-"><code>StringUtils.isAlphaNumericSpace()</code></a> on given parameter and returns its result.
+#    </p>
+#    </td>
+#    <td>
+#    <pre class="brush:idl">
+#    // Result: true
+#    is_alphanumspace("  123 abc  ")
+#    </pre>
+#    </td>
+#    </tr>
+#    <tr>
+#    <td>
+#    <p>
+#    <code class="fn"><b>split</b>(p1: String, p2: String) ⇒ List</code>
+#    </p>
+#    <p class="fn-desc">
+#    <em>Description:</em><br>
+#    Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#split(java.lang.String)"><code>split(<b>p2</b>)</code></a> and returns its result converted to the list.
+#    </p>
+#    </td>
+#    <td>
+#    <pre class="brush:idl">
+#    // Result: [ "a", "b", "c" ]
+#    split("a|b|c", "|")
+#    </pre>
+#    </td>
+#    </tr>
+#    <tr>
+#    <td>
+#    <p>
+#    <code class="fn"><b>split_trim</b>(p1: String, p2: String) ⇒ List</code>
+#    </p>
+#    <p class="fn-desc">
+#    <em>Description:</em><br>
+#    Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#split(java.lang.String)"><code>split(<b>p2</b>)</code></a>
+#    converting the result to the list. Then
+#    calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#strip()">String.strip()</a> on each
+#    element.
+#    </p>
+#    </td>
+#    <td>
+#    <pre class="brush:idl">
+#    // Result: [ "a", "b", "c" ]
+#    split_trim("a | b |c ", "|")
+#    </pre>
+#    </td>
+#    </tr>
+#    <tr>
+#    <td>
+#    <p>
+#    <code class="fn"><b>starts_with</b>(p1: String, p2: String) ⇒ Boolean</code>
+#    </p>
+#    <p class="fn-desc">
+#    <em>Description:</em><br>
+#    Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#split(java.lang.String)"><code>startsWith(<b>p2</b>)</code></a> and returns its result.
+#    </p>
+#    </td>
+#    <td>
+#    <pre class="brush:idl">
+#    // Result: true
+#    starts_width("abc", "ab")
+#    </pre>
+#    </td>
+#    </tr>
+#    <tr>
+#    <td>
+#    <p>
+#    <code class="fn"><b>ends_with</b>(p1: String, p2: String) ⇒ Boolean</code>
+#    </p>
+#    <p class="fn-desc">
+#    <em>Description:</em><br>
+#    Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#split(java.lang.String)"><code>endsWith(<b>p2</b>)</code></a> and returns its result.
+#    </p>
+#    </td>
+#    <td>
+#    <pre class="brush:idl">
+#    // Result: true
+#    ends_width("abc", "bc")
+#    </pre>
+#    </td>
+#    </tr>
+#    <tr>
+#    <td>
+#    <p>
+#    <code class="fn"><b>contains</b>(p1: String, p2: String) ⇒ Boolean</code>
+#    </p>
+#    <p class="fn-desc">
+#    <em>Description:</em><br>
+#    Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#contains(java.lang.CharSequence)"><code>contains(<b>p2</b>)</code></a> and returns its result.
+#    </p>
+#    </td>
+#    <td>
+#    <pre class="brush:idl">
+#    // Result: true
+#    contains("abc", "bc")
+#    </pre>
+#    </td>
+#    </tr>
+#    <tr>
+#    <td>
+#    <p>
+#    <code class="fn"><b>index_of</b>(p1: String, p2: String) ⇒ Int</code>
+#    </p>
+#    <p class="fn-desc">
+#    <em>Description:</em><br>
+#    Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#indexOf(java.lang.String)"><code>indexOf(<b>p2</b>)</code></a> and returns its result.
+#    </p>
+#    </td>
+#    <td>
+#    <pre class="brush:idl">
+#    // Result: 1
+#    index_of("abc", "bc")
+#    </pre>
+#    </td>
+#    </tr>
+#    <tr>
+#    <td>
+#    <p>
+#    <code class="fn"><b>substr</b>(p1: String, p2: Int, p3: Int) ⇒ String</code>
+#    </p>
+#    <p class="fn-desc">
+#    <em>Description:</em><br>
+#    Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#substring(int,int)"><code>substring(<b>p2</b>, <b>p3</b>)</code></a> and returns its result.
+#    </p>
+#    </td>
+#    <td>
+#    <pre class="brush:idl">
+#    // Result: "bc"
+#    substr("abc", 1, 3)
+#    </pre>
+#    </td>
+#    </tr>
+#    <tr>
+#    <td>
+#    <p>
+#    <code class="fn"><b>replace</b>(p1: String, p2: String, p3: String) ⇒ String</code>
+#    </p>
+#    <p class="fn-desc">
+#    <em>Description:</em><br>
+#    Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#replace(java.lang.CharSequence,java.lang.CharSequence)"><code>replace(<b>p2</b>, <b>p3</b>)</code></a> and returns its result.
+#    </p>
+#    </td>
+#    <td>
+#    <pre class="brush:idl">
+#    // Result: "aBC"
+#    replace("abc", "bc", "BC")
+#    </pre>
+#    </td>
+#    </tr>
+#    <tr>
+#    <td>
+#    <p>
+#    <code class="fn"><b>to_double</b>(p1: { Int|String }) ⇒ Double</code>
+#    </p>
+#    <p class="fn-desc">
+#    <em>Description:</em><br>
+#    Converts given integer or string to double value.
+#    </p>
+#    </td>
+#    <td>
+#    <pre class="brush:idl">
+#    // Result: 1.2
+#    to_double("1.2")
+#    // Result: 1.0
+#    to_double(1)
+#    </pre>
+#    </td>
+#    </tr>
+#    <tr>
+#    <td>
+#    <p>
+#    <code class="fn"><b>to_int</b>(p1: { Double|String }) ⇒ Double</code>
+#    </p>
+#    <p class="fn-desc">
+#    <em>Description:</em><br>
+#    Converts given double or string to integer value. In case of double
+#    value it will be rounded to the nearest integer value.
+#    </p>
+#    </td>
+#    <td>
+#    <pre class="brush:idl">
+#    // Result: 1
+#    to_int("1.2")
+#    to_int(1.2)
+#    </pre>
+#    </td>
+#    </tr>
+#    </tbody>
+#    </table>
