@@ -22,7 +22,7 @@ fn-token:
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getId()">token ID</a>
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getId()">token ID</a>
-      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
+      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: 'true' if the current token ID is equal to 'my_id'.
       tok_id() == 'my_id'
@@ -35,7 +35,7 @@ fn-token:
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getLemma()">token lemma</a>
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getLemma()">token lemma</a>
-      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
+      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: 'true' if the current token lemma is equal to 'work'.
       tok_lemma() == 'work'
@@ -47,7 +47,7 @@ fn-token:
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getStem()">token stem</a>
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getStem()">token stem</a>
-      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
+      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: 'true' if the current token stem is equal to 'work'.
       tok_stem() == 'work'
@@ -59,7 +59,7 @@ fn-token:
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getPos()">token PoS</a> tag
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getPos()">token PoS</a> tag
-      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
+      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: 'true' if the current token PoS tag is equal to 'NN'.
       tok_pos() == 'NN'
@@ -71,7 +71,7 @@ fn-token:
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getSparsity()">token sparsity</a> value
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getSparsity()">token sparsity</a> value
-      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
+      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: token sparsity value.
       tok_sparsity()
@@ -83,7 +83,7 @@ fn-token:
     synopsis: Returns internal <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getUnid()">token globally unique ID</a>
     desc: |
       Returns internal <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getUnid()">token globally unique ID</a>
-      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
+      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: internal token globally unique ID.
       tok_unid()
@@ -95,7 +95,7 @@ fn-token:
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isAbstract()">token abstract</a> flag
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isAbstract()">token abstract</a> flag
-      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
+      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: token abstract flag.
       tok_is_abstract()
@@ -107,7 +107,7 @@ fn-token:
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isBracketed()">token bracketed</a> flag
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isBracketed()">token bracketed</a> flag
-      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
+      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: token bracketed flag.
       tok_is_bracketed()
@@ -119,7 +119,7 @@ fn-token:
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isDirect()">token direct</a> flag
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isDirect()">token direct</a> flag
-      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
+      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: token direct flag.
       tok_is_direct()
@@ -131,7 +131,7 @@ fn-token:
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isPermutated()">token permutated</a> flag
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isPermutated()">token permutated</a> flag
-      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
+      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: token permutated flag.
       tok_is_permutated()
@@ -143,7 +143,7 @@ fn-token:
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isEnglish()">token English</a> detection flag
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isEnglish()">token English</a> detection flag
-      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
+      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: token English detection flag.
       tok_is_english()
@@ -155,7 +155,7 @@ fn-token:
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isFreeWord()">token freeword</a> flag
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isFreeWord()">token freeword</a> flag
-      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
+      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: token freeword flag.
       tok_is_freeword()
@@ -167,7 +167,7 @@ fn-token:
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isQuoted()">token quoted</a> flag
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isQuoted()">token quoted</a> flag
-      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
+      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: token quoted flag.
       tok_is_quoted()
@@ -179,7 +179,7 @@ fn-token:
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isStopWord()">token stopword</a> flag
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isStopWord()">token stopword</a> flag
-      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
+      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: token stopword flag.
       tok_is_stopword()
@@ -191,7 +191,7 @@ fn-token:
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isSwearWord()">token swear word</a> flag
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isSwearWord()">token swear word</a> flag
-      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
+      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: token swear flag.
       tok_is_swear()
@@ -203,7 +203,7 @@ fn-token:
     synopsis: Returns if this token is <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isUserDefined()">user-defined</a>
     desc: |
       Returns if this token is defined by <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isUserDefined()">user-defined</a> model element or a built-in element
-      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
+      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: wether or not this is defined by user model element vs. built-in,
       tok_is_user()
@@ -215,7 +215,7 @@ fn-token:
     synopsis: Returns if this token is part of <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isWordnet()">WordNet</a> dictionary
     desc: |
       Returns if this token's text is a known part of <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isWordnet()">WordNet</a> dictionary
-      for the current token (default) or the provided one by the optional paremeter <code>t</code>.
+      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: whether or not this token is part of WordNet dictionary.
       tok_is_wordnet()
@@ -227,7 +227,7 @@ fn-token:
     synopsis: Gets the <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getAncestors()">list of all parent IDs</a> for this token
     desc: |
       Gets the <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getAncestors()">list of all parent IDs</a>
-      for the current token (default) or the provided one by the optional paremeter <code>t</code> up to the root.
+      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code> up to the root.
       This only available for user-defined model elements - built-in tokens do not have parents and will return an empty list.
       May return an empty list but never a <code>null</code>.
     usage: |
@@ -241,7 +241,7 @@ fn-token:
     synopsis: Gets optional <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getParentId()">parent ID</a> for this token
     desc: |
       Gets the optional <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getParentId()">parent ID</a> of the
-      model element the current token (default) or the provided one by the optional paremeter <code>t</code>
+      model element the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>
       represents. This only available for user-defined model elements - built-in tokens do not have parents and
       this will return <code>null</code>.
     usage: |
@@ -255,7 +255,7 @@ fn-token:
     synopsis: Gets the list of <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getGroups()">groups</a> this token belongs to
     desc: |
       Gets the list of <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getGroups()">groups</a>
-      the current token (default) or the provided one by the optional paremeter <code>t</code> belongs to. Note that,
+      the current token (default) or the provided one by the optional paremeter <code><b>t</b></code> belongs to. Note that,
       by default, if not specified explicitly, token always belongs to one group with ID equal to token ID.
       May return an empty list but never a <code>null</code>.
     usage: |
@@ -269,7 +269,7 @@ fn-token:
     synopsis: Gets the <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getValue()">value</a> if this token was detected via element's value
     desc: |
       Gets the <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getValue()">value</a> if
-      the current token (default) or the provided one by the optional paremeter <code>t</code> was detected via
+      the current token (default) or the provided one by the optional paremeter <code><b>t</b></code> was detected via
       element's value (or its synonyms). Otherwise returns <code>null</code>. Only applicable for user-defined
       model elements - built-in tokens do not have values and it will return <code>null</code>.
     usage: |
@@ -283,7 +283,7 @@ fn-token:
     synopsis: Gets optional <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getAliases()">list of aliases</a> this token is known by
     desc: |
       Gets optional <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getAliases()">list of aliases</a>
-      the current token (default) or the provided one by the optional paremeter <code>t</code> is known by. Token can get an alias if it is a part of
+      the current token (default) or the provided one by the optional paremeter <code><b>t</b></code> is known by. Token can get an alias if it is a part of
       other composed token and IDL expression that was used to match it specified an alias. Note
       that token can have zero, one or more aliases. May return an empty list but never a <code>null</code>.
     usage: |
@@ -297,7 +297,7 @@ fn-token:
     synopsis: Gets <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getStartCharIndex()">start character index</a> of this token in the original text
     desc: |
       Gets <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getStartCharIndex()">start character index</a>
-      of the current token (default) or the provided one by the optional paremeter <code>t</code> in the original text.
+      of the current token (default) or the provided one by the optional paremeter <code><b>t</b></code> in the original text.
     usage: |
       // Result: start character index of this token in the original text.
       tok_start_idx()
@@ -309,7 +309,7 @@ fn-token:
     synopsis: Gets <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getEndCharIndex()">end character index</a> of this token in the original text
     desc: |
       Gets <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getEndCharIndex()">end character index</a>
-      of the current token (default) or the provided one by the optional paremeter <code>t</code> in the original text.
+      of the current token (default) or the provided one by the optional paremeter <code><b>t</b></code> in the original text.
     usage: |
       // Result: end character index of this token in the original text.
       tok_end_idx()
@@ -331,7 +331,7 @@ fn-token:
     synopsis: Finds part token with given alias or ID.
     desc: |
       Finds part token with given ID or aliase traversing entire part token graph. The start token is provided
-      by <code>t</code> parameter. Token ID or alias to find is defined by <code>a</code> parameter. This function
+      by <code><b>t</b></code> parameter. Token ID or alias to find is defined by <code><b>a</b></code> parameter. This function
       throws runtime exception if given alias or ID cannot be found or more than one token is found. This function
       never returns <code>null</code>. If more than one token is expected - use <code>tok_find_parts()</code>
       function instead. See also <code>tok_has_part()</code> function to check if certain part token exists.
@@ -346,7 +346,7 @@ fn-token:
     synopsis: Checks if part token with given alias or ID exists.
     desc: |
       Checks the existence of the part token with given ID or aliase traversing entire part token graph.
-      The start token is provided by <code>t</code> parameter. Token ID or alias to find is defined by <code>a</code>
+      The start token is provided by <code><b>t</b></code> parameter. Token ID or alias to find is defined by <code><b>a</b></code>
       parameter. See also <code>if()</code> function for 'if-then-else' branching support.
     usage: |
       // Result: 'true' if part token of the current token found by 'alias' alias, 'false' otherwise.
@@ -361,7 +361,7 @@ fn-token:
     synopsis: Finds part tokens with given alias or ID.
     desc: |
       Finds part tokens with given ID or aliase traversing entire part token graph. The start token is provided
-      by <code>t</code> parameter. Token ID or alias to find is defined by <code>a</code> parameter. This function
+      by <code><b>t</b></code> parameter. Token ID or alias to find is defined by <code><b>a</b></code> parameter. This function
       may return an empty list but never a <code>null</code>.
     usage: |
       // Result: list of part tokens, potentially empty, of the current token found by 'alias' alias.
@@ -398,7 +398,7 @@ fn-text:
     synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#trim()"><code>String.trim()</code></a>
     desc: |
       Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#trim()"><code>String.trim()</code></a> on
-      given parameter <code>p</code> and returns its result. This function has alias: <code><b>strip()</b></code>
+      given parameter <code><b>p</b></code> and returns its result. This function has alias: <code><b>strip()</b></code>
     usage: |
       // Result: "text"
       trim(" text ")
@@ -410,7 +410,7 @@ fn-text:
     synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#toUpperCase()"><code>String.toUpperCase()</code></a>
     desc: |
       Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#toUpperCase()"><code>String.toUpperCase()</code></a>
-      on given parameter <code>p</code> and returns its result.
+      on given parameter <code><b>p</b></code> and returns its result.
     usage: |
       // Result: "TEXT"
       uppercase("text")
@@ -421,338 +421,200 @@ fn-text:
     synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#toLowerCase()"><code>String.toLowerCase()</code></a>
     desc: |
       Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#toLowerCase()"><code>String.toLowerCase()</code></a>
-      on given parameter <code>p</code> and returns its result.
+      on given parameter <code><b>p</b></code> and returns its result.
     usage: |
       // Result: "text"
-      lowercase("TEXT")
+      lowercase("TeXt")
 
-#    <code class="fn"><b>uppercase</b>(p: String) ⇒ String</code>
-#    </p>
-#    <p class="fn-desc">
-#    <em>Description:</em><br>
-#    Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#toUpperCase()"><code>String.toUpperCase()</code></a> on given parameter and returns its result.
-#    </p>
-#    </td>
-#    <td>
-#    <pre class="brush:idl">
-#    </pre>
-#    </td>
-#    </tr>
-#    <tr>
-#    <td>
-#    <p>
-#    <code class="fn"></code>
-#    </p>
-#    <p class="fn-desc">
-#    <em>Description:</em><br>
-#    Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#toLowerCase()"><code>String.toLowerCase()</code></a> on given parameter and returns its result.
-#    </p>
-#    </td>
-#    <td>
-#    <pre class="brush:idl">
-#    // Result: "text"
-#    lowercase("TeXt")
-#    </pre>
-#    </td>
-#    </tr>
-#    <tr>
-#    <td>
-#    <p>
-#    <code class="fn"><b>is_alpha</b>(p: String) ⇒ Boolean</code>
-#    </p>
-#    <p class="fn-desc">
-#    <em>Description:</em><br>
-#    Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlpha-java.lang.CharSequence-"><code>StringUtils.isAlpha()</code></a> on given parameter and returns its result.
-#    </p>
-#    </td>
-#    <td>
-#    <pre class="brush:idl">
-#    // Result: true
-#    is_alpha("text")
-#    </pre>
-#    </td>
-#    </tr>
-#    <tr>
-#    <td>
-#    <p>
-#    <code class="fn"><b>is_alphanum</b>(p: String) ⇒ Boolean</code>
-#    </p>
-#    <p class="fn-desc">
-#    <em>Description:</em><br>
-#    Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlphanumeric-java.lang.CharSequence-"><code>StringUtils.isAlphanumeric()</code></a> on given parameter and returns its result.
-#    </p>
-#    </td>
-#    <td>
-#    <pre class="brush:idl">
-#    // Result: true
-#    is_alphanum("text123")
-#    </pre>
-#    </td>
-#    </tr>
-#    <tr>
-#    <td>
-#    <p>
-#    <code class="fn"><b>is_whitespace</b>(p: String) ⇒ Boolean</code>
-#    </p>
-#    <p class="fn-desc">
-#    <em>Description:</em><br>
-#    Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isWhitespace-java.lang.CharSequence-"><code>StringUtils.isWhitespace()</code></a> on given parameter and returns its result.
-#    </p>
-#    </td>
-#    <td>
-#    <pre class="brush:idl">
-#    // Result: true
-#    is_whitespace("  ")
-#    </pre>
-#    </td>
-#    </tr>
-#    <tr>
-#    <td>
-#    <p>
-#    <code class="fn"><b>is_num</b>(p: String) ⇒ Boolean</code>
-#    </p>
-#    <p class="fn-desc">
-#    <em>Description:</em><br>
-#    Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isNumeric-java.lang.CharSequence-"><code>StringUtils.isNumeric()</code></a> on given parameter and returns its result.
-#    </p>
-#    </td>
-#    <td>
-#    <pre class="brush:idl">
-#    // Result: true
-#    is_num("123")
-#
-#    // Result: false
-#    is_num("text")
-#    </pre>
-#    </td>
-#    </tr>
-#    <tr>
-#    <td>
-#    <p>
-#    <code class="fn"><b>is_numspace</b>(p: String) ⇒ Boolean</code>
-#    </p>
-#    <p class="fn-desc">
-#    <em>Description:</em><br>
-#    Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isNumericSpace-java.lang.CharSequence-"><code>StringUtils.isNumericSpace()</code></a> on given parameter and returns its result.
-#    </p>
-#    </td>
-#    <td>
-#    <pre class="brush:idl">
-#    // Result: true
-#    is_numspace("  123  ")
-#    </pre>
-#    </td>
-#    </tr>
-#    <tr>
-#    <td>
-#    <p>
-#    <code class="fn"><b>is_alphaspace</b>(p: String) ⇒ Boolean</code>
-#    </p>
-#    <p class="fn-desc">
-#    <em>Description:</em><br>
-#    Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlphaSpace-java.lang.CharSequence-"><code>StringUtils.isAlphaSpace()</code></a> on given parameter and returns its result.
-#    </p>
-#    </td>
-#    <td>
-#    <pre class="brush:idl">
-#    // Result: true
-#    is_numspace("  abc  ")
-#    </pre>
-#    </td>
-#    </tr>
-#    <tr>
-#    <td>
-#    <p>
-#    <code class="fn"><b>is_alphanumspace</b>(p: String) ⇒ Boolean</code>
-#    </p>
-#    <p class="fn-desc">
-#    <em>Description:</em><br>
-#    Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlphaNumericSpace-java.lang.CharSequence-"><code>StringUtils.isAlphaNumericSpace()</code></a> on given parameter and returns its result.
-#    </p>
-#    </td>
-#    <td>
-#    <pre class="brush:idl">
-#    // Result: true
-#    is_alphanumspace("  123 abc  ")
-#    </pre>
-#    </td>
-#    </tr>
-#    <tr>
-#    <td>
-#    <p>
-#    <code class="fn"><b>split</b>(p1: String, p2: String) ⇒ List</code>
-#    </p>
-#    <p class="fn-desc">
-#    <em>Description:</em><br>
-#    Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#split(java.lang.String)"><code>split(<b>p2</b>)</code></a> and returns its result converted to the list.
-#    </p>
-#    </td>
-#    <td>
-#    <pre class="brush:idl">
-#    // Result: [ "a", "b", "c" ]
-#    split("a|b|c", "|")
-#    </pre>
-#    </td>
-#    </tr>
-#    <tr>
-#    <td>
-#    <p>
-#    <code class="fn"><b>split_trim</b>(p1: String, p2: String) ⇒ List</code>
-#    </p>
-#    <p class="fn-desc">
-#    <em>Description:</em><br>
-#    Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#split(java.lang.String)"><code>split(<b>p2</b>)</code></a>
-#    converting the result to the list. Then
-#    calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#strip()">String.strip()</a> on each
-#    element.
-#    </p>
-#    </td>
-#    <td>
-#    <pre class="brush:idl">
-#    // Result: [ "a", "b", "c" ]
-#    split_trim("a | b |c ", "|")
-#    </pre>
-#    </td>
-#    </tr>
-#    <tr>
-#    <td>
-#    <p>
-#    <code class="fn"><b>starts_with</b>(p1: String, p2: String) ⇒ Boolean</code>
-#    </p>
-#    <p class="fn-desc">
-#    <em>Description:</em><br>
-#    Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#split(java.lang.String)"><code>startsWith(<b>p2</b>)</code></a> and returns its result.
-#    </p>
-#    </td>
-#    <td>
-#    <pre class="brush:idl">
-#    // Result: true
-#    starts_width("abc", "ab")
-#    </pre>
-#    </td>
-#    </tr>
-#    <tr>
-#    <td>
-#    <p>
-#    <code class="fn"><b>ends_with</b>(p1: String, p2: String) ⇒ Boolean</code>
-#    </p>
-#    <p class="fn-desc">
-#    <em>Description:</em><br>
-#    Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#split(java.lang.String)"><code>endsWith(<b>p2</b>)</code></a> and returns its result.
-#    </p>
-#    </td>
-#    <td>
-#    <pre class="brush:idl">
-#    // Result: true
-#    ends_width("abc", "bc")
-#    </pre>
-#    </td>
-#    </tr>
-#    <tr>
-#    <td>
-#    <p>
-#    <code class="fn"><b>contains</b>(p1: String, p2: String) ⇒ Boolean</code>
-#    </p>
-#    <p class="fn-desc">
-#    <em>Description:</em><br>
-#    Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#contains(java.lang.CharSequence)"><code>contains(<b>p2</b>)</code></a> and returns its result.
-#    </p>
-#    </td>
-#    <td>
-#    <pre class="brush:idl">
-#    // Result: true
-#    contains("abc", "bc")
-#    </pre>
-#    </td>
-#    </tr>
-#    <tr>
-#    <td>
-#    <p>
-#    <code class="fn"><b>index_of</b>(p1: String, p2: String) ⇒ Int</code>
-#    </p>
-#    <p class="fn-desc">
-#    <em>Description:</em><br>
-#    Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#indexOf(java.lang.String)"><code>indexOf(<b>p2</b>)</code></a> and returns its result.
-#    </p>
-#    </td>
-#    <td>
-#    <pre class="brush:idl">
-#    // Result: 1
-#    index_of("abc", "bc")
-#    </pre>
-#    </td>
-#    </tr>
-#    <tr>
-#    <td>
-#    <p>
-#    <code class="fn"><b>substr</b>(p1: String, p2: Int, p3: Int) ⇒ String</code>
-#    </p>
-#    <p class="fn-desc">
-#    <em>Description:</em><br>
-#    Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#substring(int,int)"><code>substring(<b>p2</b>, <b>p3</b>)</code></a> and returns its result.
-#    </p>
-#    </td>
-#    <td>
-#    <pre class="brush:idl">
-#    // Result: "bc"
-#    substr("abc", 1, 3)
-#    </pre>
-#    </td>
-#    </tr>
-#    <tr>
-#    <td>
-#    <p>
-#    <code class="fn"><b>replace</b>(p1: String, p2: String, p3: String) ⇒ String</code>
-#    </p>
-#    <p class="fn-desc">
-#    <em>Description:</em><br>
-#    Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#replace(java.lang.CharSequence,java.lang.CharSequence)"><code>replace(<b>p2</b>, <b>p3</b>)</code></a> and returns its result.
-#    </p>
-#    </td>
-#    <td>
-#    <pre class="brush:idl">
-#    // Result: "aBC"
-#    replace("abc", "bc", "BC")
-#    </pre>
-#    </td>
-#    </tr>
-#    <tr>
-#    <td>
-#    <p>
-#    <code class="fn"><b>to_double</b>(p1: { Int|String }) ⇒ Double</code>
-#    </p>
-#    <p class="fn-desc">
-#    <em>Description:</em><br>
-#    Converts given integer or string to double value.
-#    </p>
-#    </td>
-#    <td>
-#    <pre class="brush:idl">
-#    // Result: 1.2
-#    to_double("1.2")
-#    // Result: 1.0
-#    to_double(1)
-#    </pre>
-#    </td>
-#    </tr>
-#    <tr>
-#    <td>
-#    <p>
-#    <code class="fn"><b>to_int</b>(p1: { Double|String }) ⇒ Double</code>
-#    </p>
-#    <p class="fn-desc">
-#    <em>Description:</em><br>
-#    Converts given double or string to integer value. In case of double
-#    value it will be rounded to the nearest integer value.
-#    </p>
-#    </td>
-#    <td>
-#    <pre class="brush:idl">
-#    // Result: 1
-#    to_int("1.2")
-#    to_int(1.2)
-#    </pre>
-#    </td>
-#    </tr>
-#    </tbody>
-#    </table>
+  - name: is_alpha
+    sig: |
+      <b>is_alpha</b>(p: String) ⇒ Boolean
+    synopsis: Calls <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlpha-java.lang.CharSequence-"><code>StringUtils.isAlpha()</code></a>
+    desc: |
+      Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlpha-java.lang.CharSequence-"><code>StringUtils.isAlpha()</code></a>
+      on given parameter <code><b>p</b></code> and returns its result.
+    usage: |
+      // Result: true
+      is_alpha("text")
+
+  - name: is_alphanum
+    sig: |
+      <b>is_alphanum</b>(p: String) ⇒ Boolean
+    synopsis: Calls <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlphanumeric-java.lang.CharSequence-"><code>StringUtils.isAlphanumeric()</code></a>
+    desc: |
+      Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlphanumeric-java.lang.CharSequence-"><code>StringUtils.isAlphanumeric()</code></a>
+      on given parameter <code><b>p</b></code> and returns its result.
+    usage: |
+      // Result: true
+      is_alphanum("text123")
+
+  - name: is_whitespace
+    sig: |
+      <b>is_whitespace</b>(p: String) ⇒ Boolean
+    synopsis: Calls <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isWhitespace-java.lang.CharSequence-"><code>StringUtils.isWhitespace()</code></a>
+    desc: |
+      Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isWhitespace-java.lang.CharSequence-"><code>StringUtils.isWhitespace()</code></a>
+      on given parameter <code><b>p</b></code> and returns its result.
+    usage: |
+      // Result: false
+      is_whitespace("text123")
+      // Result: true
+      is_whitespace("   ")
+
+  - name: is_num
+    sig: |
+      <b>is_num</b>(p: String) ⇒ Boolean
+    synopsis: Calls <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isNumeric-java.lang.CharSequence-"><code>StringUtils.isNumeric()</code></a>
+    desc: |
+      Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isNumeric-java.lang.CharSequence-"><code>StringUtils.isNumeric()</code></a>
+      on given parameter <code><b>p</b></code> and returns its result.
+    usage: |
+      // Result: true
+      is_num("123")
+
+  - name: is_numspace
+    sig: |
+      <b>is_numspace</b>(p: String) ⇒ Boolean
+    synopsis: Calls <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isNumericSpace-java.lang.CharSequence-"><code>StringUtils.isNumericSpace()</code></a>
+    desc: |
+      Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isNumericSpace-java.lang.CharSequence-"><code>StringUtils.isNumericSpace()</code></a>
+      on given parameter <code><b>p</b></code> and returns its result.
+    usage: |
+      // Result: true
+      is_numspace("  123")
+
+  - name: is_alphaspace
+    sig: |
+      <b>is_alphaspace</b>(p: String) ⇒ Boolean
+    synopsis: Calls <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlphaSpace-java.lang.CharSequence-"><code>StringUtils.isAlphaSpace()</code></a>
+    desc: |
+      Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlphaSpace-java.lang.CharSequence-"><code>StringUtils.isAlphaSpace()</code></a>
+      on given parameter <code><b>p</b></code> and returns its result.
+    usage: |
+      // Result: true
+      is_alphaspace("  text  ")
+
+  - name: is_alphanumspace
+    sig: |
+      <b>is_alphanumspace</b>(p: String) ⇒ Boolean
+    synopsis: Calls <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlphaNumericSpace-java.lang.CharSequence-"><code>StringUtils.isAlphaNumericSpace()</code></a>
+    desc: |
+      Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlphaNumericSpace-java.lang.CharSequence-"><code>StringUtils.isAlphaNumericSpace()</code></a>
+      on given parameter <code><b>p</b></code> and returns its result.
+    usage: |
+      // Result: true
+      is_alphanumspace(" 123 text  ")
+
+  - name: split
+    sig: |
+      <b>split</b>(p1: String, p2: String) ⇒ List[String]
+    synopsis: Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#split(java.lang.String)"><code>split(<b>p2</b>)</code></a>
+    desc: |
+      Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#split(java.lang.String)"><code>split(<b>p2</b>)</code></a>
+      and returns its result converted to the list.
+    usage: |
+      // Result: [ "a", "b", "c" ]
+      split("a|b|c", "|")
+
+  - name: split_trim
+    sig: |
+      <b>split_trim</b>(p1: String, p2: String) ⇒ List[String]
+    synopsis: Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#split(java.lang.String)"><code>split(<b>p2</b>)</code></a>
+    desc: |
+      Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#split(java.lang.String)"><code>split(<b>p2</b>)</code></a>
+      converting the result to the list. Then
+      calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#strip()">String.strip()</a> on each
+      element.
+    usage: |
+      // Result: ["a", "b", "c"]
+      split_trim("a | b | c", "|")
+
+  - name: starts_with
+    sig: |
+      <b>starts_with</b>(p1: String, p2: String) ⇒ Boolean
+    synopsis: Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#split(java.lang.String)"><code>startsWith(<b>p2</b>)</code></a>
+    desc: |
+      Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#split(java.lang.String)"><code>startsWith(<b>p2</b>)</code></a>
+      and returns its result.
+    usage: |
+      // Result: true
+      starts_width("abc", "ab")
+
+  - name: ends_with
+    sig: |
+      <b>ends_with</b>(p1: String, p2: String) ⇒ Boolean
+    synopsis: Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#split(java.lang.String)"><code>endsWith(<b>p2</b>)</code></a>
+    desc: |
+      Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#split(java.lang.String)"><code>endsWith(<b>p2</b>)</code></a>
+      and returns its result.
+    usage: |
+      // Result: true
+      ends_width("abc", "bc")
+
+  - name: contains
+    sig: |
+      <b>contains</b>(p1: String, p2: String) ⇒ Boolean
+    synopsis: Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#contains(java.lang.CharSequence)"><code>contains(<b>p2</b>)</code></a>
+    desc: |
+      Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#contains(java.lang.CharSequence)"><code>contains(<b>p2</b>)</code></a>
+      and returns its result.
+    usage: |
+      // Result: true
+      contains("abc", "bc")
+
+  - name: index_of
+    sig: |
+      <b>index_of</b>(p1: String, p2: String) ⇒ Int
+    synopsis: Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#indexOf(java.lang.String)"><code>indexOf(<b>p2</b>)</code></a>
+    desc: |
+      Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#indexOf(java.lang.String)"><code>indexOf(<b>p2</b>)</code></a>
+      and returns its result.
+    usage: |
+      // Result: 1
+      index_of("abc", "bc")
+
+  - name: substr
+    sig: |
+      <b>substr</b>(p1: String, p2: Int, p3: Int) ⇒ String
+    synopsis: Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#substring(int,int)"><code>substring(<b>p2</b>, <b>p3</b>)</code></a>
+    desc: |
+      Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#substring(int,int)"><code>substring(<b>p2</b>, <b>p3</b>)</code></a>
+      and returns its result.
+    usage: |
+      // Result: "bc"
+      substr("abc", 1, 3)
+
+  - name: replace
+    sig: |
+      <b>replace</b>(p1: String, p2: String, p3: String) ⇒ String
+    synopsis: Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#replace(java.lang.CharSequence,java.lang.CharSequence)"><code>replace(<b>p2</b>, <b>p3</b>)</code></a>
+    desc: |
+      Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#replace(java.lang.CharSequence,java.lang.CharSequence)"><code>replace(<b>p2</b>, <b>p3</b>)</code></a>
+      and returns its result.
+    usage: |
+      // Result: "aBC"
+      replace("abc", "bc", "BC")
+
+  - name: to_double
+    sig: |
+      <b>to_double</b>(p1: {Int|String}) ⇒ Double
+    synopsis: Converts given integer or string to double value
+    desc: |
+      Converts given integer or string to double value.
+    usage: |
+      // Result: 1.2
+      to_double("1.2")
+      // Result: 1.0
+      to_double(1)
+
+  - name: to_int
+    sig: |
+      <b>to_int</b>(p1: {Double|String}) ⇒ Int
+    synopsis: Converts given double or string to integer value
+    desc: |
+      Converts given double or string to integer value. In case of double
+      value it will be rounded to the nearest integer value.
+    usage: |
+      // Result: 1
+      to_int("1.2")
+      to_int(1.2)
