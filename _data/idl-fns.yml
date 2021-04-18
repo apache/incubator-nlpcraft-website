@@ -375,6 +375,62 @@ fn-token:
 fn-datetime:
 fn-math:
 
+fn-other:
+  - name: if
+    sig: |
+      <b>if</b>(c: Boolean, then: Any: else: Any) ⇒ Any
+    synopsis: This function provides 'if-then-else' equivalent
+    desc: |
+      This function provides 'if-then-else' equivalent as IDL does not provide branching
+      on the language level. This function will evaluate <code><b>c</b></code> parameter and either
+      return <code><b>then</b></code> value if it evaluates to <code>true</code> or <code><b>else</b></code>
+      value in case if it evaluates to <code>false</code>. Note that evaluation will be
+      short-circuit, i.e. either <code><b>then</b></code> or <code><b>else</b></code> will actually be
+      computed but not both.
+    usage: |
+      // Result:
+      //  - 'list(1, 2, 3)' if 1st parameter is 'true'.
+      //  - 'null' if 1st parameter is 'false'.
+      if(meta_model('my_prop') == true, list(1, 2, 3), null)
+
+  - name: json
+    sig: |
+      <b>json</b>(p: String) ⇒ Map[String, Any]
+    synopsis: Converts JSON in <code><b>p</b></code> parameter to a map
+    desc: |
+      Converts JSON in <code><b>p</b></code> parameter to a map. Use single quoted
+      string to avoid escaping double quotes in JSON.
+    usage: |
+      // Result: Map.
+      json('{"a": 2, "b": [1, 2, 3]}')
+
+  - name: to_string
+    sig: |
+      <b>to_string</b>(p: Any) ⇒ {String|List[String]}
+    synopsis: Converts <code><b>p</b></code> parameter to a string
+    desc: |
+      Converts <code><b>p</b></code> parameter to a string. In case of a list
+      this function will convert individual list elements to string and return the
+      list of strings.
+    usage: |
+      // Result: "1.25"
+      to_string(1.25)
+      // Result: list("1", "2", "3")
+      to_string(list(1, 2, 3))
+
+  - name: or_else
+    sig: |
+      <b>or_else</b>(p: Any, a: Any) ⇒ Any
+    synopsis: Returns <code><b>p</b></code> if it is not <code>null</code>, <code><b>a</b></code> otherwise
+    desc: |
+      Returns <code><b>p</b></code> if it is not <code>null</code>, <code><b>a</b></code> otherwise.
+      Note that evaluation will be short-circuit, i.e. <code><b>a</b></code> will be evaluated only
+      if <code><b>p</b></code> is <code>null</code>.
+    usage: |
+      // Result: 'some_prop' model metadata or 'text' if one does not exist.
+      @dflt = 'text'
+      or_else(meta_model('some_prop'), @dflt)
+
 fn-text:
   - name: length
     sig: |

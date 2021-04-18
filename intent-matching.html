@@ -695,90 +695,30 @@ id: intent_matching
             </div>
             <div class="tab-pane fade show" id="fn_other" role="tabpanel">
                 <div class="accordion" id="other_fns">
+                    {% for fn in site.data.idl-fns.fn-other %}
                     <div class="card">
                         <div class="card-header">
                             <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_if">
-                                    <code><b>if</b>(c: Boolean, then: Any: else: Any) ⇒ Any</code>
+                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_{{fn.name}}">
+                                    <span><code>{{fn.sig}}</code></span>
+                                    <span class="fn-short-desc">{{fn.synopsis}}</span>
                                 </button>
                             </h2>
                         </div>
-                        <div id="fn_if" class="collapse" data-parent="#other_fns">
+                        <div id="fn_{{fn.name}}" class="collapse" data-parent="#other_fns">
                             <div class="card-body">
                                 <p class="fn-desc">
                                     <em>Description:</em><br>
-                                    This function provides 'if-then-else' equivalent as IDL does not provide branching
-                                    on the language level. This function will evaluate <code>c</code> parameter and either
-                                    return <code><b>then</b></code> value if it evaluates to <code>true</code> or <code><b>else</b></code>
-                                    value in case if it evaluates to <code>false</code>. Note that evaluation will be
-                                    short-circuit, i.e. either <code><b>then</b></code> or <code><b>else</b></code> will actually be
-                                    computed but not both.
+                                    {{fn.desc}}
                                 </p>
                                 <p class="fn-usage">
                                     <em>Usage:</em><br>
                                 </p>
-                                <pre class="brush:idl">
-                                    // Result:
-                                    //  - 'list(1, 2, 3)' if 1st parameter is 'true'.
-                                    //  - 'null' if 1st parameter is 'false'.
-                                    if(meta_model('my_prop') == true, list(1, 2, 3), null)
-                                </pre>
+                                <pre class="brush:idl">{{fn.usage}}</pre>
                             </div>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_json">
-                                    <code><b>json</b>(p: String) ⇒ Map</code>
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="fn_json" class="collapse" data-parent="#other_fns">
-                            <div class="card-body">
-                                <p class="fn-desc">
-                                    <em>Description:</em><br>
-                                    Converts JSON in <code><b>p</b></code> parameter to a map. Use single quoted
-                                    string to avoid escaping double quotes in JSON.
-                                </p>
-                                <p class="fn-usage">
-                                    <em>Usage:</em><br>
-                                </p>
-                                <pre class="brush:idl">
-                                    // Result: Map.
-                                    json('{"a": 2, "b": [1, 2, 3]}')
-                                </pre>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_to_string">
-                                    <code><b>to_string</b>(p: Any) ⇒ {String|List}</code>
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="fn_to_string" class="collapse" data-parent="#other_fns">
-                            <div class="card-body">
-                                <p class="fn-desc">
-                                    <em>Description:</em><br>
-                                    Converts <code><b>p</b></code> parameter to a string. In case of a list
-                                    this function will convert individual list elements to string and return the
-                                    list of strings.
-                                </p>
-                                <p class="fn-usage">
-                                    <em>Usage:</em><br>
-                                </p>
-                                <pre class="brush:idl">
-                                    // Result: "1.25"
-                                    to_string(1.25)
-                                    // Result: list("1", "2", "3")
-                                    to_string(list(1, 2, 3))
-                                </pre>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
