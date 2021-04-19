@@ -357,7 +357,8 @@ fn-token:
       tok_has_part(tok_this(), 'alias')
 
       // Result: part token 'alias' if it exists or the current token if it does not.
-      @tok = if(tok_has_part(tok_this(), 'alias'), tok_find_part(tok_this(), 'alias'), tok_this())
+      @this = tok_this()
+      @tok = if(tok_has_part(@this, 'alias'), tok_find_part(@this, 'alias'), @this)
 
   - name: tok_find_parts
     sig: |
@@ -372,8 +373,9 @@ fn-token:
       tok_find_parts(tok_this(), 'alias')
 
       // Result: part token 'alias' if it exists or the current token if it does not.
-      @parts = tok_find_parts(tok_this(), 'alias')
-      @tok = if(is_empty(@parts), tok_this(), first(@parts))
+      @this = tok_this()
+      @parts = tok_find_parts(@this, 'alias')
+      @tok = if(is_empty(@parts), @this, first(@parts))
 
 
 
@@ -390,6 +392,111 @@ fn-math:
 fn-collections:
 
 fn-metadata:
+  - name: meta_part
+    sig: |
+      <b>meta_part</b>(a: String, p: String) ⇒ Any
+    synopsis: Gets metadata property <code><b>p</b></code> of part token <code><b>a</b></code>
+    desc: |
+      Finds a part token with alias or ID <code><b>a</b></code>, if any, and returns its metadata property <code><b>p</b></code>.
+      If part token cannot be found the runtime exception will be thrown. Returns <code>null</code> if metadata
+      does not exist.
+    usage: |
+      // Result: 'prop' property of 'alias' part token of the current token.
+      meta_part('alias', 'prop')
+
+  - name: meta_tok
+    sig: |
+      <b>meta_part</b>(p: String) ⇒ Any
+    synopsis: Gets token metadata property <code><b>p</b></code>
+    desc: |
+      Gets token metadata property <code><b>p</b></code>.
+    usage: |
+      // Result: 'nlpcraft:num:unit' token metadata property.
+      meta_tok('nlpcraft:num:unit')
+
+  - name: meta_model
+    sig: |
+      <b>meta_part</b>(p: String) ⇒ Any
+    synopsis: Gets model metadata property <code><b>p</b></code>
+    desc: |
+      Gets model metadata property <code><b>p</b></code>.
+    usage: |
+      // Result: 'my:prop' model metadata property.
+      meta_model('my:prop')
+
+  - name: meta_req
+    sig: |
+      <b>meta_req</b>(p: String) ⇒ Any
+    synopsis: Gets user REST call data property <code><b>p</b></code>
+    desc: |
+      Gets user REST call data property <code><b>p</b></code>. See <a href="/using-rest.html">REST API</a> for more details on <code>ask</code>
+      and <code>ask/sync</code> REST calls.
+    usage: |
+      // Result: 'my:prop' user request data property.
+      meta_req('my:prop')
+
+  - name: meta_user
+    sig: |
+      <b>meta_user</b>(p: String) ⇒ Any
+    synopsis: Gets user metadata property <code><b>p</b></code>
+    desc: |
+      Gets user metadata property <code><b>p</b></code>.
+    usage: |
+      // Result: 'my:prop' user metadata property.
+      meta_user('my:prop')
+
+  - name: meta_company
+    sig: |
+      <b>meta_company</b>(p: String) ⇒ Any
+    synopsis: Gets company metadata property <code><b>p</b></code>
+    desc: |
+      Gets company metadata property <code><b>p</b></code>.
+    usage: |
+      // Result: 'my:prop' company metadata property.
+      meta_company('my:prop')
+
+  - name: meta_intent
+    sig: |
+      <b>meta_intent</b>(p: String) ⇒ Any
+    synopsis: Gets intent metadata property <code><b>p</b></code>
+    desc: |
+      Gets intent metadata property <code><b>p</b></code>.
+    usage: |
+      // Result: 'my:prop' intent metadata property.
+      meta_intent('my:prop')
+
+  - name: meta_conv
+    sig: |
+      <b>meta_conv</b>(p: String) ⇒ Any
+    synopsis: Gets conversation metadata property <code><b>p</b></code>
+    desc: |
+      Gets conversation metadata property <code><b>p</b></code>.
+    usage: |
+      // Result: 'my:prop' conversation metadata property.
+      meta_conv('my:prop')
+
+  - name: meta_frag
+    sig: |
+      <b>meta_frag</b>(p: String) ⇒ Any
+    synopsis: Gets fragment metadata property <code><b>p</b></code>
+    desc: |
+      Gets fragment metadata property <code><b>p</b></code>. Fragment metadata can be optionally passed in
+      when referencing the fragment to parameterize it.
+    usage: |
+      // Result: 'my:prop' fragment metadata property.
+      meta_frag('my:prop')
+
+  - name: meta_sys
+    sig: |
+      <b>meta_sys</b>(p: String) ⇒ Any
+    synopsis: Gets system property or environment variable <code><b>p</b></code>
+    desc: |
+      Gets system property or environment variable <code><b>p</b></code>.
+    usage: |
+      // Result: 'java.home' system property.
+      meta_sys('java.home')
+      // Result: 'HOME' environment variable.
+      meta_sys('HOME')
 
 fn-other:
   - name: if
