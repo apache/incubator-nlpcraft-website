@@ -380,17 +380,157 @@ fn-token:
 
 
 fn-datetime:
-
 fn-req:
+#  case "req_id" ⇒ z0(() ⇒ Z(termCtx.req.getServerRequestId, 0))
+#  case "req_normtext" ⇒ z0(() ⇒ Z(termCtx.req.getNormalizedText, 0))
+#  case "req_tstamp" ⇒ z0(() ⇒ Z(termCtx.req.getReceiveTimestamp, 0))
+#  case "req_addr" ⇒ z0(() ⇒ Z(termCtx.req.getRemoteAddress.orElse(null), 0))
+#  case "req_agent" ⇒ z0(() ⇒ Z(termCtx.req.getClientAgent.orElse(null), 0))
 
 fn-user:
+  - name: user_id
+    sig: |
+      <b>user_id</b>() ⇒ String
+    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getId()">user ID</a>
+    desc: |
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getId()">user ID</a>.
+    usage: |
+      // Result: user ID.
+      user_id()
+
+  - name: user_fname
+    sig: |
+      <b>user_fname</b>() ⇒ String
+    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getFirstName()">user first name</a>
+    desc: |
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getFirstName()">user first name</a>.
+    usage: |
+      // Result: user first name.
+      user_fname()
+
+  - name: user_lname
+    sig: |
+      <b>user_lname</b>() ⇒ String
+    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getLastName()">user last name</a>
+    desc: |
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getLastName()">user last name</a>.
+    usage: |
+      // Result: user last name.
+      user_lname()
+
+  - name: user_email
+    sig: |
+      <b>user_email</b>() ⇒ String
+    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getEmail()">user email</a>
+    desc: |
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getEmail()">user email</a>.
+    usage: |
+      // Result: user email.
+      user_email()
+
+  - name: user_admin
+    sig: |
+      <b>user_admin</b>() ⇒ Boolean
+    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#isAdmin()">user admin</a> flag
+    desc: |
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#isAdmin()">user admin</a> flag.
+    usage: |
+      // Result: user admin flag.
+      user_admin()
+
+  - name: user_signup_tstamp
+    sig: |
+      <b>user_signup_tstamp</b>() ⇒ Int
+    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getSignupTimestamp()">user signup timestamp</a>
+    desc: |
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getSignupTimestamp()">user signup timestamp</a>.
+    usage: |
+      // Result: user signup timestamp in milliseconds.
+      user_signup_tstamp()
 
 fn-company:
+  - name: comp_id
+    sig: |
+      <b>comp_id</b>() ⇒ String
+    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getId()">company ID</a>
+    desc: |
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getId()">company ID</a>.
+    usage: |
+      // Result: company ID.
+      comp_id()
+
+  - name: comp_name
+    sig: |
+      <b>comp_name</b>() ⇒ String
+    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getName()">company name</a>
+    desc: |
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getName()">company name</a>.
+    usage: |
+      // Result: company name.
+      comp_name()
+
+  - name: comp_website
+    sig: |
+      <b>comp_website</b>() ⇒ String
+    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getWebsite()">company website</a>
+    desc: |
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getWebsite()">company website</a>.
+    usage: |
+      // Result: company website.
+      comp_website()
+
+  - name: comp_country
+    sig: |
+      <b>comp_country</b>() ⇒ String
+    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getCountry()">company country</a>
+    desc: |
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getCountry()">company country</a>.
+    usage: |
+      // Result: company country.
+      comp_country()
+
+  - name: comp_region
+    sig: |
+      <b>comp_region</b>() ⇒ String
+    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getRegion()">company region</a>
+    desc: |
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getRegion()">company region</a>.
+    usage: |
+      // Result: company region.
+      comp_region()
+
+  - name: comp_city
+    sig: |
+      <b>comp_city</b>() ⇒ String
+    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getCity()">company city</a>
+    desc: |
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getCity()">company city</a>.
+    usage: |
+      // Result: company region.
+      comp_city()
+
+  - name: comp_addr
+    sig: |
+      <b>comp_addr</b>() ⇒ String
+    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getAddress()">company address</a>
+    desc: |
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getAddress()">company address</a>.
+    usage: |
+      // Result: company address.
+      comp_addr()
+
+  - name: comp_postcode
+    sig: |
+      <b>comp_postcode</b>() ⇒ String
+    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getPostalCode()">company postal code</a>
+    desc: |
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getPostalCode()">company postal code</a>.
+    usage: |
+      // Result: company postal code.
+      comp_postcode()
 
 fn-math:
-
 fn-collections:
-
 fn-metadata:
   - name: meta_part
     sig: |
