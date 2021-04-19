@@ -708,6 +708,197 @@ fn-company:
       comp_postcode()
 
 fn-math:
+  - name: abs
+    sig: |
+      <b>abs</b>(x: {Int|Double}) ⇒ {Int|Double}
+    synopsis: Returns absolute value for parameter <code><b>x</b></code>
+    desc: |
+      Returns absolute value for parameter <code><b>x</b></code>.
+    usage: |
+      // Result: 1
+      abs(-1)
+      // Result: 1.5
+      abs(-1.5)
+
+  - name: ceil
+    sig: |
+      <b>ceil</b>(d: Double) ⇒ Double
+    synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#ceil(double)"><code>Math.ceil(<b>d</b>)</code></a>
+    desc: |
+      Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#ceil(double)"><code>Math.ceil(<b>d</b>)</code></a>.
+    usage: |
+      // Result: 2.0
+      ceil(1.5)
+
+  - name: floor
+    sig: |
+      <b>floor</b>(d: Double) ⇒ Double
+    synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#floor(double)"><code>Math.floor(<b>d</b>)</code></a>
+    desc: |
+      Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#floor(double)"><code>Math.floor(<b>d</b>)</code></a>.
+    usage: |
+      // Result: 1.0
+      floor(1.5)
+
+  - name: rint
+    sig: |
+      <b>rint</b>(d: Double) ⇒ Double
+    synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#rint(double)"><code>Math.rint(<b>d</b>)</code></a>
+    desc: |
+      Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#rint(double)"><code>Math.rint(<b>d</b>)</code></a>.
+    usage: |
+      // Result: 1.0
+      rint(1.2)
+
+  - name: round
+    sig: |
+      <b>round</b>(d: Double) ⇒ Int
+    synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#round(double)"><code>Math.round(<b>d</b>)</code></a>
+    desc: |
+      Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#round(double)"><code>Math.round(<b>d</b>)</code></a>.
+    usage: |
+      // Result: 1
+      round(1.2)
+
+  - name: signum
+    sig: |
+      <b>signum</b>(d: Double) ⇒ Double
+    synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#signum(double)"><code>Math.signum(<b>d</b>)</code></a>
+    desc: |
+      Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#signum(double)"><code>Math.signum(<b>d</b>)</code></a>.
+    usage: |
+      // Result: 1.0
+      signum(1.2)
+
+  - name: sqrt
+    sig: |
+      <b>sqrt</b>(d: Double) ⇒ Double
+    synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#sqrt(double)"><code>Math.sqrt(<b>d</b>)</code></a>
+    desc: |
+      Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#sqrt(double)"><code>Math.sqrt(<b>d</b>)</code></a>.
+    usage: |
+      // Result: 4.0
+      sqrt(2.0)
+
+  - name: cbrt
+    sig: |
+      <b>cbrt</b>(d: Double) ⇒ Double
+    synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#cbrt(double)"><code>Math.cbrt(<b>d</b>)</code></a>
+    desc: |
+      Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#cbrt(double)"><code>Math.cbrt(<b>d</b>)</code></a>.
+    usage: |
+      // Result: -3.0
+      cbrt(-27.0)
+
+  - name: acos
+    sig: |
+      <b>acos</b>(d: Double) ⇒ Double
+    synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#acos(double)"><code>Math.acos(<b>d</b>)</code></a>
+    desc: |
+      Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#acos(double)"><code>Math.acos(<b>d</b>)</code></a>.
+    usage: |
+      acos(1.0)
+
+  - name: asin
+    sig: |
+      <b>asin</b>(d: Double) ⇒ Double
+    synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#asin(double)"><code>Math.asin(<b>d</b>)</code></a>
+    desc: |
+      Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#asin(double)"><code>Math.asin(<b>d</b>)</code></a>.
+    usage: |
+      asin(1.0)
+
+  - name: atan
+    sig: |
+      <b>atan</b>(d: Double) ⇒ Double
+    synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#atan(double)"><code>Math.atan(<b>d</b>)</code></a>
+    desc: |
+      Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#atan(double)"><code>Math.atan(<b>d</b>)</code></a>.
+    usage: |
+      atan(1.0)
+
+  - name: tan
+    sig: |
+      <b>tan</b>(d: Double) ⇒ Double
+    synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#tan(double)"><code>Math.tan(<b>d</b>)</code></a>
+    desc: |
+      Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#tan(double)"><code>Math.tan(<b>d</b>)</code></a>.
+    usage: |
+      tan(1.0)
+
+  - name: sin
+    sig: |
+      <b>sin</b>(d: Double) ⇒ Double
+    synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#sin(double)"><code>Math.sin(<b>d</b>)</code></a>
+    desc: |
+      Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#sin(double)"><code>Math.sin(<b>d</b>)</code></a>.
+    usage: |
+      sin(1.0)
+
+  - name: cos
+    sig: |
+      <b>cos</b>(d: Double) ⇒ Double
+    synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#cos(double)"><code>Math.cos(<b>d</b>)</code></a>
+    desc: |
+      Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#cos(double)"><code>Math.cos(<b>d</b>)</code></a>.
+    usage: |
+      cos(1.0)
+
+  - name: tanh
+    sig: |
+      <b>tanh</b>(d: Double) ⇒ Double
+    synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#tanh(double)"><code>Math.tanh(<b>d</b>)</code></a>
+    desc: |
+      Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#tanh(double)"><code>Math.tanh(<b>d</b>)</code></a>.
+    usage: |
+      tanh(1.0)
+
+  - name: sinh
+    sig: |
+      <b>sinh</b>(d: Double) ⇒ Double
+    synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#sinh(double)"><code>Math.sinh(<b>d</b>)</code></a>
+    desc: |
+      Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#sinh(double)"><code>Math.sinh(<b>d</b>)</code></a>.
+    usage: |
+      sinh(1.0)
+
+  - name: cosh
+    sig: |
+      <b>cosh</b>(d: Double) ⇒ Double
+    synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#cosh(double)"><code>Math.cosh(<b>d</b>)</code></a>
+    desc: |
+      Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#cosh(double)"><code>Math.cosh(<b>d</b>)</code></a>.
+    usage: |
+      cosh(1.0)
+
+  - name: atan2
+    sig: |
+      <b>atan2</b>(d1: Double, d2: Double) ⇒ Double
+    synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#atan2(double, double)"><code>Math.atan(<b>d2</b>, <b>d2</b>)</code></a>
+    desc: |
+      Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#atan2(double, double)"><code>Math.atan2(<b>d1</b>, <b>d2</b>)</code></a>.
+    usage: |
+      atan2(1.0, 1.0)
+
+#  case "degrees" ⇒ z[ST](arg1, { x ⇒ val Z(v, f) = x(); Z(Math.toDegrees(toDouble(v)), f) })
+#  case "radians" ⇒ z[ST](arg1, { x ⇒ val Z(v, f) = x(); Z( Math.toRadians(toDouble(v)), f) })
+#  case "exp" ⇒ z[ST](arg1, { x ⇒ val Z(v, f) = x(); Z(Math.exp(toDouble(v)), f) })
+#  case "expm1" ⇒ z[ST](arg1, { x ⇒ val Z(v, f) = x(); Z(Math.expm1(toDouble(v)), f) })
+#  case "hypot" ⇒ z[(ST, ST)](arg2, { x ⇒ val (v1, v2, n) = extract2(x._1, x._2); Z(Math.hypot(toDouble(v1), toDouble(v2)), n) })
+#  case "log" ⇒ z[ST](arg1, { x ⇒ val Z(v, f) = x(); Z(Math.log(toDouble(v)), f) })
+#  case "log10" ⇒ z[ST](arg1, { x ⇒ val Z(v, f) = x(); Z(Math.log10(toDouble(v)), f) })
+#  case "log1p" ⇒ z[ST](arg1, { x ⇒ val Z(v, f) = x(); Z(Math.log1p(toDouble(v)), f) })
+#  case "pow" ⇒ z[(ST, ST)](arg2, { x ⇒ val (v1, v2, n) = extract2(x._1, x._2); Z(Math.pow(toDouble(v1), toDouble(v2)), n) })
+#  case "square" ⇒ doSquare()
+#  case "pi" ⇒ z0(() ⇒ Z(Math.PI, 0))
+#  case "euler" ⇒ z0(() ⇒ Z(Math.E, 0))
+#  case "rand" ⇒ z0(() ⇒ Z(Math.random, 0))
+#  case "max" ⇒ doMax()
+#  case "min" ⇒ doMin()
+#  case "avg" ⇒ doAvg()
+#  case "stdev" ⇒ doStdev()
+
+
 fn-collections:
   - name: list
     sig: |
