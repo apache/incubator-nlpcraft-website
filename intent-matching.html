@@ -167,7 +167,7 @@ id: intent_matching
                 </p>
                 <pre class="brush: idl">
                     intent=xa
-                        flow="^(?:xx)(^:zz)*$"
+                        flow="^(?:login)(^:logout)*$"
                         meta={'enabled': true}
                         term(a)={month() >= 6 && !(tok_id()) != "z" && meta_intent('enabled') == true}[1,3]
                         term(b)~{
@@ -204,7 +204,7 @@ id: intent_matching
                         and mostly unsuitable for the natural language processing.
                     </dd>
                     <dt>
-                        <code>flow="^(?:xx)(^:zz)*$"</code> <sup><small>line 2</small></sup><br/>
+                        <code>flow="^(?:login)(^:logout)*$"</code> <sup><small>line 2</small></sup><br/>
                         <code>flow=/#flowModelMethod/</code> <sup><small>line 13</small></sup>
                     </dt>
                     <dd>
@@ -224,10 +224,10 @@ id: intent_matching
                                     will be matched against that string representing intent IDs.
                                 </p>
                                 <p>
-                                    In the line 2, the <code>^(?:xx)(^:zz)*$</code> dialog flow regular expression defines that intent
-                                    should only match when the immediate previous intent was <code>xx</code> and no <code>zz</code> intents
-                                    are in the history. If the history is <code>"xx yy yy"</code> - this intent will match. However, for
-                                    <code>"xx zz"</code> or <code>"yy xx"</code> history this dialog flow will not match.
+                                    In the line 2, the <code>^(?:login)(^:logout)*$</code> dialog flow regular expression defines that intent
+                                    should only match when the immediate previous intent was <code>login</code> and no <code>logout</code> intents
+                                    are in the history. If the history is <code>"login order order"</code> - this intent will match. However, for
+                                    <code>"login logout"</code> or <code>"order login"</code> history this dialog flow will not match.
                                 </p>
                             </li>
                             <li>

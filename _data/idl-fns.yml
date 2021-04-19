@@ -380,6 +380,137 @@ fn-token:
 
 
 fn-datetime:
+  - name: year
+    sig: |
+      <b>year</b>() ⇒ Int
+    synopsis: Returns current year
+    desc: |
+      Returns current year.
+    usage: |
+      // Result: 2021
+      year()
+
+  - name: month
+    sig: |
+      <b>month</b>() ⇒ Int
+    synopsis: |
+      Returns current month: 1 ... 12
+    desc: |
+      Returns current month: 1 ... 12.
+    usage: |
+      // Result: 5
+      month()
+
+  - name: day_of_month
+    sig: |
+      <b>day_of_month</b>() ⇒ Int
+    synopsis: |
+      Returns current day of the month: 1 ... 31
+    desc: |
+      Returns current day of the month: 1 ... 31.
+    usage: |
+      // Result: 5
+      day_of_month()
+
+  - name: day_of_week
+    sig: |
+      <b>day_of_week</b>() ⇒ Int
+    synopsis: |
+      Returns current day of the week: 1 ... 7
+    desc: |
+      Returns current day of the week: 1 ... 7.
+    usage: |
+      // Result: 5
+      day_of_week()
+
+  - name: day_of_year
+    sig: |
+      <b>day_of_year</b>() ⇒ Int
+    synopsis: |
+      Returns current day of the year: 1 ... 365
+    desc: |
+      Returns current day of the year: 1 ... 365.
+    usage: |
+      // Result: 51
+      day_of_year()
+
+  - name: hour
+    sig: |
+      <b>hour</b>() ⇒ Int
+    synopsis: |
+      Returns current hour: 0 ... 23
+    desc: |
+      Returns current hour: 0 ... 23.
+    usage: |
+      // Result: 11
+      hour()
+
+  - name: minute
+    sig: |
+      <b>minute</b>() ⇒ Int
+    synopsis: |
+      Returns current minute: 0 ... 59
+    desc: |
+      Returns current minute: 0 ... 59.
+    usage: |
+      // Result: 11
+      minute()
+
+  - name: second
+    sig: |
+      <b>second</b>() ⇒ Int
+    synopsis: |
+      Returns current second: 0 ... 59
+    desc: |
+      Returns current second: 0 ... 59.
+    usage: |
+      // Result: 11
+      second()
+
+  - name: week_of_month
+    sig: |
+      <b>week_of_month</b>() ⇒ Int
+    synopsis: |
+      Returns current week of the month: 1 ... 4
+    desc: |
+      Returns current week of the month: 1 ... 4.
+    usage: |
+      // Result: 2
+      week_of_month()
+
+  - name: week_of_year
+    sig: |
+      <b>week_of_year</b>() ⇒ Int
+    synopsis: |
+      Returns current week of the year: 1 ... 56
+    desc: |
+      Returns current week of the year: 1 ... 56.
+    usage: |
+      // Result: 21
+      week_of_year()
+
+  - name: quarter
+    sig: |
+      <b>quarter</b>() ⇒ Int
+    synopsis: |
+      Returns current quarter: 1 ...4
+    desc: |
+      Returns current quarter: 1 ... 4.
+    usage: |
+      // Result: 2
+      quarter()
+
+  - name: now
+    sig: |
+      <b>now</b>() ⇒ Int
+    synopsis: |
+      Returns current time in milliseconds
+    desc: |
+      Returns current time in milliseconds.
+    usage: |
+      // Result: 122312341212
+      now()
+
 fn-req:
   - name: req_id
     sig: |
