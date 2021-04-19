@@ -381,11 +381,58 @@ fn-token:
 
 fn-datetime:
 fn-req:
-#  case "req_id" ⇒ z0(() ⇒ Z(termCtx.req.getServerRequestId, 0))
-#  case "req_normtext" ⇒ z0(() ⇒ Z(termCtx.req.getNormalizedText, 0))
-#  case "req_tstamp" ⇒ z0(() ⇒ Z(termCtx.req.getReceiveTimestamp, 0))
-#  case "req_addr" ⇒ z0(() ⇒ Z(termCtx.req.getRemoteAddress.orElse(null), 0))
-#  case "req_agent" ⇒ z0(() ⇒ Z(termCtx.req.getClientAgent.orElse(null), 0))
+  - name: req_id
+    sig: |
+      <b>req_id</b>() ⇒ String
+    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getServerRequestId()">server request ID</a>
+    desc: |
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getServerRequestId()">server request ID</a>.
+    usage: |
+      // Result: server request ID.
+      req_id()
+
+  - name: req_normtext
+    sig: |
+      <b>req_normtext</b>() ⇒ String
+    synopsis: Returns request <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getNormalizedText()">normalied text</a>
+    desc: |
+      Returns request <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getNormalizedText()">normalized text</a>.
+    usage: |
+      // Result: request normalized text.
+      req_normtext()
+
+  - name: req_tstamp
+    sig: |
+      <b>req_tstamp</b>() ⇒ Int
+    synopsis: Gets UTC/GMT receive <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getNormalizedText()">timestamp</a>
+    desc: |
+      Gets UTC/GMT <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getNormalizedText()">timestamp</a>
+      in ms when user input was received.
+    usage: |
+      // Result: input receive timsstamp in ms.
+      req_tstamp()
+
+  - name: req_addr
+    sig: |
+      <b>req_addr</b>() ⇒ String
+    synopsis: Gets remote client <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getRemoteAddress()">address</a>
+    desc: |
+      Gets remote client <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getRemoteAddress()">address</a> that made the original REST call.
+      Returns <code>null</code> if remote client address is not available.
+    usage: |
+      // Result: remote client address or 'null'.
+      req_addr()
+
+  - name: req_agent
+    sig: |
+      <b>req_agent</b>() ⇒ String
+    synopsis: Gets remote client <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getClientAgent()">agent</a>
+    desc: |
+      Gets remote client <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getRemoteClientAgent()">agent</a> that made the original REST call.
+      Returns <code>null</code> if remote client agent is not available.
+    usage: |
+      // Result: remote client agent or 'null'.
+      req_agent()
 
 fn-user:
   - name: user_id
