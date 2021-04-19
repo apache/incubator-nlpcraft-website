@@ -578,6 +578,169 @@ fn-company:
 
 fn-math:
 fn-collections:
+  - name: list
+    sig: |
+      <b>list</b>(t: Any...<em><sub>opt</sub></em>) ⇒ List[Any]
+    synopsis: Returns new list with given parameters
+    desc: |
+      Returns new list with given parameters.
+    usage: |
+      // Result: []
+      list()
+      // Result: [1, 2, 3]
+      list(1, 2, 3)
+      // Result: ["1", true, 1.25]
+      list("1", 2 == 2, to_double('1.25'))
+
+  - name: get
+    sig: |
+      <b>get</b>(c: {List|Map}, k: {Int|Any}) ⇒ Any
+    synopsis: Gets element <code><b>k</b></code> from either list or map <code><b>c</b></code>
+    desc: |
+      Gets element from either list or map <code><b>c</b></code>. For list the
+      <code><b>k</b></code> must be 0-based integer index in the list.
+    usage: |
+      // Result: 1
+      get(list(1, 2, 3), 0)
+      // Result: true
+      get(json('{"a": true}'), "a")
+
+  - name: has
+    sig: |
+      <b>has</b>(c: List, x: Any) ⇒ Boolean
+    synopsis: Calls <code><b>c</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/List.html#contains(java.lang.Object)"><code>contains(<b>x</b></code>)</a>
+    desc: |
+      Calls <code><b>c</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/List.html#contains(java.lang.Object)"><code>contains(<b>x</b></code>)</a>
+      and returns its result.
+    usage: |
+      // Result: true
+      has(list("a", "b"), "a")
+
+  - name: has_all
+    sig: |
+      <b>has_all</b>(c: List, x: Any) ⇒ Boolean
+    synopsis: Calls <code><b>c</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/List.html#containsAll(java.util.Collection)"><code>containsAll(<b>x</b></code>)</a>
+    desc: |
+      Calls <code><b>c</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/List.html#containsAll(java.util.Collection)"><code>containsAll(<b>x</b></code>)</a>
+      and returns its result.
+    usage: |
+      // Result: false
+      has_all(list("a", "b"), "a")
+
+  - name: has_any
+    sig: |
+      <b>has_any</b>(c: List, x: List) ⇒ Boolean
+    synopsis: Checks if list <code><b>c</b></code> contains any of the elements from the list <code><b>x</b></code>
+    desc: |
+      Checks if list <code><b>c</b></code> contains any of the elements from the list <code><b>x</b></code>.
+    usage: |
+      // Result: true
+      has_any(list("a", "b"), list("a"))
+
+  - name: first
+    sig: |
+      <b>first</b>(c: List) ⇒ Any
+    synopsis: Returns first element from the list <code><b>c</b></code> or <code>null</code>
+    desc: |
+      Returns first element from the list <code><b>c</b></code> or <code>null</code> if the list is empty.
+    usage: |
+      // Result: "a"
+      first(list("a", "b"))
+
+  - name: last
+    sig: |
+      <b>last</b>(c: List) ⇒ Any
+    synopsis: Returns last element from the list <code><b>c</b></code> or <code>null</code>
+    desc: |
+      Returns last element from the list <code><b>c</b></code> or <code>null</code> if the list is empty.
+    usage: |
+      // Result: "b"
+      last(list("a", "b"))
+
+  - name: keys
+    sig: |
+      <b>keys</b>(m: Map) ⇒ Any
+    synopsis: Returns list of keys for map <code><b>m</b></code>
+    desc: |
+      Returns list of keys for map <code><b>m</b></code>.
+    usage: |
+      // Result: ["a", "b"]
+      keys(json('{"a": true, "b": 1}'))
+
+  - name: values
+    sig: |
+      <b>values</b>(m: Map) ⇒ Any
+    synopsis: Returns list of values for map <code><b>m</b></code>
+    desc: |
+      Returns list of values for map <code><b>m</b></code>.
+    usage: |
+      // Result: [true, 1]
+      values(json('{"a": true, "b": 1}'))
+
+  - name: reverse
+    sig: |
+      <b>reverse</b>(x: List) ⇒ List
+    synopsis: Reverses the list <code><b>x</b></code>
+    desc: |
+      Returns reversed list <code><b>x</b></code>. This function uses the natural sorting order.
+    usage: |
+      // Result: [3, 2, 1]
+      reverse(list(1, 2, 3))
+
+  - name: sort
+    sig: |
+      <b>sort</b>(x: List) ⇒ List
+    synopsis: Sorts the list <code><b>x</b></code>
+    desc: |
+      Returns sorted list <code><b>x</b></code>. This function uses the natural sorting order.
+    usage: |
+      // Result: [1, 2, 3]
+      sort(list(2, 1, 3))
+
+  - name: is_empty
+    sig: |
+      <b>is_empty</b>(x: {String|List|Map}) ⇒ Boolean
+    synopsis: Checks if given string, list or map is <code><b>x</b></code> empty
+    desc: |
+      Checks if given string, list or map <code><b>x</b></code> is empty.
+    usage: |
+      // Result: false
+      is_empty("text")
+      is_empty(list(1))
+      is_empty(json('{"a": 1}'))
+
+  - name: non_empty
+    sig: |
+      <b>non_empty</b>(x: {String|List|Map}) ⇒ Boolean
+    synopsis: Checks if given string, list or map is <code><b>x</b></code> non empty
+    desc: |
+      Checks if given string, list or map <code><b>x</b></code> is non empty.
+    usage: |
+      // Result: true
+      non_empty("text")
+      non_empty(list(1))
+      non_empty(json('{"a": 1}'))
+
+  - name: distinct
+    sig: |
+      <b>distinct</b>(x: List) ⇒ List
+    synopsis: Makes list <code><b>x</b></code> distinct
+    desc: |
+      Makes list <code><b>x</b></code> distinct.
+    usage: |
+      // Result: [1, 2, 3]
+      distinct(list(1, 2, 2, 3, 1))
+
+  - name: concact
+    sig: |
+      <b>concat</b>(x1: List, x1: List) ⇒ List
+    synopsis: Concatenates lists <code><b>x1</b></code> and <code><b>x2</b></code>
+    desc: |
+      Concatenates lists <code><b>x1</b></code> and <code><b>x2</b></code>.
+    usage: |
+      // Result: [1, 2, 3, 4]
+      concat(list(1, 2), list(3, 4))
+
 fn-metadata:
   - name: meta_part
     sig: |
