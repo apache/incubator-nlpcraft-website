@@ -874,29 +874,103 @@ fn-math:
   - name: atan2
     sig: |
       <b>atan2</b>(d1: Double, d2: Double) ⇒ Double
-    synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#atan2(double, double)"><code>Math.atan(<b>d2</b>, <b>d2</b>)</code></a>
+    synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#atan2(double, double)"><code>Math.atan2(<b>d2</b>, <b>d2</b>)</code></a>
     desc: |
       Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#atan2(double, double)"><code>Math.atan2(<b>d1</b>, <b>d2</b>)</code></a>.
     usage: |
       atan2(1.0, 1.0)
 
-#  case "degrees" ⇒ z[ST](arg1, { x ⇒ val Z(v, f) = x(); Z(Math.toDegrees(toDouble(v)), f) })
-#  case "radians" ⇒ z[ST](arg1, { x ⇒ val Z(v, f) = x(); Z( Math.toRadians(toDouble(v)), f) })
-#  case "exp" ⇒ z[ST](arg1, { x ⇒ val Z(v, f) = x(); Z(Math.exp(toDouble(v)), f) })
-#  case "expm1" ⇒ z[ST](arg1, { x ⇒ val Z(v, f) = x(); Z(Math.expm1(toDouble(v)), f) })
-#  case "hypot" ⇒ z[(ST, ST)](arg2, { x ⇒ val (v1, v2, n) = extract2(x._1, x._2); Z(Math.hypot(toDouble(v1), toDouble(v2)), n) })
-#  case "log" ⇒ z[ST](arg1, { x ⇒ val Z(v, f) = x(); Z(Math.log(toDouble(v)), f) })
-#  case "log10" ⇒ z[ST](arg1, { x ⇒ val Z(v, f) = x(); Z(Math.log10(toDouble(v)), f) })
-#  case "log1p" ⇒ z[ST](arg1, { x ⇒ val Z(v, f) = x(); Z(Math.log1p(toDouble(v)), f) })
-#  case "pow" ⇒ z[(ST, ST)](arg2, { x ⇒ val (v1, v2, n) = extract2(x._1, x._2); Z(Math.pow(toDouble(v1), toDouble(v2)), n) })
-#  case "square" ⇒ doSquare()
-#  case "pi" ⇒ z0(() ⇒ Z(Math.PI, 0))
-#  case "euler" ⇒ z0(() ⇒ Z(Math.E, 0))
-#  case "rand" ⇒ z0(() ⇒ Z(Math.random, 0))
+  - name: degrees
+    sig: |
+      <b>degrees</b>(d: Double) ⇒ Double
+    synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#toDegrees(double)"><code>Math.toDegrees(<b>d</b>)</code></a>
+    desc: |
+      Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#toDegrees(double)"><code>Math.toDegrees(<b>d</b>)</code></a>.
+    usage: |
+      degrees(1.0)
+
+  - name: radians
+    sig: |
+      <b>radians</b>(d: Double) ⇒ Double
+    synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#toRadians(double)"><code>Math.toRadians(<b>d</b>)</code></a>
+    desc: |
+      Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#toRadians(double)"><code>Math.toRadians(<b>d</b>)</code></a>.
+    usage: |
+      radians(1.0)
+
+  - name: exp
+    sig: |
+      <b>exp</b>(d: Double) ⇒ Double
+    synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#exp(double)"><code>Math.exp(<b>d</b>)</code></a>
+    desc: |
+      Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#exp(double)"><code>Math.exp(<b>d</b>)</code></a>.
+    usage: |
+      exp(1.0)
+
+  - name: expm1
+    sig: |
+      <b>expm1</b>(d: Double) ⇒ Double
+    synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#expm1(double)"><code>Math.expm1(<b>d</b>)</code></a>
+    desc: |
+      Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#expm1(double)"><code>Math.expm1(<b>d</b>)</code></a>.
+    usage: |
+      expm1(1.0)
+
+  - name: log
+    sig: |
+      <b>log</b>(d: Double) ⇒ Double
+    synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#log(double)"><code>Math.log(<b>d</b>)</code></a>
+    desc: |
+      Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#log(double)"><code>Math.log(<b>d</b>)</code></a>.
+    usage: |
+      log(1.0)
+
+  - name: log10
+    sig: |
+      <b>log10</b>(d: Double) ⇒ Double
+    synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#log10(double)"><code>Math.log10(<b>d</b>)</code></a>
+    desc: |
+      Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#log10(double)"><code>Math.log10(<b>d</b>)</code></a>.
+    usage: |
+      log10(1.0)
+
+  - name: log1p
+    sig: |
+      <b>log1p</b>(d: Double) ⇒ Double
+    synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#log1p(double)"><code>Math.log1p(<b>d</b>)</code></a>
+    desc: |
+      Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#log1p(double)"><code>Math.log1p(<b>d</b>)</code></a>.
+    usage: |
+      log1p(1.0)
+
+  - name: pi
+    sig: |
+      <b>pi</b>() ⇒ Double
+    synopsis: Returns PI constant
+    desc: |
+      Returns PI constant.
+    usage: |
+      // Result: 3.14159265359
+      pi()
+
+  - name: euler
+    sig: |
+      <b>pi</b>() ⇒ Double
+    synopsis: Returns Euler constant
+    desc: |
+      Returns Euler constant.
+    usage: |
+      // Result: 0.5772156649
+      euler()
+
+
 #  case "max" ⇒ doMax()
 #  case "min" ⇒ doMin()
 #  case "avg" ⇒ doAvg()
 #  case "stdev" ⇒ doStdev()
+#  case "square" ⇒ doSquare()
+#  case "pow" ⇒ z[(ST, ST)](arg2, { x ⇒ val (v1, v2, n) = extract2(x._1, x._2); Z(Math.pow(toDouble(v1), toDouble(v2)), n) })
+#  case "hypot" ⇒ z[(ST, ST)](arg2, { x ⇒ val (v1, v2, n) = extract2(x._1, x._2); Z(Math.hypot(toDouble(v1), toDouble(v2)), n) })
 
 
 fn-collections:
