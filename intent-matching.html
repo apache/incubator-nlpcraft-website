@@ -65,6 +65,41 @@ id: intent_matching
             intent=x term(a)~{tok_id() == 'my_elm'} term(b)={has(tok_groups(), "my_group")}
         </pre>
         <p>
+            IDL intent defines a match between the parsed input utterance, i.e. the collection of
+            <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html">tokens</a>,
+            and the user-define callback method. To accomplish that, IDL <a href="#idl_functions">functions</a> provide
+            access to the following information:
+        </p>
+        <ul>
+            <li>
+                Basic <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html">token properties</a> such as token ID,
+                group membership, aliases, token parent and ancestry hierarchy,
+                token's constituent part tokens, abstract flag, etc.
+            </li>
+            <li>
+                NLP <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html">token properties</a> - stem,
+                lemma, PoS tag, and variety of computed boolean flags
+                such as stop word, swear word, free word, known dictionary word,
+                bracketed, quoted, etc.
+            </li>
+            <li>
+                <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html">Information</a> about
+                how particular token was found in the input, i.e. its sparsity value, permutation
+                flag, synonym value, indices in the original text, etc.
+            </li>
+            <li>
+                Additional token metadata provided by NER providers. For example, for geographical token additional metadata
+                can provide population, postal codes, latitude and longitude coordinates, and other demographic information.
+            </li>
+            <li>
+                Additional metadata about user and company that made the input request like admin status, signup date,
+                first and last names, avatars, emails, company name, website, address, etc.
+            </li>
+            <li>
+                System information such as current date and time, OS properties, system and environmental variables.
+            </li>
+        </ul>
+        <p>
             You can review the formal
             <a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft/src/main/scala/org/apache/nlpcraft/model/intent/compiler/antlr4/NCIdl.g4">ANTLR4 grammar</a> for IDL,
             but here are the general properties of IDL:
@@ -109,8 +144,8 @@ id: intent_matching
             <li>
                 IDL is a lazily evaluated language, i.e. expressions are evaluated only when required during runtime. That
                 means that evaluated left-to-right logical AND and OR operators, for example, skip their right-part expressions if the left expression result is
-                determinative for the overall result - so called short-circuit evaluation. Some IDL functions like <code>if</code> also provide the similar
-                short-circuit evaluation.
+                determinative for the overall result - so called short-circuit evaluation. Some IDL functions like
+                <code>if</code> and <code>or_else</code> also provide the similar short-circuit evaluation.
             </li>
         </ul>
         <p>
@@ -133,13 +168,13 @@ id: intent_matching
                 <pre class="brush: idl">
                     intent=xa
                         flow="^(?:xx)(^:zz)*$"
-                        meta={'a': 42, 'b': {'Москва': [1, 2, 3]}}
-                        term(a)={month() >= 6 && !(tok_id()) != "z" && meta_model('a') == 100_500}[1,3]
+                        meta={'enabled': true}
+                        term(a)={month() >= 6 && !(tok_id()) != "z" && meta_intent('enabled') == true}[1,3]
                         term(b)~{
-                            @a = meta_model('a')
-                            @lst = list(1, 2, 3, 4)
+                            @tokId = tok_id()
+                            @usrTypes = meta_model('user_types')
 
-                            has_all(@lst, list(@a, 2))
+                            (tokId == 'order' || tokId == 'order_cancel') && has_all(@usrTypes, list(1, 2, 3))
                         }
 
                     intent=xb
@@ -219,7 +254,7 @@ id: intent_matching
                         </p>
                     </dd>
                     <dt>
-                        <code>meta={'a': 42, 'b': {'Москва': [1, 2, 3]}}</code> <sup><small>line 3</small></sup>
+                        <code>meta={'enabled': true}</code> <sup><small>line 3</small></sup>
                     </dt>
                     <dd>
                         <p>
@@ -233,11 +268,11 @@ id: intent_matching
                         </p>
                     </dd>
                     <dt>
-                        <code>term(a)={month() >= 6 && !(tok_id()) != "z" && meta_model('a') == 100_500}[1,3]</code> <sup><small>line 4</small></sup><br>
+                        <code>term(a)={month() >= 6 && !(tok_id()) != "z" && meta_intent('enabled') == true}[1,3]</code> <sup><small>line 4</small></sup><br>
                         <code>term(b)~{</code> <sup><small>line 5</small></sup><br>
-                        <code style="padding-left: 20px">@a = meta_model('a')</code><br>
-                        <code style="padding-left: 20px">@lst = list(1, 2, 3, 4)</code><br>
-                        <code style="padding-left: 20px">has_all(@lst, list(@a, 2))</code><br>
+                        <code style="padding-left: 20px">@tokId = tok_id()</code><br>
+                        <code style="padding-left: 20px">@usrTypes = meta_model('user_types')</code><br>
+                        <code style="padding-left: 20px">(tokId == 'order' || tokId == 'order_cancel') && has_all(@usrTypes, list(1, 2, 3))</code><br>
                         <code>}</code><br>
                         <code>term(a)=/org.mypackage.MyClass#termMethod/?</code> <sup><small>line 15</small></sup>
                     </dt>
@@ -680,18 +715,200 @@ id: intent_matching
                 </div>
             </div>
             <div class="tab-pane fade show" id="fn_math" role="tabpanel">
+                <div class="accordion" id="math_fns">
+                    {% for fn in site.data.idl-fns.fn-math %}
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_{{fn.name}}">
+                                    <span><code>{{fn.sig}}</code></span>
+                                    <span class="fn-short-desc">{{fn.synopsis}}</span>
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="fn_{{fn.name}}" class="collapse" data-parent="#math_fns">
+                            <div class="card-body">
+                                <p class="fn-desc">
+                                    <em>Description:</em><br>
+                                    {{fn.desc}}
+                                </p>
+                                <p class="fn-usage">
+                                    <em>Usage:</em><br>
+                                </p>
+                                <pre class="brush:idl">{{fn.usage}}</pre>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
             <div class="tab-pane fade show" id="fn_collection" role="tabpanel">
+                <div class="accordion" id="collections_fns">
+                    {% for fn in site.data.idl-fns.fn-collections %}
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_{{fn.name}}">
+                                    <span><code>{{fn.sig}}</code></span>
+                                    <span class="fn-short-desc">{{fn.synopsis}}</span>
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="fn_{{fn.name}}" class="collapse" data-parent="#collections_fns">
+                            <div class="card-body">
+                                <p class="fn-desc">
+                                    <em>Description:</em><br>
+                                    {{fn.desc}}
+                                </p>
+                                <p class="fn-usage">
+                                    <em>Usage:</em><br>
+                                </p>
+                                <pre class="brush:idl">{{fn.usage}}</pre>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
             <div class="tab-pane fade show" id="fn_metadata" role="tabpanel">
+                <div class="accordion" id="metadata_fns">
+                    {% for fn in site.data.idl-fns.fn-metadata %}
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_{{fn.name}}">
+                                    <span><code>{{fn.sig}}</code></span>
+                                    <span class="fn-short-desc">{{fn.synopsis}}</span>
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="fn_{{fn.name}}" class="collapse" data-parent="#metadata_fns">
+                            <div class="card-body">
+                                <p class="fn-desc">
+                                    <em>Description:</em><br>
+                                    {{fn.desc}}
+                                </p>
+                                <p class="fn-usage">
+                                    <em>Usage:</em><br>
+                                </p>
+                                <pre class="brush:idl">{{fn.usage}}</pre>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
             <div class="tab-pane fade show" id="fn_datetime" role="tabpanel">
+                <div class="accordion" id="datetime_fns">
+                    {% for fn in site.data.idl-fns.fn-datetime %}
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_{{fn.name}}">
+                                    <span><code>{{fn.sig}}</code></span>
+                                    <span class="fn-short-desc">{{fn.synopsis}}</span>
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="fn_{{fn.name}}" class="collapse" data-parent="#datetime_fns">
+                            <div class="card-body">
+                                <p class="fn-desc">
+                                    <em>Description:</em><br>
+                                    {{fn.desc}}
+                                </p>
+                                <p class="fn-usage">
+                                    <em>Usage:</em><br>
+                                </p>
+                                <pre class="brush:idl">{{fn.usage}}</pre>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
             <div class="tab-pane fade show" id="fn_req" role="tabpanel">
+                <div class="accordion" id="req_fns">
+                    {% for fn in site.data.idl-fns.fn-req %}
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_{{fn.name}}">
+                                    <span><code>{{fn.sig}}</code></span>
+                                    <span class="fn-short-desc">{{fn.synopsis}}</span>
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="fn_{{fn.name}}" class="collapse" data-parent="#req_fns">
+                            <div class="card-body">
+                                <p class="fn-desc">
+                                    <em>Description:</em><br>
+                                    {{fn.desc}}
+                                </p>
+                                <p class="fn-usage">
+                                    <em>Usage:</em><br>
+                                </p>
+                                <pre class="brush:idl">{{fn.usage}}</pre>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
             <div class="tab-pane fade show" id="fn_user" role="tabpanel">
+                <div class="accordion" id="user_fns">
+                    {% for fn in site.data.idl-fns.fn-user %}
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_{{fn.name}}">
+                                    <span><code>{{fn.sig}}</code></span>
+                                    <span class="fn-short-desc">{{fn.synopsis}}</span>
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="fn_{{fn.name}}" class="collapse" data-parent="#user_fns">
+                            <div class="card-body">
+                                <p class="fn-desc">
+                                    <em>Description:</em><br>
+                                    {{fn.desc}}
+                                </p>
+                                <p class="fn-usage">
+                                    <em>Usage:</em><br>
+                                </p>
+                                <pre class="brush:idl">{{fn.usage}}</pre>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
             <div class="tab-pane fade show" id="fn_company" role="tabpanel">
+                <div class="accordion" id="company_fns">
+                    {% for fn in site.data.idl-fns.fn-company %}
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_{{fn.name}}">
+                                    <span><code>{{fn.sig}}</code></span>
+                                    <span class="fn-short-desc">{{fn.synopsis}}</span>
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="fn_{{fn.name}}" class="collapse" data-parent="#company_fns">
+                            <div class="card-body">
+                                <p class="fn-desc">
+                                    <em>Description:</em><br>
+                                    {{fn.desc}}
+                                </p>
+                                <p class="fn-usage">
+                                    <em>Usage:</em><br>
+                                </p>
+                                <pre class="brush:idl">{{fn.usage}}</pre>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
             <div class="tab-pane fade show" id="fn_other" role="tabpanel">
                 <div class="accordion" id="other_fns">

@@ -15,6 +15,10 @@
 # limitations under the License.
 #
 
+#
+# IDL functions documentation.
+#
+
 fn-token:
   - name: tok_id
     sig: |
@@ -372,8 +376,20 @@ fn-token:
       @tok = if(is_empty(@parts), tok_this(), first(@parts))
 
 
+
 fn-datetime:
+
+fn-req:
+
+fn-user:
+
+fn-company:
+
 fn-math:
+
+fn-collections:
+
+fn-metadata:
 
 fn-other:
   - name: if
@@ -430,6 +446,7 @@ fn-other:
       // Result: 'some_prop' model metadata or 'text' if one does not exist.
       @dflt = 'text'
       or_else(meta_model('some_prop'), @dflt)
+
 
 fn-text:
   - name: length
