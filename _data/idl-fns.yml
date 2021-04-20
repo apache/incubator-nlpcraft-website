@@ -934,6 +934,16 @@ fn-math:
     usage: |
       log10(1.0)
 
+  - name: square
+    sig: |
+      <b>square</b>(x: {Int|Double}) ⇒ {Int|Double}
+    synopsis: Returns square of <code>><b>x</b></code>
+    desc: |
+      Returns square of <code>><b>x</b></code>
+    usage: |
+      // Result: 4
+      square(2)
+
   - name: log1p
     sig: |
       <b>log1p</b>(d: Double) ⇒ Double
@@ -963,15 +973,71 @@ fn-math:
       // Result: 0.5772156649
       euler()
 
+  - name: max
+    sig: |
+      <b>max</b>(c: List) ⇒ Any
+    synopsis: Returns maximum value for given list
+    desc: |
+      Returns maximum value for given list. Throws runtime exception if the list is empty.
+      This function uses a natural ordering.
+    usage: |
+      // Result: 3
+      max(list(1, 2, 3))
 
-#  case "max" ⇒ doMax()
-#  case "min" ⇒ doMin()
-#  case "avg" ⇒ doAvg()
-#  case "stdev" ⇒ doStdev()
-#  case "square" ⇒ doSquare()
-#  case "pow" ⇒ z[(ST, ST)](arg2, { x ⇒ val (v1, v2, n) = extract2(x._1, x._2); Z(Math.pow(toDouble(v1), toDouble(v2)), n) })
-#  case "hypot" ⇒ z[(ST, ST)](arg2, { x ⇒ val (v1, v2, n) = extract2(x._1, x._2); Z(Math.hypot(toDouble(v1), toDouble(v2)), n) })
+  - name: min
+    sig: |
+      <b>min</b>(c: List) ⇒ Any
+    synopsis: Returns minimum value for given list
+    desc: |
+      Returns minimum value for given list. Throws runtime exception if the list is empty.
+      This function uses a natural ordering.
+    usage: |
+      // Result: 1
+      min(list(1, 2, 3))
 
+  - name: avg
+    sig: |
+      <b>avg</b>(c: List[{Int|Double|String}]) ⇒ Double
+    synopsis: Returns average (mean) value for given list
+    desc: |
+      Returns average (mean) value for given list of ints, doubles or strings.
+      Throws runtime exception if the list is empty.
+      If list list contains strings, they have to be convertable to int or double.
+    usage: |
+      // Result: 2.0
+      avg(list(1, 2, 3))
+      avg(list("1.0", 2, "3"))
+
+  - name: stdev
+    sig: |
+      <b>stdev</b>(c: List[{Int|Double|String}]) ⇒ Double
+    synopsis: Returns standard deviation value for given list
+    desc: |
+      Returns standard deviation value for given list of ints, doubles or strings.
+      Throws runtime exception if the list is empty.
+      If list list contains strings, they have to be convertable to int or double.
+    usage: |
+      stdev(list(1, 2, 3))
+      stdev(list("1.0", 2, "3"))
+
+  - name: pow
+    sig: |
+      <b>pow</b>(d1: Double, d2: Double) ⇒ Double
+    synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#pow(double, double)"><code>Math.pow(<b>d2</b>, <b>d2</b>)</code></a>
+    desc: |
+      Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#pow(double, double)"><code>Math.pow(<b>d1</b>, <b>d2</b>)</code></a>.
+    usage: |
+      // Result: 4.0
+      pow(2.0, 2.0)
+
+  - name: hypot
+    sig: |
+      <b>hypot</b>(d1: Double, d2: Double) ⇒ Double
+    synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#hypot(double, double)"><code>Math.hypot(<b>d2</b>, <b>d2</b>)</code></a>
+    desc: |
+      Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#hypot(double, double)"><code>Math.hypot(<b>d1</b>, <b>d2</b>)</code></a>.
+    usage: |
+      hypot(2.0, 2.0)
 
 fn-collections:
   - name: list
@@ -1299,7 +1365,6 @@ fn-other:
       // Result: 'some_prop' model metadata or 'text' if one does not exist.
       @dflt = 'text'
       or_else(meta_model('some_prop'), @dflt)
-
 
 fn-text:
   - name: length
