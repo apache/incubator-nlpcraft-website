@@ -956,7 +956,7 @@ intents:
             Any individual synonym word that that starts and ends with <code>^^</code> is a
             <a href="/intent-matching.html#idl">IDL expression.</a> IDL
             expression inside of <code>^^ ... ^^</code> markers allows you to define a predicate on already parsed and detected token.
-            It is very important to note that unlike all other synonyms the token DSL predicate operates on a
+            It is very important to note that unlike all other synonyms the IDL expression operates on a
             already detected <em>token</em>, not on an individual unparsed <em>word</em>.
         </p>
         <p>
@@ -1048,7 +1048,7 @@ intents:
         <p>
             By default, the data model detects its elements by their synonyms, regexp or IDL expressions. However, in some cases
             these methods are either not expressive enough or cannot be used. For example, detecting model elements based
-            on neural networks or integrating with a non-standard 3rd-party NER components. In such cases, a user-defined parser
+            on neural networks or integration with a non-standard 3rd-party NER components. In such cases, a user-defined parser
             can be defined for the model that would allow the user to define its own arbitrary NER logic to detect the model elements
             in the user input programmatically. Note that a custom parser can detect any number of model elements.
         </p>
@@ -1499,6 +1499,8 @@ intents:
             This token's metadata provides common basic NLP properties that are part of any token.
             <b>All tokens</b> without exception have these metadata properties. This metadata
             represents a common set of NLP properties for a given token. All these metadata properties are <b>mandatory</b>.
+            Note also that interface <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html">NCToken</a>
+            provides a direct access to most of these properties.
         </p>
         <table class="gradient-table">
             <thead>
@@ -2717,7 +2719,7 @@ intents:
         <li><a href="#lifecycle">Model Lifecycle</a></li>
         <li><a href="#config">Model Configuration</a></li>
         <li><a href="#elements">Model Elements</a></li>
-        <li><a href="#dsl">Token DSL</a></li>
+        <li><a href="#dsl">IDL Expression</a></li>
         <li><a href="#programmable_ners">Programmable NERs</a></li>
         <li><a href="#logic">Model Logic</a></li>
         <li><a href="#builtin">Built-In Tokens</a></li>
