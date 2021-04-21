@@ -207,16 +207,16 @@ publish_date: November 16, 2020
           - name: "&lt;ACTION&gt;"
             macro: "{turn|switch|dial|control|let|set|get|put}"
           - name: "&lt;ENTIRE_OPT&gt;"
-            macro: "{entire|full|whole|total|*}"
+            macro: "{entire|full|whole|total|_}"
           - name: "&lt;LIGHT&gt;"
-            macro: "{all|*} {it|them|light|illumination|lamp|lamplight}"
+            macro: "{all|_} {it|them|light|illumination|lamp|lamplight}"
         enabledBuiltInTokens: [] # This example doesn't use any built-in tokens.
         elements:
           - id: "ls:loc"
             description: "Location of lights."
             synonyms:
-              - "&lt;ENTIRE_OPT&gt; {upstairs|downstairs|*} {kitchen|library|closet|garage|office|playroom|{dinning|laundry|play} room}"
-              - "&lt;ENTIRE_OPT&gt; {upstairs|downstairs|*} {master|kid|children|child|guest|*} {bedroom|bathroom|washroom|storage} {closet|*}"
+              - "&lt;ENTIRE_OPT&gt; {upstairs|downstairs|_} {kitchen|library|closet|garage|office|playroom|{dinning|laundry|play} room}"
+              - "&lt;ENTIRE_OPT&gt; {upstairs|downstairs|_} {master|kid|children|child|guest|_} {bedroom|bathroom|washroom|storage} {closet|_}"
               - "&lt;ENTIRE_OPT&gt; {house|home|building|{1st|first} floor|{2nd|second} floor}"
         
           - id: "ls:on"
@@ -224,7 +224,7 @@ publish_date: November 16, 2020
               - "act"
             description: "Light switch ON action."
             synonyms:
-              - "&lt;ACTION&gt; {on|up|*} &lt;LIGHT&gt; {on|up|*}"
+              - "&lt;ACTION&gt; {on|up|_} &lt;LIGHT&gt; {on|up|_}"
               - "&lt;LIGHT&gt; {on|up}"
         
           - id: "ls:off"
