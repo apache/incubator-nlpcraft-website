@@ -559,7 +559,7 @@ intents:
         </p>
         <p>
             Note that you can't directly change group membership, parent-child relationship or metadata of the
-            built-in elements. You can, however, "wrap" built-in entity into your own one using <code>^^tok_id() == 'external.id'^^</code>
+            built-in elements. You can, however, "wrap" built-in entity into your own one using <code>^^{tok_id() == 'external.id'}^^</code>
             <a href="/intent-matching.html">IDL</a> expression where you can define all necessary additional
             configuration properties (more on that below).
         </p>
@@ -832,7 +832,7 @@ intents:
         </div>
         <span id="values" class="section-sub-title">Element Values <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
         <p>
-            Model element can have an optional set of special synonyms called <em>values</em> or proper nouns for this element.
+            Model element can have an optional set of special synonyms called <em>values</em> or "proper nouns" for this element.
             Unlike basic synonyms, each value is a pair of a name and a set of standard synonyms by which that value,
             and ultimately its element, can be recognized in the user input. Note that the value name itself acts as an
             implicit synonym even when no additional synonyms added for that value.
@@ -863,7 +863,7 @@ intents:
                     "description": "Transportation vehicle",
                     "synonyms": [
                         "car",
-                        "{&lt;TRUCK_TYPE&gt;|*} {pickup|*} truck"
+                        "{&lt;TRUCK_TYPE&gt;|_} {pickup|_} truck"
                         "sedan",
                         "coupe"
                     ],
@@ -897,40 +897,31 @@ intents:
             <li><code>bimmer</code> (with value <code>bmw</code>)</li>
             <li><code>transport.vehicle</code></li>
         </ul>
-        <p>
-            Note that element value can be used in token and intent DSLs.
-        </p>
         <span id="groups" class="section-sub-title">Element Groups <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
         <p>
-            Each model element belongs to one or more groups. Model element provides its groups via
+            Each model element always belongs to one or more groups. Model element provides its groups via
             <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCElement.html#getGroups()">getGroups()</a> method.
             By default, if element group is not specified, the element ID will act as its default group ID.
-        </p>
-        <p>
             Group membership is a quick and easy way to organise similar model elements together and use this
-            categorization in token and intent DSL.
+            categorization in <a href="/intent-matching.html">IDL</a> intents.
         </p>
         <p>
             Note that the proper grouping of the elements is also necessary for the correct operation of
-            Short-Term-Memory (STM) in the conversational context
-            when using intent-based matching. See
-            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCConversation.html">NCConversation</a>
-            for mode details.
-        </p>
-        <p>
-            Consider a <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html">NCToken</a> that
+            Short-Term-Memory (STM) in the conversational context. Consider a
+            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html">NCToken</a> that
             represents a previously found model element that is stored in the conversation. Such token
             will be overridden in the conversation by the more <b>recent token</b>
             from the <b>same group</b> - a critical rule of maintaining the proper conversational context.
-        </p>
-        <p>
-            Note that token's groups can be used in token and intent DSLs.
+            See
+            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCConversation.html">NCConversation</a>
+            for mode details.
         </p>
         <span id="parent" class="section-sub-title">Element Parent <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
         <p>
             Each model element can form an optional hierarchical relationship with other element by specifying its
-            parent element ID via <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCElement.html#getParentId()">getParentID()</a> method. The main idea here is that sometimes model elements can act not only individually but
-            their place in the hierarchy can be important too for token and intent DSL.
+            parent element ID via <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCElement.html#getParentId()">getParentID()</a> method.
+            The main idea here is that sometimes model elements can act not only individually but
+            their place in the hierarchy can be important too.
         </p>
         <p>
             For example, we could have designed our transportation example model in a different way by using
@@ -949,26 +940,27 @@ intents:
 |     |   +-- wagon
         </pre>
         <p>
-            Then in our intent DSL, for example, we could look for any token with root parent ID <code>vehicle</code>
+            Then in our intent, for example, we could look for any token with root parent ID <code>vehicle</code>
             or immediate parent ID <code>truck</code> or <code>car</code> without a need to match on all current and
-            future individual sub-IDs:
+            future individual sub-IDs. For example:
         </p>
-        <pre class="brush: plain">
-            "intent=vehicle.intent term~{ancestors @@ 'vehicle'}"
-            "intent=truck.intent term~{parent == 'truck'}"
-            "intent=car.intent term~{parent == 'car'}"
+        <pre class="brush: idl">
+            intent=vehicle.intent term~{has(tok_ancestors(), 'vehicle')}
+            intent=truck.intent term~{tok_parent() == 'truck'}
+            intent=car.intent term~{tok_parent() == 'car'}
         </pre>
     </section>
     <section id="dsl" >
-        <h2 class="section-title">Token DSL <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <h2 class="section-title">IDL Expressions <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
-            Any individual synonym word that that starts and ends with <code>^^</code> is a token DSL expression. A token
-            DSL expression inside of <code>^^ ... ^^</code> markers allows you to define a predicate on already parsed and detected token. It is very important to
-            note that unlike all other synonyms the token DSL predicate operates on a already detected <em>token</em>, not on an
-            individual unparsed <em>word</em>.
+            Any individual synonym word that that starts and ends with <code>^^</code> is a
+            <a href="/intent-matching.html#idl">IDL expression.</a> IDL
+            expression inside of <code>^^ ... ^^</code> markers allows you to define a predicate on already parsed and detected token.
+            It is very important to note that unlike all other synonyms the token DSL predicate operates on a
+            already detected <em>token</em>, not on an individual unparsed <em>word</em>.
         </p>
         <p>
-            Token DSL allows you to <em>compose</em> named entities, i.e. use one name entity when defining another one. For example,
+            IDL expressions allows you to <em>compose</em> named entities, i.e. use one name entity when defining another one. For example,
             we could define a model element for the race car using our previous transportation example (note how synonym on
             <b>line 18</b>
             references the element defined on <b>line 4</b>):
@@ -982,7 +974,7 @@ intents:
                     "synonyms": [
                         "car",
                         "truck",
-                        "{light|heavy|super|medium} duty {pickup|*} truck"
+                        "{light|heavy|super|medium} duty {pickup|_} truck"
                         "sedan",
                         "coupe"
                     ]
@@ -991,7 +983,7 @@ intents:
                     "id": "race.vehicle",
                     "description": "Race vehicle",
                     "synonyms": [
-                        "{race|speed|track} ^^id == 'transport.vehicle'^^"
+                        "{race|speed|track} ^^{tok_id() == 'transport.vehicle'}^^"
                     ]
                 }
 
@@ -1012,7 +1004,7 @@ intents:
         </div>
         <p>
             Another often used use case is to wrap 3rd party named entities to add group membership, metadata or hierarchical
-            relationship to the externally detected named entity. For example, you can wrap <code>google:location</code>
+            relationship to the externally defined named entity. For example, you can wrap <code>google:location</code>
             token and add group membership for <code>my_group</code> group:
         </p>
         <pre class="brush: js, highlight: [6,8]">
@@ -1023,688 +1015,38 @@ intents:
                     "description": "Wrapper for google location",
                     "groups": ["my_group"],
                     "synonyms": [
-                        "^^id == 'google:location'^^"
+                        "^^{tok_id() == 'google:location'}^^"
                     ]
                 }
-
             ]
             ...
         </pre>
-        <span id="dsl-syntax" class="section-sub-title">Token DSL Syntax <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
+        <span id="dsl-syntax" class="section-sub-title">IDL Expression Syntax <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
         <p>
-            Token DSL is a simple expression language for defining a single predicate over a token - a detected model
-            element. Remember that unlike token DSL all other types of synonyms work with simple words (vs. tokens).
-            Here's a full <a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/src/main/scala/org/apache/nlpcraft/probe/mgrs/model/antlr4/NCSynonymDsl.g4">ANTLR4 grammar</a> for token DSL.
-            Note that this is exactly the same syntax as
-            used by <a href="intent-matching.html#syntax">intent DSL</a> for token predicates in intents - except for
-            aliases which we will explain below.
-        </p>
-        <p>
-            Here's an example of token DSL defining a synonym for the population of any city in France:
+            IDL expressions are a subset of overall <a href="/intent-matching.html#idl">IDL syntax</a>. You can
+            review formal
+            <a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft/src/main/scala/org/apache/nlpcraft/model/intent/compiler/antlr4/NCIdl.g4">ANTLR4 grammar</a>
+            but basically
+            an IDL expression for synonym is a term expression with the optional alias at the beginning.
+            Here's an example of IDL expression defining a synonym for the population of any city in France:
         </p>
         <pre class="brush: js">
             "synonyms": [
-                "population {of|for} ^^[city](id == 'nlpcraft:city' && lowercase(~city:country) == 'france')^^"
+                "population {of|for} ^^[city]{tok_id() == 'nlpcraft:city' && lowercase(meta_tok('city:country')) == 'france'}^^"
             ]
         </pre>
-        <p>
-            Few notes on token DSL syntax:
-        </p>
+        <b>NOTES:</b>
         <ul>
+            <li>Optional alias <code>city</code> can be used to access a constituent part token (with ID <code>nlpcraft:city</code>).</li>
             <li>
-                This synonym defines a composed named entity, i.e. named entity that consists of other named entities.
-                In our example, we utilize token <code>nlpcraft:city</code> along with other basic synonym.
-            </li>
-            <li>
-                Token DSL expression always results in one and only one token when matched, however, the synonym can have multiple
-                token DSL expressions.
-            </li>
-            <li>
-                Token DSL expression can have optional alias (<code>[city]</code>) that can be used in other token DSL
-                expressions when referencing the token matched by that expression.
-            </li>
-            <li>
-                You can get all participant nested tokens, if required, using <code>NCToken#getPartTokens()</code> method call chain.
-                You can also reference participant tokens in the token DSL expression itself by using dot-notation (see below)
-                with either token IDs or aliases.
-            </li>
-            <li>
-                All string values should be places in single quotes, as in <code>'some string'</code>.
-                For numeric literals you can use underscores to help readability, i.e. <code>~list:size >= <b>1_000_000</b></code>
-            </li>
-            <li>
-                You can use <code>null</code>, <code>true</code> and <code>false</code> literals as a values.
-            </li>
-            <li>
-                Individual token expressions can be combined with <code>&&</code>, <code>||</code> and <code>!</code>
-                logical combinators and <code>(</code> <code>)</code> brackets that obey standard precedence rules.
+                The expression between <code>{</code> and <code>}</code> brackets is a standard IDL term expression.
             </li>
         </ul>
-        <p>
-            The individual token DSL expression can be one of the following forms:
-        </p>
-        <pre class="brush: js">
-            {qual}param op value
-            func({qual}param) op value
-        </pre>
-        <p>
-            The <code>{qual}param</code> is the left side parameter and it can have optional qualifier (<code>qual</code>).
-            Qualifier allows to reference participant tokens either by their ID or their DSL expression's alias using
-            dot-notation. For example:
-        </p>
-        <table class="gradient-table">
-            <thead>
-            <tr>
-                <th>Qualifier</th>
-                <th>Description</th>
-            </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <code><b>partId.</b>groups @@ 'my_grp'</code>
-                    </td>
-                    <td>
-                        There must be a participant token (i.e. constituent token) with either token ID or alias
-                        of <code>partId</code>. That participant token should belong to group <code>my_grp</code>.
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <code><b>alias1.alias2.</b>~meta['key'] >= 10</code>
-                    </td>
-                    <td>
-                        There must be two nested participant tokens with either token ID or alias
-                        of <code>alias1</code> and <code>alias2</code>. That second (inner-most <code>alias2</code>) participant token
-                        should have metadata property <code>meta</code> of type map with key <code>key</code> which value
-                        should be greater or equal to 10.
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="bq warn">
-            <p>
-                <b>NOTE:</b> If qualifier is present it <b>must</b> be valid and found, i.e. the participant tokens this qualifier
-                is referencing must be present. If qualifier is present but referenced participant tokens cannot be
-                found - the processing will abort with an exception rather than simply rejecting given synonym. In other
-                words, if specified - qualifiers are not optional.
-            </p>
-        </div>
-        <p>
-            The <code>param</code> itself can be one of the following literals:
-        </p>
-        <table class="gradient-table">
-            <thead>
-            <tr>
-                <th>Parameter</th>
-                <th>Description</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td><code>id</code></td>
-                <td>
-                    <p>
-                        Token <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getId()">ID</a> as
-                        a <code>java.lang.String</code> object.
-                    </p>
-                    <p>
-                        <b>Example:</b><br/>
-                        <code>^^<b>id</b> == 'nlpcraft:city'^^</code>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td><code>groups</code></td>
-                <td>
-                    <p>
-                        Token <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getGroups()">groups</a>
-                        as <code>java.util.Collection</code> of token IDs.
-                    </p>
-                    <p>
-                        <b>Example:</b><br/>
-                        <code>^^<b>groups</b> @@ 'my_group'^^</code>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td><code>aliases</code></td>
-                <td>
-                    <p>
-                        Token <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getAliases()">aliases</a>
-                        as <code>java.util.Collection</code> of token aliases.
-                    </p>
-                    <p>
-                        <b>Example:</b><br/>
-                        <code>^^<b>aliases</b> @@ 'my_alias'^^</code>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td><code>startidx</code></td>
-                <td>
-                    <p>
-                        Token start character <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getStartCharIndex()">index</a> in the original text.
-                    </p>
-                    <p>
-                        <b>Example:</b><br/>
-                        <code>^^<b>startidx</b> > 5^^</code>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td><code>endidx</code></td>
-                <td>
-                    <p>
-                        Token end character <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getStartCharIndex()">index</a> in the original text.
-                    </p>
-                    <p>
-                        <b>Example:</b><br/>
-                        <code>^^<b>endidx</b> < 15^^</code>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td><code>parent</code></td>
-                <td>
-                    <p>
-                        <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getParentId()">ID</a> of
-                        the parent token as a <code>java.lang.String</code> object.
-                    </p>
-                    <p>
-                        <b>Example:</b><br/>
-                        <code>^^<b>parent</b> == 'root'^^</code>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td><code>ancestors</code></td>
-                <td>
-                    <p>
-                        <code>java.util.List</code> of all token <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getParentId()">parent ID</a>
-                        from the current one to the root. List can be empty if current token has no parent ID.
-                    </p>
-                    <p>
-                        <b>Example:</b><br/>
-                        <code>^^<b>ancestors</b> @@ 'tok:id'^^</code>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td><code>value</code></td>
-                <td>
-                    <p>
-                        Token <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getValue()">value</a>
-                        as a <code>java.lang.String</code> object.
-                    </p>
-                    <p>
-                        <b>Example:</b><br/>
-                        <code>^^<b>value</b> == 'brand_name'^^</code>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td><code>~propName</code></td>
-                <td>
-                    <p>
-                        Token <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCMetadata.html#getMetadata()">metadata</a>
-                        property for given <code>propName</code>.
-                    </p>
-                    <p>
-                        <b>Example:</b><br/>
-                        <code>^^~<b>city:country</b> == 'france'^^</code>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td><code>~propName[key]</code></td>
-                <td>
-                    <p>
-                        Token <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCMetadata.html#getMetadata()">metadata</a>
-                        property for given <code>propName</code>
-                        of type <code>java.util.List</code> or <code>java.util.Map</code>.
-                        Returns indexed or keyed value. Note that <code>key</code> should be integer
-                        for <code>java.util.List</code> and string for <code>java.util.Map</code>.
-                        Nested indexing is not allowed.
-                    </p>
-                    <p>
-                        <b>Example:</b><br/>
-                        <code>^^~<b>my:list[0]</b> >= 1_000_000^^</code><br>
-                        <code>^^~<b>my:map['key']</b> >= 1_000_000^^</code>
-                    </p>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <p>
-            The optional <code>func</code> function can alter the value of the left-side parameter. Only one function call is allowed, i.e.
-            function calls cannot be nested. The primary use case for functions is dealing with 3rd party metadata where you
-            don't have a direct control on the values supplied from 3rd party named entity providers. The following functions are
-            supported:
-        </p>
-        <table class="gradient-table">
-            <thead>
-            <tr>
-                <th>Function Name</th>
-                <th>Description</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td><code>keys</code></td>
-                <td>
-                    <p>
-                        Calling <code>java.util.Map#keySet()</code> function on given parameter to get a collection of
-                        map keys. Applicable to <code>java.util.Map</code> parameters only.
-                    </p>
-                    <p>
-                        <b>Example:</b><br/>
-                        <code>^^<b>keys</b>(~my:map) @@ 'my_key'^^</code>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td><code>values</code></td>
-                <td>
-                    <p>
-                        Calling <code>java.util.Map#values()</code> function on given parameter to get a collection
-                        of map values. Applicable to <code>java.util.Map</code> parameters only.
-                    </p>
-                    <p>
-                        <b>Example:</b><br/>
-                        <code>^^<b>values</b>(~my:map) @@ (200_000, 100_000)^^</code>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td><code>trim</code></td>
-                <td>
-                    <p>
-                        Calling <code>java.lang.String#trim()</code> function on given parameter.
-                        Applicable to <code>java.lang.String</code> parameters only.
-                    </p>
-                    <p>
-                        <b>Example:</b><br/>
-                        <code>^^<b>trim</b>(~nlp:origtext) == '//^[Pp]aris$//'^^</code>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td><code>isalpha</code></td>
-                <td>
-                    <p>
-                        Checks that given string parameter contains only Unicode letters.
-                        Applicable to <code>java.lang.String</code> parameters only.
-                    </p>
-                    <p>
-                        <b>Example:</b><br/>
-                        <code>^^<b>isalpha</b>(~nlp:origtext) == true^^</code>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td><code>isalphanum</code></td>
-                <td>
-                    <p>
-                        Checks that given string parameter contains only Unicode letters or digits.
-                        Applicable to <code>java.lang.String</code> parameters only.
-                    </p>
-                    <p>
-                        <b>Example:</b><br/>
-                        <code>^^<b>isalphanum</b>(~nlp:origtext) == true^^</code>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td><code>isnumeric</code></td>
-                <td>
-                    <p>
-                        Checks that given string parameter contains only Unicode digits.
-                        Applicable to <code>java.lang.String</code> parameters only.
-                    </p>
-                    <p>
-                        <b>Example:</b><br/>
-                        <code>^^<b>isnumeric</b>(~zipcode) == true^^</code>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td><code>iswhitespace</code></td>
-                <td>
-                    <p>
-                        Checks that given string parameter contains only whitespaces.
-                        Applicable to <code>java.lang.String</code> parameters only.
-                    </p>
-                    <p>
-                        <b>Example:</b><br/>
-                        <code>^^<b>iswhitespace</b>(~my_txt) == false^^</code>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td><code>uppercase</code></td>
-                <td>
-                    <p>
-                        Calling <code>java.lang.String#toUpperCase()</code> function on given parameter.
-                        Applicable to <code>java.lang.String</code> parameters only.
-                    </p>
-                    <p>
-                        <b>Example:</b><br/>
-                        <code>^^<b>uppercase</b>(~nlp:origtext) == 'PARIS'^^</code>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td><code>lowercase</code></td>
-                <td>
-                    <p>
-                        Calling <code>java.lang.String#toLowerCase()</code> function on given parameter.
-                        Applicable to <code>java.lang.String</code> parameters only.
-                    </p>
-                    <p>
-                        <b>Example:</b><br/>
-                        <code>^^<b>lowercase</b>(~nlp:origtext) == 'paris'^^</code>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td><code>ceil</code></td>
-                <td>
-                    <p>
-                        Calling <code>java.lang.Math#ceil()</code> function on given parameter.
-                        Applicable to <code>java.lang.Double</code> parameters only.
-                    </p>
-                    <p>
-                        <b>Example:</b><br/>
-                        <code>^^<b>ceil</b>(~custom:double) > 1.0^^</code>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td><code>floor</code></td>
-                <td>
-                    <p>
-                        Calling <code>java.lang.Math#floor()</code> function on given parameter.
-                        Applicable to <code>java.lang.Double</code> parameters only.
-                    </p>
-                    <p>
-                        <b>Example:</b><br/>
-                        <code>^^<b>floor</b>(~custom:double) > 1.0^^</code>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td><code>rint</code></td>
-                <td>
-                    <p>
-                        Calling <code>java.lang.Math#rint()</code> function on given parameter.
-                        Applicable to <code>java.lang.Double</code> parameters only.
-                    </p>
-                    <p>
-                        <b>Example:</b><br/>
-                        <code>^^<b>rint</b>(~custom:double) > 1.0^^</code>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td><code>round</code></td>
-                <td>
-                    <p>
-                        Calling <code>java.lang.Map#round()</code> function on given parameter.
-                        Applicable to <code>java.lang.Double</code> and <code>java.lang.Float</code> parameters only.
-                    </p>
-                    <p>
-                        <b>Example:</b><br/>
-                        <code>^^<b>round</b>(~custom:double) > 1.0^^</code>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td><code>size</code>, <code>count</code> or <code>length</code></td>
-                <td>
-                    <p>
-                        Getting size of the <code>java.util.Collection</code> or <code>java.util.Map</code>, or number
-                        of characters for <code>java.lang.String</code> parameter.
-                    </p>
-                    <p>
-                        <b>Example:</b><br/>
-                        <code>^^<b>size</b>(~custom:coll) > 0^^</code>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td><code>signum</code></td>
-                <td>
-                    <p>
-                        Calling <code>java.lang.Math#signum()</code> function on given parameter.
-                        Applicable to <code>java.lang.Double</code> and <code>java.lang.Float</code> parameters only.
-                    </p>
-                    <p>
-                        <b>Example:</b><br/>
-                        <code>^^<b>signum</b>(~custom:double) == -1^^</code>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td><code>abs</code></td>
-                <td>
-                    <p>
-                        Calling <code>java.lang.Math#abs()</code> function on given parameter.
-                        Applicable to <code>java.lang.Double</code>, <code>java.lang.Float</code>,
-                        <code>java.lang.Long</code> and <code>java.lang.Integer</code> parameters only.
-                    </p>
-                    <p>
-                        <b>Example:</b><br/>
-                        <code>^^<b>abs</b>(~custom:int) > 10_000^^</code>
-                    </p>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <p>
-            The <code>op</code> (operation) can be one of the following:
-        </p>
-        <table class="gradient-table">
-            <thead>
-            <tr>
-                <th>Operation</th>
-                <th>Description</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>
-                    <code>==</code><br/>
-                    <code>!=</code>
-                </td>
-                <td>
-                    <p>
-                        Both operators perform equality check and work differently depending on the type of the left
-                        and right parameter:
-                    </p>
-                    <ul>
-                        <li>
-                            <p>
-                                If both left and right parameters are of type <code>java.util.Collection</code> then
-                                it checks that both collections contain (do not contain)
-                                exactly the same elements with exactly the same cardinalities.
-                            </p>
-                            <b>Example:</b>
-                            <dl>
-                                <dt><code>^^~col <b>==</b> (1, 2, 3)^^</code></dt>
-                                <dd>'col' metadata collection should contain only three elements: 1, 2, and 3.</dd>
-                                <dt><code>^^groups <b>!=</b> ('null', 'void')^^</code></dt>
-                                <dd>Token cannot belong to the exact two groups 'null' and 'void'.</dd>
-                                <dt><code>^^keys(~map) <b>==</b> ('key1', 'key2')^^</code></dt>
-                                <dd>'map' metadata map should contain only two keys: 'key1' and 'key2'.</dd>
-                            </dl>
-                        </li>
-                        <li>
-                            <p>
-                                If only right parameters is of type <code>java.util.Collection</code> and the left
-                                parameter is a single value then it checks that given single value is (is not) present
-                                in the right side collection.
-                            </p>
-                            <b>Example:</b>
-                            <dl>
-                                <dt><code>^^id <b>==</b> ('id1', 'id2')^^</code></dt>
-                                <dd>'id' should be either 'id1' or 'id2'.</dd>
-                                <dt><code>^^~index <b>!=</b> (-1, 0)^^</code></dt>
-                                <dd>
-                                    'index' metadata should NOT be either -1 or 0.
-                                </dd>
-                            </dl>
-                        </li>
-                        <li>
-                            <p>
-                                If both left and right parameters are of type <code>java.lang.Number</code>
-                                then method <code>java.lang.Double.compare()</code> is used to compare two numbers.
-                            </p>
-                            <b>Example:</b>
-                            <dl>
-                                <dt><code>^^~score <b>==</b> 100_000^^</code></dt>
-                                <dd>
-                                    'score' metadata (of any numeric type) should be equal to 100,000 when compared using
-                                    double values.
-                                </dd>
-                            </dl>
-                        </li>
-                        <li>
-                            <p>
-                                If both left and right parameters are of type <code>java.lang.String</code>
-                                and either one is a regular expression written using <code>//</code> prefix and suffix
-                                syntax then that regular expression is used to perform equality check.
-                            </p>
-                            <b>Example:</b>
-                            <dl>
-                                <dt><code>^^~txt <b>==</b> '//^[tT]ext$//'^^</code></dt>
-                                <dd>'txt' metadata matches given regex.</dd>
-                                <dt><code>^^~my_regex <b>!=</b> 'test'^^</code></dt>
-                                <dd>
-                                    'my_regex' metadata regex string matches 'test' value. Note that 'my_regex' metadata string
-                                    should use <code>//</code>...<code>//</code> syntax for regular expression.
-                                </dd>
-                            </dl>
-                        </li>
-                        <li>
-                            <p>
-                                In all other cases the standard Java <code>java.lang.Object.equal()</code> equality check
-                                is used.
-                            </p>
-                            <b>Example:</b>
-                            <dl>
-                                <dt><code>^^~value <b>==</b> null^^</code></dt>
-                                <dd>Token does not have a value.</dd>
-                                <dt><code>^^parentId <b>!=</b> null^^</code></dt>
-                                <dd>Token's parent ID is not null.</dd>
-                                <dt><code>^^~flag <b>==</b> true^^</code></dt>
-                                <dd>'flag' metadata is true.</dd>
-                            </dl>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <code>@@</code><br/>
-                    <code>!@</code>
-                </td>
-                <td>
-                    <p>
-                        Both operators perform collection containment check and work differently depending on the type of the left
-                        and right parameter:
-                    </p>
-                    <ul>
-                        <li>
-                            <p>
-                                If left parameter is of type <code>java.util.Collection</code> and the right side
-                                parameter is a single value then it checks that given collection contains (does not
-                                contain) given single value.
-                            </p>
-                            <b>Example:</b>
-                            <dl>
-                                <dt><code>^^~col <b>@@</b> 100_000^^</code></dt>
-                                <dd>'col' metadata collection should contain 100,000 value.</dd>
-                                <dt><code>^^groups <b>!@</b> 'null'^^</code></dt>
-                                <dd>Token should not belong to 'null' group.</dd>
-                            </dl>
-                        </li>
-                        <li>
-                            <p>
-                                If both left and right parameters are of type <code>java.util.Collection</code> then
-                                it checks that a left side collection contains (does not contain) <b>all elements</b>
-                                from the right side collection.
-                            </p>
-                            <b>Example:</b>
-                            <dl>
-                                <dt><code>^^~col <b>@@</b> (1, 2, 3)^^</code></dt>
-                                <dd>'col' metadata collection should contain all three elements: 1, 2, and 3.</dd>
-                                <dt><code>^^groups <b>!@</b> ('null', 'void')^^</code></dt>
-                                <dd>
-                                    Token should not belong to both 'null' and 'void' groups in the same time.
-                                    Note that it can belong to other groups.
-                                </dd>
-                            </dl>
-                        </li>
-                        <li>
-                            <p>
-                                If both left and right parameters are of type <code>java.lang.String</code> then
-                                it checks that a left side string contains (does not contain) the right side string as
-                                its sub-string.
-                            </p>
-                            <b>Example:</b>
-                            <dl>
-                                <dt><code>^^id <b>@@</b> 'sub'^^</code></dt>
-                                <dd>Token ID should contain 'sub' sub-string.</dd>
-                                <dt><code>^^~name <b>!@</b> 'nlp'^^</code></dt>
-                                <dd>
-                                    Metadata 'name' should not contain 'nlp' substring.
-                                </dd>
-                            </dl>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <code>&gt;</code><br/>
-                    <code><=</code><br/>
-                    <code><=</code><br/>
-                    <code>&lt;</code>
-                </td>
-                <td>
-                    <p>
-                        Standard relational operators that are applicable to <code>java.lang.Number</code> left and
-                        right side values only.
-                    </p>
-                    <b>Example:</b>
-                    <dl>
-                        <dt><code>^^startidx <b>>=</b> 10^^</code></dt>
-                        <dd>Token start index should be greater or equal to 10.</dd>
-                        <dt><code>^^~score <b><</b> 100_000^^</code></dt>
-                        <dd>
-                            Metadata 'score' should be less then 100,000.
-                        </dd>
-                    </dl>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <span id="combinators" class="section-sub-title">Logical Combinators <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
-        <p>
-            Individual token expressions can be combined with <code>&&</code>, <code>||</code> and <code>!</code>
-            logical combinators and <code>( )</code> brackets that obey standard precedence rules as well as short-cut
-            processing of logical <code>&&</code> and <code>||</code> combinators. For example:
-        </p>
-        <p>
-            <code>^^[alias](my:list[0] >= 1_000_000 <b>&&</b> alias1.groups @@ 'clients')^^</code><br>
-            <code>^^<b>(</b>id == 'myid' && ~score > 10<b>)</b> <b>||</b> <b>(</b>alias1.groups @@ 'clients' && ~score <= 10<b>)</b>^^</code><br>
-        </p>
     </section>
     <section id="programmable_ners">
         <h2 class="section-title">Programmable NERs <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
-            By default, the data model detects its elements by their synonyms, regexp or DSL expressions. However, in some cases
+            By default, the data model detects its elements by their synonyms, regexp or IDL expressions. However, in some cases
             these methods are either not expressive enough or cannot be used. For example, detecting model elements based
             on neural networks or integrating with a non-standard 3rd-party NER components. In such cases, a user-defined parser
             can be defined for the model that would allow the user to define its own arbitrary NER logic to detect the model elements
