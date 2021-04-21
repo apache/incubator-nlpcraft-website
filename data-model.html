@@ -25,7 +25,7 @@ id: data_model
     <section id="overview">
         <h2 class="section-title">Model Overview <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
-            Data model is a central concept in NLPCraft defining interface to your data sources
+            Data model is a central concept in NLPCraft defining natural language interface to your data sources
             like a database or a SaaS application.
             NLPCraft employs <em>model-as-a-code</em> approach where entire data model is an implementation of
             <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModel.html">NCModel</a> interface which
@@ -47,7 +47,8 @@ id: data_model
         </p>
         <p>
             Here's two quick examples of the fully-functional data model implementations (from <a href="/examples/light_switch.html">Light Switch</a> and
-            <a href="/examples/alarm_clock.html">Alarm Clock</a> examples):
+            <a href="/examples/alarm_clock.html">Alarm Clock</a> examples). You will find specific details about these
+            implementations in the following sections:
         </p>
         <nav>
             <div class="nav nav-tabs" role="tablist">
@@ -205,6 +206,7 @@ public class AlarmModel extends NCModelFileAdapter {
             <figcaption><b>Fig 1.</b> NLPCraft Architecture</figcaption>
         </figure>
         <p>
+            Let's review the general dataflow of the user request in NLPCraft (from right to left).
             User request starts with the user application (like a chatbot or NLI-based system) making a
             REST call using <a href="/using-rest.html">NLPCraft REST API</a>. That REST call carries among
             other things the input text and data model ID, and it arrives first to the REST server.
@@ -212,19 +214,14 @@ public class AlarmModel extends NCModelFileAdapter {
         <p>
             Upon receiving the user request, the REST server performs NLP pre-processing converting the input
             text into a sequence of tokens and enriching them with additional information.
-        </p>
-        <p>
-            Once finished, the encrypted sequence of tokens is sent further down to the probe where the requested data model
+            Once finished, the sequence of tokens is sent further down to the probe where the requested data model
             is deployed.
         </p>
         <p>
             Upon receiving that sequence of tokens, the data probe further
-            enriches it based on the user data model and matches it against declared intents. When a matching
+            enriches it based on the user data model and <a href="/intent-matching.html">matches</a> it against declared intents. When a matching
             intent is found its callback method is called and its result travels back from the data probe to the
             REST server and eventually to the user that made the REST call.
-        </p>
-        <p>
-            Read more about details of user request workflow and intent matching in <a href="/intent-matching.html">Intent Matching</a> section.
         </p>
         <div class="bq info">
             <p>
@@ -242,7 +239,7 @@ public class AlarmModel extends NCModelFileAdapter {
         <p>
             Data model is an implementation of <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModel.html">NCModel</a> interface.
             <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModel.html">NCModel</a> interface has
-            defaults for most of its methods. These are the only methods that need to be implemented by its sub-class:
+            defaults for most of its methods. These are the only methods that must to be implemented by its sub-class:
         </p>
         <ul>
             <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getId()">getId()</a></li>
@@ -285,7 +282,7 @@ public class AlarmModel extends NCModelFileAdapter {
         </p>
         <p>
             Note that data probes don't support hot-redeployment. To redeploy the data model you need to restart
-            the data probe. Note also that data probe can be started in embedded mode, i.e. it can be started
+            the data probe. Note also that data probe can be started in <a href="/tools/embedded_probe.html">embedded mode</a>, i.e. it can be started
             from within an existing JVM process like user application.
         </p>
         <h2 id="callbacks" class="section-title">Callbacks <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
@@ -305,7 +302,8 @@ public class AlarmModel extends NCModelFileAdapter {
             </li>
         </ul>
         <p>
-            There are also several callbacks that you can override to affect model behavior during intent matching
+            There are also several callbacks that you can override to affect model behavior during
+            <a href="/intent-matching.html#model_callbacks">intent matching</a>
             to perform logging, debugging, statistic or usage collection, explicit update or initialization of
             conversation context, security audit or validation:
         </p>
@@ -374,8 +372,7 @@ public class AlarmModel extends NCModelFileAdapter {
         <ul>
             <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getAdditionalStopWords()">getAdditionalStopWords</a></li>
             <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getEnabledBuiltInTokens()">getEnabledBuiltInTokens</a></li>
-             <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getExcludedStopWords()">getExcludedStopWords</a></li>
-            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getJiggleFactor()">getJiggleFactor</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getExcludedStopWords()">getExcludedStopWords</a></li>
             <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMaxFreeWords()">getMaxFreeWords</a></li>
             <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMaxSuspiciousWords()">getMaxSuspiciousWords</a></li>
             <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMaxTokens()">getMaxTokens</a></li>
@@ -393,13 +390,14 @@ public class AlarmModel extends NCModelFileAdapter {
             <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#isNotLatinCharsetAllowed()">isNotLatinCharsetAllowed</a></li>
             <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#isNoUserTokensAllowed()">isNoUserTokensAllowed</a></li>
             <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#isPermutateSynonyms()">isPermutateSynonyms</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#isSparse()">isSparse</a></li>
             <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#isSwearWordsAllowed()">isSwearWordsAllowed</a></li>
         </ul>
         <h2 class="section-title">External JSON/YAML Declaration <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             You can move out all the static model configuration into an external JSON or YAML file. To load that
             configuration you need to use <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelFileAdapter.html">NCModelFileAdapter</a>
-            adapter when creating your data model. Here are JSON and YAML templates and you can find more details in
+            adapter when creating your data model. Here are JSON and YAML sample templates and you can find more details in
             <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModel.html">NCModel</a> Javadoc and in
             <a target="github" href="https://github.com/apache/incubator-nlpcraft/tree/master/nlpcraft/src/main/scala/org/apache/nlpcraft/examples">examples</a>.
         </p>
@@ -469,7 +467,7 @@ intents:
     <section id="elements">
         <h2 class="section-title">Model Elements <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
-            Data model element defines a semantic entity that will be detected in the user input.
+            Data model element defines a named entity that will be detected in the user input.
             A model element typically is one or more individual words that have a consistent semantic meaning and typically denote a
             real-world object, such as persons, locations, number, date and time, organizations, products, etc. Such
             object can be abstract or have a physical existence.
@@ -485,7 +483,7 @@ intents:
                 Implementing <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCElement.html">NCElement</a> interface directly, or
             </li>
             <li>
-                <U></U>sing JSON or YAML static model configuration (the preferred way in most cases).
+                Using JSON or YAML static model configuration (the preferred way in most cases).
             </li>
         </ul>
         <p>
@@ -508,7 +506,7 @@ intents:
                 </dd>
                 <dt>Token</dt>
                 <dd>
-                    Denotes a named entity that was <em>detected</em> by NLPCraft in the user input.
+                    Denotes a model element that was <em>detected</em> by NLPCraft in the user input.
                 </dd>
                 <dt>Named Entity</dt>
                 <dd>
@@ -524,14 +522,14 @@ intents:
         </p>
         <ul>
             <li>
-                New model elements can be added declaratively via <a href="/intent-matching.html">Intent Definition Language</a> (IDL), regex and macro expansion.
+                New model elements can be added declaratively via a subset of NLPCraft <a href="/intent-matching.html">IDL</a>, regex and macro expansion.
             </li>
             <li>
                 New model elements can be also added programmatically for ultimate flexibility.
             </li>
             <li>
                 Model elements can have many-to-many group memberships.
-            </li>(UNI_CHAR|UNDERSCORE|LETTER|DOLLAR)+(UNI_CHAR|DOLLAR|LETTER|[0-9]|COLON|MINUS|UNDERSCORE)*
+            </li>
             <li>
                 Model elements can form a hierarchical structure.
             </li>
@@ -548,21 +546,22 @@ intents:
                 Model elements can compose named entities from many <a href="integrations.html#nlp">3rd party libraries</a>.
             </li>
             <li>
-                All properties of model elements (id, groups, parent & ancestors, values, and metadata) can be used in NLPCraft IDL.
+                All properties of model elements (id, groups, parent & ancestors, values, and metadata) can be used in NLPCraft <a href="/intent-matching.html">IDL</a>.
             </li>
         </ul>
         <h2 class="section-title">User vs. Built-In Elements <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             Additionally to the model elements that are defined by the user in the data model (i.e. <em>user model elements</em>)
-            NLPCraft provides <a href="#builtin">its own named entities</a> as well as the integration with number of <a href="integrations.html#nlp">3rd party projects</a>. You can think of these built-in elements as if they were implicitly defined in your model - you
+            NLPCraft provides its own <a href="#builtin">built-in named entities</a> as well as the integration with number of <a href="integrations.html#nlp">3rd party projects</a>. You can think of these built-in elements as if they were implicitly defined in your model - you
             can use them in exactly the same way as if you defined them yourself.
             You can find more information on how to configure external token providers
             in <a href="/integrations.html#nlp">Integrations</a> section.
         </p>
         <p>
             Note that you can't directly change group membership, parent-child relationship or metadata of the
-            built-in elements. You can, however, "wrap" built-in entity into your own one using <code>^^id == 'external.id'^^</code>
-            <a href="#dsl">token DSL</a> expression where you can define all necessary additional configuration properties (more on that below).
+            built-in elements. You can, however, "wrap" built-in entity into your own one using <code>^^tok_id() == 'external.id'^^</code>
+            <a href="/intent-matching.html">IDL</a> expression where you can define all necessary additional
+            configuration properties (more on that below).
         </p>
         <span id="synonyms" class="section-sub-title">Synonyms <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
         <p>
@@ -596,15 +595,6 @@ intents:
             ...
         </pre>
         <p>
-            During synonym matching NLPCraft uses <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getJiggleFactor()">jiggle factor</a> to rearrange (or "jiggle")
-            the individual words in the user input in attempt to match a given synonym. Jiggle factor is a measure of
-            how much sparsity is allowed when user input words are reordered in attempt to match the multi-word
-            synonyms. Zero means no reordering is allowed. One means that a word can move only one
-            position left or right, and so on. Empirically the value of 2 proved to be a good default value in
-            most cases. Note that larger values mean that synonym words can be almost in any random place in the user
-            input which makes synonym matching less meaningful.
-        </p>
-        <p>
             While adding multi-word synonyms looks somewhat
             trivial - in real models, the naive approach can lead to thousands and even tens of thousands of
             possible synonyms due to words, grammar, and linguistic permutations - which quickly becomes untenable if
@@ -612,21 +602,21 @@ intents:
         </p>
         <p>
             NLPCraft provides an effective tool for a compact synonyms representation. Instead of listing all possible
-            multi-word synonyms one by one you can use combination of following expressions:
+            multi-word synonyms one by one you can use combination of following techniques:
         </p>
         <ul>
             <li><a href="#macros">Macros</a></li>
             <li><a href="#regex">Regular expressions</a></li>
             <li><a href="#option-groups">Option Groups</a></li>
-            <li><a href="#dsl">Token DSL</a></li>
-            <li><a href="#programmable_ners">Programmable NERs</a> - to provide custom NER logic and bypass declarative synonym representation all together.</li>
+            <li><a href="#dsl">IDL expressions</a></li>
+            <li><a href="#programmable_ners">Programmable NERs</a></li>
         </ul>
         <p>
             Each whitespace separated string in the synonym can be either a regular word (like in the above transportation example
             where it will be matched on using its normalized and stemmatized form) or one of the above expression.
         </p>
         <p>
-            Note that this universal synonyms definition is used in the following
+            Note that this synonyms definition is also used in the following
             <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCElement.html">NCElement</a> methods:
         </p>
         <ul>
@@ -639,9 +629,8 @@ intents:
             together with option groups allow for significant simplification of this task.
             Macros allow you to give a name to an often used set of words or option groups and reuse it without
             repeating those words or option groups again and again. A model provides a list of macros via
-            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMacros()">getMacros()</a> method on
-            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html">NCModelView</a> interface. Each macro
-            has a name in a form of <code>&lt;X&gt;</code> where <code>X</code>
+            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMacros()">getMacros()</a> method.
+            Each macro has a name in a form of <code>&lt;X&gt;</code> where <code>X</code>
             is any string, and a string value. Note that macros can be nested (but not recursive), i.e. macro value can include
             references to other macros. When macro name <code>X</code> is encountered in the synonym it gets recursively
             replaced with its value.
@@ -709,28 +698,28 @@ intents:
             </thead>
             <tbody>
                <tr>
-                   <td><code>&lt;A&gt; {b|*} c</code></td>
+                   <td><code>&lt;A&gt; {b|_} c</code></td>
                    <td>
                        <code>"aaa b c"</code><br>
                        <code>"aaa c"</code>
                    </td>
                </tr>
                <tr>
-                   <td><code>&lt;B&gt; {b|*} c</code></td>
+                   <td><code>&lt;B&gt; {b|_} c</code></td>
                    <td>
                         <code>"aaa bbb b c"</code><br>
                         <code>"aaa bbb c"</code>
                    </td>
                </tr>
                <tr>
-                   <td><code>{b|\{\*\}}</code></td>
+                   <td><code>{b|\{\_\}}</code></td>
                    <td>
                         <code>"b"</code><br>
-                        <code>"b {*}"</code>
+                        <code>"b {_}"</code>
                    </td>
                </tr>
                <tr>
-                   <td><code>a {b|*}. c</code></td>
+                   <td><code>a {b|_}. c</code></td>
                    <td>
                         <code>"a b. c"</code><br>
                         <code>"a . c"</code>
@@ -745,7 +734,7 @@ intents:
                </tr>
                <tr>
                    <td><code>
-                       {% raw %}a {{b|c}|*}.{% endraw %}</code></td>
+                       {% raw %}a {{b|c}|_}.{% endraw %}</code></td>
                    <td>
                         <code>"a ."</code><br>
                         <code>"a b."</code><br>
@@ -753,7 +742,7 @@ intents:
                    </td>
                </tr>
                <tr>
-                   <td><code>a {% raw %}{{{&lt;C&gt;}}|{*}}{% endraw %} c</code></td>
+                   <td><code>a {% raw %}{{{&lt;C&gt;}}|{_}}{% endraw %} c</code></td>
                    <td>
                         <code>"a aaa bbb z c"</code><br>
                         <code>"a aaa bbb w c"</code><br>
@@ -761,7 +750,7 @@ intents:
                    </td>
                </tr>
                <tr>
-                   <td><code>{% raw %}{{{a}}} {b||*|{{*}}||*}{% endraw %}</code></td>
+                   <td><code>{% raw %}{{{a}}} {b||_|{{_}}||_}{% endraw %}</code></td>
                    <td>
                         <code>"a b"</code><br>
                         <code>"a"</code>
@@ -773,19 +762,19 @@ intents:
            Specifically:
         </p>
         <ul>
-            <li><code>{A|B}</code>  denotes either <code>A</code> or <code>B</code>.</li>
-            <li><code>{A|B|*}</code>  denotes either <code>A</code> or <code>B</code> or nothing.</li>
+            <li><code>{A|B}</code> denotes either <code>A</code> or <code>B</code>.</li>
+            <li><code>{A|B|_}</code> denotes either <code>A</code> or <code>B</code> or nothing.</li>
             <li>Excessive curly brackets are ignored, when safe to do so.</li>
             <li>Macros cannot be recursive but can be nested.</li>
             <li>Option groups can be nested.</li>
             <li>
                 <code>'\'</code> (backslash) can be used to escape <code>'{'</code>, <code>'}'</code>, <code>'|'</code> and
-                <code>'*'</code> special symbols used by the option groups.
+                <code>'_'</code> special symbols used by the option groups.
             </li>
             <li>Excessive whitespaces are trimmed when expanding option groups.</li>
         </ul>
         <p>
-            We can rewrite our transportation model element in a bit more efficient way using macros and option groups.
+            We can rewrite our transportation model element in a more efficient way using macros and option groups.
             Even though the actual length of definition hasn't changed much it now auto-generates many dozens of synonyms
             we would have to write out manually otherwise:
         </p>
@@ -803,7 +792,7 @@ intents:
                     "description": "Transportation vehicle",
                     "synonyms": [
                         "car",
-                        "{&lt;TRUCK_TYPE&gt;|*} {pickup|*} truck"
+                        "{&lt;TRUCK_TYPE&gt;|_} {pickup|_} truck"
                         "sedan",
                         "coupe"
                     ]
@@ -818,7 +807,7 @@ intents:
             regular expression can only span a single word, i.e. only individual words from the user input will be
             matched against given regular expression and no whitespaces are allowed within regular expression. Note
             also that option group special symbols <code>{</code>, <code>}</code>,
-            <code>|</code> and <code>*</code> have to be escaped in the regular expression using <code>\</code>
+            <code>|</code> and <code>_</code> have to be escaped in the regular expression using <code>\</code>
             (backslash).
         </p>
         <p>
@@ -837,8 +826,8 @@ intents:
             <b>Regular Expressions Performance</b>
             <p>
                 It's important to note that regular expressions can significantly affect the performance of the
-                underlying NLPCraft implementation if used uncontrolled. Use it with caution and test the performance
-                of your model to ensure it meets your expectations.
+                NLPCraft processing if used uncontrolled. Use it with caution and test the performance
+                of your model to ensure it meets your requirements.
             </p>
         </div>
         <span id="values" class="section-sub-title">Element Values <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
