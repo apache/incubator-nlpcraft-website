@@ -71,7 +71,7 @@ fn-token:
 
   - name: tok_sparsity
     sig: |
-      <b>tok_sparsity</b>(t: Token<em><sub>opt</sub></em>) ⇒ Int64
+      <b>tok_sparsity</b>(t: Token<em><sub>opt</sub></em>) ⇒ Long
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getSparsity()">token sparsity</a> value
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getSparsity()">token sparsity</a> value
@@ -297,7 +297,7 @@ fn-token:
 
   - name: tok_start_idx
     sig: |
-      <b>tok_start_idx</b>(t: Token<em><sub>opt</sub></em>) ⇒ Int64
+      <b>tok_start_idx</b>(t: Token<em><sub>opt</sub></em>) ⇒ Long
     synopsis: Gets <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getStartCharIndex()">start character index</a> of this token in the original text
     desc: |
       Gets <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getStartCharIndex()">start character index</a>
@@ -309,7 +309,7 @@ fn-token:
 
   - name: tok_end_idx
     sig: |
-      <b>tok_end_idx</b>(t: Token<em><sub>opt</sub></em>) ⇒ Int64
+      <b>tok_end_idx</b>(t: Token<em><sub>opt</sub></em>) ⇒ Long
     synopsis: Gets <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getEndCharIndex()">end character index</a> of this token in the original text
     desc: |
       Gets <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getEndCharIndex()">end character index</a>
@@ -382,7 +382,7 @@ fn-token:
 fn-datetime:
   - name: year
     sig: |
-      <b>year</b>() ⇒ Int64
+      <b>year</b>() ⇒ Long
     synopsis: Returns current year
     desc: |
       Returns current year.
@@ -392,7 +392,7 @@ fn-datetime:
 
   - name: month
     sig: |
-      <b>month</b>() ⇒ Int64
+      <b>month</b>() ⇒ Long
     synopsis: |
       Returns current month: 1 ... 12
     desc: |
@@ -403,7 +403,7 @@ fn-datetime:
 
   - name: day_of_month
     sig: |
-      <b>day_of_month</b>() ⇒ Int64
+      <b>day_of_month</b>() ⇒ Long
     synopsis: |
       Returns current day of the month: 1 ... 31
     desc: |
@@ -414,7 +414,7 @@ fn-datetime:
 
   - name: day_of_week
     sig: |
-      <b>day_of_week</b>() ⇒ Int64
+      <b>day_of_week</b>() ⇒ Long
     synopsis: |
       Returns current day of the week: 1 ... 7
     desc: |
@@ -425,7 +425,7 @@ fn-datetime:
 
   - name: day_of_year
     sig: |
-      <b>day_of_year</b>() ⇒ Int64
+      <b>day_of_year</b>() ⇒ Long
     synopsis: |
       Returns current day of the year: 1 ... 365
     desc: |
@@ -436,7 +436,7 @@ fn-datetime:
 
   - name: hour
     sig: |
-      <b>hour</b>() ⇒ Int64
+      <b>hour</b>() ⇒ Long
     synopsis: |
       Returns current hour: 0 ... 23
     desc: |
@@ -447,7 +447,7 @@ fn-datetime:
 
   - name: minute
     sig: |
-      <b>minute</b>() ⇒ Int64
+      <b>minute</b>() ⇒ Long
     synopsis: |
       Returns current minute: 0 ... 59
     desc: |
@@ -458,7 +458,7 @@ fn-datetime:
 
   - name: second
     sig: |
-      <b>second</b>() ⇒ Int64
+      <b>second</b>() ⇒ Long
     synopsis: |
       Returns current second: 0 ... 59
     desc: |
@@ -469,7 +469,7 @@ fn-datetime:
 
   - name: week_of_month
     sig: |
-      <b>week_of_month</b>() ⇒ Int64
+      <b>week_of_month</b>() ⇒ Long
     synopsis: |
       Returns current week of the month: 1 ... 4
     desc: |
@@ -480,7 +480,7 @@ fn-datetime:
 
   - name: week_of_year
     sig: |
-      <b>week_of_year</b>() ⇒ Int64
+      <b>week_of_year</b>() ⇒ Long
     synopsis: |
       Returns current week of the year: 1 ... 56
     desc: |
@@ -491,7 +491,7 @@ fn-datetime:
 
   - name: quarter
     sig: |
-      <b>quarter</b>() ⇒ Int64
+      <b>quarter</b>() ⇒ Long
     synopsis: |
       Returns current quarter: 1 ...4
     desc: |
@@ -502,7 +502,7 @@ fn-datetime:
 
   - name: now
     sig: |
-      <b>now</b>() ⇒ Int64
+      <b>now</b>() ⇒ Long
     synopsis: |
       Returns current time in milliseconds
     desc: |
@@ -534,7 +534,7 @@ fn-req:
 
   - name: req_tstamp
     sig: |
-      <b>req_tstamp</b>() ⇒ Int64
+      <b>req_tstamp</b>() ⇒ Long
     synopsis: Gets UTC/GMT receive <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getNormalizedText()">timestamp</a>
     desc: |
       Gets UTC/GMT <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getNormalizedText()">timestamp</a>
@@ -618,7 +618,7 @@ fn-user:
 
   - name: user_signup_tstamp
     sig: |
-      <b>user_signup_tstamp</b>() ⇒ Int64
+      <b>user_signup_tstamp</b>() ⇒ Long
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getSignupTimestamp()">user signup timestamp</a>
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getSignupTimestamp()">user signup timestamp</a>.
@@ -710,7 +710,7 @@ fn-company:
 fn-math:
   - name: abs
     sig: |
-      <b>abs</b>(x: {Int64|Double}) ⇒ {Int64|Double}
+      <b>abs</b>(x: {Long|Double}) ⇒ {Long|Double}
     synopsis: Returns absolute value for parameter <code><b>x</b></code>
     desc: |
       Returns absolute value for parameter <code><b>x</b></code>.
@@ -752,7 +752,7 @@ fn-math:
 
   - name: round
     sig: |
-      <b>round</b>(d: Double) ⇒ Int64
+      <b>round</b>(d: Double) ⇒ Long
     synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#round(double)"><code>Math.round(<b>d</b>)</code></a>
     desc: |
       Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Math.html#round(double)"><code>Math.round(<b>d</b>)</code></a>.
@@ -936,7 +936,7 @@ fn-math:
 
   - name: square
     sig: |
-      <b>square</b>(x: {Int64|Double}) ⇒ {Int64|Double}
+      <b>square</b>(x: {Long|Double}) ⇒ {Long|Double}
     synopsis: Returns square of <code>><b>x</b></code>
     desc: |
       Returns square of <code>><b>x</b></code>
@@ -997,7 +997,7 @@ fn-math:
 
   - name: avg
     sig: |
-      <b>avg</b>(c: List[{Int64|Double|String}]) ⇒ Double
+      <b>avg</b>(c: List[{Long|Double|String}]) ⇒ Double
     synopsis: Returns average (mean) value for given list
     desc: |
       Returns average (mean) value for given list of ints, doubles or strings.
@@ -1010,7 +1010,7 @@ fn-math:
 
   - name: stdev
     sig: |
-      <b>stdev</b>(c: List[{Int64|Double|String}]) ⇒ Double
+      <b>stdev</b>(c: List[{Long|Double|String}]) ⇒ Double
     synopsis: Returns standard deviation value for given list
     desc: |
       Returns standard deviation value for given list of ints, doubles or strings.
@@ -1056,7 +1056,7 @@ fn-collections:
 
   - name: get
     sig: |
-      <b>get</b>(c: {List|Map}, k: {Int64|Any}) ⇒ Any
+      <b>get</b>(c: {List|Map}, k: {Long|Any}) ⇒ Any
     synopsis: Gets element <code><b>k</b></code> from either list or map <code><b>c</b></code>
     desc: |
       Gets element from either list or map <code><b>c</b></code>. For list the
@@ -1369,7 +1369,7 @@ fn-other:
 fn-text:
   - name: length
     sig: |
-      <b>length</b>(p: {String|List|Map}) ⇒ Int64
+      <b>length</b>(p: {String|List|Map}) ⇒ Long
     synopsis: Returns size or length of the given string, list or map
     desc: |
       Returns size or length of the given string, list or map. This function has
@@ -1385,7 +1385,7 @@ fn-text:
 
   - name: trim
     sig: |
-      <b>trim</b>(p: String) ⇒ Int64
+      <b>trim</b>(p: String) ⇒ Long
     synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#trim()"><code>String.trim()</code></a>
     desc: |
       Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#trim()"><code>String.trim()</code></a> on
@@ -1555,7 +1555,7 @@ fn-text:
 
   - name: index_of
     sig: |
-      <b>index_of</b>(p1: String, p2: String) ⇒ Int64
+      <b>index_of</b>(p1: String, p2: String) ⇒ Long
     synopsis: Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#indexOf(java.lang.String)"><code>indexOf(<b>p2</b>)</code></a>
     desc: |
       Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#indexOf(java.lang.String)"><code>indexOf(<b>p2</b>)</code></a>
@@ -1566,7 +1566,7 @@ fn-text:
 
   - name: substr
     sig: |
-      <b>substr</b>(p1: String, p2: Int64, p3: Int64) ⇒ String
+      <b>substr</b>(p1: String, p2: Long, p3: Long) ⇒ String
     synopsis: Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#substring(int,int)"><code>substring(<b>p2</b>, <b>p3</b>)</code></a>
     desc: |
       Calls <code><b>p1</b></code>.<a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#substring(int,int)"><code>substring(<b>p2</b>, <b>p3</b>)</code></a>
@@ -1588,7 +1588,7 @@ fn-text:
 
   - name: to_double
     sig: |
-      <b>to_double</b>(p1: {Int64|String}) ⇒ Double
+      <b>to_double</b>(p1: {Long|String}) ⇒ Double
     synopsis: Converts given integer or string to double value
     desc: |
       Converts given integer or string to double value.
@@ -1600,7 +1600,7 @@ fn-text:
 
   - name: to_int
     sig: |
-      <b>to_int</b>(p1: {Double|String}) ⇒ Int64
+      <b>to_int</b>(p1: {Double|String}) ⇒ Long
     synopsis: Converts given double or string to integer value
     desc: |
       Converts given double or string to integer value. In case of double
