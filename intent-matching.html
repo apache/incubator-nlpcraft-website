@@ -606,14 +606,22 @@ id: intent_matching
             <tbody>
             <tr><td><code>java.lang.String</code></td><td><code>String</code></td><td></td></tr>
                 <tr>
-                    <td><code>java.lang.Long</code></td>
-                    <td><code>Int</code></td>
                     <td>
-                        Smaller integer numerical types will be converted to <code>java.lang.Long</code>.
+                        <code>java.lang.Long</code><br/>
+                        <code>java.lang.Integer</code><br/>
+                        <code>java.lang.Short</code><br/>
+                        <code>java.lang.Byte</code>
+                    </td>
+                    <td><code>Int64</code></td>
+                    <td>
+                        Smaller numerical types will be converted to <code>java.lang.Long</code>.
                     </td>
                 </tr>
                 <tr>
-                    <td><code>java.lang.Double</code></td>
+                    <td>
+                        <code>java.lang.Double</code><br/>
+                        <code>java.lang.Float</code>
+                    </td>
                     <td><code>Double</code></td>
                     <td>
                         <code>java.lang.Float</code> will be converted to <code>java.lang.Double</code>.
