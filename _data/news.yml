@@ -15,6 +15,14 @@
 # limitations under the License.
 #
 
+- title: 📢 Apache NLPCraft 0.7.5 Released
+  url: /relnotes/release-notes-0.7.5.html
+  excerpt: Download NLPCraft 0.7.5. Over 50 💪 fixes, improvements and enhancements.
+  publish_date: April 30, 2021
+  avatar_url: images/nlpcraft_logo.png
+  twitter_id: apachenlpcraft
+  href_target: _self
+
 - title: Программируемые NER компоненты
   url: https://habr.com/ru/post/543786/
   excerpt: В данной заметке мы продолжим говорить о NER компонентах...
