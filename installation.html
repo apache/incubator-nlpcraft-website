@@ -29,7 +29,7 @@ id: installation
         </p>
         <ul>
             <li>If you <a href="/download.html">downloaded</a> binary ZIP archive - <a target="asf" href="https://www.apache.org/dyn/closer.cgi#verify">verify</a> it and unzip it</li>
-            <li>If you <a href="/download.html">cloned</a> GitHub repository or downloaded source archive - use <code>mvn clean install</code> to build it</li>
+            <li>If you <a href="/download.html">cloned</a> GitHub repository or downloaded source archive - use <code>mvn clean package</code> to build it</li>
             <li>If you <a href="/download.html">used</a> Maven/Gradle/SBT - you know what you are doing 👍</li>
         </ul>
         <div class="bq warn">
@@ -60,13 +60,14 @@ id: installation
         <p>
             Due to <a target="asf" href="https://apache.org/legal/release-policy.html">Apache release policy</a> the official Apache release cannot include content that is based on
             <a target=_ href="https://creativecommons.org/licenses/by/4.0/">Commons Attribution 4.0 International</a> (CC BY 4.0) license
-            or any binary artifacts regardless of their respective licences. Due to these restrictions the NLPCraft release
-            does not include certain configuration files that are necessary for its operation. These files will be auto-downloaded upon first star of NLPCraft.
+            or any binary artifacts regardless of their respective licences. Due to these restrictions the official Apache NLPCraft release
+            does not include certain configuration files that are necessary for its operation. These files will be auto-downloaded upon first star of NLPCraft (hence the internet
+            connection is required for the first start).
             On subsequent starts the NLPCraft will check for the updates and will re-download these files only if they were changed.
         </p>
         <p>
-            By default, this external configuration is hosted on GitHub (in <code>master</code> branch of NLPCraft project) from where it will
-            be automatically downloaded on the first start: <a target="github" href="https://github.com/apache/incubator-nlpcraft/tree/master/external">https://github.com/apache/incubator-nlpcraft/tree/master/external</a>.
+            By default, this external configuration is hosted on GitHub (in <code>external_config</code> branch of NLPCraft project) from where it will
+            be automatically downloaded on the first start: <a target="github" href="https://github.com/apache/incubator-nlpcraft/raw/external_config/external">https://github.com/apache/incubator-nlpcraft/raw/external_config/external</a>.
             You can change this location, e.g. move the external configuration behind your firewall or onto your local file system,
             as well as change other parameters related to auto-download of the external configuration
             in <code>nlpcraft.conf</code> file (see <code>nlpcraft.extConfig</code> property).
