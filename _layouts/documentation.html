@@ -92,6 +92,13 @@ layout: interior
                 {% endif %}
             </li>
             <li>
+                {% if page.id == "configuration" %}
+                <a class="active" href="/configuration.html">Configuration</a>
+                {% else %}
+                <a href="/configuration.html">Configuration</a>
+                {% endif %}
+            </li>
+            <li>
                 {% if page.id == "metrics" %}
                 <a class="active" href="/metrics-and-tracing.html">Metrics <span class="amp">&amp;</span> Tracing</a>
                 {% else %}

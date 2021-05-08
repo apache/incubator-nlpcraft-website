@@ -69,8 +69,8 @@ id: installation
             By default, this external configuration is hosted on GitHub (in <code>external_config</code> branch of NLPCraft project) from where it will
             be automatically downloaded on the first start: <a target="github" href="https://github.com/apache/incubator-nlpcraft/raw/external_config/external">https://github.com/apache/incubator-nlpcraft/raw/external_config/external</a>.
             You can change this location, e.g. move the external configuration behind your firewall or onto your local file system,
-            as well as change other parameters related to auto-download of the external configuration
-            in <code>nlpcraft.conf</code> file (see <code>nlpcraft.extConfig</code> property).
+            as well as change other parameters related to auto-download of the external <a href="configuration.html">configuration</a>
+            in <code>*.conf</code> file (see <code>nlpcraft.extConfig</code> property).
         </p>
     </section>
     <section id="ignite">
@@ -80,13 +80,15 @@ id: installation
             NLPCraft uses <a target=_ href="https://ignite.apache.org/">Apache Ignite 2.x</a> project as its
             underlying in-memory distributed storage and cluster computing framework. When running Apache Ignite 2.x
             on Java 11 you need to follow these
-            <a target=_ href="https://apacheignite.readme.io/docs/getting-started#section-running-ignite-with-java-9-10-11">instructions.</a>
+            <a target=_ href="https://apacheignite.readme.io/docs/getting-started#section-running-ignite-with-java-9-10-11">instructions</a> which
+            are automatically followed when you use <a href="/tools/script.html"><code>nlpcraft.{sh|cmd}</code></a> script.
         </p>
         <div class="bq info">
             <p>
                 <b>NOTE:</b> It is NOT recommended to change the version of Apache Ignite inside NLPCraft project.
             </p>
         </div>
+        <br/>
     </section>
 </div>
 <div class="col-md-2 third-column">
