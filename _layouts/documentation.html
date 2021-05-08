@@ -20,7 +20,13 @@ layout: interior
 -->
 
 <h1 class="page-title">
-    <span><i class="fas fa-fw fa-book"></i> {{ page.active_crumb }}</span>
+    <span>
+        {% if page.fa_icon %}
+        <i class="fas fa-fw {{ page.fa_icon }}"></i> {{ page.active_crumb }}
+        {% else %}
+        <i class="fas fa-fw fa-book"></i> {{ page.active_crumb }}
+        {% endif %}
+    </span>
 </h1>
 
 <div class="row three-cols-container">
