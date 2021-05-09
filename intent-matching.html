@@ -34,13 +34,13 @@ id: intent_matching
         <p>
             The goal of the data model implementation is to take the input utterance and
             match it to a specific user-defined code that will execute for that input. The mechanism that
-            provides this match between the input utterance and the user-defined code is called an <em>intent</em>.
+            provides this matching is called an <em>intent</em>.
         </p>
         <p>
             The intent refers to the goal that the end-user had in mind when speaking or typing the input utterance.
             The intent has a <em>declarative part or template</em> written in <a href="#idl">Intent Definition Language</a> that describes
             a particular form or type of the input utterance.
-            Intent is also <a href="#annotations">bound</a> to a callback method that will be executed when that intent, i.e. its template, is detected as the best match
+            Intent is also <a href="#binding">bound</a> to a callback method that will be executed when that intent, i.e. its template, is detected as the best match
             for a given input utterance. A typical data model will have multiple intents defined for each form of the expected user input
             that model wants to react to.
         </p>
@@ -67,7 +67,7 @@ id: intent_matching
         <p>
             IDL intent defines a match between the parsed input utterance, i.e. the collection of
             <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html">tokens</a>,
-            and the user-define callback method. To accomplish that, IDL <a href="#idl_functions">functions</a> provide
+            and the user-define callback method. To accomplish that, IDL through its <a href="#idl_functions">functions</a> provides
             access to the following information:
         </p>
         <ul>
@@ -550,7 +550,7 @@ id: intent_matching
         intent=id2
             flow='id1 id2'
             term={tok_id() == 'mytok' && signum(get(meta_tok('score'), 'best')) != -1}
-            term={has_all(tok_groups(), list('actors', 'owners')) && size(meta_part('partAlias, 'text')) > 10}
+            term={has_any(tok_groups(), list('actors', 'owners')) && size(meta_part('partAlias, 'text')) > 10}
         </pre>
         <p><b>NOTES:</b></p>
         <ul>
