@@ -57,33 +57,10 @@ id: getting_started
             In this tutorial, we'll use <a href="/tools/script.html"><code>nlpcraft.{sh|cmd}</code></a> script that comes with NLPCraft
             to manage them. To start REST server and data probe - run the following two commands:
         </p>
-        <nav>
-            <div class="nav nav-tabs" role="tablist">
-                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-start-cmd" role="tab">Command</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-start" role="tab">REST Server Output <i class="fa fa-desktop output"></i></a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-probe-start" role="tab">Data Probe Output <i class="fa fa-desktop output"></i></a>
-            </div>
-        </nav>
-        <div class="tab-content">
-            <div class="tab-pane fade show active" id="nav-start-cmd" role="tabpanel">
-                <pre class="brush: bash">
-                    $ bin/nlpcraft.sh start-server
-                    $ bin/nlpcraft.sh start-probe --cp=./build/nlpcraft-examples/weather/nlpcraft-example-weather-{{site.latest_version}}.jar
-                </pre>
-            </div>
-            <div class="tab-pane fade show" id="nav-srv-start" role="tabpanel">
-                <p></p>
-                <p>
-                    <img class="img-fluid" src="/images/getting_started_fig1.png" alt="">
-                </p>
-            </div>
-            <div class="tab-pane fade show" id="nav-probe-start" role="tabpanel">
-                <p></p>
-                <p>
-                    <img class="img-fluid" src="/images/getting_started_fig2.png" alt="">
-                </p>
-            </div>
-        </div>
+        <pre class="brush: bash">
+            $ bin/nlpcraft.sh start-server
+            $ bin/nlpcraft.sh start-probe --cp=./build/nlpcraft-examples/weather/nlpcraft-example-weather-{{site.latest_version}}.jar
+        </pre>
         <p>
             At this point data probe and the REST server are started and connected.
         </p>
@@ -92,25 +69,9 @@ id: getting_started
             We will be using NLPCraft CLI script to issue REST calls. Let's start NLPCraft CLI in interactive REPL mode
             by running <a href="/tools/script.html"><code>nlpcraft.{sh|cmd}</code></a> script with no argument:
         </p>
-        <nav>
-            <div class="nav nav-tabs" role="tablist">
-                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-repl-cmd" role="tab">Command</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-repl-out" role="tab">Output <i class="fa fa-desktop output"></i></a>
-            </div>
-        </nav>
-        <div class="tab-content">
-            <div class="tab-pane fade show active" id="nav-repl-cmd" role="tabpanel">
-                <pre class="brush: bash">
-                    $ bin/nlpcraft.sh
-                </pre>
-            </div>
-            <div class="tab-pane fade show" id="nav-repl-out" role="tabpanel">
-                <p></p>
-                <p>
-                    <img class="img-fluid" src="/images/getting_started_fig3.png" alt="">
-                </p>
-            </div>
-        </div>
+        <pre class="brush: bash">
+            $ bin/nlpcraft.sh
+        </pre>
         <p>
             <b>NOTES:</b>
         </p>
