@@ -192,7 +192,7 @@ public class AlarmModel extends NCModelFileAdapter {
         <div class="tab-content">
             <div class="tab-pane fade show active" id="nav-script" role="tabpanel">
                 <pre class="brush: bash">
-                    $ bin/nlpcraft.sh test-model
+                    $ bin/nlpcraft.sh test-model --cp=/path/to/my/model/classes
                 </pre>
                 <p>
                     <b>NOTES:</b>
@@ -210,14 +210,14 @@ public class AlarmModel extends NCModelFileAdapter {
             </div>
             <div class="tab-pane fade show" id="nav-class" role="tabpanel">
                 <pre class="brush: bash">
-                    java -cp apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar -DNLPCRAFT_TEST_MODELS=org.apache.nlpcraft.examples.alarm.AlarmModel org.apache.nlpcraft.model.tools.test.NCTestAutoModelValidator
+                    java -cp apache-nlpcraft-incubating-{{site.latest_version}}-all-deps.jar:/path/to/my/model/classes -DNLPCRAFT_TEST_MODELS=org.apache.nlpcraft.examples.alarm.AlarmModel org.apache.nlpcraft.model.tools.test.NCTestAutoModelValidator
                 </pre>
                 <p>
                     <b>NOTES:</b>
                 </p>
                 <ul>
                     <li>
-                        Make sure to add necessary classpath components.
+                        Make sure to add necessary classpath components for the model(s) you want to auto-validate.
                     </li>
                     <li>
                         <code>NLPCRAFT_TEST_MODELS</code> system property that should contain comma separate list of the data model classes to test.
