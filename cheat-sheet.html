@@ -256,8 +256,8 @@ id: cheat_sheet
                                 </p>
                                 <pre class="brush: bash">
                                     $ bin/nlpcraft.sh help -c=start-probe # Get help.
-                                    $ bin/nlpcraft.sh start-probe # Start probe with default config.
-                                    $ bin/nlpcraft.sh start-probe --cfg=~/myapp/nlpcraft.conf --mdls=my.package.Model --cp=~/myapp/target/classes --jmvOpts="-ea -Xms2048m" --timeoutMins=5
+                                    $ bin/nlpcraft.sh start-probe --cp=~/myapp/target/classes # Start probe with given model(s).
+                                    $ bin/nlpcraft.sh start-probe --cp=~/myapp/target/classes --cfg=~/myapp/nlpcraft.conf --mdls=my.package.Model --jmvOpts="-ea -Xms2048m" --timeoutMins=5
                                 </pre>
                                 <p>
                                     Stop the probe:
@@ -355,8 +355,8 @@ id: cheat_sheet
                             <div class="tab-pane fade show active" id="nav-script" role="tabpanel">
                                 <pre class="brush: bash">
                                     $ bin/nlpcraft.sh help -c=test-model # Get help.
-                                    $ bin/nlpcraft.sh test-model # All default parameters.
-                                    $ bin/nlpcraft.sh test-model --mdls=my.package.Model --cp=~/myapp/target/classes --jmvOpts="-ea -Xms2048m"
+                                    $ bin/nlpcraft.sh test-model --cp=~/myapp/target/classes # Test all models in specified classpath.
+                                    $ bin/nlpcraft.sh test-model --cp=~/myapp/target/classes --mdls=my.package.Model --jmvOpts="-ea -Xms2048m"
                                 </pre>
                             </div>
                             <div class="tab-pane fade show" id="nav-class" role="tabpanel">
