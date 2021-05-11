@@ -29,11 +29,16 @@ id: configuration
         </p>
         <ul>
             <li>Both the server and the data probe come with default configuration available in <code>build/<b>nlpcraft.conf</b></code> file.</li>
+            <li>
+                By default, REST server is looking for <code>server.conf</code> and then <code>nlpcraft.conf</code> configuration file.
+            </li>
+            <li>
+                By default, data probe is looking for <code>probe.conf</code> and then <code>nlpcraft.conf</code> configuration file.
+            </li>
             <li>Custom configuration or default overrides can be placed into a file or provided via environment variables.</li>
             <li>Configuration files use <a target=_ href="https://github.com/lightbend/config/blob/master/HOCON.md">HOCON</a> file format.</li>
             <li>
-                Server and probe configuration can be placed in the same file (as it is shipped by default in <code>build/nlpcraft.conf</code> file)
-                or kept in separate files. When kept in separate files each file would have either <code>nlpcraft.server</code>
+                When server and probe use different configuration files - each file would have either <code>nlpcraft.server</code>
                 or <code>nlpcraft.probe</code> sub-section.
             </li>
         </ul>
@@ -46,10 +51,13 @@ id: configuration
         <p>
             Default configuration is available in <code>build/<b>nlpcraft.conf</b></code> file and it is extensively documented. It has subsections
             for the server and probe configuration. You can also separate server and probe configurations into their own
-            separate files. Each file would have a subsection of configuration for either server or data probe.
+            separate files. While server and probe can use any file name for their configuration files, the server
+            looks for <code>server.conf</code> file by default, and the probe looks for <code>probe.conf</code>
+            file before searching for <code>nlpcraft.conf</code> file.
+            Each such file would have a subsection of configuration for either server or data probe.
         </p>
         <p>
-            Server configuration file (e.g. <code>server_nlpcraft.conf</code>):
+            Server configuration file (e.g. <code>server.conf</code>):
         </p>
         <pre class="brush: js">
 nlpcraft {
@@ -59,7 +67,7 @@ nlpcraft {
 }
             </pre>
         <p>
-            Probe configuration file (e.g. <code>probe_nlpcraft.conf</code>):
+            Probe configuration file (e.g. <code>probe.conf</code>):
         </p>
         <pre class="brush: js">
 nlpcraft {
