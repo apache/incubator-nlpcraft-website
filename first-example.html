@@ -25,11 +25,11 @@ id: first_example
     <section id="setup">
         <h2 class="section-title">Overview <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
-            Let's develop a light switch prototype that can be controlled through the natural language.
+            Let's develop a house light switch prototype that can be controlled through the natural language.
             We'll keep <a target=_ href="https://cloud.google.com/speech-to-text/">speech-to-text conversion</a> and integration
             with <a target=_    href="https://developer.apple.com/homekit/">HomeKit</a> or
-            <a href="https://www.arduino.cc/" target=_>Ardunio</a> outside of this example - and concentrate on understanding the natural
-            language commands.
+            <a href="https://www.arduino.cc/" target=_>Ardunio</a> outside of this example - and concentrate just on understanding
+            the natural language commands.
         </p>
     </section>
     <section id="new_project">
@@ -137,15 +137,14 @@ id: first_example
             Notice three model elements at lines 16, 23, and 31:
         </p>
         <ul>
-            <li><code>ls:loc</code></li>
-            <li><code>ls:on</code></li>
-            <li><code>ls:off</code></li>
+            <li><code>ls:loc</code> - element that defines a location in our house.</li>
+            <li><code>ls:on</code> - element that defines "on" action for the lights (also belongs to the group <code>act</code>).</li>
+            <li><code>ls:off</code> - element that defines "off" action for the lights (also belongs to the group <code>act</code>).</li>
+            <li>
+                Intent <code>ls</code> on line 42 defines a template that matches any user input that has a token
+                from group <code>act</code> and zero or more house locations.
+            </li>
         </ul>
-        <p>
-            Model element <code>ls:loc</code> defines a location where we want to control the lights. Model
-            elements <code>ls:on</code> and <code>ls:off</code> define corresponding "on" and "off" lights
-            actions. We use these elements in our model's intent definition at line 42 as well as in intent callback below.
-        </p>
         <p>
             Next, let's go ahead and add model's logic which we'll write in Scala wtih Java and Kotlin versions provided for reference.
             Open <code>src/main/scala/demo/<b>LightSwitch.scala</b></code> file and replace its content with the following
