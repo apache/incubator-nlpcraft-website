@@ -285,6 +285,14 @@ $bq-success-border-color: $brand-success;
         padding-right: 5px;
         color: $bq-success-border-color;
     }
+
+    div.bq-idea-container {
+        display: inline-flex;
+
+        div:nth-child(1) {
+            margin-right: 7px;
+        }
+    }
 }
 
 .gradient-table {

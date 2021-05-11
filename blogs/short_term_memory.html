@@ -104,7 +104,7 @@ publish_date: July 26, 2019
             Entities that additionally have one or more specific values like <code>current</code> and <code>Tokyo</code> entities.
         </li>
     </ul>
-    <div class="bq success">
+    <div class="bq info">
         <div style="display: inline-block; margin-bottom: 20px">
             <a style="margin-right: 10px" target="opennlp" href="https://opennlp.apache.org"><img src="/images/opennlp-logo.png" height="32px" alt=""></a>
             <a style="margin-right: 10px" target="google" href="https://cloud.google.com/natural-language/"><img src="/images/google-cloud-logo-small.png" height="32px" alt=""></a>
@@ -266,10 +266,15 @@ publish_date: July 26, 2019
         Here's the rule we developed at NLPCraft and have been successfully using in various models:
     </p>
     <div class="bq success">
-        <b>Overriding Rule</b>
-        <p>
-            The entity will override other entity or entities in STM that belong to the same group set or its superset.
-        </p>
+        <div class="bq-idea-container">
+            <div><div>💡</div></div>
+            <div>
+                <b>Overriding Rule</b>
+                <p>
+                    The entity will override other entity or entities in STM that belong to the same group set or its superset.
+                </p>
+            </div>
+        </div>
     </div>
     <p>
         In other words, an entity with a smaller group set (more specific one) will override entity with the same

@@ -36,7 +36,7 @@ id: data_model
         </p>
         <ul>
             <li>Set of model <a href="#elements">elements</a> (a.k.a. named entities) to be detected in the user input.</li>
-            <li>Zero or more intent callbacks.</li>
+            <li>Zero or more intents and their callbacks.</li>
             <li>Common model configuration and various life-cycle callbacks.</li>
         </ul>
         <p>
@@ -265,13 +265,18 @@ public class AlarmModel extends NCModelFileAdapter {
             <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelFactory.html">NCModelFactory</a> for more information.
         </p>
         <div class="bq success">
-            <p>
-                <b>Using Adapters</b>
-            </p>
-            <p>
-                It is recommended to use one of the adapter classes when defining your
-                own data model in the most uses cases.
-            </p>
+            <div class="bq-idea-container">
+                <div><div>💡</div></div>
+                <div>
+                    <p>
+                        <b>Using Adapters</b>
+                    </p>
+                    <p>
+                        It is recommended to use one of the adapter classes when defining your
+                        own data model in the most uses cases.
+                    </p>
+                </div>
+            </div>
         </div>
         <h2 id="deployment" class="section-title">Deployment <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
@@ -457,11 +462,14 @@ intents:
             </div>
         </div>
         <div class="bq success">
-            <p>
-                Note that using JSON/YAML-based configuration is a <b>canonical way</b> for
-                creating data models in NLPCraft as it allows to cleanly separate static configuration from model's
-                programmable logic.
-            </p>
+            <div class="bq-idea-container">
+                <div><div>💡</div></div>
+                <div>
+                    Note that using JSON/YAML-based configuration is a <b>canonical way</b> for
+                    creating data models in NLPCraft as it allows to cleanly separate static configuration from model's
+                    programmable logic.
+                </div>
+            </div>
         </div>
     </section>
     <section id="elements">

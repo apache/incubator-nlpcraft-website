@@ -47,9 +47,9 @@ id: basic_concepts
             A data model defines:
         </p>
         <ul>
-            <li>Set of model <a href="data-model.html">elements</a> (a.k.a. <em>named entities</em>) to be detected in the user input.</li>
-            <li>How to query a particular data source based on detected named entities.</li>
-            <li>Common model configuration and <a href="data-model.html">life-cycle</a> callbacks.</li>
+            <li>Set of model <a href="data-model.html#elements">elements</a> (a.k.a. named entities) to be detected in the user input.</li>
+            <li>Zero or more intents and their callbacks.</li>
+            <li>Common model configuration and various life-cycle callbacks.</li>
         </ul>
         <p>
             Note that model-as-a-code approach allows you to use any software lifecycle tools and
@@ -64,8 +64,8 @@ id: basic_concepts
     <section id="ne">
         <h2 class="section-sub-title">Named Entities <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
-            Named entity, also known as a model element or a token, is main a component defined by the NLPCraft data model. A named
-            entity is one or more individual words that have a consistent semantic meaning and typically denote a
+            Named entity, also known as a model element or a token, is one of the main a components defined by the NLPCraft data model.
+            A named entity is one or more individual words that have a consistent semantic meaning and typically denote a
             real-world object, such as persons, locations, number, date and time, organizations, products, etc. Such
             object can be abstract or have a physical existence.
         </p>
@@ -112,15 +112,14 @@ id: basic_concepts
         <p>
             In most cases named entities will have associated <em>normalized value</em>. It is especially important for named entities that have many
             different notational forms such as time and date, currency, geographical locations, etc. For example, <code>New York</code>,
-            <code>New York City</code> and <code>NYC</code> all refer to the same "New York City, NY USA" location which is a valid normalized form.
+            <code>New York City</code> and <code>NYC</code> all refer to the same "New York City, NY USA" location which is a standard normalized form.
         </p>
         <p>
             The process of detecting named entities is called Named Entity Recognition (NER). There are many
             different ways of how a certain named entity can be detected: through list of synonyms, by name, rule-based or by using
-            statistical techniques like neural networks with large corpus of predefined data. NLPCraft allows you define
-            named entities through powerful <a href="/intent-matching.html">Intent Definition Language</a> (IDL)) and also supports named
-            entities that can be composed from other named entities
-            including named entities from external projects such OpenNLP, spaCy or Stanford CoreNLP.
+            statistical techniques like neural networks with large corpus of predefined data. NLPCraft natively supports synonym-based
+            named entities definition as well as the ability to compose compose new named entities through powerful <a href="/intent-matching.html">Intent Definition Language</a> (IDL)
+            combining other named entities including named entities from external projects such OpenNLP, spaCy or Stanford CoreNLP.
         </p>
         <p>
             Named entities allow you to abstract from basic linguistic forms like nouns and verbs to deal with the higher level semantic
@@ -145,10 +144,13 @@ id: basic_concepts
             conversational STM that is used to fill in missing tokens from memory.
         </p>
         <div class="bq success">
-            <p>
-                You can think of NLPCraft data model as a mechanism to define named entities and intents that use
-                these named entities to pattern match the user input.
-            </p>
+            <div class="bq-idea-container">
+                <div><div>💡</div></div>
+                <div>
+                    You can think of NLPCraft data model as a mechanism to define named entities and intents that use
+                    these named entities to pattern match the user input.
+                </div>
+            </div>
         </div>
         <p>
             Learn more details about intent matching <a href="intent-matching.html">here</a>.
