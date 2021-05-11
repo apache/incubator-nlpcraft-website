@@ -63,7 +63,7 @@ package org.apache.nlpcraft.examples.lightswitch
 
 import org.apache.nlpcraft.model.{NCIntentTerm, _}
 
-class LightSwitchModel extends NCModelFileAdapter("org/apache/nlpcraft/examples/lightswitch/lightswitch_model.yaml") {
+class LightSwitchModel extends NCModelFileAdapter("lightswitch_model.yaml") {
     @NCIntentRef("ls")
     @NCIntentSample(Array(
         "Turn the lights off in the entire house.",
@@ -118,7 +118,7 @@ public class AlarmModel extends NCModelFileAdapter {
 
     public AlarmModel() {
         // Loading the model from the file in the classpath.
-        super("org/apache/nlpcraft/examples/alarm/alarm_model.json");
+        super("alarm_model.json");
     }
 
     @NCIntentRef("alarm")
@@ -1174,6 +1174,22 @@ intents:
             that interpret them accordingly. For example, the REST client interfacing between NLPCraft and Amazon Alexa or Apple HomeKit could
             only accept text result type and ignore everything else.
         </p>
+        <h2 class="section-title">Interface <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCMetadata.html">NCMetadata</a> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <p>
+            Interface <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCMetadata.html">NCMetadata</a>
+            provides support for mutable runtime-only metadata. This interface can be used to attach user-defined runtime data
+            to variety of different objects in NLPCraft API. This interface is implemented by the following types:
+        </p>
+        <ul>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html">NCCompany</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCConversation.html">NCConversation</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCustomElement.html">NCCustomElement</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCElement.html">NCElement</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModel.html">NCModel</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html">NCModelView</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html">NCToken</a></li>
+            <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCResult.html">NCResult</a></li>
+        </ul>
     </section>
     <section id="builtin">
         <h2 class="section-title">Built-In Tokens <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
@@ -1181,7 +1197,7 @@ intents:
             NLPCraft provides a number of built-in model elements (i.e. tokens) including the
             <a href="integrations.html">integration</a> with several popular 3rd party NER frameworks. Table
             below provides information about these built-in tokens. Section about <a href="#meta">token metadata</a> provides
-            further information about metadata that each type of token carries.
+            further information about <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCMetadata.html#getMetadata()">metadata</a> that each type of token carries.
         </p>
         <p>
             Built-in tokens have to be explicitly enabled on both the REST server and in the model. See
