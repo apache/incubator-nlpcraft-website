@@ -1596,7 +1596,7 @@ sh.Highlighter.prototype = {
 					+ this.getTitleHtml(this.getParam('title'))
 					+ '<tbody>'
 						+ '<tr>'
-							+ (gutter ? '<td class="gutter">' + this.getLineNumbersHtml(code) + '</td>' : '')
+							+ (gutter ? '<td class="gutter">' + this.getLineNumbersHtml(code) + '</td>' : '<td>&nbsp;&nbsp;</td>')
 							+ '<td class="code">'
 								+ '<div class="container">'
 									+ html
