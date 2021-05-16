@@ -97,7 +97,7 @@ fa_icon: fa-cube
         </figure>
         <p>
             You can find SQL script creating this database and populating it with the sample data at
-            <a href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft/src/main/scala/org/apache/nlpcraft/examples/sql/db/northwind.sql" target="github"><code>db/northwind.sql</code></a>
+            <a href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft-examples/sql/src/main/resources/northwind.sql" target="github"><code>db/northwind.sql</code></a>
             file in the root of the example.
         </p>
     </section>
@@ -105,9 +105,9 @@ fa_icon: fa-cube
         <h2 class="section-title">H2 Database <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             In our example we are using H2 database instance. For convenience, example provides a command line application
-            <a href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft/src/main/scala/org/apache/nlpcraft/examples/sql/db/SqlServer.scala" target="github"><code>db/SqlServer.scala</code></a>
+            <a href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft-examples/sql/src/main/java/org/apache/nlpcraft/examples/sql/db/SqlServer.scala" target="github"><code>db/SqlServer.scala</code></a>
             that automatically starts local H2 database instance with default configuration (localhost on port 9092) and initializes it
-            using <a href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft/src/main/scala/org/apache/nlpcraft/examples/sql/db/northwind.sql" target="github"><code>db/northwind.sql</code></a> script.
+            using <a href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft-examples/sql/src/main/resources/northwind.sql" target="github"><code>db/northwind.sql</code></a> script.
         </p>
     </section>
     <section id="model">
@@ -127,7 +127,7 @@ fa_icon: fa-cube
         </p>
         <ul>
             <li>
-                <a href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft/src/main/scala/org/apache/nlpcraft/examples/sql/sql_model_init.yaml" target="github"><code>sql_model_init.yaml</code></a> - the initial file that was generated straight out of
+                <a href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft-examples/sql/src/main/resources/sql_model_init.yaml" target="github"><code>sql_model_init.yaml</code></a> - the initial file that was generated straight out of
                 SQL Model Generator (see above for the instructions).
             </li>
         </ul>
@@ -139,19 +139,15 @@ fa_icon: fa-cube
         </p>
         <ul>
             <li>
-                <a href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft/src/main/scala/org/apache/nlpcraft/examples/sql/SqlModel.scala" target="github"><code>SqlModel.scala</code></a> - the code behind the data model that loads YAML-defined model and
+                <a href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft-examples/sql/src/main/java/org/apache/nlpcraft/examples/sql/SqlModel.scala" target="github"><code>SqlModel.scala</code></a> - the code behind the data model that loads YAML-defined model and
                 defines all intents.
             </li>
             <li>
-                <a href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft/src/main/scala/org/apache/nlpcraft/examples/sql/db/SqlBuilder.scala" target="github"><code>db/SqlBuilder.scala</code></a> - the main utility that takes object model provided by
+                <a href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft-examples/sql/src/main/java/org/apache/nlpcraft/examples/sql/db/SqlBuilder.scala" target="github"><code>db/SqlBuilder.scala</code></a> - the main utility that takes object model provided by
                 <a href="/tools/sql_model_gen.html">SQL Model Generation</a>
                 and builds a SQL query to execute. Note that we elected to build this functionality
                 from scratch to illustrate how it can be done. You are free, of course, to use many
                 of the existing libraries to help achieve this goal.
-            </li>
-            <li>
-                <a href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft/src/main/scala/org/apache/nlpcraft/examples/sql/SqlTest.scala" target="github"><code>SqlTest.scala</code></a> - unit test for this example. Note that this test
-                provides additional utility of testing each input sentence against the result SQL statement.
             </li>
         </ul>
     </section>
