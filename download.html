@@ -69,6 +69,7 @@ layout: interior
                 <tr>
                     <th>File Name</th>
                     <th>Version</th>
+                    <th><i class="fab fa-fw fa-java"></i>Java - <img src="/images/scala-logo-h16.png"></th>
                     <th>Release Date</th>
                     <th>Signatures</th>
                     <th></th>
@@ -76,14 +77,29 @@ layout: interior
                 </thead>
                 <tbody>
                 {% for rel in site.data.src-releases %}
-                <tr>
+                <tr style="vertical-align: center">
                     <td>
+                        {% if rel.version == site.latest_version %} <b> {% endif %}
                         <i class="fa fa-fw fa-download"></i> <a href="{{rel.zip_url}}">{{rel.zip_name}}</a>
                         {% unless rel.backward_compatible %}<i class="fas fa-fw fa-bomb"></i>{% endunless %}
                         {% if rel.version == site.latest_version %} <span class="latest">new</span> {% endif %}
+                        {% if rel.version == site.latest_version %} </b> {% endif %}
                     </td>
-                    <td>{{rel.version}}</td>
-                    <td>{{rel.date}}</td>
+                    <td>
+                        {% if rel.version == site.latest_version %} <b> {% endif %}
+                        <nobr>v{{rel.version}}</nobr>
+                        {% if rel.version == site.latest_version %} </b> {% endif %}
+                    </td>
+                    <td>
+                        {% if rel.version == site.latest_version %} <b> {% endif %}
+                        <nobr>{{rel.sdk}}</nobr>
+                        {% if rel.version == site.latest_version %} </b> {% endif %}
+                    </td>
+                    <td>
+                        {% if rel.version == site.latest_version %} <b> {% endif %}
+                        {{rel.date}}
+                        {% if rel.version == site.latest_version %} </b> {% endif %}
+                    </td>
                     <td class="download-sigs">
                         <a href="{{rel.sha256_url}}">SHA256</a>
                         <a href="{{rel.pgp_url}}">PGP</a>
@@ -99,12 +115,12 @@ layout: interior
             </table>
             <div class="bq warn">
                 <p>
-                    <b>NLPCraft v0.7.0+ requires JDK 11</b>
+                    <b>Supported <i class="fab fa-fw fa-java"></i>Java and <span class="scala-16"></span>Scala versions:</b>
                 </p>
-                <p>
-                    Starting with version <b>0.7.0</b> NLPCraft requires JDK 11 to compile and run. All development
-                    and testing is done on JDK 11 and Scala 2.12. Prior versions only supported JDK 8.
-                </p>
+                <ul>
+                    <li>NLPCraft 0.7.0+ requires JDK 11 and Scala 2.12</li>
+                    <li>NLPCraft 0.5.0-0.6.2 requires JDK 8 and Scala 2.12</li>
+                </ul>
             </div>
             <div class="bq info">
                 <p>
@@ -127,6 +143,7 @@ layout: interior
                 <tr>
                     <th>File Name</th>
                     <th>Version</th>
+                    <th><i class="fab fa-fw fa-java"></i>Java - <img src="/images/scala-logo-h16.png"></th>
                     <th>Release Date</th>
                     <th>Signatures</th>
                     <th></th>
@@ -136,12 +153,27 @@ layout: interior
                 {% for rel in site.data.bin-releases %}
                 <tr>
                     <td>
+                        {% if rel.version == site.latest_version %} <b> {% endif %}
                         <i class="fa fa-fw fa-download"></i> <a href="{{rel.zip_url}}">{{rel.zip_name}}</a>
                         {% unless rel.backward_compatible %}<i class="fas fa-fw fa-bomb"></i>{% endunless %}
                         {% if rel.version == site.latest_version %} <span class="latest">new</span> {% endif %}
+                        {% if rel.version == site.latest_version %} </b> {% endif %}
                     </td>
-                    <td>{{rel.version}}</td>
-                    <td>{{rel.date}}</td>
+                    <td>
+                        {% if rel.version == site.latest_version %} <b> {% endif %}
+                        {{rel.version}}
+                        {% if rel.version == site.latest_version %} </b> {% endif %}
+                    </td>
+                    <td>
+                        {% if rel.version == site.latest_version %} <b> {% endif %}
+                        <nobr>{{rel.sdk}}</nobr>
+                        {% if rel.version == site.latest_version %} </b> {% endif %}
+                    </td>
+                    <td><nobr>
+                        {% if rel.version == site.latest_version %} <b> {% endif %}
+                        {{rel.date}}
+                        {% if rel.version == site.latest_version %} </b> {% endif %}
+                    </nobr></td>
                     <td class="download-sigs">
                         <a href="{{rel.sha256_url}}">SHA256</a>
                         <a href="{{rel.pgp_url}}">PGP</a>
