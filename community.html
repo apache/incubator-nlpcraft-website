@@ -52,14 +52,15 @@ layout: interior
                 considering your strengths or areas of interest.
             </p>
             <p>
-                Also, make sure to share your JIRA ID in the same email (create
+                Also, make sure to share your <a target="jira" href="https://issues.apache.org/jira/secure/Dashboard.jspa">ASF JIRA</a> ID in the same email (create
                 a <a target="jira" href="https://issues.apache.org/jira/projects/NLPCRAFT">new one</a> if you don't have an ASF JIRA account yet).
                 One of our community members will add you to the contributors' list and you will be able to
                 go ahead and book NLPCraft tasks you would like to work on.
             </p>
             <h2 class="section-sub-title">Dev List <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
             <p>
-                This list is the primary and the default communication channel: <a href="mailto:dev@nlpcraft.apache.org">dev@nlpcraft.apache.org</a>
+                <a target="gitter" href="https://gitter.im/apache-nlpcraft/community">Gitter channel</a> and the <a href="mailto:dev@nlpcraft.apache.org">dev@nlpcraft.apache.org</a>
+                list is the primary and the default communication channel.
             </p>
             <p>
                 Send an email to <a href="mailto:dev-subscribe@nlpcraft.apache.org">dev-subscribe@nlpcraft.apache.org</a>
@@ -74,7 +75,8 @@ layout: interior
                 is a preferred way of engagement at ASF as well as within the NLPCraft community.
             </p>
             <p>
-                For the sake of openness, speed and transparency, the community members are free to use Slack, Gitter, Skype or
+                For the sake of openness, speed and transparency, the community members are free to use Slack,
+                <a target="gitter" href="https://gitter.im/apache-nlpcraft/community">Gitter</a>, Skype or
                 meet via the tools like Google Meeting. But, as mentioned above, if any conversation took place between
                 contributors using channels like Slack, a summary of the discussion/decision has to be shared via the
                 dev list letting other contributors share their opinions. As a summary, final decisions are made only
@@ -121,23 +123,17 @@ layout: interior
             <p>General Git workflow rules:</p>
             <ul>
                 <li>
-                    <code>master</code> branch represents latest released version (i.e. the latest release).
+                    <code>master</code> branch represents current work-in-progress and is generally
+                    maintained so that all tests are passing in <code>master</code>.
                     <ul>
-                        <li>
-                            Each release has corresponding Git tag.
-                        </li>
+                        <li>Nightly builds can be cut from the master.</li>
                     </ul>
                 </li>
                 <li>
-                    <code>release</code> branch represent a root branch for the current release that is under development.
+                    Once all tickets for the current sprint are fixed and merged to <code>master</code>, the tagged
+                    branch (<code>v0.7.4, v0.7.5</code>) is created for the release.
                     <ul>
-                        <li>
-                            During release the <code>release</code> branch gets merged to <code>master</code>, Git tag
-                            is created and work on the next release continues with <code>release</code> branch.
-                        </li>
-                        <li>
-                            <code>master</code> branch gets updated <b>only</b> during release process.
-                        </li>
+                        <li>Each release has a Git tag associated with it.</li>
                     </ul>
                 </li>
                 <li>
@@ -150,7 +146,7 @@ layout: interior
                     </ul>
                 </li>
                 <li>
-                    Committers create feature branches off the <code>release</code> branch.
+                    Committers create feature branches off the <code>master</code> branch.
                 </li>
                 <li>
                     Merging should use Git <code>squashing</code> to minimize number of intermittent commits.
@@ -198,7 +194,7 @@ layout: interior
                             Each time when you want to update your local <code>master</code> do the following:
                             <pre class="brush: bash">
                                 git pull upstream
-                                git checkout release
+                                git checkout master
                             </pre>
                         </li>
                     </ul>
@@ -207,7 +203,7 @@ layout: interior
                         <p>
                             Note that you can use any naming scheme for the branches in your local forks (i.e. you can work
                             in <code>master</code> branch in your local fork). However, when you up-merge from the GitHub
-                            mirror you need to make sure to use <code>release</code> branch to get the latest work-in-progress
+                            mirror you need to make sure to use <code>master</code> branch to get the latest work-in-progress
                             from the upstream.
                         </p>
                     </div>
@@ -224,7 +220,7 @@ layout: interior
                     Commit branch to your local fork.
                 </li>
                 <li>
-                    Create pull request from the new remote branch in your fork to <code>release</code> of
+                    Create pull request from the new remote branch in your fork to <code>master</code> of
                     Apache NLPCraft mirror. Please, start a title of the pull request from <code>NLPCRAFT-xxx</code>
                     referring to the JIRA ticket this pull-request is related to. An email about the pull request
                     will be send to dev-list and the same JIRA comment will be added to the NLPCRAFT-xxx ticket.
