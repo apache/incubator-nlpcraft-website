@@ -39,9 +39,9 @@
   date: Dec 31, 2020
   sdk: <i class="fab fa-fw fa-java"></i>11 - <div class="scala-16"></div>2.12
   zip_name: apache-nlpcraft-0.7.3.zip
-  zip_url: https://www.apache.org/dyn/closer.cgi?filename=incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.7.3.zip&action=download
-  sha256_url: https://downloads.apache.org/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.7.3.zip.sha256
-  pgp_url: https://downloads.apache.org/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.7.3.zip.asc
+  zip_url: https://archive.apache.org/dist/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.7.3.zip
+  sha256_url: https://archive.apache.org/dist/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.7.3.zip.sha256
+  pgp_url: https://archive.apache.org/dist/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.7.3.zip.asc
   github_link: https://github.com/apache/incubator-nlpcraft/tree/v0.7.3
   backward_compatible: no
 
@@ -49,9 +49,9 @@
   date: Nov 19, 2020
   sdk: <i class="fab fa-fw fa-java"></i>11 - <div class="scala-16"></div>2.12
   zip_name: apache-nlpcraft-0.7.2.zip
-  zip_url: https://www.apache.org/dyn/closer.cgi?filename=incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.7.2.zip&action=download
-  sha256_url: https://downloads.apache.org/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.7.2.zip.sha256
-  pgp_url: https://downloads.apache.org/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.7.2.zip.asc
+  zip_url: https://archive.apache.org/dist/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.7.2.zip
+  sha256_url: https://archive.apache.org/dist/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.7.2.zip.sha256
+  pgp_url: https://archive.apache.org/dist/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.7.2.zip.asc
   github_link: https://github.com/apache/incubator-nlpcraft/tree/v0.7.2
   backward_compatible: yes
 
@@ -59,9 +59,9 @@
   date: Oct 29, 2020
   sdk: <i class="fab fa-fw fa-java"></i>11 - <div class="scala-16"></div>2.12
   zip_name: apache-nlpcraft-0.7.1.zip
-  zip_url: https://www.apache.org/dyn/closer.cgi?filename=incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.7.1.zip&action=download
-  sha256_url: https://downloads.apache.org/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.7.1.zip.sha256
-  pgp_url: https://downloads.apache.org/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.7.1.zip.asc
+  zip_url: https://archive.apache.org/dist/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.7.1.zip
+  sha256_url: https://archive.apache.org/dist/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.7.1.zip.sha256
+  pgp_url: https://archive.apache.org/dist/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.7.1.zip.asc
   github_link: https://github.com/apache/incubator-nlpcraft/tree/v0.7.1
   backward_compatible: yes
 
@@ -69,9 +69,9 @@
   date: Sep 29, 2020
   sdk: <i class="fab fa-fw fa-java"></i>11 - <div class="scala-16"></div>2.12
   zip_name: apache-nlpcraft-0.7.0.zip
-  zip_url: https://www.apache.org/dyn/closer.cgi?filename=incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.7.0.zip&action=download
-  sha256_url: https://downloads.apache.org/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.7.0.zip.sha256
-  pgp_url: https://downloads.apache.org/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.7.0.zip.asc
+  zip_url: https://archive.apache.org/dist/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.7.0.zip
+  sha256_url: https://archive.apache.org/dist/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.7.0.zip.sha256
+  pgp_url: https://archive.apache.org/dist/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.7.0.zip.asc
   github_link: https://github.com/apache/incubator-nlpcraft/tree/v0.7.0
   backward_compatible: no
 
@@ -79,9 +79,9 @@
   date: Jul 19, 2020
   sdk: <i class="fab fa-fw fa-java"></i>8 - <div class="scala-16"></div>2.12
   zip_name: apache-nlpcraft-0.6.2.zip
-  zip_url: https://www.apache.org/dyn/closer.cgi?filename=incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.6.2.zip&action=download
-  sha256_url: https://downloads.apache.org/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.6.2.zip.sha256
-  pgp_url: https://downloads.apache.org/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.6.2.zip.asc
+  zip_url: https://archive.apache.org/dist/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.6.2.zip
+  sha256_url: https://archive.apache.org/dist/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.6.2.zip.sha256
+  pgp_url: https://archive.apache.org/dist/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.6.2.zip.asc
   github_link: https://github.com/apache/incubator-nlpcraft/tree/v0.6.2
   backward_compatible: yes
   
@@ -89,9 +89,9 @@
   date: Apr 29, 2020
   sdk: <i class="fab fa-fw fa-java"></i>8 - <div class="scala-16"></div>2.12
   zip_name: apache-nlpcraft-0.5.0.zip
-  zip_url: https://www.apache.org/dyn/closer.cgi?filename=incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.5.0.zip&action=download
-  sha256_url: https://downloads.apache.org/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.5.0.zip.sha256
-  pgp_url: https://downloads.apache.org/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.5.0.zip.asc
+  zip_url: https://archive.apache.org/dist/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.5.0.zip
+  sha256_url: https://archive.apache.org/dist/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.5.0.zip.sha256
+  pgp_url: https://archive.apache.org/dist/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.5.0.zip.asc
   github_link: https://github.com/apache/incubator-nlpcraft/tree/v0.5.0
   backward_compatible: yes
 
