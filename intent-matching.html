@@ -1185,7 +1185,7 @@ id: intent_matching
                     }
                 ],
                 "intents": [
-                    "intent=alarm term~{tok_id()=='x:alarm'} term(nums)~{tok_id()=='nlpcraft:num' && ~nlpcraft:num:unittype=='datetime' && ~nlpcraft:num:isequalcondition==true}[0,7]"
+                    "intent=alarm term~{tok_id()=='x:alarm'} term(nums)~{tok_id() == 'nlpcraft:num' && meta_tok('nlpcraft:num:unittype') == 'datetime' && meta_tok('nlpcraft:num:isequalcondition') == true}[0,7]"
                 ]
             }
         </pre>
