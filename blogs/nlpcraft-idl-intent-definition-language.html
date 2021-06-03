@@ -1,0 +1,74 @@
+---
+active_crumb: NLPCraft IDL - Intent Definition Language
+layout: blog
+blog_title: NLPCraft IDL - Intent Definition Language
+author_name: Aaron Radzinski
+author_avatar: images/lion.jpg
+author_twitter_id: aaron_radzinski
+publish_date: June 3, 2021
+---
+
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one or more
+ contributor license agreements.  See the NOTICE file distributed with
+ this work for additional information regarding copyright ownership.
+ The ASF licenses this file to You under the Apache License, Version 2.0
+ (the "License"); you may not use this file except in compliance with
+ the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<section>
+    <div class="bq info">
+        This blog is an English adaptation of Sergey Kamov's <a target=habr href="https://habr.com/ru/post/559716">blog</a> written in Russian.
+    </div>
+    <p>
+        This article is a second part of the article <a target=habr href="https://habr.com/ru/post/534034/">Designing intents with Apache NlpCraft</a>
+        <img alt="" src="/images/ru-flag-128x128.png" width="24"> and contains a detailed description of
+        NLPCraft IDL - Intent Definition Language, created for NLP projects based on the Apache NlpCraft.
+        NLPCraft IDL support has been added to the system since version <a href="/download.html">0.7.5</a>.
+    </p>
+    <p>
+        The declarative Intent Definition Language, called <a href="/intent-matching.html">NLPCraft IDL</a>, significantly simplifies the process of
+        working with intents in NLP-based dialog and search systems developed using Apache NLPsCraft and at the same time
+        expands the capabilities of them.
+    </p>
+    <p>
+        Let's start with examples to demonstrate the general capabilities of the language, provide the necessary explanations,
+        and then describe the design of the language a bit more formally.
+    </p>
+    <div class="bq info">
+        Note that at the point of choosing the best matching intent, NLP systems, in general, already have a parsed and processed
+        user input request, which contains combinations of request’s tokens and other related information.
+    </div>
+</section>
+<section>
+    <h2 class="section-title">Examples <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+    <pre class="brush: idl">
+        intent=xa
+           flow="^(?:login)(^:logout)*$"
+           meta={'enabled': true}
+           term(a)={!(tok_id()) != "z"}[1,3]
+           term(b)={
+              meta_intent('enabled') == true &&
+              month() == 1
+           }
+           term(c)~{
+                @tokId = tok_id()
+                @usrTypes = meta_model('user_types')
+
+                (tokId == 'order' || tokId == 'order_cancel') &&
+                has_all(@usrTypes, list(1, 2, 3) &&
+                abs(meta_tok('order:size')) > 10)
+    </pre>
+</section>
+
+
+

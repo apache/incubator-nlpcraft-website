@@ -15,6 +15,15 @@
 # limitations under the License.
 #
 
+- title: NLPCraft IDL - Intent Definition Language
+  url: /blogs/nlpcraft-idl-intent-definition-language.html
+  excerpt: Most of the NLP tasks start with the basic challenge - how to find or detect something in the text...
+  author: Aaron Radzinski
+  publish_date: June 3, 2021
+  avatar_url: images/lion.jpg
+  twitter_id: aaron_radzinski
+  href_target: _self
+
 - title: Программируемые NER компоненты
   url: https://habr.com/ru/post/543786/
   excerpt: В данной заметке мы продолжим говорить о NER компонентах и попытаемся  определить условия, в которых нам начинает недоставать функционала стандартных компонентов и стоит задуматься о программировании своих собственных...
