@@ -40,34 +40,114 @@ publish_date: June 3, 2021
         working with intents in NLP-based dialog and search systems developed using Apache NLPsCraft and at the same time
         expands the capabilities of them.
     </p>
-    <p>
-        Let's start with examples to demonstrate the general capabilities of the language, provide the necessary explanations,
-        and then describe the design of the language a bit more formally.
-    </p>
-    <div class="bq info">
-        Note that at the point of choosing the best matching intent, NLP systems, in general, already have a parsed and processed
-        user input request, which contains combinations of request’s tokens and other related information.
+    <div class="bq success">
+        <p>
+            Note that at the point of choosing the best matching intent, NLP systems, in general, already have a parsed and processed
+            user input request, which contains combinations of request’s tokens and other related information.
+        </p>
     </div>
 </section>
 <section>
     <h2 class="section-title">Examples <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+    <p>
+        Let's start with examples to demonstrate the general capabilities of the language, provide the necessary explanations,
+        and then describe the design of the language a bit more formally.
+    </p>
     <pre class="brush: idl">
         intent=xa
            flow="^(?:login)(^:logout)*$"
            meta={'enabled': true}
            term(a)={!(tok_id()) != "z"}[1,3]
            term(b)={
-              meta_intent('enabled') == true &&
-              month() == 1
+              meta_intent('enabled') == true && // Must be active.
+              month() == 1 // January.
            }
            term(c)~{
+                // Variables.
                 @tokId = tok_id()
                 @usrTypes = meta_model('user_types')
 
+                // Predicate.
                 (tokId == 'order' || tokId == 'order_cancel') &&
                 has_all(@usrTypes, list(1, 2, 3) &&
                 abs(meta_tok('order:size')) > 10)
     </pre>
+    <p><b>NOTES:</b></p>
+    <ul>
+        <li>
+            The intent name is <code>xa</code>.</li>
+        <li>
+            The intent contains three terms. Term is an element that defines a predicate, each of which must
+            pass for the intent to be selected:
+            <ul>
+                <li>
+                    <code>term(a)</code> - the parsed request must contain between one and three tokens with identifiers
+                    other than <code>z</code>, without taking into account data from the dialogue history (term type <code>=</code>).
+                </li>
+                <li>
+                    <code>term(b)</code> - the intent must be active - the flag <code>enabled</code> from the model metadata.
+                    In addition, such an intent can only be triggered in January - the <code>month()</code> built-in function.
+                </li>
+                <li>
+                    <code>term(c)</code> - the token with identifier <code>order</code> or <code>order_cancel</code> should
+                    be found in the request or in the dialogue history (term type <code>~</code>). There are additional
+                    restrictions in the model metadata values and also the order size absolute value should be more than 10.
+                    In the definition of this term we use IDL variables - and we will talk about them a little bit later.
+                </li>
+            </ul>
+        </li>
+        <li>
+            <code>flow=</code> This section defines an additional rule, according to which for the intent to
+            be triggered, the intent with the <code>login</code> identifier must have been selected at least
+            once within the current session, and the intent with the identifier <code>logout</code> should have never
+            been selected in this session. The rule is defined as a regular expression based on the intents IDs
+            of the previous intents in the user session. Other ways to create similar rules will also be
+            described below.
+        </li>
+        <li>
+            <code>meta=</code> For the given intent, a certain set of data can be defined - in this case a
+            configuration - with which you can enable or disable the intent.
+        </li>
+    </ul>
+    <br/>
+    <pre class="brush: idl">
+        intent=xb
+           flow=/#flowModelMethod/
+           ordered=true
+           term(a)=/org.mypackage.MyClass#termMethod/?
+           fragment(frag)
+    </pre>
+    <p><b>NOTES:</b></p>
+    <ul>
+        <li>
+            The intent name is <code>xb</code>.
+        </li>
+        <li>
+            <code>term(a)</code> The intent can contain one optional term (<code>?</code> quantifier,
+            detailed explanations will be given below), defined in the code - <code>org.mypackage.MyClass#termMethod</code> method.</li>
+        <li>
+            <code>fragment(frag)</code> Fragment with identifier <code>frag</code> extends the list of terms of the intent with
+            additional terms that are defined elsewhere (in <code>fragment</code> expression). The <code>frag</code> element must
+            be defined above in the code, or accessible via import statement.
+        </li>
+        <li>
+            <code>flow=</code> Flow contains the condition specified in the model code in the method <code>flowModelMethod</code>.
+        </li>
+    </ul>
+    <p>
+        You can find more examples <a href="https://nlpcraft.apache.org/intent-matching.html">here</a>
+    </p>
+</section>
+<section>
+    <h2 class="section-title">Deeper Dive<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+    <div class="bq info">
+        <p>
+            Note that this article is only a brief overview of the capabilities of NLPCraft IDL and is not trying to
+            be a comprehensive manual. Before starting to work with NLPCraft, it is recommended to study a
+            detailed description of the syntax and all the features review of the language in the corresponding sections
+            of the <a href="https://nlpcraft.apache.org/intent-matching.html">documentation</a>.
+        </p>
+    </div>
 </section>
 
 
