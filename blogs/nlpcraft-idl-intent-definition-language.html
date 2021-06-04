@@ -158,7 +158,41 @@ publish_date: June 3, 2021
             Intents can also be defined directly in the model code using <a target="javadoc" href="https://nlpcraft.apache.org/apis/latest/org/apache/nlpcraft/model/NCIntent.html">@NCIntent</a>
             annotations. An example can be found <a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft-examples/time/src/main/java/org/apache/nlpcraft/examples/time/TimeModel.java">here</a>.
         </li>
-        <li>In addition, intents can be defined in separate special files (usually with *.idl extension). In this case, the model will refer to these intents according to the specified path to these files or URL resources using the import statement. This approach is convenient when working with large models, when syntax highlighting and other features provided by the IDE may be useful (for example, Intellij Idea provides keyword highlighting, hints and syntax checking for files for the configured types). In addition, this approach can be useful for specialists who do not have the ability or desire to edit the code directly. An example is available at the links: 1, 2.</li>
+        <li>
+            In addition, intents can be defined in separate special files (usually with <code>*.idl</code> extension).
+            In this case, the model will refer to these intents according to the specified path to these files or
+            URL resources using the import statement. This approach is convenient when working with large models,
+            when syntax highlighting and other features provided by the IDE may be useful (for example, Intellij IDEA
+            provides keyword highlighting, hints and syntax checking for files for the configured types). In addition,
+            this approach can be useful for specialists who do not have the ability or desire to edit the code directly.
+            An example is available at <a target=github href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft-examples/alarm/src/main/resources/alarm_model.json">here</a>
+            and <a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft-examples/alarm/src/main/resources/intents.idl">here</a>.
+        </li>
+    </ul>
+    <h2 class="section-sub-title">Keywords <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+    <p>
+        NLPCraft IDL has only 10 keywords: <code>flow, fragment, import, intent, meta, ordered, term, true, false, null.</code>
+    </p>
+    <ul>
+        <li><code>intent, flow, fragment, meta, ordered, term</code> are parts of the intent definition.</li>
+        <li><code>fragment</code> keyword is also can be used to create named terms lists to include in intent definitions (a-la macros).</li>
+        <li><code>import</code> - required for including external files with fragment, intent or imports statements.</li>
+        <li><code>true, false, null</code> - used when working with built-in functions.</li>
+    </ul>
+    <h2 class="section-sub-title">Lifecycle <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+    <p>
+        An intent compiled when the <a href="/docs.html#data-model">model</a> loaded and can be debugged only when the
+        model is being debugged. To define complex intents, it is recommended to create them in their own separated
+        files and use the editing capabilities provided by the IDE to ensure initial validation of the syntax.
+    </p>
+    <h2 class="section-sub-title">Program Structure <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+    <p>
+        The program contains a set of the following optional elements, in no particular order:
+    </p>
+    <ul>
+        <li><code>import</code> statement</li>
+        <li><code>fragment</code> statement</li>
+        <li><code>intent</code> statement</li>
     </ul>
 </section>
 
