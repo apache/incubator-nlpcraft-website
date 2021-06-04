@@ -17,7 +17,9 @@
 
 - title: NLPCraft IDL - Intent Definition Language
   url: /blogs/nlpcraft-idl-intent-definition-language.html
-  excerpt: Most of the NLP tasks start with the basic challenge - how to find or detect something in the text...
+  excerpt: The declarative Intent Definition Language, called NLPCraft IDL, significantly simplifies the process of
+    working with intents in NLP-based dialog and search systems developed using Apache NLPsCraft and at the same time
+    expands the capabilities of them.
   author: Aaron Radzinski
   publish_date: June 3, 2021
   avatar_url: images/lion.jpg

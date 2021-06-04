@@ -59,10 +59,12 @@ id: intent_matching
         <p>
             NLPCraft intents are written in Intent Definition Language (IDL).
             IDL is a relatively straightforward and simple language. For example,
-            here's a simple intent with two terms:
+            here's a simple intent <code>x</code> with two terms <code>a</code> and <code>b</code>:
         </p>
         <pre class="brush: idl">
-            intent=x term(a)~{tok_id() == 'my_elm'} term(b)={has(tok_groups(), "my_group")}
+            intent=x
+                term(a)~{tok_id() == 'my_elm'}
+                term(b)={has(tok_groups(), "my_group")}
         </pre>
         <p>
             IDL intent defines a match between the parsed input utterance, i.e. the collection of
