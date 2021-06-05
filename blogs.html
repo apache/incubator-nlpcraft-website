@@ -39,7 +39,7 @@ layout: interior
             <div class="blog-block">
                 <div class="blog-title">
                     <a style="color: #{{ news.title_color }} !important;" href="{{ news.url }}" target={{ news.href_target }}>
-                        {{ news.title }}
+                        {{ news.title }} {% if news.ru %}<img alt="" style="vertical-align: text-bottom" src="/images/ru-flag-128x128.png" width="24">{% endif %}
                     </a>
                 </div>
                 <div class="blog-excerpt">
@@ -52,7 +52,6 @@ layout: interior
                     {% if news.medium_id %}<a target="medium" href="https://medium.com/@{{ news.medium_id}}"><i class="fab fa-fw fa-medium"></i></a>{% endif %}
                     {% if news.twitter_id %}<a target="twitter" href="https://twitter.com/{{ news.twitter_id}}"><i class="fab fa-fw fa-twitter"></i></a>{% endif %}
                     <span class="text-nowrap">{{news.publish_date}}</span>
-                    {% if news.ru %}<img alt="" src="/images/ru-flag-128x128.png" width="24">{% endif %}
                 </div>
             </div>
             {% endfor %}

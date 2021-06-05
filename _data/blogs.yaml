@@ -26,6 +26,16 @@
   twitter_id: aaron_radzinski
   href_target: _self
 
+- title: Язык определения интентов NLPCraft IDL
+  url: https://habr.com/ru/post/559716/
+  excerpt: Новая версия декларативного языка определения интентов, получившая название NLPCraft IDL (NLPCraft Intents Definition Language), значительно упростила процесс работы с интентами в диалоговых и поисковых системах, построенных на базе проекта Apache NLPCraft и вместе с тем расширила возможности системы...
+  author: Сергей Камов
+  publish_date: May 28, 2021
+  avatar_url: images/sergey_kamov_avatar.png
+  twitter_id: apachenlpcraft
+  href_target: habr
+  ru: true
+
 - title: Программируемые NER компоненты
   url: https://habr.com/ru/post/543786/
   excerpt: В данной заметке мы продолжим говорить о NER компонентах и попытаемся  определить условия, в которых нам начинает недоставать функционала стандартных компонентов и стоит задуматься о программировании своих собственных...

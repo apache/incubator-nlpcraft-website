@@ -30,7 +30,7 @@ publish_date: June 3, 2021
         This blog is an English adaptation of Sergey Kamov's <a target=habr href="https://habr.com/ru/post/559716">blog</a> written in Russian.
     </div>
     <p>
-        This article is a second part of the article <a target=habr href="https://habr.com/ru/post/534034/">Designing intents with Apache NlpCraft</a>
+        This article is a second part of the article <a target=habr href="https://habr.com/ru/post/534034/">Проектируем интенты с Apache NLPCraft</a>
         <img alt="" src="/images/ru-flag-128x128.png" width="24"> and contains a detailed description of
         NLPCraft IDL - Intent Definition Language, created for NLP projects based on the Apache NlpCraft.
         NLPCraft IDL support has been added to the system since version <a href="/download.html">0.7.5</a>.
@@ -190,9 +190,115 @@ publish_date: June 3, 2021
         The program contains a set of the following optional elements, in no particular order:
     </p>
     <ul>
-        <li><code>import</code> statement</li>
+        <li>
+            <code>import</code> statement
+        </li>
         <li><code>fragment</code> statement</li>
         <li><code>intent</code> statement</li>
+    </ul>
+    <b><code>import</code> Statement</b>
+    <p>
+        It contains the <code>import</code> keyword and the file name or URL resource in parentheses. It allows to import
+        other IDL definitions from external files or URLs. For example:
+    </p>
+    <pre class="brush: idl">
+        import('http://mysite.com/nlp/idls/external.idl)
+    </pre>
+    <b><code>fragment</code> Statement</b>
+    <p>
+        It contains the <code>fragment</code> keyword with the name and a list of terms. Terms can be parameterized.
+        An example of a simple fragment:
+    </p>
+    <pre class="brush: idl">
+        fragment=buzz term~{tok_id() == 'x:alarm'}
+    </pre>
+    <p>
+        An example of a parameterized fragment with arguments <code>a</code> and <code>b</code>:
+    </p>
+    <pre class="brush: idl">
+        fragment=p1
+        term={
+            meta_frag('a') &&
+            has_any(get(meta_frag('b'), 'Москва'), list(1, 2))
+        }
+    </pre>
+    <p>
+        Below is an example of using this fragment in an intent. Note that fragment’s parameters (its metadata) is passed using JSON format:
+    </p>
+    <pre class="brush: idl">
+        intent=i1
+        fragment(p1, {'a': true, 'b': {'Москва': [1, 2, 3]}})
+    </pre>
+    <b><code>intent</code> Statement</b>
+    <p>
+        This statement is the core element of IDL allowing to declare the intent. Here's the example
+        of the simple intent:
+    </p>
+    <pre class="brush: idl">
+        intent=xa
+           flow="^(?:login)(^:logout)*$"
+           meta={'enabled': true}
+           term(a)={!(tok_id()) != "z"}[1,3]
+    </pre>
+    <p>
+        Every intent statement consists of the following elements:
+    </p>
+    <ul>
+        <li>
+            <p><b>Intent Name</b></p>
+            <p>
+                Required element. The name is a unique identifier within the model. Below is an example of using a reference
+                to the <code>xa</code> intent.
+            </p>
+            <pre class="brush: java">
+                @NCIntentRef("xa")
+                fun onTimeMatch(
+                    ctx: NCIntentMatch,
+                    @NCIntentTerm("a") tok: NCToken
+                ): NCResult { ... }
+            </pre>
+        </li>
+        <li>
+            <p><b>Intent Terms</b></p>
+            <p>
+                At least one term is required. Term is the main element of the intent definition. Term consists of
+                the predicate over a token (term body). The constituent parts of the predicate can be based on
+                the token or on some other factors.
+            </p>
+            <p>
+                Here's how an intent's term is defined:
+            </p>
+            <ul>
+                <li>The <code>term</code> keyword. Required element.</li>
+                <li>
+                    Name in parentheses. Optional. Used to create references to the found token in the callback arguments,
+                    see the example above, token <code>a</code>.
+                </li>
+                Term type. Required element. Two term types are supported:
+                “~“ - the token can be obtained from the history of the dialog or from the current request (i.e. the term is conversational).
+                “=“ - the token should be obtained only from the current request.
+                Example: term(nums)~{tok_id() == 'nlpcraft:num'}
+                The term body. Required element. There are two ways to define the term body: using built-in functions or in code.
+                Examples:
+                term(nums)={tok_id() == 'nlpcraft:num'}
+                term(nums)~{true}
+                term~/org.mypackage.MyClass#termMethod/?
+                Note the special syntax for the last term.
+                Quantifier. Optional. The default value is [1, 1]. The following types of quantifiers are supported:
+                [M, N] - the term must be found from N to M times.
+                * - the term must be found at least once, is equivalent to [0, ∞]
+                + - the term must be found more than once, is it equivalent to [1, ∞]
+                ? - the term must be found 0 or 1 time, equivalent to [0, 1]
+                Examples:
+                term(nums)={tok_id() == 'nlpcraft:num'}[1,2] - the request must contain one or two tokens with the identifier “nlpcraft: num”.
+                term(nums)={tok_id() == 'nlpcraft:num'}* - the request must contain one or more tokens with the identifier “nlpcraft: num”.
+            </ul>
+        </li>
+        <li><p><b>IDL Built-In Functions</b></p></li>
+        <li><p><b>Intent Fragments</b></p></li>
+        <li><p><b>Intent Flow</b></p></li>
+        <li><p><b>Intent Metadata</b></p></li>
+        <li><p><b>Ordered Flag</b></p></li>
     </ul>
 </section>
 

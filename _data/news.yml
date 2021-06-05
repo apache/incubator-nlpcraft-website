@@ -24,6 +24,15 @@
   twitter_id: aaron_radzinski
   href_target: _self
 
+- title: Язык определения интентов NLPCraft IDL
+  url: https://habr.com/ru/post/559716/
+  excerpt: Новая версия декларативного языка определения интентов, получившая название NlpCraft IDL , значительно упростила процесс работы с интентами в диалоговых и поисковых системах...
+  author: Сергей Камов
+  publish_date: May 28, 2021
+  avatar_url: images/sergey_kamov_avatar.png
+  twitter_id: apachenlpcraft
+  href_target: habr
+
 - title: 📢 Apache NLPCraft 0.7.5 Released
   url: /relnotes/release-notes-0.7.5.html
   excerpt: Download NLPCraft 0.7.5. Over 50 💪 fixes, improvements and enhancements.
