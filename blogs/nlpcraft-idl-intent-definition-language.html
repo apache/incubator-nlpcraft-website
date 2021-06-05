@@ -300,7 +300,17 @@ publish_date: June 3, 2021
                         term~/org.mypackage.MyClass#termMethod/? // Reference to external code.
                     </pre>
                     <p>
-                        Note the special syntax for the last term.
+                        Note the special syntax for the last term. The existing set of built-in functions are typically
+                        enough to define many terms of the intent. But, if necessary, the programmer can create her
+                        own predicates in Java, Scala, Kotlin, Groovy or any other Java based language and write them
+                        in the term body. That is, NLPCraft IDL can have snippets of code written entirely in other languages:
+                    </p>
+                    <pre class="brush: idl">
+                        term~/org.mypackage.MyClass#termMethod/? // Reference to external code.
+                    </pre>
+                    <p>
+                        This function <code>termMethod</code> receives an argument that contains all the necessary
+                        data on the user's request, and as the output it should return the value of a specific type.
                     </p>
                 </li>
                 <li>
@@ -323,7 +333,6 @@ publish_date: June 3, 2021
                 </li>
             </ul>
         </li>
-        <li><p><b>Term Variables</b></p></li>
         <li>
             <p><b>IDL Built-In Functions</b></p>
             <p>
@@ -345,12 +354,115 @@ publish_date: June 3, 2021
                 More detailed information and a description of each function can be found <a href="/intent-matching.html#idl_functions">here</a>.
             </p>
         </li>
-        <li><p><b>Intent Fragments</b></p></li>
-        <li><p><b>Intent Flow</b></p></li>
-        <li><p><b>Intent Metadata</b></p></li>
-        <li><p><b>Ordered Flag</b></p></li>
+        <li>
+            <p><b>Term Variables</b></p>
+            <p>
+                The term body written in IDL script is a predicate written using IDL built-in functions. To avoid the
+                unnecessary repetitive computations when working with built-in functions, local term variables can be used:
+            </p>
+            <pre class="brush: idl">
+                term(t2)={
+                    @a = meta_model('a')
+                    @list = list(1, 2, 3, 4)
+
+                    (@a == 42 || @a == 44) && has_all(@list, list(3, 2))
+                }
+            </pre>
+            <p>
+                Local variables are defined and used with the special prefix <code>@</code>. They used to avoid
+                repeated computations and shortening/simplifying of the IDL term predicate expressions.
+            </p>
+        </li>
+        <li>
+            <p><b>Intent Fragments</b></p>
+            <p>
+                Fragment is a named set of terms that is created to be reusable across intents.
+                See example by following this <a href="/intent-matching.html#idl">link</a>.
+            </p>
+        </li>
+        <li>
+            <p><b>Intent Flow</b></p>
+            <p>
+                Here we define an additional intent selection rule based on data from previous intent matches
+                within the current session. This rule can be defined using a regex based on the IDs of
+                the previously matched intents:
+            </p>
+            <pre class="brush: idl">
+                flow="^(?:login)(^:logout)*$"
+            </pre>
+            <p>
+                This rule means that for the intent to be matched, it is necessary that within the current session
+                the intent with the <code>login</code> identifier has already been matched before, and
+                not with identifier <code>logout</code>.
+            </p>
+            <p>
+                If it is necessary to define more complex logic, it can also be moved into user code
+                written in any Java-based language, like the term body:
+            </p>
+            <pre class="brush: scala">
+                @NCIntent("intent=x
+                    flow=/com.company.dialog.Flow#customFlow/
+                    term~{tok_id() == 'some_id'}"
+                )
+                def onX(): NCResult = { .. }
+            </pre>
+            <p>
+                The predicate defined in the method <code>customFlow()</code> receives at the input a list with all
+                intents information, previously matched within the current session, and returns a boolean value.
+            </p>
+        </li>
+        <li>
+            <p><b>Intent Metadata</b></p>
+            <p>
+                Optional element. A additional dataset that can be used by term predicates presented in JSON format.
+            </p>
+        </li>
+        <li>
+            <p><b>Ordered Flag</b></p>
+            <p>
+                Optional element. The default is <code>false</code>. Defines whether or not the order of the terns in the intent is important.
+            </p>
+        </li>
     </ul>
 </section>
-
+<section>
+    <h2 class="section-title">Why Do We Need NLPCraft IDL? <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+    <p>
+        All the logic for creating intents, defined using NLPCraft IDL, can be written in any Java based language.
+        Why, then, is this new language needed at all? Even if its syntax is short, simple and straightforward, you
+        still have to spend some time studying it.
+    </p>
+    <p>
+        Below are some of the reasons for using NLPCraft IDL:
+    </p>
+    <ul>
+        <li>
+            The program terseness. A custom DSL code is always shorter than a general programming language code with
+            the same logic. For intents with non-trivial rules, this can be important.
+        </li>
+        <li>
+            If the NLPCraft IDL code is defined in a separate file, then editing the IDL program, for example,
+            to change the intent matching logic, does not require the rebuild of the code of the model and its callbacks.
+        </li>
+        <li>
+            Separating the logic of writing callbacks and the logic of matching intents. Different people can
+            work with these tasks. Due to the deliberate limited language resources, DSL is easier to learn by a non-programmer.
+        </li>
+        <li>
+            Currently, models can be created in any Java based language. Apache NLPCraft plans to expand the list of
+            supported languages in the near future. Using NLPCraft IDL will allow you to maintain one common language
+            for defining intents for different types of models within the same project.
+        </li>
+    </ul>
+</section>
+<section>
+    <h2 class="section-title">Conclusion <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+    <p>
+        I hope you were able to get a first impression of the capabilities of the NLPCraft IDL language and the
+        types of tasks that can be solved using it. <a href="/intent-matching.html">Here</a> you will find a detailed description of the
+        language and its capabilities. Additional examples of models created in Java, Kotlin, Groovy and Scala,
+        using NLPCraft IDL to define intents, are available in the <a href="https://github.com/apache/incubator-nlpcraft/tree/master/nlpcraft-examples">GitHub</a> project.
+    </p>
+</section>
 
 
