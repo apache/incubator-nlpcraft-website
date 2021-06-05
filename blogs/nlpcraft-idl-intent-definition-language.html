@@ -31,7 +31,7 @@ publish_date: June 3, 2021
     </div>
     <p>
         This article is a second part of the article <a target=habr href="https://habr.com/ru/post/534034/">Проектируем интенты с Apache NLPCraft</a>
-        <img alt="" src="/images/ru-flag-128x128.png" width="24"> and contains a detailed description of
+        <img alt="" style="vertical-align: baseline" src="/images/ru-flag-16.png"> and contains a detailed description of
         NLPCraft IDL - Intent Definition Language, created for NLP projects based on the Apache NlpCraft.
         NLPCraft IDL support has been added to the system since version <a href="/download.html">0.7.5</a>.
     </p>
@@ -73,13 +73,13 @@ publish_date: June 3, 2021
                 abs(meta_tok('order:size')) > 10)
     </pre>
     <p><b>NOTES:</b></p>
-    <ul>
+    <ul class="fixed">
         <li>
             The intent name is <code>xa</code>.</li>
         <li>
             The intent contains three terms. Term is an element that defines a predicate, each of which must
             pass for the intent to be selected:
-            <ul>
+            <ul class="fixed">
                 <li>
                     <code>term(a)</code> - the parsed request must contain between one and three tokens with identifiers
                     other than <code>z</code>, without taking into account data from the dialogue history (term type <code>=</code>).
@@ -109,7 +109,6 @@ publish_date: June 3, 2021
             configuration - with which you can enable or disable the intent.
         </li>
     </ul>
-    <br/>
     <pre class="brush: idl">
         intent=xb
            flow=/#flowModelMethod/
@@ -118,7 +117,7 @@ publish_date: June 3, 2021
            fragment(frag)
     </pre>
     <p><b>NOTES:</b></p>
-    <ul>
+    <ul class="fixed">
         <li>
             The intent name is <code>xb</code>.
         </li>
@@ -149,7 +148,7 @@ publish_date: June 3, 2021
         </p>
     </div>
     <h2 class="section-sub-title">The Places Where Intents Are Defined <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
-    <ul>
+    <ul class="fixed">
         <li>
             Intents defined with NLPCraft IDL can be declared directly in static model definition JSON or YAML files.
             This approach is very convenient for simple cases. An example is available <a target=github href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft-examples/lightswitch/src/main/resources/lightswitch_model.yaml">here</a>.
@@ -173,7 +172,7 @@ publish_date: June 3, 2021
     <p>
         NLPCraft IDL has only 10 keywords: <code>flow, fragment, import, intent, meta, ordered, term, true, false, null.</code>
     </p>
-    <ul>
+    <ul class="fixed">
         <li><code>intent, flow, fragment, meta, ordered, term</code> are parts of the intent definition.</li>
         <li><code>fragment</code> keyword is also can be used to create named terms lists to include in intent definitions (a-la macros).</li>
         <li><code>import</code> - required for including external files with fragment, intent or imports statements.</li>
@@ -189,7 +188,7 @@ publish_date: June 3, 2021
     <p>
         The program contains a set of the following optional elements, in no particular order:
     </p>
-    <ul>
+    <ul class="fixed">
         <li>
             <code>import</code> statement
         </li>
@@ -243,7 +242,7 @@ publish_date: June 3, 2021
     <p>
         Every intent statement consists of the following elements:
     </p>
-    <ul>
+    <ul class="fixed">
         <li>
             <p><b>Intent Name</b></p>
             <p>
@@ -268,33 +267,84 @@ publish_date: June 3, 2021
             <p>
                 Here's how an intent's term is defined:
             </p>
-            <ul>
+            <ul class="fixed">
                 <li>The <code>term</code> keyword. Required element.</li>
                 <li>
                     Name in parentheses. Optional. Used to create references to the found token in the callback arguments,
                     see the example above, token <code>a</code>.
                 </li>
-                Term type. Required element. Two term types are supported:
-                “~“ - the token can be obtained from the history of the dialog or from the current request (i.e. the term is conversational).
-                “=“ - the token should be obtained only from the current request.
-                Example: term(nums)~{tok_id() == 'nlpcraft:num'}
-                The term body. Required element. There are two ways to define the term body: using built-in functions or in code.
-                Examples:
-                term(nums)={tok_id() == 'nlpcraft:num'}
-                term(nums)~{true}
-                term~/org.mypackage.MyClass#termMethod/?
-                Note the special syntax for the last term.
-                Quantifier. Optional. The default value is [1, 1]. The following types of quantifiers are supported:
-                [M, N] - the term must be found from N to M times.
-                * - the term must be found at least once, is equivalent to [0, ∞]
-                + - the term must be found more than once, is it equivalent to [1, ∞]
-                ? - the term must be found 0 or 1 time, equivalent to [0, 1]
-                Examples:
-                term(nums)={tok_id() == 'nlpcraft:num'}[1,2] - the request must contain one or two tokens with the identifier “nlpcraft: num”.
-                term(nums)={tok_id() == 'nlpcraft:num'}* - the request must contain one or more tokens with the identifier “nlpcraft: num”.
+                <li>
+                    <p>
+                        Term type. Required element. Two term types are supported:
+                    </p>
+                    <ul class="fixed">
+                        <li><code>~</code> the token can be obtained from the history of the dialog or from the current request (i.e. the term is conversational).</li>
+                        <li><code>=</code> the token should be obtained only from the current request.</li>
+                    </ul>
+                    <p>
+                        Example terms:
+                    </p>
+                    <pre class="brush: idl">
+                        term(nums)~{tok_id() == 'nlpcraft:num'} // Conversational '~' term.
+                        term(nums)={tok_id() != 'z'} // Non-conversational '=' term.
+                    </pre>
+                </li>
+                <li>
+                    <p>
+                        The term body. Required element. There are two ways to define the term body:
+                        using IDL script with built-in functions or in external Java-based code:
+                    </p>
+                    <pre class="brush: idl">
+                        term(nums)={tok_id() == 'nlpcraft:num'} // IDL script.
+                        term(yes)~{true} // IDL script.
+                        term~/org.mypackage.MyClass#termMethod/? // Reference to external code.
+                    </pre>
+                    <p>
+                        Note the special syntax for the last term.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        Quantifier. Optional. The default value is <code>[1, 1]</code>. The following types of quantifiers are supported:
+                    </p>
+                    <ul class="fixed">
+                        <li><code>[M, N]</code> - the term must be found from <code>N</code> to <code>M</code> times.</li>
+                        <li><code>*</code> - the term must be found at least once, is equivalent to <code>[0, ∞]</code></li>
+                        <li><code>+</code> - the term must be found more than once, is it equivalent to <code>[1, ∞]</code></li>
+                        <li><code>?</code> - the term must be found 0 or 1 time, equivalent to <code>[0, 1]</code></li>
+                    </ul>
+                    <p>
+                    Examples:
+                    </p>
+                    <pre class="brush: idl">
+                        term(nums)={tok_id() == 'nlpcraft:num'}[1,2] // The request must contain one or two tokens with the ID “nlpcraft: num”.
+                        term(nums)={tok_id() == 'nlpcraft:num'}* // The request must contain zero or more tokens with the ID “nlpcraft: num”.
+                    </pre>
+                </li>
             </ul>
         </li>
-        <li><p><b>IDL Built-In Functions</b></p></li>
+        <li><p><b>Term Variables</b></p></li>
+        <li>
+            <p><b>IDL Built-In Functions</b></p>
+            <p>
+                NLPCraft IDL provides over 140 <a href="/intent-matching.html#idl_functions">built-in functions</a> that can
+                be used in term definition. These functions can be conventionally classified into the following categories:
+            </p>
+            <ul class="fixed">
+                <li>Based on base tokens properties - token IDs, groups, parent, hierarchy, etc. Examples: <code>tok_id()</code>, <code>tok_groups()</code>, <code>tok_parent()</code>.</li>
+                <li>NLP-based tokens properties - stemmas, lemmas, parts of speech, stop words. Examples: <code>tok_lemma()</code>, <code>tok_is_wordnet()</code>, <code>tok_swear()</code>.</li>
+                <li>Based on information about how the token was found in the user's request - synonym values, etc. Examples: <code>tok_value()</code>, <code>tok_is_permutated()</code>, <code>tok_is_direct()</code>.</li>
+                <li>Based on user request data - request time, user agent type. Examples: <code>req_tstamp()</code>, <code>req_addr()</code>, <code>req_agent()</code>.</li>
+                <li>Based on various metadata - tokens, model, request, etc. Examples: <code>meta_model('my: prop')</code>, <code>meta_tok('nlpcraft: num: unit')</code>, <code>meta_user('my: prop')</code>.</li>
+                <li>Based on data provided by NER token providers. Example, for <code>geo:city</code> token it can be the number of city residents or coordinates obtained from metadata.</li>
+                <li>Based on the user and his company - admin status, registration time. Examples: <code>user_admin()</code>, <code>comp_name()</code>, <code>user_signup_tstamp()</code>.</li>
+                <li>Based on system/environment variables, system time, etc. Examples:<code> meta_sys('java.home'), now(), day_of_week()</code>.</li>
+                <li>Math functions, text functions, collection functions, etc. Examples: <code>lowercase("TeXt")</code>, <code>abs(-1.5)</code>, <code>distinct(list(1, 2, 2, 3, 1))</code>.</li>
+            </ul>
+            <p>
+                More detailed information and a description of each function can be found <a href="/intent-matching.html#idl_functions">here</a>.
+            </p>
+        </li>
         <li><p><b>Intent Fragments</b></p></li>
         <li><p><b>Intent Flow</b></p></li>
         <li><p><b>Intent Metadata</b></p></li>
