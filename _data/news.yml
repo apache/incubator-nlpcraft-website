@@ -15,6 +15,15 @@
 # limitations under the License.
 #
 
+- title: Как добавить NLP в Minecraft
+  url: https://habr.com/ru/post/561230/
+  excerpt: Появление этого примера, использование NLP в Minecraft, оказалось самым естественным в истории проекта на данный момент...
+  author: Сергей Камов
+  publish_date: June 7, 2021
+  avatar_url: images/sergey_kamov_avatar.png
+  twitter_id: apachenlpcraft
+  href_target: habr
+
 - title: NLPCraft IDL - Intent Definition Language
   url: /blogs/nlpcraft-idl-intent-definition-language.html
   excerpt: The declarative NLPCraft IDL significantly simplifies the process of working with intents in NLP-based dialog and search systems...
