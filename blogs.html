@@ -35,26 +35,74 @@ layout: interior
     </div>
     <div class="col-md-8 second-column">
         <div id="blogs-container" class="row">
-            {% for news in site.data.blogs %}
-            <div class="blog-block">
-                <div class="blog-title">
-                    <a style="color: #{{ news.title_color }} !important;" href="{{ news.url }}" target={{ news.href_target }}>
-                        {{ news.title }} {% if news.ru %}<img alt="" style="vertical-align: baseline" src="/images/ru-flag-16.png">{% endif %}
-                    </a>
+            <nav>
+                <div class="nav nav-tabs" role="tablist">
+                    <a class="nav-item nav-link active" data-toggle="tab" href="#en-blogs" role="tab">English Blogs</a>
+                    <a class="nav-item nav-link" data-toggle="tab" href="#ru-blogs" role="tab">Russian Blogs <img alt="" style="vertical-align: middle" src="/images/ru-flag-16.png"></a>
                 </div>
-                <div class="blog-excerpt">
-                    <a target={{ news.href_target }} href="{{ news.url }}">{{ news.excerpt}}</a>
+            </nav>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="en-blogs" role="tabpanel">
+                    <br/>
+                    {% for news in site.data.blogs %}
+                        {% unless news.ru %}
+                            <div class="blog-block">
+                                <div class="blog-title">
+                                    <a href="{{ news.url }}" target={{ news.href_target }}>{{ news.title }}</a>
+                                    {% if news.href_target != "_self" %}
+                                    <br/>
+                                    <a href="{{ news.url }}" target={{ news.href_target }}>
+                                        <span style="color: #3498db; letter-spacing: 0.1em; vertical-align: top; font-size: 50%">{{ news.url }}</span>
+                                    </a>
+                                    {% endif %}
+                                </div>
+                                <div class="blog-excerpt">
+                                    <a target={{ news.href_target }} href="{{ news.url }}">{{ news.excerpt}}</a>
+                                </div>
+                                <div class="blog-footer">
+                                    {% if news.avatar_url %}<img class="avatar-img" src="{{ news.avatar_url | relative_url}}" alt="">{% endif %}
+                                    {% if news.author %}<div class="blog-author">{{ news.author }}</div>{% endif %}
+                                    {% if news.linkedin_id %}<a target="linkedin" href="https://www.linkedin.com/in/{{ news.linkedin_id}}/"><i class="fab fa-fw fa-linkedin"></i></a>{% endif %}
+                                    {% if news.medium_id %}<a target="medium" href="https://medium.com/@{{ news.medium_id}}"><i class="fab fa-fw fa-medium"></i></a>{% endif %}
+                                    {% if news.twitter_id %}<a target="twitter" href="https://twitter.com/{{ news.twitter_id}}"><i style="color: #3498db" class="fab fa-fw fa-twitter"></i></a>{% endif %}
+                                    <span class="text-nowrap">{{news.publish_date}}</span>
+                                </div>
+                            </div>
+                        {% endunless %}
+                    {% endfor %}
                 </div>
-                <div class="blog-footer">
-                    {% if news.avatar_url %}<img class="avatar-img" src="{{ news.avatar_url | relative_url}}" alt="">{% endif %}
-                    {% if news.author %}<div class="blog-author">{{ news.author }}</div>{% endif %}
-                    {% if news.linkedin_id %}<a target="linkedin" href="https://www.linkedin.com/in/{{ news.linkedin_id}}/"><i class="fab fa-fw fa-linkedin"></i></a>{% endif %}
-                    {% if news.medium_id %}<a target="medium" href="https://medium.com/@{{ news.medium_id}}"><i class="fab fa-fw fa-medium"></i></a>{% endif %}
-                    {% if news.twitter_id %}<a target="twitter" href="https://twitter.com/{{ news.twitter_id}}"><i class="fab fa-fw fa-twitter"></i></a>{% endif %}
-                    <span class="text-nowrap">{{news.publish_date}}</span>
+                <div class="tab-pane fade show" id="ru-blogs" role="tabpanel">
+                    <br/>
+                    {% for news in site.data.blogs %}
+                        {% if news.ru %}
+                            <div class="blog-block">
+                                <div class="blog-title">
+                                    <a href="{{ news.url }}" target={{ news.href_target }}>
+                                        {{ news.title }}
+                                    </a>
+                                    {% if news.href_target != "_self" %}
+                                        <br/>
+                                        <a href="{{ news.url }}" target={{ news.href_target }}>
+                                            <span style="color: #3498db; letter-spacing: 0.1em; vertical-align: top; font-size: 50%">{{ news.url }}</span>
+                                        </a>
+                                    {% endif %}
+                                </div>
+                                <div class="blog-excerpt">
+                                    <a target={{ news.href_target }} href="{{ news.url }}">{{ news.excerpt}}</a>
+                                </div>
+                                <div class="blog-footer">
+                                    {% if news.avatar_url %}<img class="avatar-img" src="{{ news.avatar_url | relative_url}}" alt="">{% endif %}
+                                    {% if news.author %}<div class="blog-author">{{ news.author }}</div>{% endif %}
+                                    {% if news.linkedin_id %}<a target="linkedin" href="https://www.linkedin.com/in/{{ news.linkedin_id}}/"><i class="fab fa-fw fa-linkedin"></i></a>{% endif %}
+                                    {% if news.medium_id %}<a target="medium" href="https://medium.com/@{{ news.medium_id}}"><i class="fab fa-fw fa-medium"></i></a>{% endif %}
+                                    {% if news.twitter_id %}<a target="twitter" href="https://twitter.com/{{ news.twitter_id}}"><i style="color: #3498db" class="fab fa-fw fa-twitter"></i></a>{% endif %}
+                                    <span class="text-nowrap">{{news.publish_date}}</span>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
             </div>
-            {% endfor %}
         </div>
     </div>
     <div class="col-md-2 third-column">
