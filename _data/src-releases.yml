@@ -15,6 +15,16 @@
 # limitations under the License.
 #
 
+- version: 0.8.0
+  date: June 7, 2021
+  sdk: <i class="fab fa-fw fa-java"></i>11 - <div class="scala-16"></div>2.12
+  zip_name: apache-nlpcraft-0.8.0.zip
+  zip_url: https://www.apache.org/dyn/closer.cgi?filename=incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.8.0.zip&action=download
+  sha256_url: https://downloads.apache.org/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.8.0.zip.sha256
+  pgp_url: https://downloads.apache.org/incubator/nlpcraft/nlpcraft/apache-nlpcraft-incubating-0.8.0.zip.asc
+  github_link: https://github.com/apache/incubator-nlpcraft/tree/v0.8.0
+  backward_compatible: no
+
 - version: 0.7.5
   date: Apr 30, 2021
   sdk: <i class="fab fa-fw fa-java"></i>11 - <div class="scala-16"></div>2.12
