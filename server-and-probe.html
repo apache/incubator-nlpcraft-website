@@ -136,14 +136,12 @@ id: server_and_probe
                         Make sure to provide correct path to <code>apache-nlpcraft-incubating-<b>{{site.latest_version}}</b>-all-deps.jar</code> file.
                     </li>
                     <li>
-                        Class <code>org.apache.nlpcraft.NCStart</code> is a common entry point for all NLPCraft runtime components.
-                    </li>
-                    <li>
-                        Class <code>org.apache.nlpcraft.NCStart</code> should be used to star REST server from IDE.
+                        Class <code>org.apache.nlpcraft.NCStart</code> is a common entry point for all NLPCraft runtime components and
+                        can be used to start REST server from IDE.
                     </li>
                 </ul>
                 <p>
-                    Parameters:
+                    <b>Parameters</b>:
                 </p>
                 <dl>
                     <dt>
@@ -172,6 +170,41 @@ id: server_and_probe
                         where <code>path</code> is an absolute path to the Ignite configuration file.
                     </dd>
                 </dl>
+                <p>
+                    <b>VM Options</b>:
+                </p>
+                <p>
+                    NLPCraft REST  server uses Apache Ignite 2.x as its distributed in-memory computing plane. Apache Ignite
+                    <a target=_new href="https://apacheignite.readme.io/docs/getting-started#running-ignite-with-java-11-and-later-versions">requires</a>
+                    the following additional JVM options to be used when running Apache Ignite 2.x on JDK 11:
+                </p>
+                <pre class="brush: text">
+                    --add-opens=java.base/jdk.internal.misc=ALL-UNNAMED
+                    --add-opens=java.base/sun.nio.ch=ALL-UNNAMED
+                    --add-opens=java.base/java.nio=ALL-UNNAMED
+                    --add-opens=java.base/java.io=ALL-UNNAMED
+                    --add-opens=java.base/java.util=ALL-UNNAMED
+                    --add-opens=java.base/java.lang=ALL-UNNAMED
+                    --add-opens=java.management/com.sun.jmx.mbeanserver=ALL-UNNAMED
+                    --add-opens=jdk.internal.jvmstat/sun.jvmstat.monitor=ALL-UNNAMED
+                    --add-opens=java.base/sun.reflect.generics.reflectiveObjects=ALL-UNNAMED
+                    --add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED
+                    --illegal-access=permit
+                </pre>
+                <p>
+                    <b>NOTES:</b>
+                </p>
+                <ul>
+                    <li>
+                        <a href="/tools/script.html"><code>nlpcraft.{sh|cmd}</code></a> script automatically uses
+                        these options for <code>start-server</code> command.
+                    </li>
+                </ul>
+                <div class="bq success">
+                    Since this list of required VM options is long it is rather impractical and inconvenient to use it from the
+                    command line. It is <b>highly recommended</b> to either use IDE or <a href="/tools/script.html"><code>nlpcraft.{sh|cmd}</code></a> script
+                    to manage REST server lifecycle.
+                </div>
             </div>
             <div class="tab-pane fade show" id="nav-srv-docker" role="tabpanel">
                 <p></p>
@@ -208,34 +241,6 @@ id: server_and_probe
             The abnormally long GC pauses (over 5s) can be caused by the excessive memory swapping performed by OS due to
             insufficient JVM heap memory.
         </p>
-        <h2 class="section-sub-title">Apache Ignite 2.x and JDK 11 <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
-        <p>
-            NLPCraft REST  server uses Apache Ignite 2.x as its distributed in-memory computing plane. Apache Ignite
-            <a target=_new href="https://apacheignite.readme.io/docs/getting-started#running-ignite-with-java-11-and-later-versions">recommends</a>
-            the following additional JVM options to be used when running Apache Ignite 2.x on JDK 11:
-        </p>
-        <pre class="brush: text">
---add-opens=java.base/jdk.internal.misc=ALL-UNNAMED
---add-opens=java.base/sun.nio.ch=ALL-UNNAMED
---add-opens=java.base/java.nio=ALL-UNNAMED
---add-opens=java.base/java.io=ALL-UNNAMED
---add-opens=java.base/java.util=ALL-UNNAMED
---add-opens=java.base/java.lang=ALL-UNNAMED
---add-opens=java.management/com.sun.jmx.mbeanserver=ALL-UNNAMED
---add-opens=jdk.internal.jvmstat/sun.jvmstat.monitor=ALL-UNNAMED
---add-opens=java.base/sun.reflect.generics.reflectiveObjects=ALL-UNNAMED
---add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED
---illegal-access=permit
-        </pre>
-        <p>
-            <b>NOTES:</b>
-        </p>
-        <ul>
-            <li>
-                <a href="/tools/script.html"><code>nlpcraft.{sh|cmd}</code></a> script automatically uses
-                these options for <code>start-server</code> command.
-            </li>
-        </ul>
     </section>
     <section id="probe">
         <h2 class="section-title">Data Probe <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
@@ -307,7 +312,7 @@ id: server_and_probe
                     </li>
                 </ul>
                 <p>
-                    Parameters:
+                    <b>Parameters:</b>
                 </p>
                 <dl>
                     <dt>
