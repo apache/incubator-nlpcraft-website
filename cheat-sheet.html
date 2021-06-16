@@ -56,7 +56,7 @@ id: cheat_sheet
                                 <pre class="brush: bash">
                                     $ unzip -q apache-nlpcraft-incubating-{{site.latest_version}}.zip
                                     $ cd apache-nlpcraft-incubating-{{site.latest_version}}
-                                    $ mvn clean package -DskipTests
+                                    $ mvn clean package -P examples -DskipTests
                                 </pre>
                                 <p>
                                     Built JARs and Javadoc will be located in <code>target</code> sub-folder.
@@ -75,7 +75,7 @@ id: cheat_sheet
                             <div class="tab-pane fade show" id="nav-install-github" role="tabpanel">
                                 <pre class="brush: bash">
                                     $ git clone https://github.com/apache/incubator-nlpcraft.git
-                                    $ mvn clean package
+                                    $ mvn clean package -P examples
                                 </pre>
                             </div>
                             <div class="tab-pane fade show" id="nav-install-maven" role="tabpanel">

@@ -221,7 +221,7 @@ layout: interior
             </pre>
             <b>Build NLPCraft:</b>
             <pre class="brush: bash">
-                $ mvn clean package -DskipTests
+                $ mvn clean package -P examples -DskipTests
             </pre>
             <p>
                 Built JARs and Javadoc will be located in <code>target</code> sub-folder.
@@ -339,7 +339,7 @@ layout: interior
             </p>
             <pre class="brush: bash">
             $ git clone https://github.com/apache/incubator-nlpcraft.git
-            $ mvn clean package
+            $ mvn clean package -P examples
             </pre>
             <div class="bq warn">
                 <p>
