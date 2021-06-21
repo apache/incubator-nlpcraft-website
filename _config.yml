@@ -63,7 +63,7 @@ exclude:
   - apis/javadoc-0.7.3
   - apis/javadoc-0.7.4
   - apis/javadoc-0.7.5
-  - javadoc
+  - apis/javadoc-0.8.0
   - .idea
   - _site
 
