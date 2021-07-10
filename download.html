@@ -118,6 +118,7 @@ layout: interior
                     <b>Supported <i class="fab fa-fw fa-java"></i>Java and <span class="scala-16"></span>Scala versions:</b>
                 </p>
                 <ul>
+                    <li>NLPCraft 0.9.0+ requires JDK 11 and Scala 2.13</li>
                     <li>NLPCraft 0.7.0+ requires JDK 11 and Scala 2.12</li>
                     <li>NLPCraft 0.5.0-0.6.2 requires JDK 8 and Scala 2.12</li>
                 </ul>
@@ -280,7 +281,7 @@ layout: interior
             <h2 class="section-title">Maven/Grape/SBT <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
             <p>
                 The easiest way to start using NLPCraft is to add Maven dependency (Grape, SBT, etc.) to your
-                project. NLPCraft project consists of a single module.
+                project. NLPCraft project consists of a single module (<code><b>{{site.latest_version}}</b></code> is the latest version).
             </p>
             <nav>
                 <div class="nav nav-tabs" role="tablist">
@@ -318,13 +319,14 @@ layout: interior
                     </pre>
                 </div>
             </div>
-            <div class="bq info">
+            <div class="bq warn">
                 <p>
-                    <b>Latest Version</b>
+                    <b>Missing <code>nlpcraft.{sh|cmd}</code> script</b>
                 </p>
                 <p>
-                    <code>{{site.latest_version}}</code> is the latest version. You can replace it
-                    with a desired version.
+                    Note that when use just Maven dependencies you will not get non-code components of the project
+                    such as <code>nlpcraft.{sh|cmd}</code> management script, SQL for various optional databases,
+                    local Javadoc, etc. If you need any of these components you will need to download full project.
                 </p>
             </div>
             <p>
