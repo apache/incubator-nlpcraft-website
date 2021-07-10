@@ -109,11 +109,11 @@ id: script
             <img style="max-width: 914px !important;" class="img-fluid" alt="" src="/images/cli7.png">
         </p>
         <p>
-            Use <span class="keyboard">Tab</span> key anytime for command auto-suggestion and auto-completion.<br/>
+            Use <span class="keyboard">Tab</span> key anytime for auto-completion for commands, parameters, file system paths, and model class names.
             Use <span class="keyboard">↑</span> and <span class="keyboard">↓</span> keys to scroll through command history.
         </p>
         <p>
-            To exit <code>bin/nlpcraft.{sh|cmd}</code> script in REPL mode type <code>quit</code>.
+            To exit <code>bin/nlpcraft.{sh|cmd}</code> script in REPL mode use <code>quit</code> command.
         </p>
     </section>
     <section id="os_commands">
@@ -165,6 +165,13 @@ id: script
                 <code>test-model</code> command runs auto-validator for your model automatically starting and stopping an
                 embedded data probe. Alternatively, <code>start-probe</code> and <code>ask</code> commands allow to manually
                 start the local data probe and issue REST requests.
+                <ul>
+                    <li>
+                        Note that you can use <code>retest-model</code> and <code>restart-probe</code> commands in REPL mode
+                        to rerun the latest model test or restart the probe with the last set of parameters accordingly avoiding
+                        the retyping of all required parameters.
+                    </li>
+                </ul>
             </li>
             <li>
                 Repeat steps 3 and 4 as you develop, test and debug your models and applications.

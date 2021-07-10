@@ -66,7 +66,7 @@ id: getting_started
         </p>
         <pre class="brush: bash">
             $ bin/nlpcraft.sh start-server
-            $ bin/nlpcraft.sh start-probe --cp=./build/nlpcraft-examples/weather/nlpcraft-example-weather-{{site.latest_version}}.jar
+            $ bin/nlpcraft.sh start-probe --cp=./build/nlpcraft-examples/weather/nlpcraft-example-weather-{{site.latest_version}}.jar --mdls=org.apache.nlpcraft.examples.weather.NCWeatherModel
         </pre>
         <p>
             At this point data probe and the REST server are started and connected.
@@ -94,7 +94,8 @@ id: getting_started
                 while in REPL mode whenever required.
             </li>
             <li>
-                Use <span class="keyboard">Tab</span> key anytime for command auto-suggestion and auto-completion.
+                Use <span class="keyboard">Tab</span> key anytime for auto-completion for commands, parameters,
+                file systems paths, and model class names.
                 Use <span class="keyboard">↑</span> and <span class="keyboard">↓</span> keys to scroll
                 through command history.
             </li>

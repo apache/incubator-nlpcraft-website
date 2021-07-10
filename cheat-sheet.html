@@ -256,8 +256,9 @@ id: cheat_sheet
                                 </p>
                                 <pre class="brush: bash">
                                     $ bin/nlpcraft.sh help -c=start-probe # Get help.
-                                    $ bin/nlpcraft.sh start-probe --cp=~/myapp/target/classes # Start probe with given model(s).
+                                    $ bin/nlpcraft.sh start-probe --cp=~/myapp/target/classes # Start probe with default configuration.
                                     $ bin/nlpcraft.sh start-probe --cp=~/myapp/target/classes --cfg=~/myapp/nlpcraft.conf --mdls=my.package.Model --jmvOpts="-ea -Xms2048m" --timeoutMins=5
+                                    > restart-probe # Restart the probe with the last set of parameters in REPL mode.
                                 </pre>
                                 <p>
                                     Stop the probe:
@@ -357,6 +358,7 @@ id: cheat_sheet
                                     $ bin/nlpcraft.sh help -c=test-model # Get help.
                                     $ bin/nlpcraft.sh test-model --cp=~/myapp/target/classes # Test all models in specified classpath.
                                     $ bin/nlpcraft.sh test-model --cp=~/myapp/target/classes --mdls=my.package.Model --jmvOpts="-ea -Xms2048m"
+                                    > retest-model # Rerun the last model test in REPL mode.
                                 </pre>
                             </div>
                             <div class="tab-pane fade show" id="nav-class" role="tabpanel">

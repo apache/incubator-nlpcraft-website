@@ -256,8 +256,9 @@ id: server_and_probe
         <div class="tab-content">
             <div class="tab-pane fade show active" id="nav-probe-script" role="tabpanel">
                 <pre class="brush: bash">
-                    $ bin/nlpcraft.sh start-probe --cp=/path/to/model/classes
+                    $ bin/nlpcraft.sh start-probe --cp=/path/to/model/classes # Use default configuration.
                     $ bin/nlpcraft.sh start-probe --cp=/path/to/model/classes --mdls=com.package.MyModel
+                    > restart-probe # Restart the probe with the last set of parameters in REPL mode.
                 </pre>
                 <p>
                     <b>NOTES:</b>
