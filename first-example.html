@@ -378,10 +378,10 @@ class LightSwitchKotlinModel : NCModelFileAdapter("lightswitch_model.yaml") {
                 target="javadoc"
                 href="/apis/latest/org/apache/nlpcraft/model/tools/test/NCTestAutoModelValidator.html">NCTestAutoModelValidator</a> takes one or more model IDs
             (or class names) and performs validation. Validation consists of starting an  <a href="/tools/embedded_probe.html">embedded probe</a> with a given model,
-            scanning for <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a> annotations
+            scanning for <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a> and
+            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSampleRef.html">@NCIntentSampleRef</a> annotations
             and their corresponding callback methods, submitting each sample input
-            sentences from <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a>
-            annotation and checking that resulting intent matches the intent the sample was attached to.
+            sentences from these annotation and checking that resulting intent matches the intent the sample was attached to.
             Note that auto-testing does not require any additional code to be written - the class gathers all required information from the model
             itself.
         </p>

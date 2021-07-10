@@ -31,9 +31,9 @@ fa_icon: fa-tools
         </p>
         <p>
             This tool is accessed via REST call. It is based on Google's BERT and Facebook fasttext
-            models. It requires <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a> annotations present on intent
-            callbacks. When invoked, the tool scans the given data model for intents and their
-            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a> annotations, and based on these samples tries to determine
+            models. It requires <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a> or
+            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSampleRef.html">@NCIntentSampleRef</a> annotations present on intent
+            callbacks. When invoked, the tool scans the given data model for intents and these annotations, and based on these samples tries to determine
             which synonyms are missing in the model.
         </p>
     </section>
@@ -276,8 +276,7 @@ fa_icon: fa-tools
             <p>
                 It is a good idea to run this tool periodically if you are actively changing the model. With dozens or hundreds
                 of model elements it is very hard to manually maintain quality set of synonyms. With a good list of
-                <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a>
-                samples for each intent this tool can be indispensable for easy maintenance of the synonyms.
+                user input samples for each intent this tool can be indispensable for easy maintenance of the synonyms.
             </p>
         </div>
     </section>

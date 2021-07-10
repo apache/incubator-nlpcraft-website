@@ -1090,6 +1090,18 @@ id: intent_matching
                         and and <a href="/tools/syn_tool.html">synonym suggesting</a> tools.
                     </td>
                 </tr>
+                <tr>
+                    <td><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSampleRef.html">@NCIntentSampleRef</a></td>
+                    <td>Callback method</td>
+                    <td>
+                        Annotation that allows to load samples of the input that associated intent should match on from the external
+                        sources like local file, classpath resource or URL.
+                        Although this annotation is optional it's <b>highly recommended</b> to provide at least several samples per intent. There's no upper
+                        limit on how many examples can be provided and typically the more examples the better for the built-in tools.
+                        These samples serve documentation purpose as well as used in built-in model <a href="/tools/test_framework.html">auto-validation</a>
+                        and and <a href="/tools/syn_tool.html">synonym suggesting</a> tools.
+                    </td>
+                </tr>
             </tbody>
         </table>
         <p>
