@@ -36,6 +36,17 @@ fa_icon: fa-tools
             callbacks. When invoked, the tool scans the given data model for intents and these annotations, and based on these samples tries to determine
             which synonyms are missing in the model.
         </p>
+        <div class="bq info">
+            <p>
+                <b>Single Word Synonyms</b>
+            </p>
+            <p>
+                Synonym suggester tool analyses only single word synonyms ignoring any multi-word synonyms. You
+                can often convert a named element with multi-word synonyms into a combination of multiple named
+                elements each with a single word synonyms using <a href="/data-model.html#dsl">Composable NERs</a>
+                technique.
+            </p>
+        </div>
     </section>
     <section id="usage">
         <h2 class="section-title">Usage <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
@@ -125,7 +136,8 @@ fa_icon: fa-tools
         <div class="tab-content">
             <div class="tab-pane fade show active" id="nav-script" role="tabpanel">
                 <pre class="brush: bash">
-                    $ bin/nlpcraft.sh sugsyn --mdlId=nlpcraft.alarm.ex
+                    $ bin/nlpcraft.sh help --cmd=sugsyn
+                    $ bin/nlpcraft.sh sugsyn --mdlId=nlpcraft.alarm.ex --minScore=0.5
                 </pre>
                 <p>
                     <b>NOTES:</b>
@@ -135,6 +147,11 @@ fa_icon: fa-tools
                         <code>mldId</code> parameter is only required if there is more than one model
                         deployed in the connected data probe. If the data probe has only one model you can
                         ommit this parameter.
+                    </li>
+                    <li>
+                        <code>minScore</code> - Optional minimum confidence score to include into the result, ranging from 0 to 1, default is 0.
+                        <code>minScore</code> of 0 will include all results, and <code>minScore</code> of 1 will include only results
+                        with the absolutely highest confidence score. Values between 0.5 and 0.7 is generally suggested.
                     </li>
                     <li>
                         <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for
@@ -188,7 +205,7 @@ fa_icon: fa-tools
                         <code>mdlId</code> - ID of the model to run synonym suggester on.
                     </li>
                     <li>
-                        <code>minScore</code> - Optional min score to include into the result, ranging from 0 to 1, default is 0.
+                        <code>minScore</code> - Optional minimum confidence score to include into the result, ranging from 0 to 1, default is 0.
                         <code>minScore</code> of 0 will include all results, and <code>minScore</code> of 1 will include only results
                         with the absolutely highest confidence score. Values between 0.5 and 0.7 is generally suggested.
                     </li>
