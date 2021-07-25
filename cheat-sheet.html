@@ -469,9 +469,9 @@ id: cheat_sheet
                                     Using <code>call</code> command (for REPL mode):
                                 </p>
                                 <pre class="brush: bash">
-                                    $ bin/nlpcraft.sh help -c=call # Get help.
-                                    $ bin/nlpcraft.sh call -p=signin --email=admin@admin.com --passwd=admin
-                                    $ bin/nlpcraft.sh call --path=ask/sync --acsTok=qwerty123456 --txt="User request" --mdlId=my.model.id  --data='{"data1": true, "data2": 123, "data3": "some text"}' --enableLog=false
+                                    > help -c=call # Get help.
+                                    > call -p=signin --email=admin@admin.com --passwd=admin
+                                    > call --path=ask/sync --acsTok=qwerty123456 --txt="User request" --mdlId=my.model.id  --data='{"data1": true, "data2": 123, "data3": "some text"}' --enableLog=false
                                 </pre>
                                 <p>
                                     Using <code>rest</code> command (for command line mode):
@@ -492,6 +492,9 @@ id: cheat_sheet
                 <b>NOTES:</b>
             </p>
             <ul>
+                <li>
+                    Use <span class="keyboard">Tab</span> key for auto-completion for commands, parameters, paths, and model class names.
+                </li>
                 <li>
                     <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for
                     <i class="fab fa-fw fa-linux"></i> and <code>nlpcraft.cmd</code>

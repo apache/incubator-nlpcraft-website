@@ -1221,7 +1221,8 @@ fn-metadata:
       <b>meta_tok</b>(p: String) ⇒ Any
     synopsis: Gets token metadata property <code><b>p</b></code>
     desc: |
-      Gets token metadata property <code><b>p</b></code>.
+      Gets token metadata property <code><b>p</b></code>. See
+      <a href="/data-model.html#meta">token metadata</a> for more information.
     usage: |
       // Result: 'nlpcraft:num:unit' token metadata property.
       meta_tok('nlpcraft:num:unit')
