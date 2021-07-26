@@ -65,7 +65,7 @@ layout: interior
                                     {% if news.author %}<div class="blog-author">{{ news.author }}</div>{% endif %}
                                     {% if news.linkedin_id %}<a target="linkedin" href="https://www.linkedin.com/in/{{ news.linkedin_id}}/"><i class="fab fa-fw fa-linkedin"></i></a>{% endif %}
                                     {% if news.medium_id %}<a target="medium" href="https://medium.com/@{{ news.medium_id}}"><i class="fab fa-fw fa-medium"></i></a>{% endif %}
-                                    {% if news.twitter_id %}<a target="twitter" href="https://twitter.com/{{ news.twitter_id}}"><i style="color: #3498db" class="fab fa-fw fa-twitter"></i></a>{% endif %}
+                                    {% if news.twitter_id %}<a target="twitter" href="https://twitter.com/{{ news.twitter_id}}"><i class="fab fa-fw fa-twitter"></i></a>{% endif %}
                                     <span class="text-nowrap">{{news.publish_date}}</span>
                                 </div>
                             </div>
@@ -96,7 +96,7 @@ layout: interior
                                     {% if news.author %}<div class="blog-author">{{ news.author }}</div>{% endif %}
                                     {% if news.linkedin_id %}<a target="linkedin" href="https://www.linkedin.com/in/{{ news.linkedin_id}}/"><i class="fab fa-fw fa-linkedin"></i></a>{% endif %}
                                     {% if news.medium_id %}<a target="medium" href="https://medium.com/@{{ news.medium_id}}"><i class="fab fa-fw fa-medium"></i></a>{% endif %}
-                                    {% if news.twitter_id %}<a target="twitter" href="https://twitter.com/{{ news.twitter_id}}"><i style="color: #3498db" class="fab fa-fw fa-twitter"></i></a>{% endif %}
+                                    {% if news.twitter_id %}<a target="twitter" href="https://twitter.com/{{ news.twitter_id}}"><i class="fab fa-fw fa-twitter"></i></a>{% endif %}
                                     <span class="text-nowrap">{{news.publish_date}}</span>
                                 </div>
                             </div>
@@ -105,7 +105,7 @@ layout: interior
                 </div>
                 <div class="tab-pane fade show" id="videos" role="tabpanel">
                     <br/>
-                    <div class="bq info">
+                    <div class="bq success">
                         <p>
                             Share & subscribe to NLPCraft <a target="youtube" href="https://www.youtube.com/channel/UCzEImY6BfDqCBMDDrdwNo2w">YouTube Channel</a> 👌
                         </p>
@@ -115,21 +115,25 @@ layout: interior
                         <div class="video-title">
                             {{ vid.title }}
                         </div>
-                        <div>
-                            <div class="video-description">
-                                {{ vid.description }}
+                        <div class="video-iframe">
+                            <iframe
+                                    width="514"
+                                    height="289"
+                                    src="{{ vid.embed_url }}"
+                                    title="{{ vid.title}}"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen>
+                            </iframe>
+                            <div>
+                                <p>
+                                    <b>Description:</b>
+                                </p>
+                                <p class="video-description">
+                                    {{ vid.description }}
+                                </p>
                             </div>
                         </div>
-                        <iframe
-                                width="800"
-                                height="450"
-                                src="{{ vid.embed_url }}"
-                                title="{{ vid.title}}"
-                                frameborder="0"
-                                modestbranding="1"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen>
-                        </iframe>
                         <div class="video-footer">
                             {{ vid.publish_date }} <span class="sep">•</span> {{ vid.duration }}min
                         </div>

@@ -62,8 +62,19 @@ img.avatar-img {
         .video-block, .blog-block {
             margin-bottom: 50px;
         }
-        .video-block, .blog-block:last-child {
+        .video-block:last-child, .blog-block:last-child {
             margin-bottom: 75px;
+        }
+
+        .video-block {
+            iframe {
+                min-width: 560px;
+                margin-right: 20px;
+            }
+        }
+
+        .video-iframe {
+            display: inline-flex;
         }
 
         .video-footer {
@@ -94,7 +105,6 @@ img.avatar-img {
             font-weight: 400;
             letter-spacing: 0.02em;
             margin-bottom: 10px;
-            max-width: 800px;
         }
 
         .blog-excerpt {
