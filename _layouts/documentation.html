@@ -84,6 +84,13 @@ layout: interior
                 {% endif %}
             </li>
             <li>
+                {% if page.id == "short_term_memory" %}
+                <a class="active" href="/short-term-memory.html">Short-Term Memory</a>
+                {% else %}
+                <a href="/short-term-memory.html">Short-Term Memory</a>
+                {% endif %}
+            </li>
+            <li>
                 {% if page.id == "rest" %}
                 <a class="active" href="/using-rest.html">REST API</a>
                 {% else %}
