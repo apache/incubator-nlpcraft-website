@@ -1,0 +1,36 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+- title: NLPCraft - Download, Install & Verify
+  embed_url: https://www.youtube.com/embed/OYhc6R0b1GA
+  publish_date: July 6, 2021
+  duration: "7:48"
+  description: >-
+    Apache NLPCraft is a Java-based open source library for adding natural language interface to modern applications,
+    enabling people to interact with your products using voice or text. In this quick video we’ll cover the download,
+    installation, and running one of the built in examples to verify our installation.
+
+- title: NLPCraft - Breaking Years Of Dogma In NLP
+  embed_url: https://www.youtube.com/embed/O7iK0AXvcJ8
+  publish_date: July 25, 2021
+  duration: "34:42"
+  description: >-
+    This is the recording of the presentation from ApacheCon Asia 2021.
+    This presentation is split into two parts. In the first 20 minutes we will be talking
+    about what NLPCraft is and is not, what are some of its unique ideas, how it works at a high level,
+    and how it is different from many existing approaches. In the second part, we will do a full live coding
+    demonstration where we will build a fully functional application that would have a natural language interface to it.

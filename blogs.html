@@ -1,5 +1,5 @@
 ---
-active_crumb: Blog
+active_crumb: Learn
 layout: interior
 ---
 
@@ -21,7 +21,7 @@ layout: interior
 -->
 
 <h1 class="page-title">
-    <span><i class="fas fa-fw fa-blog"></i> {{ page.active_crumb }}</span>
+    <span><i class="fas fa-fw fa-book-open"></i> {{ page.active_crumb }}</span>
 </h1>
 
 <div id="blogs" class="three-cols-container">
@@ -37,8 +37,9 @@ layout: interior
         <div id="blogs-container" class="row">
             <nav>
                 <div class="nav nav-tabs" role="tablist">
-                    <a class="nav-item nav-link active" data-toggle="tab" href="#en-blogs" role="tab">English Blogs</a>
-                    <a class="nav-item nav-link" data-toggle="tab" href="#ru-blogs" role="tab">Russian Blogs <img alt="" style="vertical-align: middle" src="/images/ru-flag-16.png"></a>
+                    <a class="nav-item nav-link active" data-toggle="tab" href="#en-blogs" role="tab">English Blog</a>
+                    <a class="nav-item nav-link" data-toggle="tab" href="#ru-blogs" role="tab">Русский Блог </a>
+                    <a class="nav-item nav-link" data-toggle="tab" href="#videos" role="tab">Videos <i style="color: #f00" class="fab fw fa-youtube"></i></a>
                 </div>
             </nav>
             <div class="tab-content">
@@ -100,6 +101,39 @@ layout: interior
                                 </div>
                             </div>
                         {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="tab-pane fade show" id="videos" role="tabpanel">
+                    <br/>
+                    <div class="bq info">
+                        <p>
+                            Share & subscribe to NLPCraft <a target="youtube" href="https://www.youtube.com/channel/UCzEImY6BfDqCBMDDrdwNo2w">YouTube Channel</a> 👌
+                        </p>
+                    </div>
+                    {% for vid in site.data.videos %}
+                    <div class="video-block">
+                        <div class="video-title">
+                            {{ vid.title }}
+                        </div>
+                        <div>
+                            <div class="video-description">
+                                {{ vid.description }}
+                            </div>
+                        </div>
+                        <iframe
+                                width="800"
+                                height="450"
+                                src="{{ vid.embed_url }}"
+                                title="{{ vid.title}}"
+                                frameborder="0"
+                                modestbranding="1"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                        </iframe>
+                        <div class="video-footer">
+                            {{ vid.publish_date }} <span class="sep">•</span> {{ vid.duration }}min
+                        </div>
+                    </div>
                     {% endfor %}
                 </div>
             </div>

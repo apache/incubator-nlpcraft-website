@@ -59,18 +59,22 @@ img.avatar-img {
 
 #blogs {
     #blogs-container {
-        .blog-block {
+        .video-block, .blog-block {
             margin-bottom: 50px;
         }
-        .blog-block:last-child {
+        .video-block, .blog-block:last-child {
             margin-bottom: 75px;
         }
 
-        a, a:hover, a:active, i.fas {
-            color: $color-asphalt;
+        .video-footer {
+            font-size: 90%;
+
+            .sep {
+                color: #cbcbcb;
+            }
         }
 
-        .blog-title {
+        .video-title, .blog-title {
             font-size: 24px;
             letter-spacing: 0.02em;
             font-weight: 400;
@@ -84,11 +88,20 @@ img.avatar-img {
             }
         }
 
+        .video-description {
+            font-size: 15px;
+            color: #999;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            margin-bottom: 10px;
+            max-width: 800px;
+        }
+
         .blog-excerpt {
             font-size: 15px;
             color: #999;
             font-weight: 400;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.04em;
             margin-bottom: 20px;
 
             a {
