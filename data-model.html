@@ -473,7 +473,7 @@ intents:
         </div>
     </section>
     <section id="ne">
-        <h2 class="section-sub-title">Named Entities <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <h2 class="section-title">Named Entities <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             Named entity, also known as a model element or a token, is one of the main a components defined by the NLPCraft data model.
             A named entity is one or more individual words that have a consistent semantic meaning and typically denote a
@@ -522,34 +522,26 @@ intents:
         </table>
         <p>
             In most cases named entities will have associated <em>normalized value</em>. It is especially important for named entities that have many
-            different notational forms such as time and date, currency, geographical locations, etc. For example, <code>New York</code>,
+            notational forms such as time and date, currency, geographical locations, etc. For example, <code>New York</code>,
             <code>New York City</code> and <code>NYC</code> all refer to the same "New York City, NY USA" location which is a standard normalized form.
         </p>
         <p>
-            The process of detecting named entities is called Named Entity Recognition (NER). There are many
-            different ways of how a certain named entity can be detected: through list of synonyms, by name, rule-based or by using
+            The process of detecting named entities is called Named Entity Recognition (NER). There are many ways of how a certain named entity can be detected: through list of synonyms, by name, rule-based or by using
             statistical techniques like neural networks with large corpus of predefined data. NLPCraft natively supports synonym-based
-            named entities definition as well as the ability to compose compose new named entities through powerful <a href="/intent-matching.html">Intent Definition Language</a> (IDL)
-            combining other named entities including named entities from external projects such OpenNLP, spaCy or Stanford CoreNLP.
+            named entities definition as well as the ability to compose new named entities through powerful <a href="/intent-matching.html">Intent Definition Language</a> (IDL)
+            combining other named entities including named entities from
+            <a href="/integrations.html">external project</a> such OpenNLP, spaCy or Stanford CoreNLP.
         </p>
         <p>
             Named entities allow you to abstract from basic linguistic forms like nouns and verbs to deal with the higher level semantic
             abstractions like geographical location or time when you are trying to understand the meaning of the sentence.
-            One of the main goals of named entities is to act as an input ingredients for intent matching.
-        </p>
-        <p>
-            Read more in-depth about named entities <a href="data-model.html">here</a>.
+            One of the main goals of named entities is to act as an input ingredients for <a href="/intent-matching.html">intent matching</a>.
         </p>
     </section>
     <section id="elements">
         <h2 class="section-title">Model Elements <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             Data model element defines a named entity that will be detected in the user input.
-            A model element typically is one or more individual words that have a consistent semantic meaning and typically denote a
-            real-world object, such as persons, locations, number, date and time, organizations, products, etc. Such
-            object can be abstract or have a physical existence.
-        </p>
-        <p>
             Model element is an implementation of <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCElement.html">NCElement</a>
             interface. <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModel.html">NCModel</a> provides
             its elements via <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getElements()">getElements()</a> method.
@@ -2817,6 +2809,7 @@ intents:
         <li><a href="#dataflow">Model Dataflow</a></li>
         <li><a href="#lifecycle">Model Lifecycle</a></li>
         <li><a href="#config">Model Configuration</a></li>
+        <li><a href="#ne">Named Entities</a></li>
         <li><a href="#elements">Model Elements</a></li>
         <li><a href="#dsl">IDL Expression</a></li>
         <li><a href="#programmable_ners">Programmable NERs</a></li>
