@@ -357,6 +357,8 @@ $bq-success-border-color: $brand-success;
 .max-width {
     width: 100%;
 }
+
+.not-code {}
 a[target=javadoc]:not(.not-code) {
     font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     word-break: keep-all;
@@ -370,7 +372,7 @@ pre.console {
 }
 
 code {
-    font-size: 100%;
+    font-size: 105%;
     white-space: nowrap !important;
     color: #C0392B;
 

@@ -182,6 +182,7 @@ id: intent_matching
                             <thead>
                                 <tr>
                                     <td>Option</td>
+                                    <td>Type</td>
                                     <td>Description</td>
                                     <td>Default Value</td>
                                 </tr>
@@ -189,6 +190,7 @@ id: intent_matching
                             <tbody>
                                 <tr>
                                     <td><code>ordered</code></td>
+                                    <td><code>Boolean</code></td>
                                     <td>
                                         Whether or not this intent is ordered.
                                         For ordered intent the specified order of terms is important for matching this intent.
@@ -201,6 +203,7 @@ id: intent_matching
                                 </tr>
                                 <tr>
                                     <td><code>unused_free_words</code></td>
+                                    <td><code>Boolean</code></td>
                                     <td>
                                         Whether or not free words - that are unused by intent matching - should be
                                         ignored (value <code>true</code>) or reject the intent match (value <code>false</code>).
@@ -212,6 +215,7 @@ id: intent_matching
                                 </tr>
                                 <tr>
                                     <td><code>unused_sys_toks</code></td>
+                                    <td><code>Boolean</code></td>
                                     <td>
                                         Whether or not unused <a href="/data-model.html#builtin">system tokens</a> should be
                                         ignored (value <code>true</code>) or reject the intent match (value <code>false</code>).
@@ -221,16 +225,18 @@ id: intent_matching
                                 </tr>
                                 <tr>
                                     <td><code>unused_usr_toks</code></td>
+                                    <td><code>Boolean</code></td>
                                     <td>
                                         Whether or not unused user-defined tokens should be
                                         ignored (value <code>true</code>) or reject the intent match (value <code>false</code>).
                                         By default, tne unused user tokens are not ignored since it is assumed that user would
-                                        defined his or her own tokens on purpose and construct the intent logic appropriate.
+                                        define his or her own tokens on purpose and construct the intent logic appropriate.
                                     </td>
                                     <td><code>false</code></td>
                                 </tr>
                                 <tr>
                                     <td><code>allow_stm_only</code></td>
+                                    <td><code>Boolean</code></td>
                                     <td>
                                         Whether or not the intent can match when all of the matching tokens came from STM.
                                         By default, this special case is disabled (value <code>false</code>). However, in specific intents
