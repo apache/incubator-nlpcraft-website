@@ -472,6 +472,75 @@ intents:
             </div>
         </div>
     </section>
+    <section id="ne">
+        <h2 class="section-sub-title">Named Entities <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <p>
+            Named entity, also known as a model element or a token, is one of the main a components defined by the NLPCraft data model.
+            A named entity is one or more individual words that have a consistent semantic meaning and typically denote a
+            real-world object, such as persons, locations, number, date and time, organizations, products, etc. Such
+            object can be abstract or have a physical existence.
+        </p>
+        <p>
+            For example, in the following sentence:
+        </p>
+        <p>
+            <i class="fa fa-fw fa-angle-right"></i><code>Meeting is set for 12pm today in San Francisco.</code>
+        </p>
+        <p>
+            the following named entities can be detected:
+        </p>
+        <table class="gradient-table">
+            <thead>
+            <tr>
+                <th>Words</th>
+                <th>Type</th>
+                <th>Normalized Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><code>Meeting</code></td>
+                <td>CUSTOM_OBJ</td>
+                <td>meeting</td>
+            </tr>
+            <tr>
+                <td><code>set</code></td>
+                <td>CUSTOM_ACT</td>
+                <td>set</td>
+            </tr>
+            <tr>
+                <td><code>12pm today</code></td>
+                <td>DATE_TIME</td>
+                <td>12:00 September 1, 2019 GMT</td>
+            </tr>
+            <tr>
+                <td><code>San Francisco</code></td>
+                <td>GEO_CITY</td>
+                <td>San Francisco, CA USA</td>
+            </tr>
+            </tbody>
+        </table>
+        <p>
+            In most cases named entities will have associated <em>normalized value</em>. It is especially important for named entities that have many
+            different notational forms such as time and date, currency, geographical locations, etc. For example, <code>New York</code>,
+            <code>New York City</code> and <code>NYC</code> all refer to the same "New York City, NY USA" location which is a standard normalized form.
+        </p>
+        <p>
+            The process of detecting named entities is called Named Entity Recognition (NER). There are many
+            different ways of how a certain named entity can be detected: through list of synonyms, by name, rule-based or by using
+            statistical techniques like neural networks with large corpus of predefined data. NLPCraft natively supports synonym-based
+            named entities definition as well as the ability to compose compose new named entities through powerful <a href="/intent-matching.html">Intent Definition Language</a> (IDL)
+            combining other named entities including named entities from external projects such OpenNLP, spaCy or Stanford CoreNLP.
+        </p>
+        <p>
+            Named entities allow you to abstract from basic linguistic forms like nouns and verbs to deal with the higher level semantic
+            abstractions like geographical location or time when you are trying to understand the meaning of the sentence.
+            One of the main goals of named entities is to act as an input ingredients for intent matching.
+        </p>
+        <p>
+            Read more in-depth about named entities <a href="data-model.html">here</a>.
+        </p>
+    </section>
     <section id="elements">
         <h2 class="section-title">Model Elements <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
