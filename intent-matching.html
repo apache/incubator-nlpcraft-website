@@ -32,20 +32,20 @@ id: intent_matching
     <section id="intent">
         <h2 class="section-title">Intent <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
-            The goal of the data model implementation is to take the input utterance and
+            The goal of the data model implementation is to take the user input text and
             match it to a specific user-defined code that will execute for that input. The mechanism that
             provides this matching is called an <em>intent</em>.
         </p>
         <p>
-            The intent refers to the goal that the end-user had in mind when speaking or typing the input utterance.
-            The intent has a <em>declarative part or template</em> written in <a href="#idl">Intent Definition Language</a> that describes
-            a particular form or type of the input utterance.
+            The intent generally refers to the goal that the end-user had in mind when speaking or typing the input utterance.
+            The intent has a <em>declarative part or template</em> written in <a href="#idl">Intent Definition Language</a> that strictly defines
+            a particular form the user input.
             Intent is also <a href="#binding">bound</a> to a callback method that will be executed when that intent, i.e. its template, is detected as the best match
-            for a given input utterance. A typical data model will have multiple intents defined for each form of the expected user input
+            for a given input input. A typical data model will have multiple intents defined for each form of the expected user input
             that model wants to react to.
         </p>
         <p>
-            For example, a data model for banking chat bot or analytics application can have multiple intents for each domain-specific group of utterances such as
+            For example, a data model for banking chat bot or analytics application can have multiple intents for each domain-specific group of input such as
             opening an account, closing an account, transferring money, getting statements, etc.
         </p>
         <p>
@@ -58,7 +58,7 @@ id: intent_matching
         <h2 class="section-title">IDL - Intent Definition Language <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             NLPCraft intents are written in Intent Definition Language (IDL).
-            IDL is a relatively straightforward and simple language. For example,
+            IDL is a relatively straightforward declarative language. For example,
             here's a simple intent <code>x</code> with two terms <code>a</code> and <code>b</code>:
         </p>
         <pre class="brush: idl">
@@ -67,40 +67,12 @@ id: intent_matching
                 term(b)={has(tok_groups(), "my_group")}
         </pre>
         <p>
-            IDL intent defines a match between the parsed input utterance, i.e. the collection of
+            IDL intent defines a match between the parsed user input represented as the collection of
             <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html">tokens</a>,
-            and the user-define callback method. To accomplish that, IDL through its <a href="#idl_functions">functions</a> provides
-            access to the following information:
+            and the user-define callback method. IDL intents are <a href="#binding">bound</a> to their callbacks via <a href="#binding">Java
+            annotation</a> and can be <a href="#idl_location">located</a> in the same Java annotations or placed in model YAML/JSON file
+            as well as in external <code>*.idl</code> files.
         </p>
-        <ul>
-            <li>
-                Basic <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html">token properties</a> such as token ID,
-                group membership, aliases, token parent and ancestry hierarchy,
-                token's constituent part tokens, abstract flag, etc.
-            </li>
-            <li>
-                NLP <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html">token properties</a> - stem,
-                lemma, PoS tag, and variety of computed boolean flags
-                such as stop word, swear word, free word, known dictionary word,
-                bracketed, quoted, etc.
-            </li>
-            <li>
-                <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html">Information</a> about
-                how particular token was found in the input, i.e. its sparsity value, permutation
-                flag, synonym value, indices in the original text, etc.
-            </li>
-            <li>
-                Additional token metadata provided by NER providers. For example, for geographical token additional metadata
-                can provide population, postal codes, latitude and longitude coordinates, and other demographic information.
-            </li>
-            <li>
-                Additional metadata about user and company that made the input request like admin status, signup date,
-                first and last names, avatars, emails, company name, website, address, etc.
-            </li>
-            <li>
-                System information such as current date and time, OS properties, system and environment variables.
-            </li>
-        </ul>
         <p>
             You can review the formal
             <a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft/src/main/scala/org/apache/nlpcraft/model/intent/compiler/antlr4/NCIdl.g4">ANTLR4 grammar</a> for IDL,
@@ -133,7 +105,7 @@ id: intent_matching
                 Numeric literals use Java string conversions.
             </li>
             <li>
-                IDL has only 10 reserved keywords: <code>flow fragment import intent meta ordered term true false null</code>
+                IDL has only 10 reserved keywords: <code>flow fragment import intent meta options term true false null</code>
             </li>
             <li>
                 Identifiers and literals can use the same Unicode space as Java.
@@ -180,8 +152,14 @@ id: intent_matching
                         }
 
                     intent=xb
+                        options={
+                            'ordered': false,
+                            'unused_free_words': true,
+                            'unused_sys_toks': true,
+                            'unused_usr_toks': false,
+                            'allow_stm_only': false
+                        }
                         flow=/#flowModelMethod/
-                        ordered=true
                         term(a)=/org.mypackage.MyClass#termMethod/?
                         fragment(frag, {'p1': 25, 'p2': {'a': false}})
                 </pre>
@@ -195,19 +173,78 @@ id: intent_matching
                         <code>xa</code> and <code>xb</code> are the mandatory intent IDs. Intent ID is any arbitrary unique string matching the following lexer template:
                         <code>(UNI_CHAR|UNDERSCORE|LETTER|DOLLAR)+(UNI_CHAR|DOLLAR|LETTER|[0-9]|COLON|MINUS|UNDERSCORE)*</code>
                     </dd>
-                    <dt><code>ordered=true</code> <sup><small>line 14</small></sup></dt>
+                    <dt><code>options={...}</code> <sup><small>line 13</small></sup></dt>
                     <dd>
                         <em>Optional.</em>
-                        Whether or not this intent is ordered. Default is <code>false</code>.
-                        For ordered intent the specified order of terms is important for matching this intent.
-                        If intent is unordered its terms can be found in any order in the input text.
-                        Note that ordered intent significantly limits the user input it can match. In most cases
-                        the ordered intent is only applicable to processing of a formal grammar (like a programming language)
-                        and mostly unsuitable for the natural language processing.
+                        Matching options specified as JSON object. Entire JSON object as well as each individual JSON field is optional. Allows
+                        to customize the matching algorithm for this intent:
+                        <table class="gradient-table">
+                            <thead>
+                                <tr>
+                                    <td>Option</td>
+                                    <td>Description</td>
+                                    <td>Default Value</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>ordered</code></td>
+                                    <td>
+                                        Whether or not this intent is ordered.
+                                        For ordered intent the specified order of terms is important for matching this intent.
+                                        If intent is unordered its terms can be found in any order in the input text.
+                                        Note that ordered intent significantly limits the user input it can match. In most cases
+                                        the ordered intent is only applicable to processing of a formal grammar (like a programming language)
+                                        and mostly unsuitable for the natural language processing.
+                                    </td>
+                                    <td><code>false</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>unused_free_words</code></td>
+                                    <td>
+                                        Whether or not free words - that are unused by intent matching - should be
+                                        ignored (value <code>true</code>) or reject the intent match (value <code>false</code>).
+                                        Free words are the words in the user input that were not recognized as any user or system
+                                        token. Typically, for the natural language comprehension it is safe to ignore free
+                                        words. For the formal grammar, however, this could make the matching logic too loose.
+                                    </td>
+                                    <td><code>true</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>unused_sys_toks</code></td>
+                                    <td>
+                                        Whether or not unused <a href="/data-model.html#builtin">system tokens</a> should be
+                                        ignored (value <code>true</code>) or reject the intent match (value <code>false</code>).
+                                        By default, tne unused system tokens are ignored.
+                                    </td>
+                                    <td><code>true</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>unused_usr_toks</code></td>
+                                    <td>
+                                        Whether or not unused user-defined tokens should be
+                                        ignored (value <code>true</code>) or reject the intent match (value <code>false</code>).
+                                        By default, tne unused user tokens are not ignored since it is assumed that user would
+                                        defined his or her own tokens on purpose and construct the intent logic appropriate.
+                                    </td>
+                                    <td><code>false</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>allow_stm_only</code></td>
+                                    <td>
+                                        Whether or not the intent can match when all of the matching tokens came from STM.
+                                        By default, this special case is disabled (value <code>false</code>). However, in specific intents
+                                        designed for free-form language comprehension scenario, like, for example, SMS messaging - you
+                                        may want to enable this option.
+                                    </td>
+                                    <td><code>false</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </dd>
                     <dt>
                         <code>flow="^(?:login)(^:logout)*$"</code> <sup><small>line 2</small></sup><br/>
-                        <code>flow=/#flowModelMethod/</code> <sup><small>line 13</small></sup>
+                        <code>flow=/#flowModelMethod/</code> <sup><small>line 20</small></sup>
                     </dt>
                     <dd>
                         <p>
@@ -276,7 +313,7 @@ id: intent_matching
                         <code style="padding-left: 20px">@usrTypes = meta_model('user_types')</code><br>
                         <code style="padding-left: 20px">(tokId == 'order' || tokId == 'order_cancel') && has_all(@usrTypes, list(1, 2, 3))</code><br>
                         <code>}</code><br>
-                        <code>term(a)=/org.mypackage.MyClass#termMethod/?</code> <sup><small>line 15</small></sup>
+                        <code>term(a)=/org.mypackage.MyClass#termMethod/?</code> <sup><small>line 21</small></sup>
                     </dt>
                     <dd>
                         <p>
@@ -392,7 +429,7 @@ id: intent_matching
                         </p>
                     </dd>
                     <dt>
-                        <code>fragment(frag, {'p1': 25, 'p2': {'a': false}})</code> <sup><small>line 16 </small></sup><br>
+                        <code>fragment(frag, {'p1': 25, 'p2': {'a': false}})</code> <sup><small>line 22 </small></sup><br>
                     </dt>
                     <dd>
                         <p>
@@ -507,7 +544,7 @@ id: intent_matching
         </p>
         <h2 class="section-sub-title">Intent Examples <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
-            Here's number of intent examples with explanations:
+            Here's few of intent examples with explanations:
         </p>
         <p>
             <b>Example 1:</b>
@@ -526,8 +563,11 @@ id: intent_matching
                 Intent uses default conversational support (<code>true</code>) and default order (<code>false</code>).
             </li>
             <li>
-                Intent has two conversational terms that have to be found for the intent to match. Note that second
+                Intent has two conversational terms (<code>~</code>) that have to be found for the intent to match. Note that second
                 term is optional as it has <code>[0,2]</code> quantifier.
+            </li>
+            <li>
+                Both terms have to be found in the user input for the intent to match.
             </li>
             <li>
                 First term matches any single token with ID <code>x:id</code>.
@@ -564,7 +604,10 @@ id: intent_matching
                 <code>id2</code> somewhere in the history of previously matched intents in the course of the current conversation.
             </li>
             <li>
-                Intent has two non-conversational terms. Both terms have to be present only once (their implicit quantifiers are <code>[1,1]</code>).
+                Intent has two non-conversational terms (<code>=</code>). Both terms have to be present only once (their implicit quantifiers are <code>[1,1]</code>).
+            </li>
+            <li>
+                Both terms have to be found in the user input for the intent to match.
             </li>
             <li>
                 First term should be a token with ID <code>mytok</code> and have metadata property <code>score</code> of type
@@ -632,7 +675,7 @@ id: intent_matching
                 <tr><td><code>java.lang.Boolean</code></td><td><code>Boolean</code></td><td>You can use <code><b>true</b></code> or <code><b>false</b></code> literals.</td></tr>
                 <tr><td><code>java.util.List&lt;T&gt;</code></td><td><code>List[T]</code></td><td>Use <code>list(...)</code> IDL function to create new list.</td></tr>
                 <tr><td><code>java.util.Map&lt;K,V&gt;</code></td><td><code>Map[K,V]</code></td><td></td></tr>
-                <tr><td><code><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken">NCToken</a></code></td><td><code>Token</code></td><td></td></tr>
+                <tr><td><code><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html">NCToken</a></code></td><td><code>Token</code></td><td></td></tr>
                 <tr><td><code>java.lang.Object</code></td><td><code>Any</code></td><td>Any of the supported types above. Use <code><b>null</b></code> literal for null value.</td></tr>
             </tbody>
         </table>

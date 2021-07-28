@@ -113,7 +113,6 @@ publish_date: June 3, 2021
     <pre class="brush: idl">
         intent=xb
            flow=/#flowModelMethod/
-           ordered=true
            term(a)=/org.mypackage.MyClass#termMethod/?
            fragment(frag)
     </pre>
@@ -174,7 +173,7 @@ publish_date: June 3, 2021
         NLPCraft IDL has only 10 keywords: <code>flow, fragment, import, intent, meta, ordered, term, true, false, null.</code>
     </p>
     <ul class="fixed">
-        <li><code>intent, flow, fragment, meta, ordered, term</code> are parts of the intent definition.</li>
+        <li><code>intent, flow, fragment, meta, options, term</code> are parts of the intent definition.</li>
         <li><code>fragment</code> keyword is also can be used to create named terms lists to include in intent definitions (a-la macros).</li>
         <li><code>import</code> - required for including external files with fragment, intent or imports statements.</li>
         <li><code>true, false, null</code> - used when working with built-in functions.</li>
@@ -416,12 +415,6 @@ publish_date: June 3, 2021
             <p><b>Intent Metadata</b></p>
             <p>
                 Optional element. A additional dataset that can be used by term predicates presented in JSON format.
-            </p>
-        </li>
-        <li>
-            <p><b>Ordered Flag</b></p>
-            <p>
-                Optional element. The default is <code>false</code>. Defines whether or not the order of the terns in the intent is important.
             </p>
         </li>
     </ul>
