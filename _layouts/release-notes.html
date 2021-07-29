@@ -33,12 +33,7 @@ layout: default
 
         <div class="three-cols-container">
             <div class="col-md-2 first-column">
-                <ul class="side-nav">
-                    <li class="side-nav-title">Documentation</li>
-                    <li><a href="/docs.html">Overview</a></li>
-                    <li><a href="/installation.html">Installation</a></li>
-                    <li><a href="/getting-started.html">Getting Started</a></li>
-                </ul>
+                {% include left-side-menu.html %}
             </div>
             <div class="col-md-8 second-column">
                 {{ content }}
