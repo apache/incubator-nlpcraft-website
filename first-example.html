@@ -25,7 +25,8 @@ id: first_example
     <section id="setup">
         <h2 class="section-title">Overview <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
-            Let's develop a house light switch prototype that can be controlled through the natural language.
+            Let's develop the first NLPCraft example to familiarize ourselves with the main workflow of NLPCraft.
+            We'll put together a NLI-powered home light switch prototype that can be controlled through the natural language.
             We'll keep <a target=_ href="https://cloud.google.com/speech-to-text/">speech-to-text conversion</a> and integration
             with <a target=_    href="https://developer.apple.com/homekit/">HomeKit</a> or
             <a href="https://www.arduino.cc/" target=_>Ardunio</a> outside of this example - and concentrate just on understanding
@@ -76,6 +77,11 @@ id: first_example
                 for <i class="fab fa-fw fa-windows"></i>.
             </li>
         </ul>
+        <div class="bq info">
+            <p>
+                <i class="fas fa-lightbulb"></i> Learn more about <a href="/tools/script.html">NLPCraft CLI</a>.
+            </p>
+        </div>
     </section>
     <section id="data_model">
         <h2 class="section-title">Data Model <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
@@ -89,64 +95,89 @@ id: first_example
             Open <code>src/main/resources/<b>light_switch.yaml</b></code> file and replace its content with
             the following model declaration:
         </p>
-        <pre class="brush: js, highlight: [16, 23, 31, 42]">
-            id: "nlpcraft.lightswitch.ex"
-            name: "Light Switch Example Model"
-            version: "1.0"
-            description: "NLI-powered light switch example model."
-            macros:
-              - name: "&lt;ACTION&gt;"
-                macro: "{turn|switch|dial|let|set|get|put}"
-              - name: "&lt;KILL&gt;"
-                macro: "{shut|kill|stop|eliminate}"
-              - name: "&lt;ENTIRE_OPT&gt;"
-                macro: "{entire|full|whole|total|_}"
-              - name: "&lt;LIGHT&gt;"
-                macro: "{all|_} {it|them|light|illumination|lamp|lamplight}"
-            enabledBuiltInTokens: [] # This example doesn't use any built-in tokens.
-            elements:
-              - id: "ls:loc"
-                description: "Location of lights."
-                synonyms:
-                  - "&lt;ENTIRE_OPT&gt; {upstairs|downstairs|_} {kitchen|library|closet|garage|office|playroom|{dinning|laundry|play} room}"
-                  - "&lt;ENTIRE_OPT&gt; {upstairs|downstairs|_} {master|kid|children|child|guest|_} {bedroom|bathroom|washroom|storage} {closet|_}"
-                  - "&lt;ENTIRE_OPT&gt; {house|home|building|{1st|first} floor|{2nd|second} floor}"
-            
-              - id: "ls:on"
-                groups:
-                  - "act"
-                description: "Light switch ON action."
-                synonyms:
-                  - "&lt;ACTION&gt; {on|up|_} &lt;LIGHT&gt; {on|up|_}"
-                  - "&lt;LIGHT&gt; {on|up}"
-            
-              - id: "ls:off"
-                groups:
-                  - "act"
-                description: "Light switch OFF action."
-                synonyms:
-                  - "&lt;ACTION&gt; &lt;LIGHT&gt; {off|out}"
-                  - "{&lt;ACTION&gt;|&lt;KILL&gt;} {off|out} &lt;LIGHT&gt;"
-                  - "&lt;KILL&gt; &lt;LIGHT&gt;"
-                  - "&lt;LIGHT&gt; &lt;KILL&gt;"
-                  - "no &lt;LIGHT&gt;"
-            intents:
-              - "intent=ls term(act)={has(tok_groups(), 'act')} term(loc)={tok_id() == 'ls:loc'}*"
+        <pre class="brush: js, highlight: [6, 22, 23, 26, 33, 41, 52]">
+id: "nlpcraft.lightswitch.ex"
+name: "Light Switch Example Model"
+version: "1.0"
+description: "NLI-powered light switch example model."
+
+macros:
+  - name: "&lt;ACTION&gt;"
+    macro: "{turn|switch|dial|let|set|get|put}"
+  - name: "&lt;KILL&gt;"
+    macro: "{shut|kill|stop|eliminate}"
+  - name: "&lt;ENTIRE_OPT&gt;"
+    macro: "{entire|full|whole|total|_}"
+  - name: "&lt;FLOOR_OPT&gt;"
+    macro: "{upstairs|downstairs|{1st|2nd|3rd|4th|5th|top|ground} floor|_}"
+  - name: "&lt;TYPE&gt;"
+    macro: "{room|closet|attic|loft|{store|storage} {room|_}}"
+  - name: "&lt;LIGHT&gt;"
+    macro: "{all|_} {it|them|light|illumination|lamp|lamplight}"
+
+enabledBuiltInTokens: []
+
+permutateSynonyms: true
+sparse: true
+
+elements:
+  - id: "ls:loc"
+    description: "Location of lights."
+    synonyms:
+      - "&lt;ENTIRE_OPT&gt; &lt;FLOOR_OPT&gt; {kitchen|library|closet|garage|office|playroom|{dinning|laundry|play} &lt;TYPE&gt;}"
+      - "&lt;ENTIRE_OPT&gt; &lt;FLOOR_OPT&gt; {master|kid|children|child|guest|_} {bedroom|bathroom|washroom|storage} {&lt;TYPE&gt;|_}"
+      - "&lt;ENTIRE_OPT&gt; {house|home|building|{1st|first} floor|{2nd|second} floor}"
+
+  - id: "ls:on"
+    groups:
+      - "act"
+    description: "Light switch ON action."
+    synonyms:
+      - "&lt;ACTION&gt; {on|up|_} &lt;LIGHT&gt; {on|up|_}"
+      - "&lt;LIGHT&gt; {on|up}"
+
+  - id: "ls:off"
+    groups:
+      - "act"
+    description: "Light switch OFF action."
+    synonyms:
+      - "&lt;ACTION&gt; &lt;LIGHT&gt; {off|out}"
+      - "{&lt;ACTION&gt;|&lt;KILL&gt;} {off|out} &lt;LIGHT&gt;"
+      - "&lt;KILL&gt; &lt;LIGHT&gt;"
+      - "&lt;LIGHT&gt; &lt;KILL&gt;"
+      - "no &lt;LIGHT&gt;"
+
+intents:
+  - "intent=ls term(act)={has(tok_groups(), 'act')} term(loc)={tok_id() == 'ls:loc'}*"
         </pre>
-        <p>
-            Notice three model elements at lines 16, 23, and 31:
-        </p>
+        <p>There are number of important points here:</p>
         <ul>
-            <li><code>ls:loc</code> - element that defines a location in our house.</li>
-            <li><code>ls:on</code> - element that defines "on" action for the lights (also belongs to the group <code>act</code>).</li>
-            <li><code>ls:off</code> - element that defines "off" action for the lights (also belongs to the group <code>act</code>).</li>
             <li>
-                Intent <code>ls</code> on line 42 defines a template that matches any user input that has a token
-                from group <code>act</code> and zero or more house locations.
+                <code>Line 6</code> defines several macros that are used later on throughout the model's elements
+                to shorten the synonym declarations. Note how macros coupled with option groups
+                shorten overall synonym declarations 1000:1 vs. manually listing all possible word permutations.
+            </li>
+            <li>
+                <code>Lines 22, 23</code> define model properties that allow for multi-word synonyms in this model
+                to be
+                <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#isSparse()">sparse</a> and
+                <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#isPermutateSynonyms()">permutate</a> them for better detection. These two properties generally enable a free-form
+                natural language comprehension.
+            </li>
+            <li>
+                <code>Lines 26, 33, 41</code> define three model elements: the location of the light, and actions to turn
+                the light on and off. Action elements belong to the same group <code>act</code> which
+                will be used in our intent (<code>line 42</code>). Note that these model elements are defined mostly
+                through macros we have provided above.
+            </li>
+            <li>
+                On <code>line 52</code> we define a non-conversational intent <code>ls</code> that requires
+                one action (a token belonging to the group <code>act</code>) and optional list of light locations
+                (zero or more tokens with ID <code>ls:loc</code>) - by default we assume the entire house as a default location.
             </li>
         </ul>
         <p>
-            Next, let's go ahead and add model's logic which we'll write in Scala wtih Java and Kotlin versions provided for reference.
+            Next, let's go ahead and add model's logic which we'll write in Scala with Java and Kotlin versions provided for reference.
             Open <code>src/main/scala/demo/<b>LightSwitch.scala</b></code> file and replace its content with the following
             code:
         </p>
@@ -189,7 +220,7 @@ class LightSwitchModel extends NCModelFileAdapter("light_switch.yaml") {
             if (locToks.isEmpty)
                 "entire house"
             else
-                locToks.map(_.meta[String]("nlpcraft:nlp:origtext")).mkString(", ")
+                locToks.map(_.getOriginalText()).mkString(", ")
 
         // Add HomeKit, Arduino or other integration here.
 
@@ -297,7 +328,7 @@ class LightSwitchKotlinModel : NCModelFileAdapter("lightswitch_model.yaml") {
         </p>
         <ul>
             <li>
-                On line 5 we use <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelFileAdapter.html">NCModelFileAdapter</a>
+                On <code>line 5</code> we use <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelFileAdapter.html">NCModelFileAdapter</a>
                 to load its configuration from the external <code>light_switch.yaml</code> YAML file.
             </li>
             <li>
@@ -305,32 +336,34 @@ class LightSwitchKotlinModel : NCModelFileAdapter("lightswitch_model.yaml") {
                 a template is matched against user input:
                 <ul>
                     <li>
-                        Line 6 uses <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentRef.html">@NCIntentRef</a>
-                        annotation to reference the intent defined in our model (<code>light_switch.yaml</code>, line 42).
+                        <code>Line 6</code> uses <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentRef.html">@NCIntentRef</a>
+                        annotation to reference the intent defined in our model (<code>light_switch.yaml</code>, <code>line 42</code>).
                         The intent matches
                         two parts: first should be any token belonging to <code>act</code> group (i.e. "on" or "off" action),
                         and the second should be a zero or more tokens with ID equal to <code>ls:loc</code> (i.e. optional list of locations).
                     </li>
                     <li>
-                        Line 7 uses <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a>
+                        <code>Line 7</code> uses <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a>
                         annotation that is  used for <a href="#test">auto-testing</a> of the model.
                     </li>
                 </ul>
             </li>
             <li>
-                Lines 22 and 23 use <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntent.html">@NCIntentTerm</a>
+                <code>Lines 22 and 23</code> use <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntent.html">@NCIntentTerm</a>
                 annotations to connect the matched result with a callback method formal parameters.
             </li>
             <li>
-                When our intent is selected as a matching winner the method <code>onMatch(...)</code> on line 20 is invoked. It
+                When our intent is selected as a matching winner the method <code>onMatch(...)</code> on <code>line 20</code> is invoked. It
                 returns a text response that indicates the light status at a requested location. That's where you can
                 also add <a target=_ href="https://developer.apple.com/homekit/">HomeKit</a>,
                 <a href="https://www.arduino.cc/" target=_>Ardunio</a> or other integrations to finish this implementation.
             </li>
-            <li>
-                Chapter <a href="/data-model.html">Data Model</a> provides detailed explanation on how data models work.
-            </li>
         </ul>
+        <div class="bq info">
+            <p>
+                <i class="fas fa-lightbulb"></i> Learn more about <a href="/data-model.html">Data Model</a> and <a href="/intent-matching.html">Intents</a>.
+            </p>
+        </div>
     </section>
     <section id="build_project">
         <h2 class="section-title">Build Project <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
@@ -365,6 +398,11 @@ class LightSwitchKotlinModel : NCModelFileAdapter("lightswitch_model.yaml") {
                     <img class="img-fluid" alt="" src="/images/first_example_fig2.png">
                 </p>
             </div>
+        </div>
+        <div class="bq info">
+            <p>
+                <i class="fas fa-lightbulb"></i> Learn more about <a href="/server-and-probe.html">Server <span class="amp">&</span> Data Probes</a>.
+            </p>
         </div>
     </section>
     <section id="test">
