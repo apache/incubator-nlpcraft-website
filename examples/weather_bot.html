@@ -27,9 +27,15 @@ fa_icon: fa-cube
         <h2 class="section-title">Overview <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             This example demonstrates relatively complete NLI-based weather service with JSON output and a non-trivial
-            intent matching logic. It uses Apple's <a target="new" href="https://darksky.net">DarkSky</a>
+            intent matching logic. It uses <a target="new" href="https://openweathermap.org/api/one-call-api">OpenWeather</a>
             REST service for the actual weather information.
         </p>
+        <div class="bq info">
+            <p>
+                <b>NOTE:</b> you must provide OpenWeather API key in <code>OWM_API_KEY</code> system property when running
+                the data probe. See <a target=_ href="https://openweathermap.org/api">https://openweathermap.org/api</a> for more information.
+            </p>
+        </div>
         <p>
             Complexity: <span class="complexity-two-star"><i class="fas fa-square"></i> <i class="fas fa-square"></i> <i class="far fa-square"></i></span><br/>
             Source code: <a target="github" href="https://github.com/apache/incubator-nlpcraft/tree/master/nlpcraft-examples/weather">GitHub</a>
@@ -85,7 +91,7 @@ fa_icon: fa-cube
             <code>NCModelFileAdapter</code> in our Java-based model implementation. Open <code>src/main/resources/<b>weather.json</b></code>
             and replace its content with the following JSON:
         </p>
-        <pre class="brush: js, highlight: [10, 18, 28]">
+        <pre class="brush: js, highlight: [10, 18, 28, 38]">
 {
   "id": "nlpcraft.weather.ex",
   "name": "Weather Example Model",
@@ -98,7 +104,7 @@ fa_icon: fa-cube
       "id": "wt:phen",
       "description": "Weather phenomenon.",
       "synonyms": [
-        "{high sea|severe weather|hail|heat wave|cold wave|derecho|supercell|avalanche|cyclone|wildfire|landslide|firestorm|dust storm|thunder snow|winter storm|cloudburst|shower|condensation|precipitation|drizzle|rainstorm|rain storm|rainfall|rain|storm|sun|sunshine|cloud|hot|cold|dry|wet|wind||hurricane|typhoon|sand-storm|sand storm|tornado|humid|fog|snow|smog|black ice|haze|thundershower|thundersnow|sleet|drought|wildfire|blizzard|avalanche|mist|thunderstorm}",
+        "{high sea|severe weather|hail|heat wave|cold wave|derecho|supercell|avalanche|cyclone|wildfire|landslide|firestorm|dust storm|thunder snow|winter storm|cloudburst|shower|condensation|precipitation|drizzle|rainstorm|rain storm|rainfall|rain|storm|sun|sunshine|cloud|hot|cold|dry|wet|wind|hurricane|typhoon|sand-storm|sand storm|tornado|humid|fog|snow|smog|black ice|haze|thundershower|thundersnow|sleet|drought|wildfire|blizzard|avalanche|mist|thunderstorm}",
         "{weather {condition|temp|temperature|data|_}|condition|temp|temperature}"
       ]
     },
@@ -110,6 +116,16 @@ fa_icon: fa-cube
       ],
       "synonyms": [
         "{history|past|previous}"
+      ]
+    },
+    {
+      "id": "wt:curr",
+      "description": "Current indicator.",
+      "groups": [
+        "indicator"
+      ],
+      "synonyms": [
+        "{current|today|now|right now}"
       ]
     },
     {
@@ -135,7 +151,11 @@ fa_icon: fa-cube
                 request for the past (history) weather information.
             </li>
             <li>
-                <code>Line 28</code> defines an element <code>wt:fcast</code> whose presence will indicate the
+                <code>Line 28</code> defines an element <code>wt:curr</code> whose presence will indicate the
+                request for the current (local) weather information.
+            </li>
+            <li>
+                <code>Line 38</code> defines an element <code>wt:fcast</code> whose presence will indicate the
                 request for the future (forecast) weather information.
             </li>
         </ul>
@@ -147,7 +167,7 @@ fa_icon: fa-cube
         <p>
             Below is a full source code for our implementation. Note that this code uses several
             <a href="#tools">external tools</a> for IP-based geo-location and the weather information
-            provider (Dark Sky). Note also that despite its apparent simplicity the model logic implementation is non-trivial.
+            provider (<a target=_ href="https://openweathermap.org/api">OpenWeather</a>). Note also that despite its apparent simplicity the model logic implementation is non-trivial.
             Significant portion of the code deals with a complex <b>temporal and geographical ambiguity</b>, i.e. the sentences like the these:
         </p>
         <dl>
@@ -182,27 +202,46 @@ fa_icon: fa-cube
             Open <code>src/main/java/demo/<b>Weather.java</b></code> file and replace its content with the
             following code:
         </p>
-        <pre class="brush: java, highlight: [24, 71, 78, 96, 98, 99, 100, 145]">
+        <pre class="brush: java, highlight: [30, 43, 130, 90, 132, 133, 134, 177]">
 package demo;
 
 import com.google.gson.Gson;
 import org.apache.commons.lang3.tuple.Pair;
-import org.apache.nlpcraft.examples.misc.darksky.DarkSkyException;
-import org.apache.nlpcraft.examples.misc.darksky.DarkSkyService;
-import org.apache.nlpcraft.examples.misc.geo.keycdn.GeoManager;
-import org.apache.nlpcraft.examples.misc.geo.keycdn.beans.GeoDataBean;
-import org.apache.nlpcraft.model.*;
+import org.apache.nlpcraft.examples.weather.openweathermap.OpenWeatherMapException;
+import org.apache.nlpcraft.examples.weather.openweathermap.OpenWeatherMapService;
+import org.apache.nlpcraft.utils.keycdn.GeoManager;
+import org.apache.nlpcraft.utils.keycdn.beans.GeoDataBean;
+import org.apache.nlpcraft.model.NCIntent;
+import org.apache.nlpcraft.model.NCIntentMatch;
+import org.apache.nlpcraft.model.NCIntentSample;
+import org.apache.nlpcraft.model.NCIntentTerm;
+import org.apache.nlpcraft.model.NCModelFileAdapter;
+import org.apache.nlpcraft.model.NCRejection;
+import org.apache.nlpcraft.model.NCResult;
+import org.apache.nlpcraft.model.NCToken;
+
 import java.time.Instant;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+
 import static java.time.temporal.ChronoUnit.DAYS;
 
-public class Weather extends NCModelFileAdapter {
-    // Please register your own account at https://darksky.net/dev/docs/libraries and
+public class WeatherModel extends NCModelFileAdapter {
+    // System property for OpenWeatherMap API key.
+    public final String OWM_API_KEY = "OWM_API_KEY";
+
+    // Please register your own account at https://openweathermap.org/api and
     // replace this demo token with your own.
-    private final DarkSkyService darkSky = new DarkSkyService("097e1aad75b22b88f494cf49211975aa", 31);
+    // We are using the One Call API (https://openweathermap.org/api/one-call-api) in this example
+    private final OpenWeatherMapService openWeather;
 
     private final GeoManager geoMrg = new GeoManager();
-    private static final int DAYS_SHIFT = 5;
+    private static final int DAYS_SHIFT_BACK = 5;
+    private static final int DAYS_SHIFT_FORWARD = 7;
     private static final Gson GSON = new Gson();
     private static final Set&lt;String&gt; LOCAL_WORDS = new HashSet&lt;&gt;(Arrays.asList("my", "local", "hometown"));
 
@@ -226,7 +265,7 @@ public class Weather extends NCModelFileAdapter {
 
         Optional&lt;GeoDataBean&gt; geoOpt = geoMrg.get(ctx.getContext().getRequest());
 
-        if (!geoOpt.isPresent())
+        if (geoOpt.isEmpty())
             throw new NCRejection("City cannot be determined.");
 
         // Manually process request for local weather. We need to separate between 'local Moscow weather'
@@ -252,17 +291,32 @@ public class Weather extends NCModelFileAdapter {
 
         return Pair.of(geo.getLatitude(), geo.getLongitude());
     }
-                    
+
     @NCIntent(
         "intent=req " +
-        "  term~{tok_id() == 'wt:phen'}* " + // Zero or more weather phenomenon.
-        "  term(ind)~{has(tok_groups(), 'indicator')}* " + // Optional indicator words (zero or more).
-        "  term(city)~{tok_id() == 'nlpcraft:city'}? " + // Optional city.
-        "  term(date)~{tok_id() == 'nlpcraft:date'}?" // Optional date (overrides indicator words).
+        "term~{tok_id() == 'wt:phen'}* " + // Zero or more weather phenomenon.
+        "term(ind)~{" +
+            "@isIndicator = has(tok_groups(), 'indicator') " + // Just to demo term variable usage.
+            "@isIndicator" +
+        "}* " + // Optional indicator words (zero or more).
+        "term(city)~{tok_id() == 'nlpcraft:city'}? " + // Optional city.
+        "term(date)~{tok_id() == 'nlpcraft:date'}?" // Optional date (overrides indicator words).
     )
+    // NOTE: each samples group will reset conversation STM during auto-testing.
+    @NCIntentSample({
+        "Current forecast?",
+        "Chance of rain in Berlin now?"
+    })
+    // NOTE: each samples group will reset conversation STM during auto-testing.
+    @NCIntentSample({
+        "Moscow forecast?",
+        "Chicago history"
+    })
+    // NOTE: each samples group will reset conversation STM during auto-testing.
     @NCIntentSample({
         "What's the local weather forecast?",
         "What's the weather in Moscow?",
+        "What's the current forecast for LA?",
         "What is the weather like outside?",
         "How's the weather?",
         "What's the weather forecast for the rest of the week?",
@@ -275,7 +329,7 @@ public class Weather extends NCModelFileAdapter {
         "Is there any possibility of rain in Delhi?",
         "Is it raining now?",
         "Is there any chance of rain today?",
-        "Was it raining in Beirut last week?",
+        "Was it raining in Beirut three days ago?",
         "How about yesterday?"
     })
     public NCResult onMatch(
@@ -284,10 +338,6 @@ public class Weather extends NCModelFileAdapter {
         @NCIntentTerm("city") Optional&lt;NCToken&gt; cityTokOpt,
         @NCIntentTerm("date") Optional&lt;NCToken&gt; dateTokOpt
     ) {
-        // Reject if intent match is not exact (at least one "dangling" token remain).
-        if (ctx.isAmbiguous())
-            throw new NCRejection("Please clarify your request.");
-
         try {
             Instant now = Instant.now();
 
@@ -295,9 +345,9 @@ public class Weather extends NCModelFileAdapter {
             Instant to = now;
 
             if (indToksOpt.stream().anyMatch(tok -&gt; tok.getId().equals("wt:hist")))
-                from = from.minus(DAYS_SHIFT, DAYS);
+                from = from.minus(DAYS_SHIFT_BACK, DAYS);
             else if (indToksOpt.stream().anyMatch(tok -&gt; tok.getId().equals("wt:fcast")))
-                to = from.plus(DAYS_SHIFT, DAYS);
+                to = from.plus(DAYS_SHIFT_FORWARD, DAYS);
 
             if (dateTokOpt.isPresent()) { // Date token overrides any indicators.
                 NCToken dateTok = dateTokOpt.get();
@@ -311,10 +361,9 @@ public class Weather extends NCModelFileAdapter {
             double lat = latLon.getLeft();
             double lon = latLon.getRight();
 
-            return NCResult.json(GSON.toJson(from == to ? darkSky.getCurrent(lat, lon) :
-                darkSky.getTimeMachine(lat, lon, from, to)));
+            return NCResult.json(GSON.toJson(from == to ? openWeather.getCurrent(lat, lon) : openWeather.getTimeMachine(lat, lon, from, to)));
         }
-        catch (DarkSkyException e) {
+        catch (OpenWeatherMapException e) {
             throw new NCRejection(e.getLocalizedMessage());
         }
         catch (NCRejection e) {
@@ -324,57 +373,57 @@ public class Weather extends NCModelFileAdapter {
             throw new NCRejection("Weather provider error.", e);
         }
     }
-                                
-    public Weather() {
+
+    /**
+     * Loads the model.
+     */
+    public WeatherModel() {
         // Load model from external JSON file on classpath.
-        super("weather.json");
+        super("weather_model.json");
+
+        // Try system variable first.
+        String apiKey = System.getProperty(OWM_API_KEY);
+
+        if (apiKey == null)
+            // Try environment variable next.
+            apiKey = System.getenv(OWM_API_KEY);
+
+        if (apiKey == null)
+            throw new OpenWeatherMapException(String.format("Provide OpenWeatherMap API key using '-D%s=&lt;your-key-here&gt;' system property.", OWM_API_KEY));
+
+        openWeather = new OpenWeatherMapService(apiKey, 5, 7);
     }
 
     @Override
     public void onDiscard() {
-        darkSky.stop();
+        openWeather.stop();
     }
 }
         </pre>
         <ul>
             <li>
-                <code>Line 145</code> loads the model configuration from the external <code>weather_model.json</code>
+                <code>Line 177</code> loads the model configuration from the external <code>weather_model.json</code>
                 file.
             </li>
             <li>
-                Method <code>preGeo(...)</code> on the <code>line 24</code> handles the geo location processing including
+                Method <code>preGeo(...)</code> on the <code>line 43</code> handles the geolocation processing including
                 IP-based geo-location and resolution of the geographical ambiguity.
             </li>
             <li>
-                <code>Line 96</code> defines a callback for the intent defined on the <code>line 71</code>. Note that
+                <code>Line 130</code> defines a callback for the intent defined on the <code>line 90</code>. Note that
                 callback implementation also deals with the temporal ambiguity.
             </li>
             <li>
-                <code>Lines 98, 99, and 100</code> define formal callback method parameters that correspond
-                to the intent's terms (see <code>line 71</code>).
+                <code>Lines 132-134</code> define formal callback method parameters that correspond
+                to the intent's terms (see <code>line 90</code>).
             </li>
             <li>
-                <code>Line 78</code> defines input sentence samples that are used for both documentation as well as
+                <code>Lines 101-129</code> define input sentence samples that are used for both documentation and
                 auto-validation purposed (see <a href="#testing">testing</a> second for details).
             </li>
-        </ul>
-    </section>
-    <section id="tools">
-        <h2 class="section-title">External Tools <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
-        <p>
-            This example uses several external tools to implement its functionality:
-        </p>
-        <ul>
             <li>
-                <a target=_ href="https://darksky.net">Apple DarkSky</a> - to provide actual weather data service
-                See <code>org.apache.nlpcraft.examples.misc.darksky</code> package for details.
-            </li>
-            <li>
-                <a target="_" href="https://tools.keycdn.com/geo">KeyCDN's IP Location Finder</a> - to provide IP location
-                service. See <code>org.apache.nlpcraft.examples.misc.geo.keycdn</code> package for details.
-            </li>
-            <li>
-                City to timezone mapper. See <code>org.apache.nlpcraft.examples.misc.geo.cities</code> package for details.
+                Make sure to provide you <a target="new" href="https://openweathermap.org/api/one-call-api">OpenWeather API</a>
+                key on the <code>line 30</code>.
             </li>
         </ul>
     </section>
@@ -507,7 +556,7 @@ public class Weather extends NCModelFileAdapter {
     <section>
         <h2 class="section-title">Done! 👌 <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
-            You've created alarm clock data model, started the REST server and tested this model using the built-in test framework.
+            You've created weather bot data model, started the REST server and tested this model using the built-in test framework.
         </p>
     </section>
 </div>
