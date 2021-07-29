@@ -86,25 +86,37 @@ fa_icon: fa-cube
             <code>NCModelFileAdapter</code> in our Scala-based model implementation. Open <code>src/main/resources/<b>light_switch.yaml</b></code>
             file and replace its content with the following YAML:
         </p>
-        <pre class="brush: js, highlight: [5, 14, 21, 29, 37]">
+        <pre class="brush: js, highlight: [6, 22, 23, 26, 33, 41, 52]">
 id: "nlpcraft.lightswitch.ex"
 name: "Light Switch Example Model"
 version: "1.0"
 description: "NLI-powered light switch example model."
+            
 macros:
   - name: "&lt;ACTION&gt;"
-    macro: "{turn|switch|dial|control|let|set|get|put}"
+    macro: "{turn|switch|dial|let|set|get|put}"
+  - name: "&lt;KILL&gt;"
+    macro: "{shut|kill|stop|eliminate}"
   - name: "&lt;ENTIRE_OPT&gt;"
     macro: "{entire|full|whole|total|_}"
+  - name: "&lt;FLOOR_OPT&gt;"
+    macro: "{upstairs|downstairs|{1st|2nd|3rd|4th|5th|top|ground} floor|_}"
+  - name: "&lt;TYPE&gt;"
+    macro: "{room|closet|attic|loft|{store|storage} {room|_}}"
   - name: "&lt;LIGHT&gt;"
     macro: "{all|_} {it|them|light|illumination|lamp|lamplight}"
-enabledBuiltInTokens: [] # This example doesn't use any built-in tokens.
+                                
+enabledBuiltInTokens: []
+
+permutateSynonyms: true
+sparse: true
+
 elements:
   - id: "ls:loc"
     description: "Location of lights."
     synonyms:
-      - "&lt;ENTIRE_OPT&gt; {upstairs|downstairs|_} {kitchen|library|closet|garage|office|playroom|{dinning|laundry|play} room}"
-      - "&lt;ENTIRE_OPT&gt; {upstairs|downstairs|_} {master|kid|children|child|guest|_} {bedroom|bathroom|washroom|storage} {closet|_}"
+      - "&lt;ENTIRE_OPT&gt; &lt;FLOOR_OPT&gt; {kitchen|library|closet|garage|office|playroom|{dinning|laundry|play} &lt;TYPE&gt;}"
+      - "&lt;ENTIRE_OPT&gt; &lt;FLOOR_OPT&gt; {master|kid|children|child|guest|_} {bedroom|bathroom|washroom|storage} {&lt;TYPE&gt;|_}"
       - "&lt;ENTIRE_OPT&gt; {house|home|building|{1st|first} floor|{2nd|second} floor}"
 
   - id: "ls:on"
@@ -112,8 +124,8 @@ elements:
       - "act"
     description: "Light switch ON action."
     synonyms:
-      - "&lt;ACTION&gt; &lt;LIGHT&gt;"
-      - "&lt;ACTION&gt; on &lt;LIGHT&gt;"
+      - "&lt;ACTION&gt; {on|up|_} &lt;LIGHT&gt; {on|up|_}"
+      - "&lt;LIGHT&gt; {on|up}"
 
   - id: "ls:off"
     groups:
@@ -121,27 +133,38 @@ elements:
     description: "Light switch OFF action."
     synonyms:
       - "&lt;ACTION&gt; &lt;LIGHT&gt; {off|out}"
-      - "{&lt;ACTION&gt;|shut|kill|stop|eliminate} {off|out} &lt;LIGHT&gt;"
+      - "{&lt;ACTION&gt;|&lt;KILL&gt;} {off|out} &lt;LIGHT&gt;"
+      - "&lt;KILL&gt; &lt;LIGHT&gt;"
+      - "&lt;LIGHT&gt; &lt;KILL&gt;"
       - "no &lt;LIGHT&gt;"
+
 intents:
   - "intent=ls term(act)={has(tok_groups(), 'act')} term(loc)={tok_id() == 'ls:loc'}*"
         </pre>
         <p>There are number of important points here:</p>
         <ul>
             <li>
-                <code>Line 5</code> defines several macros that are used later on throughout the model's elements
+                <code>Line 6</code> defines several macros that are used later on throughout the model's elements
                 to shorten the synonym declarations. Note how macros coupled with option groups  
                 shorten overall synonym declarations 1000:1 vs. manually listing all possible word permutations.
             </li>
             <li>
-                <code>Lines 14, 21, 29</code> define three model elements: the location of the light, and actions to turn
-                the light on and off. Note that action elements belong to the same group <code>act</code> which
-                will be used in our intent (<code>line 42</code>).
+                <code>Lines 22, 23</code> define model properties that allow for multi-word synonyms in this model
+                to be
+                <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#isSparse()">sparse</a> and
+                <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#isPermutateSynonyms()">permutate</a> them for better detection. These two properties generally enable a free-form
+                natural language comprehension.
             </li>
             <li>
-                On <code>line 37</code> we define a non-conversational intent <code>ls</code> that requires
+                <code>Lines 26, 33, 41</code> define three model elements: the location of the light, and actions to turn
+                the light on and off. Action elements belong to the same group <code>act</code> which
+                will be used in our intent (<code>line 42</code>). Note that these model elements are defined mostly
+                through macros we have provided above.
+            </li>
+            <li>
+                On <code>line 52</code> we define a non-conversational intent <code>ls</code> that requires
                 one action (a token belonging to the group <code>act</code>) and optional list of light locations
-                (tokens with ID <code>ls:loc</code>) - by default we assume all lights.
+                (zero or more tokens with ID <code>ls:loc</code>) - by default we assume the entire house as a default location.
             </li>
         </ul>
         <p>
@@ -154,7 +177,7 @@ intents:
         <p>
             Open <code>src/main/scala/demo/<b>LightSwitch.scala</b></code> file and replace its content with the following code:
         </p>
-        <pre class="brush: scala, highlight: [5, 6, 7, 21, 22, 34]">
+        <pre class="brush: scala, highlight: [5, 6, 7, 25, 26, 38]">
 package demo
 
 import org.apache.nlpcraft.model.{NCIntentTerm, _}
@@ -163,8 +186,10 @@ class LightSwitch extends NCModelFileAdapter("light_switch.yaml") {
     @NCIntentRef("ls")
     @NCIntentSample(Array(
         "Turn the lights off in the entire house.",
+        "Turn off all lights now",
         "Switch on the illumination in the master bedroom closet.",
         "Get the lights on.",
+        "Lights up in the kitchen.",
         "Please, put the light out in the upstairs bedroom.",
         "Set the lights on in the entire house.",
         "Turn the lights off in the guest bedroom.",
@@ -172,7 +197,9 @@ class LightSwitch extends NCModelFileAdapter("light_switch.yaml") {
         "Dial off illumination on the 2nd floor.",
         "Please, no lights!",
         "Kill off all the lights now!",
-        "No lights in the bedroom, please."
+        "No lights in the bedroom, please.",
+        "Light up the garage, please!",
+        "Kill the illumination now!"
     ))
     def onMatch(
         @NCIntentTerm("act") actTok: NCToken,
@@ -209,16 +236,16 @@ class LightSwitch extends NCModelFileAdapter("light_switch.yaml") {
                 file that was loaded by <code>NCModelFileAdapter</code> class.
             </li>
             <li>
-                Note the line 7 where we use <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a>
+                Note the <code>line 7</code> where we use <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a>
                 annotation to provide samples of the user input that this intent should match. Apart from documentation
                 purpose these samples will be used when we will be <a href="#testing">testing out model below.</a>
             </li>
             <li>
-                <code>Lines 21 and 22</code> map terms from detected intent to the formal method parameters of the
+                <code>Lines 25 and 26</code> map terms from detected intent to the formal method parameters of the
                 <code>onMatch</code> method.
             </li>
             <li>
-                On the <code>line 34</code> the intent callback simply returns a confirmation message.
+                On the <code>line 38</code> the intent callback simply returns a confirmation message.
             </li>
         </ul>
     </section>
