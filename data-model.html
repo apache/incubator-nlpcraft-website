@@ -483,9 +483,10 @@ intents:
         <p>
             For example, in the following sentence:
         </p>
-        <p>
-            <i class="fa fa-fw fa-angle-right"></i><code>Meeting is set for 12pm today in San Francisco.</code>
-        </p>
+        <figure>
+            <img alt="named entities" class="img-fluid" src="/images/named-entities.png">
+            <figcaption><b>Fig 2.</b> Named Entities</figcaption>
+        </figure>
         <p>
             the following named entities can be detected:
         </p>
@@ -499,24 +500,24 @@ intents:
             </thead>
             <tbody>
             <tr>
-                <td><code>Meeting</code></td>
-                <td>CUSTOM_OBJ</td>
-                <td>meeting</td>
+                <td><b>Top 20</b></td>
+                <td><code>nlpcraft:limit</code></td>
+                <td>top 20</td>
             </tr>
             <tr>
-                <td><code>set</code></td>
-                <td>CUSTOM_ACT</td>
-                <td>set</td>
+                <td><b>best pages</b></td>
+                <td><code>user:element</code></td>
+                <td>best pages</td>
             </tr>
             <tr>
-                <td><code>12pm today</code></td>
-                <td>DATE_TIME</td>
-                <td>12:00 September 1, 2019 GMT</td>
+                <td><b>California USA</b></td>
+                <td><code>nlpcraft:geo</code></td>
+                <td>USA, California</td>
             </tr>
             <tr>
-                <td><code>San Francisco</code></td>
-                <td>GEO_CITY</td>
-                <td>San Francisco, CA USA</td>
+                <td><b>last 3 months</b></td>
+                <td><code>nlpcraft:date</code></td>
+                <td>1/1/2021 - 4/1/2021</td>
             </tr>
             </tbody>
         </table>
@@ -537,6 +538,17 @@ intents:
             abstractions like geographical location or time when you are trying to understand the meaning of the sentence.
             One of the main goals of named entities is to act as an input ingredients for <a href="/intent-matching.html">intent matching</a>.
         </p>
+        <div class="bq info">
+            <p>
+                <b>😀 User Input → Named Entities → Parsing Variants → Intent Matcher → Winning Intent 🚀</b>
+            </p>
+            <p>
+                User input is parsed into the list of named entities. That list is then further transformed into one or more
+                parsing variants where each variant represents a particular order and combination of detected named entities.
+                Finally, the list of variants act as an input to intent matching where each variant is matched against every intent
+                in the process of detecting the best matching intent for the original user input.
+            </p>
+        </div>
     </section>
     <section id="elements">
         <h2 class="section-title">Model Elements <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
