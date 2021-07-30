@@ -27,7 +27,7 @@ github_username:  nlpcraft
 
 # Manually update to the latest version:
 # ===================
-latest_version: 0.8.0
+latest_version: 0.9.0
 java_client_latest_version: 0.7.5
 # ===================
 
@@ -64,6 +64,7 @@ exclude:
   - apis/javadoc-0.7.4
   - apis/javadoc-0.7.5
   - apis/javadoc-0.8.0
+  - apis/javadoc-0.9.0
   - .idea
   - _site
 
