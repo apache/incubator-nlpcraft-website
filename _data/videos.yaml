@@ -15,6 +15,15 @@
 # limitations under the License.
 #
 
+- title: NLPCraft - Command Line Utility
+  embed_url: https://www.youtube.com/embed/LNfny60bmgg?modestbranding=1
+  publish_date: July 30, 2021
+  duration: "12:05"
+  description: >-
+    Apache NLPCraft - https://nlpcraft.apache.org - is a Java-based open source library for adding natural language
+    interface to modern applications, enabling people to interact with your products using voice or text. In this
+    quick video we’ll cover the  NLPCraft CLI - a centralized command line utility for NLPCraft.
+
 - title: NLPCraft - Download, Install & Verify
   embed_url: https://www.youtube.com/embed/s4zEVJVhW68?modestbranding=1
   publish_date: July 6, 2021
