@@ -1,0 +1,72 @@
+---
+rel_ver: 0.9.0
+layout: release-notes
+---
+
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one or more
+ contributor license agreements.  See the NOTICE file distributed with
+ this work for additional information regarding copyright ownership.
+ The ASF licenses this file to You under the Apache License, Version 2.0
+ (the "License"); you may not use this file except in compliance with
+ the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<section id="overview">
+    <h2 class="section-title">Overview <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+    <p>
+        <a href="/download.html">NLPCraft 0.9.0</a> brings about several important bug fixes, improvements and enhancements.
+    </p>
+</section>
+<section id="new">
+    <h2 class="section-title">🙌 New <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+    <ul>
+        <li><a target="jira" href='https://issues.apache.org/jira/browse/NLPCRAFT-296'>NLPCRAFT-296</a> - Upgrade to Scala 2.13.</li>
+        <li><a target="jira" href='https://issues.apache.org/jira/browse/NLPCRAFT-324'>NLPCRAFT-324</a> - Java client 0.8.0 support.</li>
+        <li><a target="jira" href='https://issues.apache.org/jira/browse/NLPCRAFT-334'>NLPCRAFT-334</a> - Remove <code>NCProbeMessage</code> extension from <code>java.util.HashMap</code>.</li>
+        <li><a target="jira" href='https://issues.apache.org/jira/browse/NLPCRAFT-344'>NLPCRAFT-344</a> - Make 'mdlId' optional in NLPCraft CLI if only one model is deployed.</li>
+        <li><a target="jira" href='https://issues.apache.org/jira/browse/NLPCRAFT-346'>NLPCRAFT-346</a> - Add path TAB suggestions to NLPCraft CLI path parameters.</li>
+        <li><a target="jira" href='https://issues.apache.org/jira/browse/NLPCRAFT-347'>NLPCRAFT-347</a> - Update examples for optional mdlId in 'ask' and 'sugsyn' CLI commands.</li>
+        <li><a target="jira" href='https://issues.apache.org/jira/browse/NLPCRAFT-352'>NLPCRAFT-352</a> - Add docs about TAB path completion in CLI.</li>
+        <li><a target="jira" href='https://issues.apache.org/jira/browse/NLPCRAFT-353'>NLPCRAFT-353</a> - Add 'restart-probe' command to CLI.</li>
+        <li><a target="jira" href='https://issues.apache.org/jira/browse/NLPCRAFT-354'>NLPCRAFT-354</a> - Improve documentation for 'sugsyn' REST call and Javadoc.</li>
+        <li><a target="jira" href='https://issues.apache.org/jira/browse/NLPCRAFT-355'>NLPCRAFT-355</a> - Create 'retest-model' CLI command.</li>
+        <li><a target="jira" href='https://issues.apache.org/jira/browse/NLPCRAFT-356'>NLPCRAFT-356</a> - Add auto-completion for '--mdls=' parameters in CLI.</li>
+        <li><a target="jira" href='https://issues.apache.org/jira/browse/NLPCRAFT-357'>NLPCRAFT-357</a> - CLI model class completer should support class directories additionally to JAR files.</li>
+        <li><a target="jira" href='https://issues.apache.org/jira/browse/NLPCRAFT-359'>NLPCRAFT-359</a> - Need <code>@NCIntentSampleRef</code> annotation to load samples from URL.</li>
+        <li><a target="jira" href='https://issues.apache.org/jira/browse/NLPCRAFT-362'>NLPCRAFT-362</a> - Update website docs for <code>NCIntentSampleRef</code> annotation.</li>
+    </ul>
+</section>
+<section id="enhancements">
+    <h2 class="section-title">🤖 Enhancements <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+    <ul>
+        <li><a target="jira" href='https://issues.apache.org/jira/browse/NLPCRAFT-333'>NLPCRAFT-333</a> - Replace the DarkSky API with another weather provider in the examples.</li>
+        <li><a target="jira" href='https://issues.apache.org/jira/browse/NLPCRAFT-350'>NLPCRAFT-350</a> - REST server does not support some model enabled tokes types.</li>
+        <li><a target="jira" href='https://issues.apache.org/jira/browse/NLPCRAFT-351'>NLPCRAFT-351</a> - Add log information about detected (or configured) config file.</li>
+        <li><a target="jira" href='https://issues.apache.org/jira/browse/NLPCRAFT-365'>NLPCRAFT-365</a> - Update website documentation to mention that Scala 2.13 is used for development/testing.</li>
+    </ul>
+</section>
+<section id="fixes">
+    <h2 class="section-title">🧐 Fixes <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+    <ul>
+        <li><a target="jira" href='https://issues.apache.org/jira/browse/NLPCRAFT-331'>NLPCRAFT-331</a> - Example on website fails with <code>java.lang.ClassNotFoundException</code>.</li>
+        <li><a target="jira" href='https://issues.apache.org/jira/browse/NLPCRAFT-332'>NLPCRAFT-332</a> - Website issues - java client artifactId.</li>
+        <li><a target="jira" href='https://issues.apache.org/jira/browse/NLPCRAFT-336'>NLPCRAFT-336</a> - Fix GitHub action build for the latest master (after Scala 2.13 migration).</li>
+        <li><a target="jira" href='https://issues.apache.org/jira/browse/NLPCRAFT-337'>NLPCRAFT-337</a> - Unstable <code>org.apache.nlpcraft.model.abstract.NCAbstractTokensVariantsSpec</code>.</li>
+        <li><a target="jira" href='https://issues.apache.org/jira/browse/NLPCRAFT-339'>NLPCRAFT-339</a> - Phone example does not have an associated unit test like the rest of examples.</li>
+        <li><a target="jira" href='https://issues.apache.org/jira/browse/NLPCRAFT-343'>NLPCRAFT-343</a> - Character encoding cp1250 warning.</li>
+        <li><a target="jira" href='https://issues.apache.org/jira/browse/NLPCRAFT-345'>NLPCRAFT-345</a> - Weather test account data configuration.</li>
+        <li><a target="jira" href='https://issues.apache.org/jira/browse/NLPCRAFT-348'>NLPCRAFT-348</a> - Redundant warning <code>@NCIntentSample</code> sample does not contain any direct synonyms.</li>
+        <li><a target="jira" href='https://issues.apache.org/jira/browse/NLPCRAFT-360'>NLPCRAFT-360</a> - Test <code>NCMacroParserSpec</code> seems to be broken while passing.</li>
+    </ul>
+</section>
+
+
