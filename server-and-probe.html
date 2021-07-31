@@ -51,7 +51,7 @@ id: server_and_probe
                     <p><b>Configuration</b></p>
                     <p>
                         Both REST server and the data probe can share their configuration file or be configured
-                        individually. Read more about this in <a href="/configuration.html">configuration</a>
+                        individually. Read more about this in <a href="#config">configuration</a>
                         section.
                     </p>
                 </div>
@@ -338,6 +338,149 @@ id: server_and_probe
             </div>
         </div>
     </section>
+    <section id="config">
+        <h2 class="section-title">Configuration <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <p>
+            Both REST server and the data probe use <a target=_ href="https://github.com/lightbend/config/">Typesafe Config</a> for their configuration:
+        </p>
+        <ul>
+            <li>Both the server and the data probe come with default configuration available in <code>build/<b>nlpcraft.conf</b></code> file.</li>
+            <li>
+                By default, REST server is looking for <code>server.conf</code> and then <code>nlpcraft.conf</code> configuration file.
+            </li>
+            <li>
+                By default, data probe is looking for <code>probe.conf</code> and then <code>nlpcraft.conf</code> configuration file.
+            </li>
+            <li>Custom configuration or default overrides can be placed into a file or provided via environment variables.</li>
+            <li>Configuration files use <a target=_ href="https://github.com/lightbend/config/blob/master/HOCON.md">HOCON</a> file format.</li>
+            <li>
+                When server and probe use different configuration files - each file would have either <code>nlpcraft.server</code>
+                or <code>nlpcraft.probe</code> sub-section.
+            </li>
+        </ul>
+        <p>
+            By default, when REST server or data probe start they look for <code>nlpcraft.conf</code> configuration file in the same directory
+            as <code>apache-nlpcraft-incubating-<b>{{site.latest_version}}</b>-all-deps.jar</code> file and the on their classpath. You can change this behavior with
+            <code>-config=path</code> parameter.
+        </p>
+        <div class="bq success">
+            <div class="bq-idea-container">
+                <div><div>💡</div></div>
+                <div>
+                    <p><b>Configuration Example</b></p>
+                    <p>
+                        Default configuration is available in <code>build/<b>nlpcraft.conf</b></code> file and it is extensively
+                        documented including all optional parameters and default values.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <h2 class="section-sub-title">Server <span class="amp">&</span> Probe Configurations <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <p>
+            Default configuration is available in <code>build/<b>nlpcraft.conf</b></code> file and it is extensively documented. It has subsections
+            for the server and probe configuration. You can also separate server and probe configurations into their own
+            separate files. While server and probe can use any file name for their configuration files, the server
+            looks for <code>server.conf</code> file by default, and the probe looks for <code>probe.conf</code>
+            file before searching for <code>nlpcraft.conf</code> file.
+            Each such file would have a subsection of configuration for either server or data probe.
+        </p>
+        <p>
+            Server configuration file (e.g. <code>server.conf</code>):
+        </p>
+        <pre class="brush: js">
+nlpcraft {
+    server {
+        ...
+    }
+}
+            </pre>
+        <p>
+            Probe configuration file (e.g. <code>probe.conf</code>):
+        </p>
+        <pre class="brush: js">
+nlpcraft {
+    probe {
+        ...
+    }
+}
+            </pre>
+    </section>
+    <section id="override">
+        <h2 class="section-sub-title">Custom Configuration <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <p>
+            While you can change configuration file or files for your own needs (and use <code>-config=...</code>
+            parameter described above to provide path to that file) it is often more convenient to use the default configuration file and
+            change one or two properties in it. You can accomplish this by using standard
+            <a target=_ href="https://github.com/lightbend/config#optional-system-or-env-variable-overrides">HOCON overriding</a>
+            via environment variables:
+        </p>
+        <ol>
+            <li>
+                Set probe or server JVM system property <code>-Dconfig.override_with_env_vars=true</code> which will instruct
+                configuration framework to look for external overrides.
+            </li>
+            <li>For each configuration property <code>x.y.z</code> set the overriding environment variable <code>CONFIG_FORCE_x_y_z=some_value</code></li>
+            <li>See more details on <a target=_ href="https://github.com/lightbend/config#optional-system-or-env-variable-overrides">HOCON documentation</a>.</li>
+        </ol>
+        <p>
+            Consider the following snippet of NLPCraft configuration:
+        </p>
+        <pre class="brush: js">
+nlpcraft {
+    probe {
+        models = "com.nlp.MyModel"
+    }
+
+    server {
+        lifecycle = "org.apache.nlpcraft.server.lifecycle.opencensus.NCJaegerExporter"
+
+        rest {
+            host = "0.0.0.0"
+            port = 8081
+            apiImpl = "org.apache.nlpcraft.server.rest.NCBasicRestApi"
+        }
+    }
+}
+        </pre>
+        <p>
+            You can override these properties with the following environment variables:
+        </p>
+        <p>
+            <code>CONFIG_FORCE_<b>nlpcraft_server_rest_host</b>=1.2.3.4</code><br>
+            <code>CONFIG_FORCE_<b>nlpcraft_server_lifecycle</b>="org.nlp.Lifecycle1, org.nlp.Lifecycle1"</code><br>
+            <code>CONFIG_FORCE_<b>nlpcraft_probe_models</b>="com.nlp.MyModel, com.nlp.AnotherModel"</code>
+        </p>
+        <div class="bq info">
+            <b>Examples</b>
+            <p>
+                Note that all examples that come with NLPCraft have instructions that use environment variable overriding
+                for running their data probes. They use default <code>nlpcraft.conf</code> file and override
+                one <code>nlpcraft.probe.models</code> property (see above) to specify what model the data probe
+                needs to deploy.
+            </p>
+        </div>
+    </section>
+    <section id="ansi">
+        <h2 class="section-sub-title">ANSI Colors <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <p>
+            Both NLPCraft server and probe use ANSI coloring via
+            <a target=_ href="https://en.wikipedia.org/wiki/ANSI_escape_code">ANSI escape sequences</a> for their log
+            output by default. ANSI coloring provides easer console log comprehension and modern esthetics:
+        </p>
+        <p>
+            <img class="non-fluid-img" src="/images/ansi_colors.png" alt="">
+        </p>
+        <p>
+            However, there are
+            cases when either specific console does not support ANSI escape sequences, or specific color schema
+            isn't suitable or log being redirected to a file or piped to downstream system. In these cases you need to
+            disable ANSI coloring to avoid polluting log with unprocessed ANSI escape codes.
+        </p>
+        <p>
+            You can disable ANSI coloring in either server, probe or both by supplying the following system
+            property to JVM process: <code>-D<b>NLPCRAFT_ANSI_COLOR_DISABLED</b>=true</code>
+        </p>
+    </section>
     <section id="testing">
         <h2 class="section-title">CI Testing <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
@@ -468,6 +611,7 @@ id: server_and_probe
         <li class="side-nav-title">On This Page</li>
         <li><a href="#server">REST Server</a></li>
         <li><a href="#probe">Data Probe</a></li>
+        <li><a href="#config">Configuration</a></li>
         <li><a href="#testing">CI Testing</a></li>
         {% include quick-links.html %}
     </ul>

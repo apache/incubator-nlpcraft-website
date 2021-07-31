@@ -60,24 +60,10 @@
         {% endif %}
     </li>
     <li>
-        {% if page.id == "rest" %}
-        <a class="active" href="/using-rest.html">REST API</a>
-        {% else %}
-        <a href="/using-rest.html">REST API</a>
-        {% endif %}
-    </li>
-    <li>
         {% if page.id == "server_and_probe" %}
         <a class="active" href="/server-and-probe.html">Server <span class="amp">&amp;</span> Probe</a>
         {% else %}
         <a href="/server-and-probe.html">Server <span class="amp">&amp;</span> Probe</a>
-        {% endif %}
-    </li>
-    <li>
-        {% if page.id == "configuration" %}
-        <a class="active" href="/configuration.html">Configuration</a>
-        {% else %}
-        <a href="/configuration.html">Configuration</a>
         {% endif %}
     </li>
     <li>
@@ -92,6 +78,13 @@
         <a class="active" href="/integrations.html">Integrations</a>
         {% else %}
         <a href="/integrations.html">Integrations</a>
+        {% endif %}
+    </li>
+    <li>
+        {% if page.id == "rest" %}
+        <a class="active" href="/using-rest.html">REST API</a>
+        {% else %}
+        <a href="/using-rest.html">REST API</a>
         {% endif %}
     </li>
     <li class="side-nav-title">Tools</li>
