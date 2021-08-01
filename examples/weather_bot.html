@@ -22,7 +22,7 @@ fa_icon: fa-cube
  limitations under the License.
 -->
 
-<div class="col-md-8 second-column">
+<div class="col-md-8 second-column example">
     <section id="overview">
         <h2 class="section-title">Overview <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
@@ -37,14 +37,15 @@ fa_icon: fa-cube
             </p>
         </div>
         <p>
-            Complexity: <span class="complexity-two-star"><i class="fas fa-square"></i> <i class="fas fa-square"></i> <i class="far fa-square"></i></span><br/>
-            Source code: <a target="github" href="https://github.com/apache/incubator-nlpcraft/tree/master/nlpcraft-examples/weather">GitHub</a>
+            <b>Complexity:</b> <span class="complexity-two-star"><i class="fas fa-square"></i> <i class="fas fa-square"></i> <i class="far fa-square"></i></span><br/>
+            <span class="ex-src">Source code: <a target="github" href="https://github.com/apache/incubator-nlpcraft/tree/master/nlpcraft-examples/weather">GitHub <i class="fab fa-fw fa-github"></i></a><br/></span>
+            <span class="ex-review-all">Review: <a target="github" href="https://github.com/apache/incubator-nlpcraft/tree/master/nlpcraft-examples">All Examples at GitHub <i class="fab fa-fw fa-github"></i></a></span>
         </p>
     </section>
     <section id="new_project">
         <h2 class="section-title">Create New Project <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
-            You can create new Java project in many different ways - we'll use <a href="/tools/script.html">NLPCraft CLI</a>
+            You can create new Java project in many ways - we'll use <a href="/tools/script.html">NLPCraft CLI</a>
             to accomplish this task:
         </p>
         <nav>
@@ -166,7 +167,7 @@ fa_icon: fa-cube
         <h2 class="section-title">Model Class <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             Below is a full source code for our implementation. Note that this code uses several
-            <a href="#tools">external tools</a> for IP-based geo-location and the weather information
+            external tools for IP-based geo-location and the weather information
             provider (<a target=_ href="https://openweathermap.org/api">OpenWeather</a>). Note also that despite its apparent simplicity the model logic implementation is non-trivial.
             Significant portion of the code deals with a complex <b>temporal and geographical ambiguity</b>, i.e. the sentences like the these:
         </p>
@@ -566,7 +567,6 @@ public class WeatherModel extends NCModelFileAdapter {
         <li><a href="#overview">Overview</a></li>
         <li><a href="#new_project">New Project</a></li>
         <li><a href="#model">Data Model</a></li>
-        <li><a href="#tools">External Tools</a></li>
         <li><a href="#build_project">Build Project</a></li>
         <li><a href="#start_server">Start Server</a></li>
         <li><a href="#testing">Testing</a></li>
