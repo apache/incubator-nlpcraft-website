@@ -314,6 +314,7 @@ fn-token:
     desc: |
       Gets <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getEndCharIndex()">end character index</a>
       of the current token (default) or the provided one by the optional paremeter <code><b>t</b></code> in the original text.
+      If <code>t</code> is not provided the current token is assumed.
     usage: |
       // Result: end character index of this token in the original text.
       tok_end_idx()
@@ -377,7 +378,121 @@ fn-token:
       @parts = tok_find_parts(@this, 'alias')
       @tok = if(is_empty(@parts), @this, first(@parts))
 
+  - name: tok_index
+    sig: |
+      <b>tok_index</b>(t: Token<em><sub>opt</sub></em>) ⇒ Long
+    synopsis: Returns token's index in the original user input
+    desc: |
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getIndex()">token's index</a> in the original user input. Note that this is an index of the token and not of the character.
+      If <code>t</code> is not provided the current token is assumed.
+    usage: |
+      // Result: 'true' if index of this token in the original input is equal to 1.
+      tok_index() == 1
+      tok_index(tok_this()) == 1
 
+  - name: tok_is_first
+    sig: |
+      <b>tok_is_first</b>(t: Token<em><sub>opt</sub></em>) ⇒ Boolean
+    synopsis: Returns <code>true</code> if this token is the first in the original input
+    desc: |
+      Returns <code>true</code> if this token is the first in the original input. Note that this checks index of the token and not of the character.
+      If <code>t</code> is not provided the current token is assumed.
+    usage: |
+      // Result: 'true' if this token is the first token in the original input.
+      tok_is_first()
+      tok_is_first(tok_this())
+
+  - name: tok_is_last
+    sig: |
+      <b>tok_is_last</b>(t: Token<em><sub>opt</sub></em>) ⇒ Boolean
+    synopsis: Returns <code>true</code> if this token is the last in the original input
+    desc: |
+      Returns <code>true</code> if this token is the last in the original input. Note that this checks index of the token and not of the character.
+      If <code>t</code> is not provided the current token is assumed
+    usage: |
+      // Result: 'true' if this token is the last token in the original input.
+      tok_is_last()
+      tok_is_last(tok_this())
+
+  - name: tok_is_before_id
+    sig: |
+      <b>tok_is_before_id</b>(id: String) ⇒ Boolean
+    synopsis: Returns <code>true</code> if there is a token with ID <code>id</code> after this token
+    desc: |
+      Returns <code>true</code> if there is a token with ID <code>id</code> after this token.
+    usage: |
+      // Result: 'true' if there is a token with ID 'a' after this token.
+      tok_is_before_id('a')
+
+  - name: tok_is_after_id
+    sig: |
+      <b>tok_is_after_id</b>(id: String) ⇒ Boolean
+    synopsis: Returns <code>true</code> if there is a token with ID <code>id</code> before this token
+    desc: |
+      Returns <code>true</code> if there is a token with ID <code>id</code> before this token.
+    usage: |
+      // Result: 'true' if there is a token with ID 'a' before this token.
+      tok_is_after_id('a')
+
+  - name: tok_is_before_group
+    sig: |
+      <b>tok_is_before_group</b>(grp: String) ⇒ Boolean
+    synopsis: |
+      Returns <code>true</code> if there is a token that belongs to the
+      <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getGroups()">group</a>
+      <code>grp</code> after this token
+    desc: |
+      Returns <code>true</code> if there is a token that belongs to the
+      <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getGroups()">group</a>
+      <code>grp</code> after this token.
+    usage: |
+      // Result: 'true' if there is a token that belongs to the group 'grp' after this token.
+      tok_is_before_group('grp')
+
+  - name: tok_is_after_group
+    sig: |
+      <b>tok_is_after_group</b>(grp: String) ⇒ Boolean
+    synopsis: |
+      Returns <code>true</code> if there is a token that belongs to the
+      <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getGroups()">group</a>
+      <code>grp</code> before this token
+    desc: |
+      Returns <code>true</code> if there is a token that belongs to the
+      <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getGroups()">group</a>
+      <code>grp</code> before this token.
+    usage: |
+      // Result: 'true' if there is a token that belongs to the group 'grp' before this token.
+      tok_is_after_group('grp')
+
+  - name: tok_is_after_parent
+    sig: |
+      <b>tok_is_after_parent</b>(parentId: String) ⇒ Boolean
+    synopsis: |
+      Returns <code>true</code> if there is a token with
+      <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getParentId()">parent ID</a>
+      <code>parentId</code> before this token
+    desc: |
+      Returns <code>true</code> if there is a token with
+      <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getParentId()">parent ID</a>
+      <code>parentId</code> before this token.
+    usage: |
+      // Result: 'true' if there is a token with parent ID 'owner' before this token.
+      tok_is_after_parent('owner')
+
+  - name: tok_is_before_parent
+    sig: |
+      <b>tok_is_before_parent</b>(parentId: String) ⇒ Boolean
+    synopsis: |
+      Returns <code>true</code> if there is a token with
+      <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getParentId()">parent ID</a>
+      <code>parentId</code> after this token
+    desc: |
+      Returns <code>true</code> if there is a token with
+      <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getParentId()">parent ID</a>
+      <code>parentId</code> after this token.
+    usage: |
+      // Result: 'true' if there is a token with parent ID 'owner' after this token.
+      tok_is_before_parent('owner')
 
 fn-datetime:
   - name: year

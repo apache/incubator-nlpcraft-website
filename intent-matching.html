@@ -41,7 +41,7 @@ id: intent_matching
             The intent has a <em>declarative part or template</em> written in <a href="#idl">Intent Definition Language</a> that strictly defines
             a particular form the user input.
             Intent is also <a href="#binding">bound</a> to a callback method that will be executed when that intent, i.e. its template, is detected as the best match
-            for a given input input. A typical data model will have multiple intents defined for each form of the expected user input
+            for a given input. A typical data model will have multiple intents defined for each form of the expected user input
             that model wants to react to.
         </p>
         <p>
@@ -1011,8 +1011,8 @@ id: intent_matching
                     takes a string as its parameter that should be a valid IDL declaration. For example, Scala code snippet:
                 </p>
                 <pre class="brush: scala, highlight: [1, 2]">
-                &#64;NCIntent("import('/opt/myproj/global_fragments.idl')")
-                &#64;NCIntent("intent=act term(act)={has(tok_groups(), 'act')} fragment(f1)")
+                &#64;NCIntent("import('/opt/myproj/global_fragments.idl')") // Importing.
+                &#64;NCIntent("intent=act term(act)={has(tok_groups(), 'act')} fragment(f1)") // Defining in place.
                 def onMatch(
                     &#64;NCIntentTerm("act") actTok: NCToken,
                     &#64;NCIntentTerm("loc") locToks: List[NCToken]
@@ -1035,9 +1035,9 @@ id: intent_matching
                     .
                     .
                     "intents": [
-                        "import('/opt/myproj/global_fragments.idl')",
-                        "import('/opt/myproj/my_intents.idl')",
-                        "intent=alarm term~{tok_id()=='x:alarm'}"
+                        "import('/opt/myproj/global_fragments.idl')", // Importing.
+                        "import('/opt/myproj/my_intents.idl')", // Importing.
+                        "intent=alarm term~{tok_id()=='x:alarm'}" // Defining in place.
                     ]
                 }
             </pre>
