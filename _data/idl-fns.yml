@@ -381,9 +381,9 @@ fn-token:
   - name: tok_index
     sig: |
       <b>tok_index</b>(t: Token<em><sub>opt</sub></em>) ⇒ Long
-    synopsis: Returns token's index in the original user input
+    synopsis: Returns token's index in the original input
     desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getIndex()">token's index</a> in the original user input. Note that this is an index of the token and not of the character.
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getIndex()">token's index</a> in the original input. Note that this is an index of the token and not of the character.
       If <code>t</code> is not provided the current token is assumed.
     usage: |
       // Result: 'true' if index of this token in the original input is equal to 1.
@@ -493,6 +493,62 @@ fn-token:
     usage: |
       // Result: 'true' if there is a token with parent ID 'owner' after this token.
       tok_is_before_parent('owner')
+
+  - name: tok_all
+    sig: |
+      <b>tok_all</b>() ⇒ List[Token]
+    synopsis: |
+      Returns all tokens from the original input
+    desc: |
+      Returns all tokens from the original input.
+    usage: |
+      // Result: list of all tokens for the original input.
+      tok_all()
+
+  - name: tok_count
+    sig: |
+      <b>tok_count</b>() ⇒ Long
+    synopsis: |
+      Returns number of tokens from the original input
+    desc: |
+      Returns number of tokens from the original input.
+      It is equivalent to <code>size(tok_all())</code>
+    usage: |
+      // Result: number of all tokens for the original input.
+      tok_count()
+
+  - name: tok_all_for_id
+    sig: |
+      <b>tok_all_for_id</b>(id: String) ⇒ List[Token]
+    synopsis: |
+      Returns list of tokens from the original input with ID <code>id</code>
+    desc: |
+      Returns list of tokens from the original input with ID <code>id</code>.
+    usage: |
+      // Result: list of tokens for the original input that have ID 'id'.
+      tok_all_for_id('id')
+
+  - name: tok_all_for_parent
+    sig: |
+      <b>tok_all_for_id</b>(parentId: String) ⇒ List[Token]
+    synopsis: |
+      Returns list of tokens from the original input with parent ID <code>parentId</code>
+    desc: |
+      Returns list of tokens from the original input with parent ID <code>parentId</code>.
+    usage: |
+      // Result: list of tokens for the original input that have parent ID 'id'.
+      tok_all_for_parent('id')
+
+  - name: tok_all_for_group
+    sig: |
+      <b>tok_all_for_group</b>(grp: String) ⇒ List[Token]
+    synopsis: |
+      Returns list of tokens from the original input that belong to the group <code>grp</code>
+    desc: |
+      Returns list of tokens from the original input that belong to the group <code>grp</code>.
+    usage: |
+      // Result: list of tokens for the original input that belong to th group 'grp'.
+      tok_all_for_group('grp')
 
 fn-datetime:
   - name: year

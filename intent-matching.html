@@ -118,7 +118,7 @@ id: intent_matching
             <li>
                 IDL is a lazily evaluated language, i.e. expressions are evaluated only when required during runtime. That
                 means that evaluated left-to-right logical AND and OR operators, for example, skip their right-part expressions if the left expression result is
-                determinative for the overall result - so called short-circuit evaluation. Some IDL functions like
+                determinative for the overall result - so-called short-circuit evaluation. Some IDL functions like
                 <code>if</code> and <code>or_else</code> also provide the similar short-circuit evaluation.
             </li>
         </ul>
@@ -192,12 +192,33 @@ id: intent_matching
                                     <td><code>ordered</code></td>
                                     <td><code>Boolean</code></td>
                                     <td>
-                                        Whether or not this intent is ordered.
-                                        For ordered intent the specified order of terms is important for matching this intent.
-                                        If intent is unordered its terms can be found in any order in the input text.
-                                        Note that ordered intent significantly limits the user input it can match. In most cases
-                                        the ordered intent is only applicable to processing of a formal grammar (like a programming language)
-                                        and mostly unsuitable for the natural language processing.
+                                        <p>
+                                            Whether or not this intent is ordered.
+                                            For ordered intent the specified order of terms is important for matching this intent.
+                                            If intent is unordered its terms can be found in any order in the input text.
+                                            Note that ordered intent significantly limits the user input it can match. In most cases
+                                            the ordered intent is only applicable to processing of a formal grammar (like a programming language)
+                                            and mostly unsuitable for the natural language processing.
+                                        </p>
+                                        <p>
+                                            Note that while the <code>ordered</code> flag affect entire intent and all its
+                                            terms, you can define the individual term that depends on the position of the token.
+                                            This, in fact, allows you have a subset of terms that order dependant. See
+                                            the following <a href="#idl_functions">IDL functions</a> for details:
+                                        </p>
+                                        <ul>
+                                            <li><code>tok_index()</code></li>
+                                            <li><code>tok_all()</code></li>
+                                            <li><code>tok_count()</code></li>
+                                            <li><code>tok_is_last()</code></li>
+                                            <li><code>tok_is_first()</code></li>
+                                            <li><code>tok_is_before_id()</code></li>
+                                            <li><code>tok_is_before_parent()</code></li>
+                                            <li><code>tok_is_before_group()</code></li>
+                                            <li><code>tok_is_after_id()</code></li>
+                                            <li><code>tok_is_after_parent()</code></li>
+                                            <li><code>tok_is_after_group()</code></li>
+                                        </ul>
                                     </td>
                                     <td><code>false</code></td>
                                 </tr>
