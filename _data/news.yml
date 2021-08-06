@@ -26,10 +26,7 @@
 - title: Как добавить NLP в Minecraft
   url: https://habr.com/ru/post/561230/
   excerpt: |
-    Создание хороших примеров по использованию NLP инструментария - не самая простая задача. Они получаются или слишком простыми,
-    так что читателям кажется, что в реальных проектах не стоит даже использовать какие-то внешние системы для решения таких простых NLP
-    задач, а можно и даже желательно все написать самому, или, если постараться сделать примеры более жизненными, их бизнес логика становится
-    чрезмерно сложной и отвлекает внимание от NLP части...
+    Создание хороших примеров по использованию NLP инструментария - не самая простая задача...
   author: Сергей Камов
   publish_date: June 7, 2021
   avatar_url: images/sergey_kamov_avatar.png
@@ -47,8 +44,7 @@
 - title: NLPCraft IDL - Intent Definition Language
   url: /blogs/nlpcraft-idl-intent-definition-language.html
   excerpt: The declarative Intent Definition Language, called NLPCraft IDL, significantly simplifies the process of
-    working with intents in NLP-based dialog and search systems developed using Apache NLPsCraft and at the same time
-    expands the capabilities of them...
+    working with intents in NLP-based dialog and search...
   author: Aaron Radzinski
   publish_date: June 3, 2021
   avatar_url: images/lion.jpg
@@ -57,7 +53,7 @@
 
 - title: Язык определения интентов NLPCraft IDL
   url: https://habr.com/ru/post/559716/
-  excerpt: Новая версия декларативного языка определения интентов, получившая название NLPCraft IDL (NLPCraft Intents Definition Language), значительно упростила процесс работы с интентами в диалоговых и поисковых системах, построенных на базе проекта Apache NLPCraft и вместе с тем расширила возможности системы...
+  excerpt: Новая версия декларативного языка определения интентов, получившая название NLPCraft IDL (NLPCraft Intents Definition Language), значительно упростила процесс работы с интентами...
   author: Сергей Камов
   publish_date: May 28, 2021
   avatar_url: images/sergey_kamov_avatar.png
@@ -74,7 +70,7 @@
 
 - title: Программируемые NER компоненты
   url: https://habr.com/ru/post/543786/
-  excerpt: В данной заметке мы продолжим говорить о NER компонентах и попытаемся  определить условия, в которых нам начинает недоставать функционала стандартных компонентов и стоит задуматься о программировании своих собственных...
+  excerpt: В данной заметке мы продолжим говорить о NER компонентах и попытаемся определить условия, в которых нам начинает недоставать функционала стандартных компонентов...
   author: Сергей Камов
   publish_date: February 25, 2021
   avatar_url: images/sergey_kamov_avatar.png
@@ -91,7 +87,7 @@
 
 - title: Поиск по синонимам в тексте — контролируем процесс или доверяемся нейросетям
   url: https://habr.com/ru/post/539528/
-  excerpt: Первое что нужно сделать при разработке поисковых, диалоговых и прочих систем, основанных на natural language processing — это научиться разбирать тексты пользовательских запросов и находить в них сущности рабочей модели. Задача нахождения стандартных сущностей (geo, date, money и т.д.) в целом уже решена, остается лишь выбрать подходящий NER компонент и воспользоваться его функционалом. Если же вам нужно найти элемент, характерный для вашей конкретной модели или вы нуждаетесь в улучшенном качестве поиска стандартного элемента, придется создать свой собственный NER компонент или обучить какой-то уже существующий под свои цели...
+  excerpt: Первое что нужно сделать при разработке поисковых, диалоговых и прочих систем, основанных на natural language processing — это научиться разбирать тексты пользовательских запросов и находить в них сущности рабочей модели.
   author: Сергей Камов
   publish_date: January 28, 2021
   avatar_url: images/sergey_kamov_avatar.png
