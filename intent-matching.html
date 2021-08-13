@@ -435,7 +435,7 @@ id: intent_matching
                                     is in fact specified, the instance of this class will be created for each term evaluation.
                                     This class must have a no-arg constructor to instantiate via standard Java reflection
                                     and its creation must be as light as possible to avoid performance degradation during its
-                                    instantiation. For this reasons it is recommended to have user-defined term callback
+                                    instantiation. For this reason it is recommended to have user-defined term callback
                                     on the model class itself which will avoid instantiating the class on each term evaluation.
                                 </p>
                             </li>
@@ -556,6 +556,20 @@ id: intent_matching
             for IDL intents. All found intents are compiled into an internal representation before the data probe
             completes its start up sequence.
         </p>
+        <div class="bq info">
+            <p>
+                <b>
+                    <a href="#binding"><code>@NCModelAddClasses</code></a> and
+                    <a href="#binding"><code>@NCModelAddPackage</code></a> Annotations
+                </b>
+            </p>
+            <p>
+                You can use these annotations to add specified classes and packages to the list of classes that will be
+                scanned when NLPCraft searches for the annotated intent callbacks. By default, only the model class itself and
+                its ancestors are scanned. Larger models can be modularized and
+                split into separate compilation units to simplify their development and maintenance.
+            </p>
+        </div>
         <p>
             Note that not all intents problems can be detected at the compilation phase, and probe can start with intents
             not being completely validated. For example, each term in the intent must evaluate to a boolean result. This can
@@ -1170,6 +1184,27 @@ id: intent_matching
                         limit on how many examples can be provided and typically the more examples the better for the built-in tools.
                         These samples serve documentation purpose as well as used in built-in model <a href="/tools/test_framework.html">auto-validation</a>
                         and and <a href="/tools/syn_tool.html">synonym suggesting</a> tools.
+                    </td>
+                </tr>
+                <tr>
+                    <td><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelAddClasses.html">@NCModelAddClasses</a></td>
+                    <td>Model Class</td>
+                    <td>
+                        This annotation allows adding specified classes to the list of classes that NLPCraft will scan when
+                        searching for intent callbacks. By default, only the model class itself and its ancestors are scanned.
+                        Using this annotation, larger models can be modularized and split into different compilation units.
+                        See also <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelAddPackage.html">@NCModelAddPackage</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelAddPackage.html">@NCModelAddPackage</a></td>
+                    <td>Model Class</td>
+                    <td>
+                        This annotation allows adding specified packages to the list of classes that NLPCraft will scan when
+                        searching for intent callbacks. All classes in the package will be scanned recursively when searching for annotated
+                        intent callbacks. By default, only the model class itself and its ancestors are scanned. Using this annotation, larger models
+                        can be modularized and split into different compilation units.
+                        See also <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelAddClasses.html">@NCModelAddClasses</a>.
                     </td>
                 </tr>
             </tbody>
