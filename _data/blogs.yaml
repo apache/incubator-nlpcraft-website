@@ -111,10 +111,10 @@
 - title: Quick Introduction to Apache NLPCraft
   url: /blogs/quick_intro_apache_nlpcraft.html
   excerpt: In this short article I would like to introduce Apache NLPCraft - an open source library for adding Natural Language Interface to any application. The goal of this project from its inception in 2017 was and still is unambiguously straightforward - provide an efficient & highly productive API to develop advanced NLP-based interfaces for modern applications...
-  author: Aaron Radzinski
-  avatar_url: images/lion.jpg
+  author: Nikita Ivanov
+  avatar_url: images/nivanov.png
   publish_date: November 16, 2020
-  twitter_id: aaron_radzinski
+  twitter_id: c64hacker
   href_target: _self
 
 - title: Краткий обзор системы Apache NlpCraft

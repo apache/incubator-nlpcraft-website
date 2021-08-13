@@ -1,0 +1,235 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+img.avatar-img {
+    height: 22px;
+    margin-right: 10px;
+    vertical-align: middle;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+}
+
+#blog {
+    .img-title {
+        margin-top: 25px;
+        margin-bottom: 10px;
+    }
+}
+
+.blog-header {
+    a, a:hover, a:active, i.fas {
+        color: $color-asphalt;
+    }
+
+    .blog-author {
+        display: inline;
+        margin-right: 10px;
+    }
+
+    .blog-date {
+        margin-left: 10px;
+        display: inline;
+    }
+
+    .blog-avatar {
+        display: inline;
+    }
+
+    .blog-title {
+        font-size: 32px;
+        letter-spacing: 0.02em;
+        font-weight: 400;
+    }
+}
+
+#resources {
+    .event-block {
+        margin-bottom: 25px;
+        border-bottom: 1px dotted #aaa;
+        padding-bottom: 25px;
+
+        &:last-child {
+            margin-bottom: 75px;
+            border-bottom: none;
+        }
+
+        img.event-logo {
+            max-height: 56px;
+            margin-bottom: 10px;
+            vertical-align: middle;
+        }
+
+        .event-loc,
+        .event-date,
+        .event-link {
+            font-size: 15px;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            border-left: 1px dotted #aaa;
+            padding-left: 10px;
+        }
+
+        .event-talk-name {
+            margin-bottom: 10px;
+        }
+        .event-talk-speaker {
+            display: inline-flex;
+        }
+        .even-speakers-block {
+            margin-top: 5px;
+            display: inline-flex;
+        }
+        .talk-speaker-name {
+            font-weight: 600;
+        }
+        .talk-speaker-title {
+            font-size: 85%;
+            color: #aaa;
+            letter-spacing: 0.02em;
+        }
+
+        .event-link {
+            margin-bottom: 15px;
+        }
+
+        img.event-avatar-img {
+            height: 36px;
+            margin-right: 10px;
+            vertical-align: middle;
+            -webkit-border-radius: 100%;
+            -moz-border-radius: 100%;
+            border-radius: 100%;
+        }
+
+        .event-name {
+            font-size: 22px;
+            letter-spacing: 0.02em;
+            font-weight: 400;
+
+            a {
+                color: $color-slack;
+            }
+
+            margin-bottom: 10px;
+        }
+    }
+
+    .video-block {
+            margin-bottom: 50px;
+
+            &:last-child {
+                margin-bottom: 75px;
+            }
+
+            iframe {
+                min-width: 560px;
+                margin-right: 20px;
+            }
+
+            .video-iframe {
+                display: inline-flex;
+            }
+
+            .video-footer {
+                font-size: 90%;
+
+                .sep {
+                    color: #cbcbcb;
+                }
+            }
+
+            .video-title {
+                font-size: 22px;
+                letter-spacing: 0.02em;
+                font-weight: 400;
+
+                i.fas {
+                    color: $color-asphalt;
+                }
+
+                a {
+                    color: $color-slack;
+                }
+
+                margin-bottom: 10px;
+            }
+
+            .video-description {
+                font-size: 16px;
+                color: #999;
+                font-weight: 400;
+                letter-spacing: 0.02em;
+                margin-bottom: 10px;
+            }
+        }
+
+    .blog-block {
+        margin-bottom: 50px;
+
+        .blog-title {
+            font-size: 22px;
+            letter-spacing: 0.02em;
+            font-weight: 400;
+
+            i.fas {
+                color: $color-asphalt;
+            }
+
+            a {
+                color: $color-slack;
+
+                &.direct-link {
+                    font-weight: 400;
+                    color: #aaa;
+                    letter-spacing: 0.1em;
+                    vertical-align: top; font-size: 60%
+                }
+            }
+        }
+
+        .blog-excerpt {
+            font-size: 16px;
+            color: #999;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            margin-bottom: 20px;
+
+            a {
+                color: #666;
+                font-weight: 400;
+            }
+        }
+
+        .blog-footer {
+            letter-spacing: 0.02em;
+
+            a, span {
+                vertical-align: middle;
+            }
+
+            .blog-author {
+                margin-right: 10px;
+                display: inline-block;
+            }
+        }
+
+        &:last-child {
+            margin-bottom: 75px;
+        }
+    }
+}

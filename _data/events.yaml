@@ -15,15 +15,42 @@
 # limitations under the License.
 #
 
-- talk_title: Apache NLPCraft - Breaking Years Of Dogma in NLP
+- talk_name: Apache NLPCraft - Breaking Years Of Dogma in NLP
+  event_name: Scale By The Bay
+  event_loc: Online
+  event_url: https://www.scale.bythebay.io/
+  event_logo_url: images/scale-by-the-bay-logo2.png
+  event_twitter_id: ApacheCon
+  event_date: October 28-29, 2021
+  speaker_1_name: Aaron Radzinski
+  speaker_1_avatar_url: images/lion.jpg
+  speaker_1_title: Founder at DataLingvo<br/>Apache NLPCraft IPMC member
+  speaker_1_twitter_id: aaron_radzinski
+
+- talk_name: Adding Natural Language Interface To Minecraft Using Apache NLPCraft
+  event_name: ApacheCon 2021
+  event_loc: Online
+  event_url: https://www.apachecon.com/acah2021/
+  event_logo_url: images/apache-con.jpg
+  event_twitter_id: ApacheCon
+  event_date: September 21-23, 2021
+  speaker_1_name: Sergey Kamov
+  speaker_1_avatar_url: images/sergey_kamov_avatar.png
+  speaker_1_title: Apache NLPCraft IPMC member & committer
+  speaker_1_twitter_id: aaron_radzinski
+
+- talk_name: Apache NLPCraft - Breaking Years Of Dogma in NLP <sub><a target="youtube" href="https://youtu.be/O7iK0AXvcJ8">video</a></sub>
   event_name: ApacheCon Asia 2021
   event_loc: Online
-  url: /relnotes/release-notes-0.9.0.html
-  abstract: Download NLPCraft 0.9.0. Scala 2.13 support + over 35 💪 fixes, improvements and enhancements.
+  event_url: https://www.apachecon.com/acasia2021/
+  event_logo_url: images/apache-con.jpg
+  event_twitter_id: ApacheCon
   event_date: August 6-8, 2021
   speaker_1_name: Aaron Radzinski
-  speaker_1_bio: Founder at DataLingvo, Apache NLPCraft IPMC member
+  speaker_1_avatar_url: images/lion.jpg
+  speaker_1_title: Founder at DataLingvo<br/>Apache NLPCraft IPMC member
+  speaker_1_twitter_id: aaron_radzinski
   speaker_2_name: Nikita Ivanov
-  speaker_2_bio: CTO & founder at GridGain System, Apache Ignite/NLPCraft PMC member
-  event_avatar_url: images/apache-con.jpg
-  event_twitter_id: ApacheCon
+  speaker_2_title: Founder & CTO at GridGain System<br/>Apache Ignite PMC, Apache NLPCraft IPMC member
+  speaker_2_avatar_url: images/nivanov.png
+  speaker_2_twitter_id: c64hacker
