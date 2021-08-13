@@ -15,6 +15,15 @@
 # limitations under the License.
 #
 
+- title: NLPCraft - Hello World!
+  embed_url: https://www.youtube.com/embed/R7SRpxBxHHY?modestbranding=1
+  publish_date: August 12, 2021
+  duration: "10:13"
+  description: >-
+    Apache NLPCraft - https://nlpcraft.apache.org - is a Java-based open source library for adding natural language
+    interface to modern applications, enabling people to interact with your products using voice or text. In this video
+    we’ll develop a quick and simple “Hello World!” example for NLPCraft to demonstrate its main runtime components and APIs.
+
 - title: NLPCraft - Command Line Utility
   embed_url: https://www.youtube.com/embed/LNfny60bmgg?modestbranding=1
   publish_date: July 30, 2021
