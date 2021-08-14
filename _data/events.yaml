@@ -31,7 +31,7 @@
   event_name: ApacheCon 2021
   event_loc: Online
   event_url: https://www.apachecon.com/acah2021/
-  event_logo_url: images/apache-con.jpg
+  event_logo_url: images/apachecon-logo.png
   event_twitter_id: ApacheCon
   event_date: September 21-23, 2021
   speaker_1_name: Sergey Kamov
@@ -43,7 +43,7 @@
   event_name: ApacheCon Asia 2021
   event_loc: Online
   event_url: https://www.apachecon.com/acasia2021/
-  event_logo_url: images/apache-con.jpg
+  event_logo_url: images/apachecon-logo.png
   event_twitter_id: ApacheCon
   event_date: August 6-8, 2021
   speaker_1_name: Aaron Radzinski

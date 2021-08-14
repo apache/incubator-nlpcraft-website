@@ -117,6 +117,41 @@ layout: default
     </div>
 </div>
 
+<div id="home-events" class="bottom-arrow main-section">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="section-title">NLPCraft <span>Events</span></h2>
+            </div>
+        </div>
+        <div id="event-container" class="row">
+            {% for event in site.data.events  limit:4%}
+            <div class="col-4">
+                <div class="event-logo">
+                    <img class="event-logo" src="{{ event.event_logo_url | relative_url}}" alt="">
+                </div>
+                <div class="event-name">
+                    <a href="{{ event.event_url }}" target=_new>{{ event.event_name }}</a>
+                    {% if event.event_twitter_id %}<a target="twitter" href="https://twitter.com/{{ event.event_twitter_id}}"><i class="fab fa-fw fa-twitter"></i></a>{% endif %}
+                </div>
+                <div class="event-loc">
+                    Location: {{ event.event_loc }}
+                </div>
+                <div class="event-date">
+                    Dates: {{ event.event_date }}
+                </div>
+                <div class="event-link">
+                    URL: <a href="{{ event.event_url }}" target=_new>{{ event.event_url }}</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="learn-more">
+            <a href="resources.html">Learn More <i class="align-text-bottom fas fa-angle-right"></i></a>
+        </div>
+    </div>
+</div>
+
 <div id="features" class="bottom-arrow main-section">
     <div class="container-fluid">
         <div class="row">
@@ -223,47 +258,6 @@ layout: default
                         <a target=_ href="https://spacy.io"><img src="/images/spacy-logo-h32.png" alt=""></a>
                     </div>
                 </section>
-            </div>
-        </div>
-        <div class="learn-more">
-            <a href="docs.html">Learn more <i class="align-text-bottom fas fa-angle-right"></i></a>
-        </div>
-    </div>
-</div>
-
-<div id="howitworks" class="bottom-arrow main-section">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <h2 class="section-title">How <span>It Works</span></h2>
-            </div>
-        </div>
-        <div class="row d-flex flex-wrap align-items-center">
-            <div class="col-6">
-                <section>
-                    <p>
-                        There are three main software components:
-                    </p>
-                    <p>
-                        <b>Data model</b> provides named entities, configuration properties and intents.
-                        Developers use model-as-a-code approach
-                        to build models using any JVM language like Java, Scala, Groovy or Kotlin.
-                    </p>
-                    <p>
-                        <b>Data probe</b> is a DMZ-deployed application designed to securely
-                        deploy and manage data models. Each probe can manage multiple models and you can
-                        have many probes.
-                    </p>
-                    <p>
-                        <b>REST server</b> provides REST endpoint for end-user applications to securely query data
-                        sources using natural language via data models deployed in data probes.
-                    </p>
-                </section>
-            </div>
-            <div class="col-6">
-                <div style="text-align: center">
-                    <img class="img-fluid" src="/images/homepage-fig1.1.png" alt="">
-                </div>
             </div>
         </div>
         <div class="learn-more">

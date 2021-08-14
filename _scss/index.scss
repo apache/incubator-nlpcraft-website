@@ -155,18 +155,10 @@
 }
 
 #features {
-    background-color: rgba(238,244,246,84);
+    background-color: #fff; //rgba(238,244,246,84);
 
     &:after {
-        border-top-color: rgba(238,244,246,84);
-    }
-}
-
-#howitworks {
-    background-color: #fff;
-
-    &:after {
-        border-top-color: #fff;
+        border-top-color: #fff; //rgba(238,244,246,84);
     }
 }
 
@@ -200,6 +192,67 @@
         font-size: 150%;
         margin-bottom: 10px;
         display: inline-block;
+    }
+}
+
+#home-events {
+    background-color: #eafaff;
+
+    &:after {
+        border-top-color: #eafaff;
+    }
+
+    #event-container {
+        margin-bottom: 20px;
+
+        a, a:hover, a:active, i.fas {
+            color: $color-asphalt;
+        }
+
+        img.event-logo {
+            max-height: 56px;
+            margin-bottom: 10px;
+            vertical-align: middle;
+        }
+
+        .event-loc,
+        .event-date,
+        .event-link {
+            font-size: 15px;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            border-left: 1px dotted #aaa;
+            padding-left: 10px;
+        }
+
+        .event-talk-name {
+            margin-bottom: 10px;
+        }
+
+        .event-link {
+            margin-bottom: 15px;
+        }
+
+        img.event-avatar-img {
+            height: 36px;
+            margin-right: 10px;
+            vertical-align: middle;
+            -webkit-border-radius: 100%;
+            -moz-border-radius: 100%;
+            border-radius: 100%;
+        }
+
+        .event-name {
+            font-size: 25px;
+            letter-spacing: 0.02em;
+            font-weight: 200;
+
+            a {
+                color: $color-slack;
+            }
+
+            margin-bottom: 10px;
+        }
     }
 }
 
