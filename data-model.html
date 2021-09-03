@@ -52,13 +52,21 @@ id: data_model
         </p>
         <nav>
             <div class="nav nav-tabs" role="tablist">
-                <a class="nav-item nav-link active" data-toggle="tab" href="#scala-model-ex" role="tab"><code>LightSwitchModel.scala</code></a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#java-model-ex" role="tab"><code>AlarmModel.java</code></a>
+                <a class="nav-item nav-link active" data-toggle="tab" href="#lightswitch" role="tab"><b>LightSwitch <code><sub>ex</sub></code></b></a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#alarm" role="tab"><b>Alarm <code><sub>ex</sub></code></b></a>
             </div>
         </nav>
         <div class="tab-content">
-            <div class="tab-pane fade show active" id="scala-model-ex" role="tabpanel">
-                <pre class="brush: scala">
+            <div class="tab-pane fade show active" id="lightswitch" role="tabpanel">
+                <nav>
+                    <div class="nav nav-tabs" role="tablist">
+                        <a class="nav-item nav-link active" data-toggle="tab" href="#lightswitch_scala_model" role="tab"><code>LightSwitchModel.scala</code></a>
+                        <a class="nav-item nav-link" data-toggle="tab" href="#lightswitch_yaml_model" role="tab"><code>lightswitch_model.yaml</code></a>
+                    </div>
+                </nav>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="lightswitch_scala_model" role="tabpanel">
+                        <pre class="brush: scala">
 package org.apache.nlpcraft.examples.lightswitch
 
 import org.apache.nlpcraft.model.{NCIntentTerm, _}
@@ -98,17 +106,90 @@ class LightSwitchModel extends NCModelFileAdapter("lightswitch_model.yaml") {
     }
 }
                 </pre>
+                    </div>
+                    <div class="tab-pane fade show" id="lightswitch_yaml_model" role="tabpanel">
+                        <pre class="brush: js">
+id: "nlpcraft.lightswitch.ex"
+name: "Light Switch Example Model"
+version: "1.0"
+description: "NLI-powered light switch example model."
+macros:
+  - name: "&lt;ACTION&gt;"
+    macro: "{turn|switch|dial|let|set|get|put}"
+  - name: "&lt;KILL&gt;"
+    macro: "{shut|kill|stop|eliminate}"
+  - name: "&lt;ENTIRE_OPT&gt;"
+    macro: "{entire|full|whole|total|_}"
+  - name: "&lt;FLOOR_OPT&gt;"
+    macro: "{upstairs|downstairs|{1st|first|2nd|second|3rd|third|4th|fourth|5th|fifth|top|ground} floor|_}"
+  - name: "&lt;TYPE&gt;"
+    macro: "{room|closet|attic|loft|{store|storage} {room|_}}"
+  - name: "&lt;LIGHT&gt;"
+    macro: "{all|_} {it|them|light|illumination|lamp|lamplight}"
+enabledBuiltInTokens: [] # This example doesn't use any built-in tokens.
+
+#
+# Allows for multi-word synonyms in this entire model
+# to be sparse and permutate them for better detection.
+# These two properties generally enable a free-form
+# natural language comprehension.
+#
+permutateSynonyms: true
+sparse: true
+
+elements:
+  - id: "ls:loc"
+    description: "Location of lights."
+    synonyms:
+      - "&lt;ENTIRE_OPT&gt; &lt;FLOOR_OPT&gt; {kitchen|library|closet|garage|office|playroom|{dinning|laundry|play} &lt;TYPE&gt;}"
+      - "&lt;ENTIRE_OPT&gt; &lt;FLOOR_OPT&gt; {master|kid|children|child|guest|_} {bedroom|bathroom|washroom|storage} {&lt;TYPE&gt;|_}"
+      - "&lt;ENTIRE_OPT&gt; {house|home|building|{1st|first} floor|{2nd|second} floor}"
+
+  - id: "ls:on"
+    groups:
+      - "act"
+    description: "Light switch ON action."
+    synonyms:
+      - "&lt;ACTION&gt; {on|up|_} &lt;LIGHT&gt; {on|up|_}"
+      - "&lt;LIGHT&gt; {on|up}"
+
+  - id: "ls:off"
+    groups:
+      - "act"
+    description: "Light switch OFF action."
+    synonyms:
+      - "&lt;ACTION&gt; &lt;LIGHT&gt; {off|out|down}"
+      - "{&lt;ACTION&gt;|&lt;KILL&gt;} {off|out|down} &lt;LIGHT&gt;"
+      - "&lt;KILL&gt; &lt;LIGHT&gt;"
+      - "&lt;LIGHT&gt; &lt;KILL&gt;"
+      - "{out|no|off|down} &lt;LIGHT&gt;"
+      - "&lt;LIGHT&gt; {out|off|down}"
+
+intents:
+  - "intent=ls term(act)={has(tok_groups, 'act')} term(loc)={# == 'ls:loc'}*"                            
+                        </pre>
+                    </div>
+                </div>
             </div>
-            <div class="tab-pane fade show" id="java-model-ex" role="tabpanel">
-                <pre class="brush: java">
+            <div class="tab-pane fade show" id="alarm" role="tabpanel">
+                <nav>
+                    <div class="nav nav-tabs" role="tablist">
+                        <a class="nav-item nav-link active" data-toggle="tab" href="#alarm_java_model" role="tab"><code>AlarmModel.java</code></a>
+                        <a class="nav-item nav-link" data-toggle="tab" href="#alarm_intents_idl" role="tab"><code>intents.idl</code></a>
+                        <a class="nav-item nav-link" data-toggle="tab" href="#alarm_json_model" role="tab"><code>alarm_model.json</code></a>
+                    </div>
+                </nav>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="alarm_java_model" role="tabpanel">
+                        <pre class="brush: java">
 package org.apache.nlpcraft.examples.alarm;
 
 import org.apache.nlpcraft.model.*;
+
 import java.time.*;
-import java.time.format.*;
 import java.util.*;
 
-import static java.time.temporal.ChronoUnit.*;
+import static java.time.temporal.ChronoUnit.MILLIS;
 
 public class AlarmModel extends NCModelFileAdapter {
     private static final DateTimeFormatter FMT =
@@ -117,28 +198,42 @@ public class AlarmModel extends NCModelFileAdapter {
     private final Timer timer = new Timer();
 
     public AlarmModel() {
-        // Loading the model from the file in the classpath.
+        // Loading the model from the file.
         super("alarm_model.json");
     }
 
-    @NCIntentRef("alarm")
-    @NCIntentSample({
-        "Ping me in 3 minutes",
-        "Buzz me in an hour and 15mins",
-        "Set my alarm for 30s"
-    })
+    @NCIntentRef("alarm") // Intent is defined in JSON model file (alarm_model.json and intents.idl).
+    @NCIntentSampleRef("alarm_samples.txt") // Samples supplied in an external file.
     NCResult onMatch(
         NCIntentMatch ctx,
         @NCIntentTerm("nums") List&lt;NCToken&gt; numToks
     ) {
-        if (ctx.isAmbiguous())
-            throw new NCRejection("Not exact match.");
+        long ms = calculateTime(numToks);
 
-        long unitsCnt = numToks.stream().map(tok -&gt; (String)tok.meta("num:unit")).distinct().count();
+        assert ms >= 0;
 
-        if (unitsCnt != numToks.size())
-            throw new NCRejection("Ambiguous time units.");
+        timer.schedule(
+            new TimerTask() {
+                @Override
+                public void run() {
+                    System.out.println(
+                        "BEEP BEEP BEEP for: " + ctx.getContext().getRequest().getNormalizedText() + ""
+                    );
+                }
+            },
+            ms
+        );
 
+        return NCResult.text("Timer set for: " + FMT.format(LocalDateTime.now().plus(ms, MILLIS)));
+    }
+
+    @Override
+    public void onDiscard() {
+        // Clean up when model gets discarded (e.g. during testing).
+        timer.cancel();
+    }
+
+    public static long calculateTime(List&lt;NCToken&gt; numToks) {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime dt = now;
 
@@ -161,37 +256,62 @@ public class AlarmModel extends NCModelFileAdapter {
                 case "year": { dt = dt.plusYears(v); break; }
 
                 default:
-                    // It shouldn't be assert, because 'datetime' unit can be extended.
+                    // It shouldn't be an assertion, because 'datetime' unit can be extended outside.
                     throw new NCRejection("Unsupported time unit: " + unit);
             }
         }
 
-        long ms = now.until(dt, MILLIS);
-
-        assert ms &gt;= 0;
-
-        timer.schedule(
-            new TimerTask() {
-                @Override
-                public void run() {
-                    System.out.println(
-                        "BEEP BEEP BEEP for: " + ctx.getContext().getRequest().getNormalizedText() + ""
-                    );
-                }
-            },
-            ms
-        );
-
-        return NCResult.text("Timer set for: " + FMT.format(dt));
-    }
-
-    @Override
-    public void onDiscard() {
-        // Clean up when model gets discarded (e.g. during testing).
-        timer.cancel();
+        return now.until(dt, MILLIS);
     }
 }
-                </pre>
+                        </pre>
+                    </div>
+                    <div class="tab-pane fade show" id="alarm_intents_idl" role="tabpanel">
+                        <pre class="brush: idl">
+// Fragments (mostly for demo purposes here).
+fragment=buzz term~{# == 'x:alarm'}
+fragment=when
+    term(nums)~{
+        // Demonstrating term variables.
+        @type = meta_tok('nlpcraft:num:unittype')
+        @iseq = meta_tok('nlpcraft:num:isequalcondition') // Excludes conditional statements.
+
+        # == 'nlpcraft:num' && @type == 'datetime' && @iseq == true
+    }[1,7]
+
+// Intents (using fragments).
+intent=alarm
+    fragment(buzz)
+    fragment(when)
+                        </pre>
+                    </div>
+                    <div class="tab-pane fade show" id="alarm_json_model" role="tabpanel">
+                        <pre class="brush: js">
+{
+    "id": "nlpcraft.alarm.ex",
+    "name": "Alarm Example Model",
+    "version": "1.0",
+    "description": "Alarm example model.",
+    "enabledBuiltInTokens": [
+        "nlpcraft:num"
+    ],
+    "elements": [
+        {
+            "id": "x:alarm",
+            "description": "Alarm token indicator.",
+            "synonyms": [
+                "{ping|buzz|wake|call|hit} {me|up|me up|_}",
+                "{set|_} {my|_} {wake|wake up|_} {alarm|timer|clock|buzzer|call} {clock|_} {up|_}"
+            ]
+        }
+    ],
+    "intents": [
+        "import('intents.idl')" // Import intents from external file.
+    ]
+}
+                        </pre>
+                    </div>
+                </div>
             </div>
         </div>
         <p>
@@ -278,7 +398,7 @@ public class AlarmModel extends NCModelFileAdapter {
                 </div>
             </div>
         </div>
-        <h2 id="deployment" class="section-title">Deployment <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <h2 id="deployment" class="section-sub-title">Deployment <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             Data models get <a href="/server-and-probe.html">deployed</a> to and hosted by the data probes - a lightweight
             container whose job is to host data models and securely transfer requests between REST server and the data
@@ -290,7 +410,7 @@ public class AlarmModel extends NCModelFileAdapter {
             the data probe. Note also that data probe can be started in <a href="/tools/embedded_probe.html">embedded mode</a>, i.e. it can be started
             from within an existing JVM process like user application.
         </p>
-        <h2 id="callbacks" class="section-title">Callbacks <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <h2 id="callbacks" class="section-sub-title">Callbacks <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             There are two lifecycle callbacks on
             <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModel.html">NCModel</a> interface
@@ -398,7 +518,7 @@ public class AlarmModel extends NCModelFileAdapter {
             <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#isSparse()">isSparse</a></li>
             <li><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#isSwearWordsAllowed()">isSwearWordsAllowed</a></li>
         </ul>
-        <h2 class="section-title">External JSON/YAML Declaration <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <h2 class="section-sub-title">External JSON/YAML Declaration <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             You can move out all the static model configuration into an external JSON or YAML file. To load that
             configuration you need to use <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelFileAdapter.html">NCModelFileAdapter</a>
@@ -704,213 +824,6 @@ intents:
             <li><code>getSynonyms()</code> - gets synonyms to match on.</li>
             <li><code>getValues()</code> - get values to match on (see <a href="#values">below</a>).</li>
         </ul>
-        <span id="macros" class="section-sub-title">Macros <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
-        <p>
-            Listing all possible multi-word synonyms for a given element can be a time-consuming task. Macros
-            together with option groups allow for significant simplification of this task.
-            Macros allow you to give a name to an often used set of words or option groups and reuse it without
-            repeating those words or option groups again and again. A model provides a list of macros via
-            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMacros()">getMacros()</a> method.
-            Each macro has a name in a form of <code>&lt;X&gt;</code> where <code>X</code>
-            is any string, and a string value. Note that macros can be nested (but not recursive), i.e. macro value can include
-            references to other macros. When macro name <code>X</code> is encountered in the synonym it gets recursively
-            replaced with its value.
-        </p>
-        <p>
-            Here's a code snippet of macro definitions using JSON definition:
-        </p>
-        <pre class="brush: js">
-            "macros": [
-                {
-                    "name": "&lt;A&gt;",
-                    "macro": "aaa"
-                },
-                {
-                    "name": "&lt;B&gt;",
-                    "macro": "&lt;A&gt; bbb"
-                },
-                {
-                    "name": "&lt;C&gt;",
-                    "macro": "&lt;A&gt; bbb {z|w}"
-                }
-             ]
-        </pre>
-        <span id="option-groups" class="section-sub-title">Option Groups <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
-        <p>
-            Option groups are similar to wildcard patterns that operates on a single word base. One line of
-            option group expands into one or more individual synonyms. Option groups is the key mechanism for shortened
-            synonyms notation. The following examples demonstrate how to use option groups.
-        </p>
-        <p>
-            Consider the following macros defined below (note that macros <code>&lt;B&gt;</code> and <code>&lt;C&gt;</code>
-            are nested):
-        </p>
-        <table class="gradient-table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Value</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><code>&lt;A&gt;</code></td>
-                    <td><code>aaa</code></td>
-                </tr>
-                <tr>
-                    <td><code>&lt;B&gt;</code></td>
-                    <td><code>&lt;A&gt; bbb</code></td>
-                </tr>
-                <tr>
-                    <td><code>&lt;C&gt;</code></td>
-                    <td><code>&lt;A&gt; bbb {z|w}</code></td>
-                </tr>
-            </tbody>
-        </table>
-        <p>
-            Then the following option group expansions will occur in these examples:
-        </p>
-        <table class="gradient-table">
-            <thead>
-               <tr>
-                   <th>Synonym</th>
-                   <th>Synonym Expansions</th>
-               </tr>
-            </thead>
-            <tbody>
-               <tr>
-                   <td><code>&lt;A&gt; {b|_} c</code></td>
-                   <td>
-                       <code>"aaa b c"</code><br>
-                       <code>"aaa c"</code>
-                   </td>
-               </tr>
-               <tr>
-                   <td><code>&lt;B&gt; {b|_} c</code></td>
-                   <td>
-                        <code>"aaa bbb b c"</code><br>
-                        <code>"aaa bbb c"</code>
-                   </td>
-               </tr>
-               <tr>
-                   <td><code>{b|\{\_\}}</code></td>
-                   <td>
-                        <code>"b"</code><br>
-                        <code>"b {_}"</code>
-                   </td>
-               </tr>
-               <tr>
-                   <td><code>a {b|_}. c</code></td>
-                   <td>
-                        <code>"a b. c"</code><br>
-                        <code>"a . c"</code>
-                   </td>
-               </tr>
-               <tr>
-                   <td><code>a .{b,  |_}. c</code></td>
-                   <td>
-                        <code>"a .b, . c"</code><br>
-                        <code>"a .. c"</code>
-                   </td>
-               </tr>
-               <tr>
-                   <td><code>
-                       {% raw %}a {{b|c}|_}.{% endraw %}</code></td>
-                   <td>
-                        <code>"a ."</code><br>
-                        <code>"a b."</code><br>
-                        <code>"a c."</code>
-                   </td>
-               </tr>
-               <tr>
-                   <td><code>a {% raw %}{{{&lt;C&gt;}}|{_}}{% endraw %} c</code></td>
-                   <td>
-                        <code>"a aaa bbb z c"</code><br>
-                        <code>"a aaa bbb w c"</code><br>
-                        <code>"a c"</code>
-                   </td>
-               </tr>
-               <tr>
-                   <td><code>{% raw %}{{{a}}} {b||_|{{_}}||_}{% endraw %}</code></td>
-                   <td>
-                        <code>"a b"</code><br>
-                        <code>"a"</code>
-                   </td>
-               </tr>
-            </tbody>
-        </table>
-        <p>
-           Specifically:
-        </p>
-        <ul>
-            <li><code>{A|B}</code> denotes either <code>A</code> or <code>B</code>.</li>
-            <li><code>{A|B|_}</code> denotes either <code>A</code> or <code>B</code> or nothing.</li>
-            <li>Excessive curly brackets are ignored, when safe to do so.</li>
-            <li>Macros cannot be recursive but can be nested.</li>
-            <li>Option groups can be nested.</li>
-            <li>
-                <code>'\'</code> (backslash) can be used to escape <code>'{'</code>, <code>'}'</code>, <code>'|'</code> and
-                <code>'_'</code> special symbols used by the option groups.
-            </li>
-            <li>Excessive whitespaces are trimmed when expanding option groups.</li>
-        </ul>
-        <p>
-            We can rewrite our transportation model element in a more efficient way using macros and option groups.
-            Even though the actual length of definition hasn't changed much it now auto-generates many dozens of synonyms
-            we would have to write out manually otherwise:
-        </p>
-        <pre class="brush: js, highlight: [4,5,14]">
-            ...
-            "macros": [
-                {
-                    "name": "&lt;TRUCK_TYPE&gt;",
-                    "macro": "{ {light|super|heavy|medium} duty|half ton|1/2 ton|3/4 ton|one ton}"
-                }
-             ]
-            "elements": [
-                {
-                    "id": "transport.vehicle",
-                    "description": "Transportation vehicle",
-                    "synonyms": [
-                        "car",
-                        "{&lt;TRUCK_TYPE&gt;|_} {pickup|_} truck"
-                        "sedan",
-                        "coupe"
-                    ]
-                }
-            ]
-            ...
-        </pre>
-        <span id="regex" class="section-sub-title">Regular Expressions <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
-        <p>
-            Any individual synonym word that starts and ends with <code>//</code> (two forward slashes) is
-            considered to be Java regular expression as defined in <code>java.util.regex.Pattern</code>. Note that
-            regular expression can only span a single word, i.e. only individual words from the user input will be
-            matched against given regular expression and no whitespaces are allowed within regular expression. Note
-            also that option group special symbols <code>{</code>, <code>}</code>,
-            <code>|</code> and <code>_</code> have to be escaped in the regular expression using <code>\</code>
-            (backslash).
-        </p>
-        <p>
-            For example, the following synonym:
-        </p>
-        <pre class="brush: js">
-        "synonyms": [
-            "{foo|//[bar].+//}}"
-        ]
-        </pre>
-        <p>
-            will match word <code>foo</code> or any other strings that start with <code>bar</code> as long as
-            this string doesn't contain whitespaces.
-        </p>
-        <div class="bq info">
-            <b>Regular Expressions Performance</b>
-            <p>
-                It's important to note that regular expressions can significantly affect the performance of the
-                NLPCraft processing if used uncontrolled. Use it with caution and test the performance
-                of your model to ensure it meets your requirements.
-            </p>
-        </div>
         <span id="values" class="section-sub-title">Element Values <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
         <p>
             Model element can have an optional set of special synonyms called <em>values</em> or "proper nouns" for this element.
@@ -1031,8 +944,241 @@ intents:
             intent=car.intent term~{tok_parent() == 'car'}
         </pre>
     </section>
-    <section id="dsl" >
-        <h2 class="section-title">IDL Expressions <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+    <section id="syns-tools">
+        <span id="macros" class="section-sub-title">Macros <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
+        <p>
+            Listing all possible multi-word synonyms for a given element can be a time-consuming task. Macros
+            together with option groups allow for significant simplification of this task.
+            Macros allow you to give a name to an often used set of words or option groups and reuse it without
+            repeating those words or option groups again and again. A model provides a list of macros via
+            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMacros()">getMacros()</a> method.
+            Each macro has a name in a form of <code>&lt;X&gt;</code> where <code>X</code>
+            is any string, and a string value. Note that macros can be nested (but not recursive), i.e. macro value can include
+            references to other macros. When macro name <code>X</code> is encountered in the synonym it gets recursively
+            replaced with its value.
+        </p>
+        <p>
+            Here's a code snippet of macro definitions using JSON definition:
+        </p>
+        <pre class="brush: js">
+            "macros": [
+                {
+                    "name": "&lt;A&gt;",
+                    "macro": "aaa"
+                },
+                {
+                    "name": "&lt;B&gt;",
+                    "macro": "&lt;A&gt; bbb"
+                },
+                {
+                    "name": "&lt;C&gt;",
+                    "macro": "&lt;A&gt; bbb {z|w}"
+                }
+             ]
+        </pre>
+        <span id="option-groups" class="section-sub-title">Option Groups <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
+        <p>
+            Option groups are similar to wildcard patterns that operates on a single word base. One line of
+            option group expands into one or more individual synonyms. Option groups is the key mechanism for shortened
+            synonyms notation. The following examples demonstrate how to use option groups.
+        </p>
+        <p>
+            Consider the following macros defined below (note that macros <code>&lt;B&gt;</code> and <code>&lt;C&gt;</code>
+            are nested):
+        </p>
+        <table class="gradient-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>&lt;A&gt;</code></td>
+                    <td><code>aaa</code></td>
+                </tr>
+                <tr>
+                    <td><code>&lt;B&gt;</code></td>
+                    <td><code>&lt;A&gt; bbb</code></td>
+                </tr>
+                <tr>
+                    <td><code>&lt;C&gt;</code></td>
+                    <td><code>&lt;A&gt; bbb {z|w}</code></td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            Then the following option group expansions will occur in these examples:
+        </p>
+        <table class="gradient-table">
+            <thead>
+               <tr>
+                   <th>Synonym</th>
+                   <th>Synonym Expansions</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr>
+                   <td><code>&lt;A&gt; {b|_} c</code></td>
+                   <td>
+                       <code>"aaa b c"</code><br>
+                       <code>"aaa c"</code>
+                   </td>
+               </tr>
+               <tr>
+                   <td><code>&lt;A&gt; {b|a}[1,2] c</code></td>
+                   <td>
+                       <code>"aaa b c"</code><br>
+                       <code>"aaa b b c"</code><br>
+                       <code>"aaa a c"</code><br>
+                       <code>"aaa a a c"</code><br>
+                       <code>"aaa c"</code>
+                   </td>
+               </tr>
+               <tr>
+                   <td>
+                       <code>&lt;B&gt; {b|_} c</code><br>
+                       or<br>
+                       <code>&lt;B&gt; {b}[0,1] c</code>
+                   </td>
+                   <td>
+                        <code>"aaa bbb b c"</code><br>
+                        <code>"aaa bbb c"</code>
+                   </td>
+               </tr>
+               <tr>
+                   <td><code>{b|\{\_\}}</code></td>
+                   <td>
+                        <code>"b"</code><br>
+                        <code>"b {_}"</code>
+                   </td>
+               </tr>
+               <tr>
+                   <td><code>a {b|_}. c</code></td>
+                   <td>
+                        <code>"a b. c"</code><br>
+                        <code>"a . c"</code>
+                   </td>
+               </tr>
+               <tr>
+                   <td><code>a .{b,  |_}. c</code></td>
+                   <td>
+                        <code>"a .b, . c"</code><br>
+                        <code>"a .. c"</code>
+                   </td>
+               </tr>
+               <tr>
+                   <td><code>
+                       {% raw %}a {{b|c}|_}.{% endraw %}</code></td>
+                   <td>
+                        <code>"a ."</code><br>
+                        <code>"a b."</code><br>
+                        <code>"a c."</code>
+                   </td>
+               </tr>
+               <tr>
+                   <td><code>a {% raw %}{{{&lt;C&gt;}}|{_}}{% endraw %} c</code></td>
+                   <td>
+                        <code>"a aaa bbb z c"</code><br>
+                        <code>"a aaa bbb w c"</code><br>
+                        <code>"a c"</code>
+                   </td>
+               </tr>
+               <tr>
+                   <td><code>{% raw %}{{{a}}} {b||_|{{_}}||_}{% endraw %}</code></td>
+                   <td>
+                        <code>"a b"</code><br>
+                        <code>"a"</code>
+                   </td>
+               </tr>
+            </tbody>
+        </table>
+        <p>
+           Specifically:
+        </p>
+        <ul>
+            <li><code>{A|B}</code> denotes either <code>A</code> or <code>B</code>.</li>
+            <li>
+                <code>{A|B|_}</code> denotes either <code>A</code> or <code>B</code> or nothing.
+                <ul>
+                    <li>Symbol <code>_</code> cam appear anywhere in the list of options, i.e. <code>{A|B|_}</code> is equal to <code>{A|_|B}</code>.</li>
+                </ul>
+            </li>
+            <li>
+                <code>{C}[x,y]</code> denotes an option group with quantifier, i.e. group <code>C</code> appearing from <code>x</code> to <code>y</code> times inclusive.
+                <ul>
+                    <li>For example, <code>{C}[1,3]</code> is the same as <code>{C|C C|C C C}</code> notation.</li>
+                    <li>Note that <code>{C|_}</code> is equal to <code>{C}[0,1]</code></li>
+                </ul>
+            </li>
+            <li>Excessive curly brackets are ignored, when safe to do so.</li>
+            <li>Macros cannot be recursive but can be nested.</li>
+            <li>Option groups can be nested.</li>
+            <li>
+                <code>'\'</code> (backslash) can be used to escape <code>'{'</code>, <code>'}'</code>, <code>'|'</code> and
+                <code>'_'</code> special symbols used by the option groups.
+            </li>
+            <li>Excessive whitespaces are trimmed when expanding option groups.</li>
+        </ul>
+        <p>
+            We can rewrite our transportation model element in a more efficient way using macros and option groups.
+            Even though the actual length of definition hasn't changed much it now auto-generates many dozens of synonyms
+            we would have to write out manually otherwise:
+        </p>
+        <pre class="brush: js, highlight: [4,5,14]">
+            ...
+            "macros": [
+                {
+                    "name": "&lt;TRUCK_TYPE&gt;",
+                    "macro": "{ {light|super|heavy|medium} duty|half ton|1/2 ton|3/4 ton|one ton}"
+                }
+             ]
+            "elements": [
+                {
+                    "id": "transport.vehicle",
+                    "description": "Transportation vehicle",
+                    "synonyms": [
+                        "car",
+                        "{&lt;TRUCK_TYPE&gt;|_} {pickup|_} truck"
+                        "sedan",
+                        "coupe"
+                    ]
+                }
+            ]
+            ...
+        </pre>
+        <span id="regex" class="section-sub-title">Regular Expressions <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
+        <p>
+            Any individual synonym word that starts and ends with <code>//</code> (two forward slashes) is
+            considered to be Java regular expression as defined in <code>java.util.regex.Pattern</code>. Note that
+            regular expression can only span a single word, i.e. only individual words from the user input will be
+            matched against given regular expression and no whitespaces are allowed within regular expression. Note
+            also that option group special symbols <code>{</code>, <code>}</code>,
+            <code>|</code> and <code>_</code> have to be escaped in the regular expression using <code>\</code>
+            (backslash).
+        </p>
+        <p>
+            For example, the following synonym:
+        </p>
+        <pre class="brush: js">
+        "synonyms": [
+            "{foo|//[bar].+//}}"
+        ]
+        </pre>
+        <p>
+            will match word <code>foo</code> or any other strings that start with <code>bar</code> as long as
+            this string doesn't contain whitespaces.
+        </p>
+        <div class="bq info">
+            <b>Regular Expressions Performance</b>
+            <p>
+                It's important to note that regular expressions can significantly affect the performance of the
+                NLPCraft processing if used uncontrolled. Use it with caution and test the performance
+                of your model to ensure it meets your requirements.
+            </p>
+        </div>
+        <h2 id="dsl" class="section-sub-title">IDL Expressions <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             Any individual synonym word that that starts and ends with <code>^^</code> is a
             <a href="/intent-matching.html#idl">IDL expression.</a> IDL
@@ -1084,7 +1230,7 @@ intents:
             </p>
         </div>
         <p>
-            Another often used use case is to wrap 3rd party named entities to add group membership, metadata or hierarchical
+            Another use case is to wrap 3rd party named entities to add group membership, metadata or hierarchical
             relationship to the externally defined named entity. For example, you can wrap <code>google:location</code>
             token and add group membership for <code>my_group</code> group:
         </p>
@@ -1102,7 +1248,7 @@ intents:
             ]
             ...
         </pre>
-        <span id="dsl-syntax" class="section-sub-title">IDL Expression Syntax <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
+        <b>IDL Expression Syntax</b>
         <p>
             IDL expressions are a subset of overall <a href="/intent-matching.html#idl">IDL syntax</a>. You can
             review formal
@@ -1123,9 +1269,7 @@ intents:
                 The expression between <code>{</code> and <code>}</code> brackets is a standard IDL term expression.
             </li>
         </ul>
-    </section>
-    <section id="programmable_ners">
-        <h2 class="section-title">Programmable NERs <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <h2 id="programmable_ners" class="section-sub-title">Programmable NERs <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             By default, the data model detects its elements by their synonyms, regexp or IDL expressions. However, in some cases
             these methods are either not expressive enough or cannot be used. For example, detecting model elements based
@@ -1159,13 +1303,13 @@ intents:
             <li>Interface <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html">NCToken</a></li>
             <li>Class <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCResult.html">NCResult</a></li>
         </ul>
-        <h2 class="section-title">Interface <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html">NCModelView</a> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <h2 class="section-sub-title">Interface <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html">NCModelView</a> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             This interface provides read-only view on data model. Model view defines a declarative, or configurable, part of the model.
             All properties in this interface can be defined or overridden in JSON/YAML external
             presentation when used with <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelFileAdapter.html">NCModelFileAdapter</a> adapter.
         </p>
-        <h2 class="section-title">Interface <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentMatch.html">NCIntentMatch</a> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <h2 class="section-sub-title">Interface <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentMatch.html">NCIntentMatch</a> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             This interface defines a context of a particular intent match. It can be passed into the callback of the matched intent
             and provides the following:
@@ -1176,7 +1320,7 @@ intents:
             <li>Access to the original query context (<a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCContext.html">NCContext</a>).</li>
             <li>Various access APIs for intent tokens.</li>
         </ul>
-        <h2 class="section-title">Interface <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCContext.html">NCContext</a> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <h2 class="section-sub-title">Interface <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCContext.html">NCContext</a> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             This interface provides all available data about the parsed user input and all its
             supplemental information. It's accessible from <code>NCIntentMatch</code> interface and
@@ -1209,7 +1353,7 @@ intents:
                 returns list of all parsing variants for a given user input.
             </li>
         </ul>
-        <h2 class="section-title">Interface <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html">NCRequest</a> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <h2 class="section-sub-title">Interface <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html">NCRequest</a> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html">NCRequest</a> interface
             is one of the several important entities in Data Model API that you as a model developer will be working with. You
@@ -1227,7 +1371,7 @@ intents:
                 Original request text, timestamp of its receipt, and server request ID.
             </li>
         </ul>
-        <h2 class="section-title">Interface <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html">NCToken</a> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <h2 class="section-sub-title">Interface <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html">NCToken</a> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html">NCToken</a> object is another
             key abstraction in Data Model API. A token is a detected model element and is a part of a fully parsed user input.
@@ -1240,14 +1384,14 @@ intents:
             Depending on the token ID each token will have different set of <a href="#meta">metadata properties</a>. Some common NLP properties
             are always present for tokens of all types.
         </p>
-        <h2 class="section-title">Class <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCResult.html">NCResult</a> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <h2 class="section-sub-title">Class <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCResult.html">NCResult</a> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             This class defines the result returned from model's intent callbacks. Result consists of the
             text body and the type. The result types are similar in notion to MIME type and have specific meaning only for REST applications
             that interpret them accordingly. For example, the REST client interfacing between NLPCraft and Amazon Alexa or Apple HomeKit could
             only accept text result type and ignore everything else.
         </p>
-        <h2 class="section-title">Interface <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCMetadata.html">NCMetadata</a> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <h2 class="section-sub-title">Interface <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCMetadata.html">NCMetadata</a> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             Interface <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCMetadata.html">NCMetadata</a>
             provides support for mutable runtime-only metadata. This interface can be used to attach user-defined runtime data
@@ -2823,17 +2967,31 @@ intents:
         <li><a href="#config">Model Configuration</a></li>
         <li><a href="#ne">Named Entities</a></li>
         <li><a href="#elements">Model Elements</a></li>
-        <li><a href="#dsl">IDL Expression</a></li>
-        <li><a href="#programmable_ners">Programmable NERs</a></li>
+        <li><a class="toc2" href="#macros">Macros</a></li>
+        <li><a class="toc2" href="#regex">Regular Expressions</a></li>
+        <li><a class="toc2" href="#option-groups">Option Groups</a></li>
+        <li><a class="toc2" href="#dsl">IDL Expression</a></li>
+        <li><a class="toc2" href="#programmable_ners">Programmable NERs</a></li>
         <li><a href="#logic">Model Logic</a></li>
         <li><a href="#builtin">Built-In Tokens</a></li>
         <li><a href="#meta">Token Metadata</a></li>
+        <li><a class="toc2" href="#nlpcraft:nlp"><code>nlpcraft:nlp</code></a></li>
+        <li><a class="toc2" href="#nlpcraft:date"><code>nlpcraft:date</code></a></li>
+        <li><a class="toc2" href="#nlpcraft:num"><code>nlpcraft:num</code></a></li>
+        <li><a class="toc2" href="#nlpcraft:city"><code>nlpcraft:city</code></a></li>
+        <li><a class="toc2" href="#nlpcraft:continent"><code>nlpcraft:continent</code></a></li>
+        <li><a class="toc2" href="#nlpcraft:subcontinent"><code>nlpcraft:subcontinent</code></a></li>
+        <li><a class="toc2" href="#nlpcraft:region"><code>nlpcraft:region</code></a></li>
+        <li><a class="toc2" href="#nlpcraft:country"><code>nlpcraft:country</code></a></li>
+        <li><a class="toc2" href="#nlpcraft:metro"><code>nlpcraft:metro</code></a></li>
+        <li><a class="toc2" href="#nlpcraft:coordinate"><code>nlpcraft:coordinate</code></a></li>
+        <li><a class="toc2" href="#nlpcraft:sort"><code>nlpcraft:sort</code></a></li>
+        <li><a class="toc2" href="#nlpcraft:limit"><code>nlpcraft:limit</code></a></li>
+        <li><a class="toc2" href="#nlpcraft:relation"><code>nlpcraft:relation</code></a></li>
+        <li><a class="toc2" href="#stanford:xxx"><code>stanford:xxx</code></a></li>
+        <li><a class="toc2" href="#spacy:xxx"><code>spacy:xxx</code></a></li>
+        <li><a class="toc2" href="#google:xxx"><code>google:xxx</code></a></li>
+        <li><a class="toc2" href="#opennlp:xxx"><code>opennlp:xxx</code></a></li>
         {% include quick-links.html %}
     </ul>
 </div>
-
-
-
-
-
-
