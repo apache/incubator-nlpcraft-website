@@ -107,7 +107,7 @@ fa_icon: fa-cube
         }
     ],
     "intents": [
-        "intent=alarm term~{tok_id() == 'x:alarm'} term(nums)~{tok_id() == 'nlpcraft:num' && meta_token('nlpcraft:num:unittype') == 'datetime' && meta_token('nlpcraft:num:isequalcondition') == true}[0,7]"
+        "intent=alarm term~{# == 'x:alarm'} term(nums)~{# == 'nlpcraft:num' && meta_token('nlpcraft:num:unittype') == 'datetime' && meta_token('nlpcraft:num:isequalcondition') == true}[0,7]"
     ]
 }
         </pre>

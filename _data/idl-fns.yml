@@ -6,7 +6,7 @@
 # (the "License"); you may not use this file except in compliance with
 # the License.  You may obtain a copy of the License at
 #
-#      http://www.apache.org/licenses/LICENSE-2.0
+#      https://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,15 +22,18 @@
 fn-token:
   - name: tok_id
     sig: |
-      <b>tok_id</b>(t: Token<em><sub>opt</sub></em>) ⇒ String
+      <b>tok_id</b>(t: Token<em><sub>opt</sub></em>) ⇒ String, # ⇒ String
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getId()">token ID</a>
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getId()">token ID</a>
-      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
+      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>. Note that this
+      functions has a special shorthand <code><b>#</b></code>.
     usage: |
       // Result: 'true' if the current token ID is equal to 'my_id'.
-      tok_id() == 'my_id'
-      tok_id(tok_this()) == 'my_id'
+      tok_id == 'my_id'
+      # == 'my_id'
+      tok_id(tok_this) == 'my_id'
+      #(tok_this) == 'my_id'
 
   - name: tok_lemma
     sig: |
@@ -42,8 +45,8 @@ fn-token:
       for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: 'true' if the current token lemma is equal to 'work'.
-      tok_lemma() == 'work'
-      tok_lemma(tok_this()) == 'work'
+      tok_lemma == 'work'
+      tok_lemma(tok_this) == 'work'
 
   - name: tok_stem
     sig: |
@@ -54,8 +57,8 @@ fn-token:
       for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: 'true' if the current token stem is equal to 'work'.
-      tok_stem() == 'work'
-      tok_stem(tok_this()) == 'work'
+      tok_stem == 'work'
+      tok_stem(tok_this) == 'work'
 
   - name: tok_pos
     sig: |
@@ -66,8 +69,8 @@ fn-token:
       for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: 'true' if the current token PoS tag is equal to 'NN'.
-      tok_pos() == 'NN'
-      tok_pos(tok_this()) == 'NN'
+      tok_pos == 'NN'
+      tok_pos(tok_this) == 'NN'
 
   - name: tok_sparsity
     sig: |
@@ -78,8 +81,8 @@ fn-token:
       for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: token sparsity value.
-      tok_sparsity()
-      tok_sparsity(tok_this())
+      tok_sparsity
+      tok_sparsity(tok_this)
 
   - name: tok_unid
     sig: |
@@ -90,8 +93,8 @@ fn-token:
       for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: internal token globally unique ID.
-      tok_unid()
-      tok_unid(tok_this())
+      tok_unid
+      tok_unid(tok_this)
 
   - name: tok_is_abstract
     sig: |
@@ -102,8 +105,8 @@ fn-token:
       for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: token abstract flag.
-      tok_is_abstract()
-      tok_is_abstract(tok_this())
+      tok_is_abstract
+      tok_is_abstract(tok_this)
 
   - name: tok_is_bracketed
     sig: |
@@ -114,8 +117,8 @@ fn-token:
       for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: token bracketed flag.
-      tok_is_bracketed()
-      tok_is_bracketed(tok_this())
+      tok_is_bracketed
+      tok_is_bracketed(tok_this)
 
   - name: tok_is_direct
     sig: |
@@ -126,8 +129,8 @@ fn-token:
       for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: token direct flag.
-      tok_is_direct()
-      tok_is_direct(tok_this())
+      tok_is_direct
+      tok_is_direct(tok_this)
 
   - name: tok_is_permutated
     sig: |
@@ -138,8 +141,8 @@ fn-token:
       for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: token permutated flag.
-      tok_is_permutated()
-      tok_is_permutated(tok_this())
+      tok_is_permutated
+      tok_is_permutated(tok_this)
 
   - name: tok_is_english
     sig: |
@@ -150,8 +153,8 @@ fn-token:
       for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: token English detection flag.
-      tok_is_english()
-      tok_is_english(tok_this())
+      tok_is_english
+      tok_is_english(tok_this)
 
   - name: tok_is_freeword
     sig: |
@@ -162,8 +165,8 @@ fn-token:
       for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: token freeword flag.
-      tok_is_freeword()
-      tok_is_freeword(tok_this())
+      tok_is_freeword
+      tok_is_freeword(tok_this)
 
   - name: tok_is_quoted
     sig: |
@@ -174,8 +177,8 @@ fn-token:
       for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: token quoted flag.
-      tok_is_quoted()
-      tok_is_quoted(tok_this())
+      tok_is_quoted
+      tok_is_quoted(tok_this)
 
   - name: tok_is_stopword
     sig: |
@@ -186,8 +189,8 @@ fn-token:
       for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: token stopword flag.
-      tok_is_stopword()
-      tok_is_stopword(tok_this())
+      tok_is_stopword
+      tok_is_stopword(tok_this)
 
   - name: tok_is_swear
     sig: |
@@ -198,8 +201,8 @@ fn-token:
       for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: token swear flag.
-      tok_is_swear()
-      tok_is_swear(tok_this())
+      tok_is_swear
+      tok_is_swear(tok_this)
 
   - name: tok_is_user
     sig: |
@@ -210,8 +213,8 @@ fn-token:
       for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: wether or not this is defined by user model element vs. built-in,
-      tok_is_user()
-      tok_is_user(tok_this())
+      tok_is_user
+      tok_is_user(tok_this)
 
   - name: tok_is_wordnet
     sig: |
@@ -222,8 +225,8 @@ fn-token:
       for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
     usage: |
       // Result: whether or not this token is part of WordNet dictionary.
-      tok_is_wordnet()
-      tok_is_wordnet(tok_this())
+      tok_is_wordnet
+      tok_is_wordnet(tok_this)
 
   - name: tok_ancestors
     sig: |
@@ -236,8 +239,8 @@ fn-token:
       May return an empty list but never a <code>null</code>.
     usage: |
       // Result: list of all ancestors.
-      tok_ancestors()
-      tok_ancestors(tok_this())
+      tok_ancestors
+      tok_ancestors(tok_this)
 
   - name: tok_parent
     sig: |
@@ -250,8 +253,8 @@ fn-token:
       this will return <code>null</code>.
     usage: |
       // Result: list of all ancestors.
-      tok_parent()
-      tok_parent(tok_this())
+      tok_parent
+      tok_parent(tok_this)
 
   - name: tok_groups
     sig: |
@@ -264,8 +267,8 @@ fn-token:
       May return an empty list but never a <code>null</code>.
     usage: |
       // Result: list of groups this token belongs to.
-      tok_groups()
-      tok_groups(tok_this())
+      tok_groups
+      tok_groups(tok_this)
 
   - name: tok_value
     sig: |
@@ -278,8 +281,8 @@ fn-token:
       model elements - built-in tokens do not have values and it will return <code>null</code>.
     usage: |
       // Result: the token value if this token was detected via element's value
-      tok_value()
-      tok_value(tok_this())
+      tok_value
+      tok_value(tok_this)
 
   - name: tok_aliases
     sig: |
@@ -292,8 +295,8 @@ fn-token:
       that token can have zero, one or more aliases. May return an empty list but never a <code>null</code>.
     usage: |
       // Result: checks if this token is known by 'alias' alias.
-      has(tok_aliases(), 'alias')
-      has(tok_aliases(tok_this()), 'alias')
+      has(tok_aliases, 'alias')
+      has(tok_aliases(tok_this), 'alias')
 
   - name: tok_start_idx
     sig: |
@@ -304,8 +307,8 @@ fn-token:
       of the current token (default) or the provided one by the optional paremeter <code><b>t</b></code> in the original text.
     usage: |
       // Result: start character index of this token in the original text.
-      tok_start_idx()
-      tok_start_idx(tok_this())
+      tok_start_idx
+      tok_start_idx(tok_this)
 
   - name: tok_end_idx
     sig: |
@@ -317,18 +320,18 @@ fn-token:
       If <code>t</code> is not provided the current token is assumed.
     usage: |
       // Result: end character index of this token in the original text.
-      tok_end_idx()
-      tok_end_idx(tok_this())
+      tok_end_idx
+      tok_end_idx(tok_this)
 
   - name: tok_this
     sig: |
-      <b>tok_this</b>() ⇒ Token
+      <b>tok_this</b> ⇒ Token
     synopsis: Returns current token.
     desc: |
       Returns current token.
     usage: |
       // Result: current token.
-      tok_this()
+      tok_this
 
   - name: tok_find_part
     sig: |
@@ -343,7 +346,7 @@ fn-token:
     usage: |
       // Result: part token of the current token found by 'alias' alias,
       //         if any, or throws runtime exception.
-      tok_find_part(tok_this(), 'alias')
+      tok_find_part(tok_this, 'alias')
 
   - name: tok_has_part
     sig: |
@@ -355,10 +358,10 @@ fn-token:
       parameter. See also <code>if()</code> function for 'if-then-else' branching support.
     usage: |
       // Result: 'true' if part token of the current token found by 'alias' alias, 'false' otherwise.
-      tok_has_part(tok_this(), 'alias')
+      tok_has_part(tok_this, 'alias')
 
       // Result: part token 'alias' if it exists or the current token if it does not.
-      @this = tok_this()
+      @this = tok_this
       @tok = if(tok_has_part(@this, 'alias'), tok_find_part(@this, 'alias'), @this)
 
   - name: tok_find_parts
@@ -371,10 +374,10 @@ fn-token:
       may return an empty list but never a <code>null</code>.
     usage: |
       // Result: list of part tokens, potentially empty, of the current token found by 'alias' alias.
-      tok_find_parts(tok_this(), 'alias')
+      tok_find_parts(tok_this, 'alias')
 
       // Result: part token 'alias' if it exists or the current token if it does not.
-      @this = tok_this()
+      @this = tok_this
       @parts = tok_find_parts(@this, 'alias')
       @tok = if(is_empty(@parts), @this, first(@parts))
 
@@ -387,8 +390,8 @@ fn-token:
       If <code>t</code> is not provided the current token is assumed.
     usage: |
       // Result: 'true' if index of this token in the original input is equal to 1.
-      tok_index() == 1
-      tok_index(tok_this()) == 1
+      tok_index == 1
+      tok_index(tok_this) == 1
 
   - name: tok_is_first
     sig: |
@@ -399,8 +402,8 @@ fn-token:
       If <code>t</code> is not provided the current token is assumed.
     usage: |
       // Result: 'true' if this token is the first token in the original input.
-      tok_is_first()
-      tok_is_first(tok_this())
+      tok_is_first
+      tok_is_first(tok_this)
 
   - name: tok_is_last
     sig: |
@@ -411,8 +414,8 @@ fn-token:
       If <code>t</code> is not provided the current token is assumed
     usage: |
       // Result: 'true' if this token is the last token in the original input.
-      tok_is_last()
-      tok_is_last(tok_this())
+      tok_is_last
+      tok_is_last(tok_this)
 
   - name: tok_is_before_id
     sig: |
@@ -496,26 +499,26 @@ fn-token:
 
   - name: tok_all
     sig: |
-      <b>tok_all</b>() ⇒ List[Token]
+      <b>tok_all</b> ⇒ List[Token]
     synopsis: |
       Returns all tokens from the original input
     desc: |
       Returns all tokens from the original input.
     usage: |
       // Result: list of all tokens for the original input.
-      tok_all()
+      tok_all
 
   - name: tok_count
     sig: |
-      <b>tok_count</b>() ⇒ Long
+      <b>tok_count</b> ⇒ Long
     synopsis: |
       Returns number of tokens from the original input
     desc: |
       Returns number of tokens from the original input.
-      It is equivalent to <code>size(tok_all())</code>
+      It is equivalent to <code>size(tok_all)</code>
     usage: |
       // Result: number of all tokens for the original input.
-      tok_count()
+      tok_count
 
   - name: tok_all_for_id
     sig: |
@@ -553,330 +556,330 @@ fn-token:
 fn-datetime:
   - name: year
     sig: |
-      <b>year</b>() ⇒ Long
+      <b>year</b> ⇒ Long
     synopsis: Returns current year
     desc: |
       Returns current year.
     usage: |
       // Result: 2021
-      year()
+      year
 
   - name: month
     sig: |
-      <b>month</b>() ⇒ Long
+      <b>month</b> ⇒ Long
     synopsis: |
       Returns current month: 1 ... 12
     desc: |
       Returns current month: 1 ... 12.
     usage: |
       // Result: 5
-      month()
+      month
 
   - name: day_of_month
     sig: |
-      <b>day_of_month</b>() ⇒ Long
+      <b>day_of_month</b> ⇒ Long
     synopsis: |
       Returns current day of the month: 1 ... 31
     desc: |
       Returns current day of the month: 1 ... 31.
     usage: |
       // Result: 5
-      day_of_month()
+      day_of_month
 
   - name: day_of_week
     sig: |
-      <b>day_of_week</b>() ⇒ Long
+      <b>day_of_week</b> ⇒ Long
     synopsis: |
       Returns current day of the week: 1 ... 7
     desc: |
       Returns current day of the week: 1 ... 7.
     usage: |
       // Result: 5
-      day_of_week()
+      day_of_week
 
   - name: day_of_year
     sig: |
-      <b>day_of_year</b>() ⇒ Long
+      <b>day_of_year</b> ⇒ Long
     synopsis: |
       Returns current day of the year: 1 ... 365
     desc: |
       Returns current day of the year: 1 ... 365.
     usage: |
       // Result: 51
-      day_of_year()
+      day_of_year
 
   - name: hour
     sig: |
-      <b>hour</b>() ⇒ Long
+      <b>hour</b> ⇒ Long
     synopsis: |
       Returns current hour: 0 ... 23
     desc: |
       Returns current hour: 0 ... 23.
     usage: |
       // Result: 11
-      hour()
+      hour
 
   - name: minute
     sig: |
-      <b>minute</b>() ⇒ Long
+      <b>minute</b> ⇒ Long
     synopsis: |
       Returns current minute: 0 ... 59
     desc: |
       Returns current minute: 0 ... 59.
     usage: |
       // Result: 11
-      minute()
+      minute
 
   - name: second
     sig: |
-      <b>second</b>() ⇒ Long
+      <b>second</b> ⇒ Long
     synopsis: |
       Returns current second: 0 ... 59
     desc: |
       Returns current second: 0 ... 59.
     usage: |
       // Result: 11
-      second()
+      second
 
   - name: week_of_month
     sig: |
-      <b>week_of_month</b>() ⇒ Long
+      <b>week_of_month</b> ⇒ Long
     synopsis: |
       Returns current week of the month: 1 ... 4
     desc: |
       Returns current week of the month: 1 ... 4.
     usage: |
       // Result: 2
-      week_of_month()
+      week_of_month
 
   - name: week_of_year
     sig: |
-      <b>week_of_year</b>() ⇒ Long
+      <b>week_of_year</b> ⇒ Long
     synopsis: |
       Returns current week of the year: 1 ... 56
     desc: |
       Returns current week of the year: 1 ... 56.
     usage: |
       // Result: 21
-      week_of_year()
+      week_of_year
 
   - name: quarter
     sig: |
-      <b>quarter</b>() ⇒ Long
+      <b>quarter</b> ⇒ Long
     synopsis: |
       Returns current quarter: 1 ...4
     desc: |
       Returns current quarter: 1 ... 4.
     usage: |
       // Result: 2
-      quarter()
+      quarter
 
   - name: now
     sig: |
-      <b>now</b>() ⇒ Long
+      <b>now</b> ⇒ Long
     synopsis: |
       Returns current time in milliseconds
     desc: |
       Returns current time in milliseconds.
     usage: |
       // Result: 122312341212
-      now()
+      now
 
 fn-req:
   - name: req_id
     sig: |
-      <b>req_id</b>() ⇒ String
+      <b>req_id</b> ⇒ String
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getServerRequestId()">server request ID</a>
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getServerRequestId()">server request ID</a>.
     usage: |
       // Result: server request ID.
-      req_id()
+      req_id
 
   - name: req_normtext
     sig: |
-      <b>req_normtext</b>() ⇒ String
+      <b>req_normtext</b> ⇒ String
     synopsis: Returns request <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getNormalizedText()">normalied text</a>
     desc: |
       Returns request <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getNormalizedText()">normalized text</a>.
     usage: |
       // Result: request normalized text.
-      req_normtext()
+      req_normtext
 
   - name: req_tstamp
     sig: |
-      <b>req_tstamp</b>() ⇒ Long
+      <b>req_tstamp</b> ⇒ Long
     synopsis: Gets UTC/GMT receive <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getNormalizedText()">timestamp</a>
     desc: |
       Gets UTC/GMT <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getNormalizedText()">timestamp</a>
       in ms when user input was received.
     usage: |
       // Result: input receive timsstamp in ms.
-      req_tstamp()
+      req_tstamp
 
   - name: req_addr
     sig: |
-      <b>req_addr</b>() ⇒ String
+      <b>req_addr</b> ⇒ String
     synopsis: Gets remote client <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getRemoteAddress()">address</a>
     desc: |
       Gets remote client <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getRemoteAddress()">address</a> that made the original REST call.
       Returns <code>null</code> if remote client address is not available.
     usage: |
       // Result: remote client address or 'null'.
-      req_addr()
+      req_addr
 
   - name: req_agent
     sig: |
-      <b>req_agent</b>() ⇒ String
+      <b>req_agent</b> ⇒ String
     synopsis: Gets remote client <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getClientAgent()">agent</a>
     desc: |
       Gets remote client <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getRemoteClientAgent()">agent</a> that made the original REST call.
       Returns <code>null</code> if remote client agent is not available.
     usage: |
       // Result: remote client agent or 'null'.
-      req_agent()
+      req_agent
 
 fn-user:
   - name: user_id
     sig: |
-      <b>user_id</b>() ⇒ String
+      <b>user_id</b> ⇒ String
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getId()">user ID</a>
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getId()">user ID</a>.
     usage: |
       // Result: user ID.
-      user_id()
+      user_id
 
   - name: user_fname
     sig: |
-      <b>user_fname</b>() ⇒ String
+      <b>user_fname</b> ⇒ String
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getFirstName()">user first name</a>
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getFirstName()">user first name</a>.
     usage: |
       // Result: user first name.
-      user_fname()
+      user_fname
 
   - name: user_lname
     sig: |
-      <b>user_lname</b>() ⇒ String
+      <b>user_lname</b> ⇒ String
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getLastName()">user last name</a>
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getLastName()">user last name</a>.
     usage: |
       // Result: user last name.
-      user_lname()
+      user_lname
 
   - name: user_email
     sig: |
-      <b>user_email</b>() ⇒ String
+      <b>user_email</b> ⇒ String
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getEmail()">user email</a>
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getEmail()">user email</a>.
     usage: |
       // Result: user email.
-      user_email()
+      user_email
 
   - name: user_admin
     sig: |
-      <b>user_admin</b>() ⇒ Boolean
+      <b>user_admin</b> ⇒ Boolean
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#isAdmin()">user admin</a> flag
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#isAdmin()">user admin</a> flag.
     usage: |
       // Result: user admin flag.
-      user_admin()
+      user_admin
 
   - name: user_signup_tstamp
     sig: |
-      <b>user_signup_tstamp</b>() ⇒ Long
+      <b>user_signup_tstamp</b> ⇒ Long
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getSignupTimestamp()">user signup timestamp</a>
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getSignupTimestamp()">user signup timestamp</a>.
     usage: |
       // Result: user signup timestamp in milliseconds.
-      user_signup_tstamp()
+      user_signup_tstamp
 
 fn-company:
   - name: comp_id
     sig: |
-      <b>comp_id</b>() ⇒ String
+      <b>comp_id</b> ⇒ String
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getId()">company ID</a>
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getId()">company ID</a>.
     usage: |
       // Result: company ID.
-      comp_id()
+      comp_id
 
   - name: comp_name
     sig: |
-      <b>comp_name</b>() ⇒ String
+      <b>comp_name</b> ⇒ String
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getName()">company name</a>
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getName()">company name</a>.
     usage: |
       // Result: company name.
-      comp_name()
+      comp_name
 
   - name: comp_website
     sig: |
-      <b>comp_website</b>() ⇒ String
+      <b>comp_website</b> ⇒ String
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getWebsite()">company website</a>
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getWebsite()">company website</a>.
     usage: |
       // Result: company website.
-      comp_website()
+      comp_website
 
   - name: comp_country
     sig: |
-      <b>comp_country</b>() ⇒ String
+      <b>comp_country</b> ⇒ String
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getCountry()">company country</a>
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getCountry()">company country</a>.
     usage: |
       // Result: company country.
-      comp_country()
+      comp_country
 
   - name: comp_region
     sig: |
-      <b>comp_region</b>() ⇒ String
+      <b>comp_region</b> ⇒ String
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getRegion()">company region</a>
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getRegion()">company region</a>.
     usage: |
       // Result: company region.
-      comp_region()
+      comp_region
 
   - name: comp_city
     sig: |
-      <b>comp_city</b>() ⇒ String
+      <b>comp_city</b> ⇒ String
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getCity()">company city</a>
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getCity()">company city</a>.
     usage: |
       // Result: company region.
-      comp_city()
+      comp_city
 
   - name: comp_addr
     sig: |
-      <b>comp_addr</b>() ⇒ String
+      <b>comp_addr</b> ⇒ String
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getAddress()">company address</a>
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getAddress()">company address</a>.
     usage: |
       // Result: company address.
-      comp_addr()
+      comp_addr
 
   - name: comp_postcode
     sig: |
-      <b>comp_postcode</b>() ⇒ String
+      <b>comp_postcode</b> ⇒ String
     synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getPostalCode()">company postal code</a>
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getPostalCode()">company postal code</a>.
     usage: |
       // Result: company postal code.
-      comp_postcode()
+      comp_postcode
 
 fn-math:
   - name: abs
@@ -1126,23 +1129,23 @@ fn-math:
 
   - name: pi
     sig: |
-      <b>pi</b>() ⇒ Double
+      <b>pi</b> ⇒ Double
     synopsis: Returns PI constant
     desc: |
       Returns PI constant.
     usage: |
       // Result: 3.14159265359
-      pi()
+      pi
 
   - name: euler
     sig: |
-      <b>pi</b>() ⇒ Double
+      <b>pi</b> ⇒ Double
     synopsis: Returns Euler constant
     desc: |
       Returns Euler constant.
     usage: |
       // Result: 0.5772156649
-      euler()
+      euler
 
   - name: max
     sig: |
@@ -1219,7 +1222,7 @@ fn-collections:
       Returns new list with given parameters.
     usage: |
       // Result: []
-      list()
+      list
       // Result: [1, 2, 3]
       list(1, 2, 3)
       // Result: ["1", true, 1.25]
@@ -1545,7 +1548,7 @@ fn-text:
     synopsis: Returns size or length of the given string, list or map
     desc: |
       Returns size or length of the given string, list or map. This function has
-      aliases: <code><b>size()</b></code> and <code><b>count()</b></code>.
+      aliases: <code><b>size</b></code> and <code><b>count</b></code>.
     usage: |
       // Result: 9
       length("some text")
@@ -1561,7 +1564,7 @@ fn-text:
     synopsis: Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#trim()"><code>String.trim()</code></a>
     desc: |
       Calls <a target="javadoc" href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html#trim()"><code>String.trim()</code></a> on
-      given parameter <code><b>p</b></code> and returns its result. This function has alias: <code><b>strip()</b></code>
+      given parameter <code><b>p</b></code> and returns its result. This function has alias: <code><b>strip</b></code>
     usage: |
       // Result: "text"
       trim(" text ")
@@ -1592,9 +1595,9 @@ fn-text:
   - name: is_alpha
     sig: |
       <b>is_alpha</b>(p: String) ⇒ Boolean
-    synopsis: Calls <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlpha-java.lang.CharSequence-"><code>StringUtils.isAlpha()</code></a>
+    synopsis: Calls <a target="javadoc" href="https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlpha-java.lang.CharSequence-"><code>StringUtils.isAlpha()</code></a>
     desc: |
-      Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlpha-java.lang.CharSequence-"><code>StringUtils.isAlpha()</code></a>
+      Calls <a target="asf" href="https://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlpha-java.lang.CharSequence-"><code>StringUtils.isAlpha()</code></a>
       on given parameter <code><b>p</b></code> and returns its result.
     usage: |
       // Result: true
@@ -1603,9 +1606,9 @@ fn-text:
   - name: is_alphanum
     sig: |
       <b>is_alphanum</b>(p: String) ⇒ Boolean
-    synopsis: Calls <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlphanumeric-java.lang.CharSequence-"><code>StringUtils.isAlphanumeric()</code></a>
+    synopsis: Calls <a target="javadoc" href="https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlphanumeric-java.lang.CharSequence-"><code>StringUtils.isAlphanumeric()</code></a>
     desc: |
-      Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlphanumeric-java.lang.CharSequence-"><code>StringUtils.isAlphanumeric()</code></a>
+      Calls <a target="asf" href="https://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlphanumeric-java.lang.CharSequence-"><code>StringUtils.isAlphanumeric()</code></a>
       on given parameter <code><b>p</b></code> and returns its result.
     usage: |
       // Result: true
@@ -1614,9 +1617,9 @@ fn-text:
   - name: is_whitespace
     sig: |
       <b>is_whitespace</b>(p: String) ⇒ Boolean
-    synopsis: Calls <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isWhitespace-java.lang.CharSequence-"><code>StringUtils.isWhitespace()</code></a>
+    synopsis: Calls <a target="javadoc" href="https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isWhitespace-java.lang.CharSequence-"><code>StringUtils.isWhitespace()</code></a>
     desc: |
-      Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isWhitespace-java.lang.CharSequence-"><code>StringUtils.isWhitespace()</code></a>
+      Calls <a target="asf" href="https://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isWhitespace-java.lang.CharSequence-"><code>StringUtils.isWhitespace()</code></a>
       on given parameter <code><b>p</b></code> and returns its result.
     usage: |
       // Result: false
@@ -1627,9 +1630,9 @@ fn-text:
   - name: is_num
     sig: |
       <b>is_num</b>(p: String) ⇒ Boolean
-    synopsis: Calls <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isNumeric-java.lang.CharSequence-"><code>StringUtils.isNumeric()</code></a>
+    synopsis: Calls <a target="javadoc" href="https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isNumeric-java.lang.CharSequence-"><code>StringUtils.isNumeric()</code></a>
     desc: |
-      Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isNumeric-java.lang.CharSequence-"><code>StringUtils.isNumeric()</code></a>
+      Calls <a target="asf" href="https://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isNumeric-java.lang.CharSequence-"><code>StringUtils.isNumeric()</code></a>
       on given parameter <code><b>p</b></code> and returns its result.
     usage: |
       // Result: true
@@ -1638,9 +1641,9 @@ fn-text:
   - name: is_numspace
     sig: |
       <b>is_numspace</b>(p: String) ⇒ Boolean
-    synopsis: Calls <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isNumericSpace-java.lang.CharSequence-"><code>StringUtils.isNumericSpace()</code></a>
+    synopsis: Calls <a target="javadoc" href="https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isNumericSpace-java.lang.CharSequence-"><code>StringUtils.isNumericSpace()</code></a>
     desc: |
-      Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isNumericSpace-java.lang.CharSequence-"><code>StringUtils.isNumericSpace()</code></a>
+      Calls <a target="asf" href="https://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isNumericSpace-java.lang.CharSequence-"><code>StringUtils.isNumericSpace()</code></a>
       on given parameter <code><b>p</b></code> and returns its result.
     usage: |
       // Result: true
@@ -1649,9 +1652,9 @@ fn-text:
   - name: is_alphaspace
     sig: |
       <b>is_alphaspace</b>(p: String) ⇒ Boolean
-    synopsis: Calls <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlphaSpace-java.lang.CharSequence-"><code>StringUtils.isAlphaSpace()</code></a>
+    synopsis: Calls <a target="javadoc" href="https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlphaSpace-java.lang.CharSequence-"><code>StringUtils.isAlphaSpace()</code></a>
     desc: |
-      Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlphaSpace-java.lang.CharSequence-"><code>StringUtils.isAlphaSpace()</code></a>
+      Calls <a target="asf" href="https://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlphaSpace-java.lang.CharSequence-"><code>StringUtils.isAlphaSpace()</code></a>
       on given parameter <code><b>p</b></code> and returns its result.
     usage: |
       // Result: true
@@ -1660,9 +1663,9 @@ fn-text:
   - name: is_alphanumspace
     sig: |
       <b>is_alphanumspace</b>(p: String) ⇒ Boolean
-    synopsis: Calls <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlphaNumericSpace-java.lang.CharSequence-"><code>StringUtils.isAlphaNumericSpace()</code></a>
+    synopsis: Calls <a target="javadoc" href="https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlphaNumericSpace-java.lang.CharSequence-"><code>StringUtils.isAlphaNumericSpace()</code></a>
     desc: |
-      Calls <a target="asf" href="http://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="http://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlphaNumericSpace-java.lang.CharSequence-"><code>StringUtils.isAlphaNumericSpace()</code></a>
+      Calls <a target="asf" href="https://commons.apache.org/">Apache Commons</a> <a target="javadoc" href="https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html#isAlphaNumericSpace-java.lang.CharSequence-"><code>StringUtils.isAlphaNumericSpace()</code></a>
       on given parameter <code><b>p</b></code> and returns its result.
     usage: |
       // Result: true

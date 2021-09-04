@@ -233,7 +233,7 @@ publish_date: November 16, 2020
               - "{&lt;ACTION&gt;|shut|kill|stop|eliminate} {off|out} &lt;LIGHT&gt;"
               - "no &lt;LIGHT&gt;"
         intents:
-          - "intent=ls term(act)={has(tok_groups(), 'act')} term(loc)={tok_id() == 'ls:loc'}*"
+          - "intent=ls term(act)={has(tok_groups, 'act')} term(loc)={# == 'ls:loc'}*"
     </pre>
     <p><b>NOTES:</b></p>
     <ul>

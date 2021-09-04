@@ -58,18 +58,17 @@ publish_date: June 3, 2021
         intent=xa
            flow="^(?:login)(^:logout)*$"
            meta={'enabled': true}
-           term(a)={!(tok_id()) != "z"}[1,3]
+           term(a)={# != "z"}[1,3]
            term(b)={
               meta_intent('enabled') == true && // Must be active.
-              month() == 1 // January.
+              month == 1 // January.
            }
            term(c)~{
                 // Variables.
-                @tokId = tok_id()
                 @usrTypes = meta_model('user_types')
 
                 // Predicate.
-                (tokId == 'order' || tokId == 'order_cancel') &&
+                (# == 'order' || # == 'order_cancel') &&
                 has_all(@usrTypes, list(1, 2, 3) &&
                 abs(meta_tok('order:size')) > 10)
     </pre>
@@ -237,7 +236,7 @@ publish_date: June 3, 2021
         intent=xa
            flow="^(?:login)(^:logout)*$"
            meta={'enabled': true}
-           term(a)={!(tok_id()) != "z"}[1,3]
+           term(a)={# != "z"}[1,3]
     </pre>
     <p>
         Every intent statement consists of the following elements:
@@ -285,8 +284,8 @@ publish_date: June 3, 2021
                         Example terms:
                     </p>
                     <pre class="brush: idl">
-                        term(nums)~{tok_id() == 'nlpcraft:num'} // Conversational '~' term.
-                        term(nums)={tok_id() != 'z'} // Non-conversational '=' term.
+                        term(nums)~{# == 'nlpcraft:num'} // Conversational '~' term.
+                        term(nums)={# != 'z'} // Non-conversational '=' term.
                     </pre>
                 </li>
                 <li>
@@ -295,7 +294,7 @@ publish_date: June 3, 2021
                         using IDL script with built-in functions or in external Java-based code:
                     </p>
                     <pre class="brush: idl">
-                        term(nums)={tok_id() == 'nlpcraft:num'} // IDL script.
+                        term(nums)={# == 'nlpcraft:num'} // IDL script.
                         term(yes)~{true} // IDL script.
                         term~/org.mypackage.MyClass#termMethod/? // Reference to external code.
                     </pre>
@@ -327,8 +326,8 @@ publish_date: June 3, 2021
                     Examples:
                     </p>
                     <pre class="brush: idl">
-                        term(nums)={tok_id() == 'nlpcraft:num'}[1,2] // The request must contain one or two tokens with the ID “nlpcraft: num”.
-                        term(nums)={tok_id() == 'nlpcraft:num'}* // The request must contain zero or more tokens with the ID “nlpcraft: num”.
+                        term(nums)={# == 'nlpcraft:num'}[1,2] // The request must contain one or two tokens with the ID “nlpcraft: num”.
+                        term(nums)={# == 'nlpcraft:num'}* // The request must contain zero or more tokens with the ID “nlpcraft: num”.
                     </pre>
                 </li>
             </ul>
@@ -340,14 +339,14 @@ publish_date: June 3, 2021
                 be used in term definition. These functions can be conventionally classified into the following categories:
             </p>
             <ul class="fixed">
-                <li>Based on base tokens properties - token IDs, groups, parent, hierarchy, etc. Examples: <code>tok_id()</code>, <code>tok_groups()</code>, <code>tok_parent()</code>.</li>
-                <li>NLP-based tokens properties - stemmas, lemmas, parts of speech, stop words. Examples: <code>tok_lemma()</code>, <code>tok_is_wordnet()</code>, <code>tok_swear()</code>.</li>
-                <li>Based on information about how the token was found in the user's request - synonym values, etc. Examples: <code>tok_value()</code>, <code>tok_is_permutated()</code>, <code>tok_is_direct()</code>.</li>
-                <li>Based on user request data - request time, user agent type. Examples: <code>req_tstamp()</code>, <code>req_addr()</code>, <code>req_agent()</code>.</li>
+                <li>Based on base tokens properties - token IDs, groups, parent, hierarchy, etc. Examples: <code>tok_id</code>, <code>tok_groups</code>, <code>tok_parent</code>.</li>
+                <li>NLP-based tokens properties - stemmas, lemmas, parts of speech, stop words. Examples: <code>tok_lemma</code>, <code>tok_is_wordnet</code>, <code>tok_swear</code>.</li>
+                <li>Based on information about how the token was found in the user's request - synonym values, etc. Examples: <code>tok_value</code>, <code>tok_is_permutated</code>, <code>tok_is_direct</code>.</li>
+                <li>Based on user request data - request time, user agent type. Examples: <code>req_tstamp</code>, <code>req_addr</code>, <code>req_agent</code>.</li>
                 <li>Based on various metadata - tokens, model, request, etc. Examples: <code>meta_model('my: prop')</code>, <code>meta_tok('nlpcraft: num: unit')</code>, <code>meta_user('my: prop')</code>.</li>
                 <li>Based on data provided by NER token providers. Example, for <code>geo:city</code> token it can be the number of city residents or coordinates obtained from metadata.</li>
-                <li>Based on the user and his company - admin status, registration time. Examples: <code>user_admin()</code>, <code>comp_name()</code>, <code>user_signup_tstamp()</code>.</li>
-                <li>Based on system/environment variables, system time, etc. Examples:<code> meta_sys('java.home'), now(), day_of_week()</code>.</li>
+                <li>Based on the user and his company - admin status, registration time. Examples: <code>user_admin</code>, <code>comp_name</code>, <code>user_signup_tstamp</code>.</li>
+                <li>Based on system/environment variables, system time, etc. Examples:<code> meta_sys('java.home'), now, day_of_week</code>.</li>
                 <li>Math functions, text functions, collection functions, etc. Examples: <code>lowercase("TeXt")</code>, <code>abs(-1.5)</code>, <code>distinct(list(1, 2, 2, 3, 1))</code>.</li>
             </ul>
             <p>
@@ -402,7 +401,7 @@ publish_date: June 3, 2021
             <pre class="brush: scala">
                 @NCIntent("intent=x
                     flow=/com.company.dialog.Flow#customFlow/
-                    term~{tok_id() == 'some_id'}"
+                    term~{# == 'some_id'}"
                 )
                 def onX(): NCResult = { .. }
             </pre>

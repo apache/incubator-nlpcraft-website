@@ -939,9 +939,9 @@ intents:
             future individual sub-IDs. For example:
         </p>
         <pre class="brush: idl">
-            intent=vehicle.intent term~{has(tok_ancestors(), 'vehicle')}
-            intent=truck.intent term~{tok_parent() == 'truck'}
-            intent=car.intent term~{tok_parent() == 'car'}
+            intent=vehicle.intent term~{has(tok_ancestors, 'vehicle')}
+            intent=truck.intent term~{tok_parent == 'truck'}
+            intent=car.intent term~{tok_parent == 'car'}
         </pre>
     </section>
     <section id="syns-tools">
@@ -1210,7 +1210,7 @@ intents:
                     "id": "race.vehicle",
                     "description": "Race vehicle",
                     "synonyms": [
-                        "{race|speed|track} ^^{tok_id() == 'transport.vehicle'}^^"
+                        "{race|speed|track} ^^{# == 'transport.vehicle'}^^"
                     ]
                 }
 
@@ -1242,7 +1242,7 @@ intents:
                     "description": "Wrapper for google location",
                     "groups": ["my_group"],
                     "synonyms": [
-                        "^^{tok_id() == 'google:location'}^^"
+                        "^^{# == 'google:location'}^^"
                     ]
                 }
             ]
@@ -1259,7 +1259,7 @@ intents:
         </p>
         <pre class="brush: js">
             "synonyms": [
-                "population {of|for} ^^[city]{tok_id() == 'nlpcraft:city' && lowercase(meta_tok('city:country')) == 'france'}^^"
+                "population {of|for} ^^[city]{# == 'nlpcraft:city' && lowercase(meta_tok('city:country')) == 'france'}^^"
             ]
         </pre>
         <b>NOTES:</b>

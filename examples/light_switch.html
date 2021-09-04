@@ -140,7 +140,7 @@ elements:
       - "no &lt;LIGHT&gt;"
 
 intents:
-  - "intent=ls term(act)={has(tok_groups(), 'act')} term(loc)={tok_id() == 'ls:loc'}*"
+  - "intent=ls term(act)={has(tok_groups, 'act')} term(loc)={# == 'ls:loc'}*"
         </pre>
         <p>There are number of important points here:</p>
         <ul>
