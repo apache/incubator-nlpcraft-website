@@ -381,6 +381,28 @@ fn-token:
       @parts = tok_find_parts(@this, 'alias')
       @tok = if(is_empty(@parts), @this, first(@parts))
 
+  - name: tok_txt
+    sig: |
+      <b>tok_txt</b>(t: Token<em><sub>opt</sub></em>) ⇒ String
+    synopsis: Returns token's original text
+    desc: |
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getOriginalText()">token's original text</a>.
+      If <code>t</code> is not provided the current token is assumed.
+    usage: |
+      // Result: token original input text.
+      tok_txt
+
+  - name: tok_norm_txt
+    sig: |
+      <b>tok_norm_txt</b>(t: Token<em><sub>opt</sub></em>) ⇒ String
+    synopsis: Returns token's normalized text
+    desc: |
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getNormalizedText()">token's normalized text</a>.
+      If <code>t</code> is not provided the current token is assumed.
+    usage: |
+      // Result: token normalized input text.
+      tok_norm_txt
+
   - name: tok_index
     sig: |
       <b>tok_index</b>(t: Token<em><sub>opt</sub></em>) ⇒ Long
@@ -436,6 +458,36 @@ fn-token:
     usage: |
       // Result: 'true' if there is a token with ID 'a' before this token.
       tok_is_after_id('a')
+
+  - name: tok_is_between_ids
+    sig: |
+      <b>tok_is_between_ids</b>(id1: String, id2: String) ⇒ Boolean
+    synopsis: Returns <code>true</code> if this token is located between tokens with IDs <code>id1</code> and <code>id2</code>.
+    desc: |
+      Returns <code>true</code> if this token is located between tokens with IDs <code>id1</code> and <code>id2</code>.
+    usage: |
+      // Result: 'true' if this token is located after token with ID 'before' and before the token with ID 'after'.
+      tok_is_between_ids('before', 'after')
+
+  - name: tok_is_between_groups
+    sig: |
+      <b>tok_is_between_groups</b>(grp1: String, grp2: String) ⇒ Boolean
+    synopsis: Returns <code>true</code> if this token is located between tokens with group IDs <code>grp1</code> and <code>grp2</code>.
+    desc: |
+      Returns <code>true</code> if this token is located between tokens with group IDs <code>grp1</code> and <code>grp2</code>.
+    usage: |
+      // Result: 'true' if this token is located after token belonging to the group 'before' and before the token belonging to the group 'after'.
+      tok_is_between_groups('before', 'after')
+
+  - name: tok_is_between_parents
+    sig: |
+      <b>tok_is_between_parents</b>(id1: String, id2: String) ⇒ Boolean
+    synopsis: Returns <code>true</code> if this token is located between tokens with parent IDs <code>id1</code> and <code>id2</code>.
+    desc: |
+      Returns <code>true</code> if this token is located between tokens with parent IDs <code>id1</code> and <code>id2</code>.
+    usage: |
+      // Result: 'true' if this token is located after token with parent ID 'before' and before the token with parent ID 'after'.
+      tok_is_between_parents('before', 'after')
 
   - name: tok_is_before_group
     sig: |
@@ -1557,6 +1609,17 @@ fn-text:
       @lst = list(1, 2, 3)
       size(@lst)
       count(@lst)
+
+  - name: regex
+    sig: |
+      <b>regex</b>(s: String, rx: String) ⇒ Boolean
+    synopsis: Checks whether string <code>s</code> matches Java regular expression <code>rx</code>
+    desc: |
+      Returns <code>true</code> if string <code><b>s</b></code> matches Java regular expression <code><b>rx</b></code>,
+      <code>false</code> otherwise.
+    usage: |
+      regex('textabc', '^text.*$') // Returns 'true'.
+      regex('_textabc', '^text.*$') // Returns 'false'.
 
   - name: trim
     sig: |
