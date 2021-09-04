@@ -111,7 +111,7 @@ id: intent_matching
                 Identifiers and literals can use the same Unicode space as Java.
             </li>
             <li>
-                IDL provides over 50 <a href="#idl_functions">built-in functions</a> to aid in intent matching. IDL functions are pure immutable mathematical functions
+                IDL provides over 150 <a href="#idl_functions">built-in functions</a> to aid in intent matching. IDL functions are pure immutable mathematical functions
                 that work on a runtime stack. In other words, they look like Python functions: IDL <code>length(trim(" text "))</code> vs.
                 OOP-style <code>" text ".trim().length()</code>.
             </li>
@@ -743,9 +743,8 @@ id: intent_matching
                     And then you can use it to display IDL code from HTML using <code>&lt;pre&gt;</code> tag and
                     <code>brush: idl</code> CSS class:
                 </p>
-                <pre class="brush: html">
-&lt;
-                    pre class="brush: idl"&gt;
+                <pre class="brush: html, highlight: [1]">
+&lt;pre class="brush: idl"&gt;
     intent=xa
         flow="^(?:login)(^:logout)*$"
         meta={'enabled': true}
@@ -844,21 +843,21 @@ id: intent_matching
                 intents and starts successfully - it does not guarantee that intents will operate correctly.
             </p>
         </div>
-        <p>
+        <p id="fn-list">
             All IDL functions are organized into the following groups:
         </p>
         <nav>
             <div class="nav nav-tabs" role="tablist">
-                <a class="nav-item nav-link active" data-toggle="tab" href="#fn_token" role="tab">Token</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#fn_text" role="tab">Text</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#fn_math" role="tab">Math</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#fn_collection" role="tab">Collection</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#fn_metadata" role="tab">Metadata</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#fn_datetime" role="tab">Date <span class="amp">&amp;</span> Time</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#fn_req" role="tab">Request</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#fn_user" role="tab">User</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#fn_company" role="tab">Company</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#fn_other" role="tab">Other</a>
+                <a class="nav-item nav-link active" data-toggle="tab" id="fn_token_tab" href="#fn_token" role="tab">Token</a>
+                <a class="nav-item nav-link" data-toggle="tab" id="fn_text_tab" href="#fn_text" role="tab">Text</a>
+                <a class="nav-item nav-link" data-toggle="tab" id="fn_math_tab" href="#fn_math" role="tab">Math</a>
+                <a class="nav-item nav-link" data-toggle="tab" id="fn_collection_tab" href="#fn_collection" role="tab">Collection</a>
+                <a class="nav-item nav-link" data-toggle="tab" id="fn_metadata_tab" href="#fn_metadata" role="tab">Metadata</a>
+                <a class="nav-item nav-link" data-toggle="tab" id="fn_datetime_tab" href="#fn_datetime" role="tab">Date <span class="amp">&amp;</span> Time</a>
+                <a class="nav-item nav-link" data-toggle="tab" id="fn_request_tab" href="#fn_req" role="tab">Request</a>
+                <a class="nav-item nav-link" data-toggle="tab" id="fn_user_tab" href="#fn_user" role="tab">User</a>
+                <a class="nav-item nav-link" data-toggle="tab" id="fn_company_tab" href="#fn_company" role="tab">Company</a>
+                <a class="nav-item nav-link" data-toggle="tab" id="fn_other_tab" href="#fn_other" role="tab">Other</a>
             </div>
         </nav>
         <div class="tab-content">
@@ -1870,6 +1869,16 @@ id: intent_matching
         <li><a class="toc2" href="#intent-examples">Intent Examples</a></li>
         <li><a class="toc2" href="#syntax_highlighting">Syntax Highlighting</a></li>
         <li><a href="#idl_functions">IDL Functions</a></li>
+        <li><a class="toc2" onclick="$('#fn_token_tab').trigger('click')" href="#fn-list"><code><b>Token</b></code> Functions</a></li>
+        <li><a class="toc2" onclick="$('#fn_text_tab').trigger('click')" href="#fn-list"><code><b>Text</b></code> Functions</a></li>
+        <li><a class="toc2" onclick="$('#fn_math_tab').trigger('click')" href="#fn-list"><code><b>Math</b></code> Functions</a></li>
+        <li><a class="toc2" onclick="$('#fn_collection_tab').trigger('click')" href="#fn-list"><code><b>Collection</b></code> Functions</a></li>
+        <li><a class="toc2" onclick="$('#fn_metadata_tab').trigger('click')" href="#fn-list"><code><b>Metadata</b></code> Functions</a></li>
+        <li><a class="toc2" onclick="$('#fn_datetime_tab').trigger('click')" href="#fn-list"><code><b>Datetime</b></code> Functions</a></li>
+        <li><a class="toc2" onclick="$('#fn_request_tab').trigger('click')" href="#fn-list"><code><b>Request</b></code> Functions</a></li>
+        <li><a class="toc2" onclick="$('#fn_user_tab').trigger('click')" href="#fn-list"><code><b>User</b></code> Functions</a></li>
+        <li><a class="toc2" onclick="$('#fn_company_tab').trigger('click')" href="#fn-list"><code><b>Company</b></code> Functions</a></li>
+        <li><a class="toc2" onclick="$('#fn_other_tab').trigger('click')" href="#fn-list"><code><b>Other</b></code> Functions</a></li>
         <li><a href="#idl_location">IDL Location</a></li>
         <li><a href="#binding">Intent Binding</a></li>
         <li><a href="#logic">Intent Matching</a></li>

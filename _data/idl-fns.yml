@@ -1537,7 +1537,7 @@ fn-other:
       Note that evaluation will be short-circuit, i.e. <code><b>a</b></code> will be evaluated only
       if <code><b>p</b></code> is <code>null</code>.
     usage: |
-      // Result: 'some_prop' model metadata or 'text' if one does not exist.
+      // Result: 'some_prop' model metadata or 'text' if one is 'null'.
       @dflt = 'text'
       or_else(meta_model('some_prop'), @dflt)
 
