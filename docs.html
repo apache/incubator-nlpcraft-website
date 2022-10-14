@@ -126,8 +126,26 @@ id: overview
                 <code>Variant filter</code>. Optional component which allows filtering detected variants, rejecting undesirable.
             </li>
         </ul>
+
         <p>
-             This flexible system allows to create any pipelines on any language. You can collect NlpCraft predefined components, write your own and easy reuse custom components.
+            Below example if <code>Model</code> creation. <code>Pipeline</code> is prepared using <code>NCPipelineBuilder</code> class helper.
+        </p>
+
+        <pre class="brush: scala, highlight: []">
+            val pipeline =
+                new NCPipelineBuilder().
+                    withTokenParser(new NCFrTokenParser()).
+                    withTokenEnricher(new NCFrLemmaPosTokenEnricher()).
+                    withTokenEnricher(new NCFrStopWordsTokenEnricher()).
+                    withEntityParser(new NCFrSemanticEntityParser("lightswitch_model_fr.yaml")).
+                    build
+            val cfg = NCModelConfig("nlpcraft.lightswitch.fr.ex", "LightSwitch Example Model FR", "1.0")
+
+            val mdl = new NCModelAdapter(cfg, pipeline)
+        </pre>
+
+        <p>
+            This flexible system allows to create any pipelines on any language. You can collect NlpCraft predefined components, write your own and easy reuse custom components.
         </p>
     </section>
 </div>
