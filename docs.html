@@ -25,12 +25,10 @@ id: overview
     <section id="overview">
         <h2 class="section-title">Overview <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
-            Apache NLPCraft is a JVM-based <a target=_blank href="https://www.apache.org/licenses/">open source</a> library
-            for adding a natural language interface to modern applications.  It enables people to interact with your products using voice or text. NLPCraft can connect with
-            any private or public data source, and has no hardware or software lock-ins. Its design is based on advanced
-            <a href="/intent-matching.html">Intent Definition Language</a> (IDL) for defining non-trivial intents and a fully deterministic intent matching
-            algorithm for the input utterances. You can build intents for NLPCraft using any JVM-based languages like Java, Scala, Kotlin, Groovy, etc. NLPCraft
-            exposes REST APIs for integration with end-user applications.
+            Apache NLPCraft is an <a target=_blank href="https://www.apache.org/licenses/">open source</a> Scala library for adding a natural language interface to modern applications.
+            It enables people to interact with your products using voice or text.
+            Its design is based on advanced <a href="/intent-matching.html">Intent Definition Language</a> (IDL) for defining non-trivial intents and
+            a fully deterministic intent matching algorithm for the input utterances.
         </p>
         <p>
             One of the key features of NLPCraft is its use of <a href="/intent-matching.html">IDL</a> coupled with deterministic intent matching that are tailor made for
@@ -38,107 +36,105 @@ id: overview
             approach with time consuming corpora development and model training - resulting in much a
             <em>simpler <span class="amp">&</span> faster</em> implementation.
         </p>
+
         <p>
-            Another key aspect of NLPCraft is its initial focus on processing English language. Although it may sound
-            counterintuitive, this narrower initial focus enables NLPCraft to deliver unprecedented ease of use combined with
-            unparalleled comprehension capabilities for English input out-of-the-box. It avoids academic, watered down functionality or overly
-            complicated configuration and usage - following on project's <em>"built for engineers by engineers"</em> ethos.
-            English language is spoken by more
-            than a billion people on this planet and is de facto standard global language of the business and commerce.
+            NlpCraft library contains two base elements: <code>Model</code> and <code>Client</code>.
         </p>
+
+        <ul>
+            <li>
+                <code>Model</code> is domain specific object which responsible for user input interpretation. Model contains intents, defined via NlpCraft IDL with related code callbacks. Intent is user defined callback and rule, according to which this callback should be called. Rule is most often some template, based on expected set of entities in user input, but it can be more flexible.
+            </li>
+
+            <li>
+                <code>Client</code> is object, which allows to communicate with given model. Main methods are user input processing and control of communication session.
+            </li>
+        </ul>
+
+        <p>Typical part of code:</p>
+
+        <pre class="brush: scala, highlight: []">
+              // Prepares domain model.
+              val mdl = new CustomNlpModel()
+
+              // Prepares client for given model.
+              val client = new NCModelClient(mdl)
+
+              // Sends text request to model by user ID "userId".
+              val result = client.ask("Some user command", "userId")
+
+              // Clears dialog session for user with ID "userId".
+              client.clearDialog("userId")
+        </pre>
+
         <p>
-            So, how does it work in a nutshell?
-        </p>
-        <p>
-            When using NLPCraft you will be dealing with three main components:
+            Model definition includes two parts:
         </p>
         <ul>
-            <li><a href="#data-model">Data model</a></li>
-            <li><a href="#data-probe">Data probe</a></li>
-            <li><a href="#server">REST Server</a></li>
+            <li>
+                <code>Configuration</code>. Static configuration parameters including name, version, etc.
+            </li>
+            <li>
+                <code>Pipeline</code>. Most important component, which defines user input processing chain.
+                <code>Pipeline</code> can be based on standard and custom user defined components.
+            </li>
         </ul>
-        <figure>
-            <img class="img-fluid" src="/images/homepage-fig1.1.png" alt="">
-            <figcaption><b>Fig 1.</b> NLPCraft Architecture</figcaption>
-        </figure>
-    </section>
-    <section id="data-model">
-        <h2 class="section-title">Data Model <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+
         <p>
-            NLPCraft employs a <em>model-as-a-code</em> approach where everything you do in NLPCraft is part of your source code. Data model is simply an implementation of
-            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModel.html">NCModel</a> Java interface that
-            can be developed using any JVM programming language like Java, Scala, Kotlin or Groovy.
-            Data model defines named entities, various configuration properties as well as intents to interpret user input. Model-as-a-code natively supports
-            any software lifecycle tools and frameworks in Java ecosystem.
+             Before looking at pipeline elements more throughly, let's start with terminology.
         </p>
+
+        <ul>
+            <li>
+                <code>Token</code>. It is simple string, part of user input, which split according to some rules, for instance by spaces and some additional conditions, which depends on language and some expectations.
+                So user input "<b>Where is it?</b>" contains four tokens: "<b>Where</b>", "<b>is</b>", "<b>it</b>", "<b>?</b>".
+            </li>
+            <li>
+                <code>Entity</code>. According to wikipedia, named entity is a real-world object, such as a person, location, organization, product, etc., that can be denoted with a proper name. It can be abstract or have a physical existence. Each entity can contain one or more tokens.
+            </li>
+            <li>
+                <code>Variant</code>. List of entities. Potentially, each token can be recognized as different entities, so user input can be processed as set of variants. For example user input "Mercedes" can be processed as 2 variants, both of them contains single element list of entities: car brand or Spanish family name.
+            </li>
+        </ul>
+
         <p>
-            Declarative portion of the model can be stored in a separate JSON or YAML file
-            for simpler maintenance. There are no practical limitation on how complex or simple a model
-            can be, or what other tools it can use. Data models use <a href="/intent-matching.html">intents</a> to match the user input.
+            Back to pipeline. Pipeline should be created based in following components:
         </p>
+        <ul>
+            <li>
+                <code>Token parser</code>. Mandatory NLP component, it is required for parsing plain text, user input, and split this text into tokens  list. NlpCraft provides default EN implementation of token parser. Also, project contain various examples for FR and RU languages.
+            </li>
+            <li>
+                <code>Tokens enrichers</code> optional list. Tokens enricher is component which allows to add additional properties to prepared tokens, like part of speech, quote, stop-words flags or any other. NlpCraft provides default set of EN tokens enrichers implementations.
+            </li>
+            <li>
+                <code>Tokens validators</code> optional list. Tokens validator is user defined component, where tokens are inspected and exception can be thrown from user code to break user input processing.
+            </li>
+            <li>
+                <code>Entity parsers</code> mandatory list. At least one entity parser must be defined. Having prepared tokens as input, each entity parser tries to find user defined named entities. NlpCraft provides wrappers for named-entity recognition components of OpenNLP and Stanford libraries.
+            </li>
+            <li>
+                <code>Entity enrichers</code> optional list. Entity enricher is component which allows to add additional properties to prepared entities. Can be useful for extending existing entity enrichers functionality.
+            </li>
+            <li>
+                <code>Entity mappers</code> optional list. Entity mapper is component which allows to map one set of entities into another after the entities were parsed and enriched. Can be useful for building complex parsers based on existed.
+            </li>
+            <li>
+                <code>Entity validators</code> optional list. Entities validator is user defined component, where prepared entities are inspected and  exceptions can be thrown from user code to break user input processing.
+            </li>
+            <li>
+                <code>Variant filter</code>. Optional component which allows filtering detected variants, rejecting undesirable.
+            </li>
+        </ul>
         <p>
-            To use data model it has to be deployed into a data probe.
+             This flexible system allows to create any pipelines on any language. You can collect NlpCraft predefined components, write your own and easy reuse custom components.
         </p>
-    </section>
-    <section id="data-probe">
-        <h2 class="section-title">Data Probe <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
-        <p>
-            Data probe is a light-weight container designed to securely deploy and manage user data models.
-            Each probe can deploy and manage multiple models and many probes can be connected to the REST server (or a cluster of REST servers).
-            The main purpose of the data probe is to separate data model hosting from managing REST calls from the clients.
-            While you would typically have just one REST server, you may have multiple data probes deployed
-            in different geo-locations and configured differently.
-        </p>
-        <p>
-            Data probes can be deployed and run anywhere as long as there is an ingress connectivity from the REST server, and are
-            typically deployed in DMZ or close to your target data sources: on-premise, in the cloud, etc. Data
-            probe uses strong 256-bit encryption and ingress only connectivity for communicating with the REST server.
-        </p>
-    </section>
-    <section id="server">
-        <h2 class="section-title">REST Server <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
-        <p>
-            REST server (or a cluster of REST servers behind a load balancer) provides URL endpoint for end-user applications
-            to securely query data sources using natural language via data models deployed in data probes. Its main purpose is to
-            accept REST-over-HTTP calls from end-user applications and route these requests to and from requested data probes.
-        </p>
-        <p>
-            Unlike data probe that gets restarted every time the model is changed, i.e. during development, the
-            REST server is a "fire-and-forget" component that can be launched once while various data probes can
-            continuously reconnect to it. It can typically run as a Docker image locally on premise or in the cloud.
-        </p>
-        <p>
-            Learn more about <a href="data-model.html">data model</a>,
-            <a href="server-and-probe.html#probe">data probe</a> and <a href="server-and-probe.html#server">REST server</a>.
-        </p>
-    </section>
-    <section id="in-depth">
-        <h2 class="section-title">In-Depth Look <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
-        <p>
-            Watch this full video (34:42) of the presentation from
-            <a target=_ href="https://www.apachecon.com/acasia2021/">ApacheCon Asia 2021</a> conference to get in-depth understanding of
-            the reasons why NLPCraft project was developed and what are the key principles that underlying it:
-        </p>
-        <div>
-            <iframe
-                    width="514"
-                    height="289"
-                    src="https://www.youtube.com/embed/O7iK0AXvcJ8?modestbranding=1"
-                    title="NLPCraft - Breaking Years Of Dogma In NLP"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
-            </iframe>
-        </div>
     </section>
 </div>
 <div class="col-md-2 third-column">
     <ul class="side-nav">
         <li class="side-nav-title">On This Page</li>
         <li><a href="#overview">Overview</a></li>
-        <li><a href="#data-model">Data Model</a></li>
-        <li><a href="#data-probe">Data Probe</a></li>
-        <li><a href="#server">REST Server</a></li>
         {% include quick-links.html %}
     </ul>
 </div>
