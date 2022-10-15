@@ -27,8 +27,9 @@ github_username:  nlpcraft
 
 # Manually update to the latest version:
 # ===================
-latest_version: 0.9.0
-java_client_latest_version: 0.9.0
+latest_version: 1.0.0
+# TODO: remove it.
+java_client_latest_version: 1.0.0
 # ===================
 
 # SASS settings.
