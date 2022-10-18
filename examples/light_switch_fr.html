@@ -1,0 +1,484 @@
+---
+active_crumb: Light Switch FR <code><sub>ex</sub></code>
+layout: documentation
+id: light_switch_fr
+fa_icon: fa-cube
+---
+
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one or more
+ contributor license agreements.  See the NOTICE file distributed with
+ this work for additional information regarding copyright ownership.
+ The ASF licenses this file to You under the Apache License, Version 2.0
+ (the "License"); you may not use this file except in compliance with
+ the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<div class="col-md-8 second-column example">
+    <section id="overview">
+        <h2 class="section-title">Overview <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <p>
+            This example provides a very simple French language implementation for NLI-powered light switch. You can say something like
+            "Éteignez les lumières dans toute la maison" or "Allumez les lumières".
+            By modifying intent callbacks using, for example, HomeKit or Arduino-based controllers you can provide the
+            actual light switching.
+        </p>
+        <p>
+            <b>Complexity:</b> <span class="complexity-two-star"><i class="fas fa-square"></i> <i class="fas fa-square"></i> <i class="far fa-square"></i></span><br/>
+            <span class="ex-src">Source code: <a target="github" href="https://github.com/apache/incubator-nlpcraft/tree/master/nlpcraft-examples/lightswitch_fr">GitHub <i class="fab fa-fw fa-github"></i></a><br/></span>
+            <span class="ex-review-all">Review: <a target="github" href="https://github.com/apache/incubator-nlpcraft/tree/master/nlpcraft-examples">All Examples at GitHub <i class="fab fa-fw fa-github"></i></a></span>
+        </p>
+    </section>
+    <section id="new_project">
+        <h2 class="section-title">Create New Project <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <p>
+            You can create new Scala projects in many ways - we'll use SBT
+            to accomplish this task. Make sure that <code>build.sbt</code> file has the following content:
+        </p>
+        <pre class="brush: js, highlight: [8, 9, 10]">
+            ThisBuild / version := "0.1.0-SNAPSHOT"
+            ThisBuild / scalaVersion := "3.1.3"
+            lazy val root = (project in file("."))
+              .settings(
+                name := "NLPCraft LightSwitch FR Example",
+                version := "{{site.latest_version}}",
+                libraryDependencies += "org.apache.nlpcraft" % "nlpcraft" % "{{site.latest_version}}",
+                libraryDependencies += "org.apache.lucene" % "lucene-analyzers-common" % "8.11.2",
+                libraryDependencies += "org.languagetool" % "languagetool-core" % "5.8",
+                libraryDependencies += "org.languagetool" % "language-fr" % "5.8"
+                libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.14" % "test"
+              )
+        </pre>
+
+        <p>
+            On <code>lines 8, 9 and 10</code> added libraries, which used for support base NLP operations with French language.
+        </p>
+
+        <p><b>NOTE: </b>use the latest versions of Scala and ScalaTest.</p>
+        <p>Create the following files so that resulting project structure would look like the following:</p>
+        <ul>
+            <li><code>lightswitch_model_fr.yaml</code> - YAML configuration file, which contains model description.</li>
+            <li><code>LightSwitchFrModel.scala</code> - Scala class, model implementation.</li>
+            <li><code>NCFrSemanticEntityParser.scala</code> - Scala class, semantic entity parser, custom implementation for French language.</li>
+            <li><code>NCFrLemmaPosTokenEnricher.scala</code> - Scala class, lemma and point of speech token enricher, custom implementation for French language.</li>
+            <li><code>NCFrStopWordsTokenEnricher.scala</code> - Scala class, stop-words token enricher, custom implementation for French language.</li>
+            <li><code>NCFrTokenParser.scala</code> - Scala class, token parser, custom implementation for French language.</li>
+            <li><code>LightSwitchFrModelSpec.scala</code> - Scala tests class, which allows to test your model.</li>
+        </ul>
+        <pre class="brush: plain, highlight: [7, 10, 14, 17, 18, 20, 24]">
+            |  build.sbt
+            +--project
+            |    build.properties
+            \--src
+               +--main
+               |  +--resources
+               |  |  lightswitch_model_fr.yaml
+               |  \--scala
+               |     \--demo
+               |        |  LightSwitchFrModel.scala
+               |        \--nlp
+               |           +--entity
+               |           |  \--parser
+               |           |       NCFrSemanticEntityParser.scala
+               |           \--token
+               |              +--enricher
+               |              |    NCFrLemmaPosTokenEnricher.scala
+               |              |    NCFrStopWordsTokenEnricher.scala
+               |              \--parser
+               |                   NCFrTokenParser.scala
+               \--test
+                   \--scala
+                       \--demo
+                            LightSwitchFrModelSpec.scala
+        </pre>
+    </section>
+    <section id="model">
+        <h2 class="section-title">Data Model<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <p>
+            We are going to start with declaring the static part of our model using YAML which we will later load using
+            <code>NCModelAdapter</code> in our Scala-based model implementation.
+            Open <code>src/main/resources/<b>light_switch_fr.yaml</b></code>
+            file and replace its content with the following YAML:
+        </p>
+        <pre class="brush: js, highlight: [1, 10, 17, 25]">
+            macros:
+              "&lt;ACTION&gt;" : "{allumer|laisser|mettre}"
+              "&lt;KILL&gt;" : "{éteindre|couper|tuer|arrêter|éliminer|baisser|no}"
+              "&lt;ENTIRE_OPT&gt;" : "{entière|pleine|tout|total|_}"
+              "&lt;FLOOR_OPT&gt;" : "{là-haut|à l'étage|en bas|{1er|premier|2ème|deuxième|3ème|troisième|4ème|quatrième|5ème|cinquième|dernier|haut|rez-de-chaussée|en bas} étage|_}"
+              "&lt;TYPE&gt;" : "{chambre|salle|pièce|placard|mansardé|loft|mezzanine|rangement {chambre|salle|pièce|_}}"
+              "&lt;LIGHT&gt;" : "{tout|_} {cela|lumière|éclairage|illumination|lampe}"
+
+            elements:
+              - id: "ls:loc"
+                description: "Location of lights."
+                synonyms:
+                  - "&lt;ENTIRE_OPT&gt; &lt;FLOOR_OPT&gt; {cuisine|bibliothèque|placard|garage|bureau|salle de jeux|{salle à manger|buanderie|jeu} &lt;TYPE&gt;}"
+                  - "&lt;ENTIRE_OPT&gt; &lt;FLOOR_OPT&gt; {maître|gamin|bébé|enfant|hôte|client|_} {coucher|bains|toilette|rangement} {&lt;TYPE&gt;|_}"
+                  - "&lt;ENTIRE_OPT&gt; {maison|foyer|bâtiment|{1er|premier} étage|chaussée|{2ème|deuxième} étage}"
+
+              - id: "ls:on"
+                groups:
+                  - "act"
+                description: "Light switch ON action."
+                synonyms:
+                  - "{&lt;ACTION&gt;|_} &lt;LIGHT&gt;"
+                  - "{&lt;LIGHT&gt;|_} &lt;ACTION&gt;"
+
+              - id: "ls:off"
+                groups:
+                  - "act"
+                description: "Light switch OFF action."
+                synonyms:
+                  - "&lt;KILL&gt; &lt;LIGHT&gt;"
+                  - "&lt;LIGHT&gt; &lt;KILL&gt;"
+        </pre>
+        <p>There are number of important points here:</p>
+        <ul>
+            <li>
+                <code>Line 1</code> defines several macros that are used later on throughout the model's elements
+                to shorten the synonym declarations. Note how macros coupled with option groups  
+                shorten overall synonym declarations 1000:1 vs. manually listing all possible word permutations.
+            </li>
+            <li>
+                <code>Lines 10, 17, 25</code> define three model elements: the location of the light, and actions to turn
+                the light on and off. Action elements belong to the same group <code>act</code> which
+                will be used in our intent, defined in <code>LightSwitchFrModel</code> class. Note that these model
+                elements are defined mostly through macros we have defined above.
+
+            </li>
+        </ul>
+        <div class="bq info">
+            <p><b>YAML vs. API</b></p>
+            <p>
+                As usual, this YAML-based static model definition is convenient but totally optional. All elements definitions
+                can be provided programmatically inside Scala model <code>LightSwitchFrModel</code> class as well.
+            </p>
+        </div>
+    </section>
+    <section id="code">
+        <h2 class="section-title">Model Class <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <p>
+            Open <code>src/main/scala/demo/<b>LightSwitchFrModel.scala</b></code> file and replace its content with the following code:
+        </p>
+        <pre class="brush: scala, highlight: [11, 12, 13, 20, 21, 24, 25, 32]">
+            package demo
+
+            import com.google.gson.Gson
+            import org.apache.nlpcraft.*
+            import org.apache.nlpcraft.annotations.*
+
+            import demo.nlp.entity.parser.NCFrSemanticEntityParser
+            import demo.lightswitch.nlp.token.enricher.*
+            import demo.lightswitch.nlp.token.parser.NCFrTokenParser
+
+            import scala.jdk.CollectionConverters.*
+
+            class LightSwitchFrModel extends NCModelAdapter(
+                NCModelConfig("nlpcraft.lightswitch.fr.ex", "LightSwitch Example Model FR", "1.0"),
+                new NCPipelineBuilder().
+                    withTokenParser(new NCFrTokenParser()).
+                    withTokenEnricher(new NCFrLemmaPosTokenEnricher()).
+                    withTokenEnricher(new NCFrStopWordsTokenEnricher()).
+                    withEntityParser(new NCFrSemanticEntityParser("lightswitch_model_fr.yaml")).
+                    build
+            ):
+                @NCIntent("intent=ls term(act)={has(ent_groups, 'act')} term(loc)={# == 'ls:loc'}*")
+                def onMatch(
+                    ctx: NCContext,
+                    im: NCIntentMatch,
+                    @NCIntentTerm("act") actEnt: NCEntity,
+                    @NCIntentTerm("loc") locEnts: List[NCEntity]
+                ): NCResult =
+                    val action = if actEnt.getId == "ls:on" then "allumer" else "éteindre"
+                    val locations = if locEnts.isEmpty then "toute la maison" else locEnts.map(_.mkText).mkString(", ")
+
+                    // Add HomeKit, Arduino or other integration here.
+                    // By default - just return a descriptive action string.
+                    NCResult(new Gson().toJson(Map("locations" -> locations, "action" -> action).asJava))
+        </pre>
+        <p>
+            The intent callback logic is very simple - we return a descriptive confirmation message
+            back (explaining what lights were changed). With action and location detected, you can add
+            the actual light switching using HomeKit or Arduino devices. Let's review this implementation step by step:
+        </p>
+        <ul>
+            <li>
+                On <code>line 11</code> our class extends <code>NCModelAdapter</code> that allows us to pass
+                prepared configuration and pipeline into model.
+            </li>
+            <li>
+                On <code>line 12</code> created model configuration with most default parameters.
+            </li>
+            <li>
+                On <code>line 13</code> created pipeline, based on custom French language components, which are described below.
+                <ul>
+                    <li><code>NCFrTokenParser</code>. Token parser.</li>
+                    <li><code>NCFrLemmaPosTokenEnricher</code>. Lemma and point of speech token enricher.</li>
+                    <li><code>NCFrStopWordsTokenEnricher</code>. Stop-words token enricher.</li>
+                    <li><code>NCFrSemanticEntityParser</code>. Semantic entity parser extending.</li>
+                </ul>
+                Note that <code>NCFrSemanticEntityParser</code> is based on semantic model definition,
+                described in <code>lightswitch_model_fr.yaml</code> file.
+            </li>
+            <li>
+                <code>Lines 20 and 21</code> annotates intents <code>ls</code> and its callback method <code>onMatch</code>.
+                Intent <code>ls</code> requires one action (a token belonging to the group act) and optional list of light locations
+                (zero or more tokens with ID ls:loc) - by default we assume the entire house as a default location.
+            </li>
+            <li>
+                <code>Lines 24 and 25</code> map terms from detected intent to the formal method parameters of the
+                <code>onMatch</code> method.
+            </li>
+            <li>
+                On the <code>line 32</code> the intent callback simply returns a confirmation message.
+            </li>
+        </ul>
+
+        <p>
+            Lets review each custom pipeline components.
+        </p>
+
+        <p>
+            Open <code>src/main/scala/demo/nlp/token/parser/<b>NCFrTokenParser.scala</b></code> file and replace its content with the following code:
+        </p>
+
+        <pre class="brush: scala, highlight: [19]">
+            package demo.nlp.token.parser
+
+            import org.apache.nlpcraft.*
+            import org.languagetool.tokenizers.fr.FrenchWordTokenizer
+            import scala.jdk.CollectionConverters.*
+
+            class NCFrTokenParser extends NCTokenParser:
+                private val tokenizer = new FrenchWordTokenizer
+
+                override def tokenize(text: String): List[NCToken] =
+                    val toks = collection.mutable.ArrayBuffer.empty[NCToken]
+                    var sumLen = 0
+
+                    for ((word, idx) <- tokenizer.tokenize(text).asScala.zipWithIndex)
+                        val start = sumLen
+                        val end = sumLen + word.length
+
+                        if word.strip.nonEmpty then
+                            toks += new NCPropertyMapAdapter with NCToken:
+                                override def getText: String = word
+                                override def getIndex: Int = idx
+                                override def getStartCharIndex: Int = start
+                                override def getEndCharIndex: Int = end
+
+                        sumLen = end
+
+                    toks.toList
+        </pre>
+        <p>
+            <code>NCFrTokenParser</code> is simple wrapper, which implements <code>NCTokenParser</code> based on
+            open source solution <a href="https://languagetool.org">Language Tool</a>  solution.
+            On <code>line 19</code> <code>NCToken</code> instances created.
+        </p>
+
+        <p>
+            Open <code>src/main/scala/demo/nlp/token/enricher/<b>NCFrLemmaPosTokenEnricher.scala</b></code> file and replace its content with the following code:
+        </p>
+        <pre class="brush: scala, highlight: [27, 28]">
+            package demo.nlp.token.enricher
+
+            import org.apache.nlpcraft.*
+            import org.languagetool.AnalyzedToken
+            import org.languagetool.tagging.fr.FrenchTagger
+            import scala.jdk.CollectionConverters.*
+
+            class NCFrLemmaPosTokenEnricher extends NCTokenEnricher:
+                private def nvl(v: String, dflt : => String): String = if v != null then v else dflt
+
+                override def enrich(req: NCRequest, cfg: NCModelConfig, toks: List[NCToken]): Unit =
+                    val tags = FrenchTagger.INSTANCE.tag(toks.map(_.getText).asJava).asScala
+
+                    require(toks.sizeIs == tags.size)
+
+                    toks.zip(tags).foreach { case (tok, tag) =>
+                        val readings = tag.getReadings.asScala
+
+                        val (lemma, pos) = readings.size match
+                            // No data. Lemma is word as is, POS is undefined.
+                            case 0 => (tok.getText, "")
+                            // Takes first. Other variants ignored.
+                            case _ =>
+                                val aTok: AnalyzedToken = readings.head
+                                (nvl(aTok.getLemma, tok.getText), nvl(aTok.getPOSTag, ""))
+
+                        tok.put("pos", pos)
+                        tok.put("lemma", lemma)
+
+                        () // Otherwise NPE.
+                    }
+        </pre>
+        <p>
+            <code>NCFrLemmaPosTokenEnricher</code> lemma and point of speech tokens enricher, based on
+            open source solution <a href="https://languagetool.org">Language Tool</a> solution.
+            On <code>line 27 and 28</code> tokens are enriched by <code>pos</code> and <code>lemma</code> data.
+        </p>
+
+        <p>
+            Open <code>src/main/scala/demo/nlp/token/enricher/<b>NCFrStopWordsTokenEnricher.scala</b></code> file and replace its content with the following code:
+        </p>
+
+        <pre class="brush: scala, highlight: [17]">
+            package demo.nlp.token.enricher
+
+            import org.apache.lucene.analysis.fr.FrenchAnalyzer
+            import org.apache.nlpcraft.*
+
+            class NCFrStopWordsTokenEnricher extends NCTokenEnricher:
+                private final val stops = FrenchAnalyzer.getDefaultStopSet
+
+                private def getPos(t: NCToken): String = t.get("pos").getOrElse(throw new NCException("POS not found in token."))
+                private def getLemma(t: NCToken): String = t.get("lemma").getOrElse(throw new NCException("Lemma not found in token."))
+
+                override def enrich(req: NCRequest, cfg: NCModelConfig, toks: List[NCToken]): Unit =
+                    for (t <- toks)
+                        val lemma = getLemma(t)
+                        lazy val pos = getPos(t)
+
+                        t.put(
+                            "stopword",
+                            lemma.length == 1 && !Character.isLetter(lemma.head) && !Character.isDigit(lemma.head) ||
+                            stops.contains(lemma.toLowerCase) ||
+                            pos.startsWith("I") ||
+                            pos.startsWith("O") ||
+                            pos.startsWith("P") ||
+                            pos.startsWith("D")
+                        )
+        </pre>
+        <p>
+            <code>NCFrStopWordsTokenEnricher</code> stop-words tokens enricher, based on
+            open source solution <a href="https://lucene.apache.org/">Apache Lucene</a> solution.
+            On <code>line 17</code> tokens are enriched by <code>stopword</code> flags data.
+        </p>
+
+        <p>
+            Open <code>src/main/scala/demo/nlp/entity/parser/<b>NCFrSemanticEntityParser.scala</b></code> file and replace its content with the following code:
+        </p>
+
+        <pre class="brush: scala, highlight: [8, 12]">
+            package demo.nlp.entity.parser
+
+            import opennlp.tools.stemmer.snowball.SnowballStemmer
+            import org.apache.nlpcraft.examples.lightswitch.nlp.token.parser.NCFrTokenParser
+            import org.apache.nlpcraft.nlp.parsers.*
+
+            class NCFrSemanticEntityParser(src: String) extends NCSemanticEntityParser(
+                new NCSemanticStemmer:
+                    private val stemmer = new SnowballStemmer(SnowballStemmer.ALGORITHM.FRENCH)
+                    override def stem(txt: String): String = stemmer.synchronized { stemmer.stem(txt.toLowerCase).toString }
+                ,
+                new NCFrTokenParser(),
+                mdlSrcOpt = Option(src)
+            )
+
+        </pre>
+        <p>
+            <code>NCFrSemanticEntityParser</code> extends <code>NCSemanticEntityParser</code>
+            It uses stemmer implementation from <a href="https://opennlp.apache.org/">Apache OpenNLP</a> solution
+            on <code>line 8</code> and already described <code>NCFrTokenParser</code> token parser implementation on <code>line 12</code>.
+        </p>
+    </section>
+
+    <section id="testing">
+        <h2 class="section-title">Testing <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <p>
+            The test defined in <code>LightSwitchFrModelSpec</code> allows to check that all input test sentences are
+            processed correctly and trigger the expected intent <code>ls</code>:
+        </p>
+        <pre class="brush: scala, highlight: [9, 11]">
+            package demo
+
+            import org.apache.nlpcraft.*
+            import org.scalatest.funsuite.AnyFunSuite
+            import scala.util.Using
+
+            class LightSwitchFrModelSpec extends AnyFunSuite:
+                test("test") {
+                    Using.resource(new NCModelClient(new LightSwitchFrModel)) { client =>
+                        def check(txt: String): Unit =
+                            require(client.debugAsk(txt, "userId", true).getIntentId == "ls")
+
+                        check("Éteignez les lumières dans toute la maison.")
+                        check("Éteignez toutes les lumières maintenant.")
+                        check("Allumez l'éclairage dans le placard de la chambre des maîtres.")
+                        check("Éteindre les lumières au 1er étage.")
+                        check("Allumez les lumières.")
+                        check("Allumes dans la cuisine.")
+                        check("S'il vous plait, éteignez la lumière dans la chambre à l'étage.")
+                        check("Allumez les lumières dans toute la maison.")
+                        check("Éteignez les lumières dans la chambre d'hôtes.")
+                        check("Pourriez-vous éteindre toutes les lumières s'il vous plait?")
+                        check("Désactivez l'éclairage au 2ème étage.")
+                        check("Éteignez les lumières dans la chambre au 1er étage.")
+                        check("Lumières allumées à la cuisine du deuxième étage.")
+                        check("S'il te plaît, pas de lumières!")
+                        check("Coupez toutes les lumières maintenant!")
+                        check("Éteindre les lumières dans le garage.")
+                        check("Lumières éteintes dans la cuisine!")
+                        check("Augmentez l'éclairage dans le garage et la chambre des maîtres.")
+                        check("Baissez toute la lumière maintenant!")
+                        check("Pas de lumières dans la chambre, s'il vous plait.")
+                        check("Allumez le garage, s'il vous plait.")
+                        check("Tuez l'illumination maintenant.")
+                    }
+                }
+        </pre>
+        <ul>
+            <li>
+                On <code>line 9</code> the client for our model is created.
+            </li>
+            <li>
+                On <code>line 11</code> a special method <code>debugAsk</code> is called.
+                It allows to check the winning intent and its callback parameters without actually
+                calling the intent.
+            </li>
+            <li>
+                <code>Lines 13-34</code> define all the test input sentences that should all
+                trigger <code>ls</code> intent.
+            </li>
+        </ul>
+        <p>
+            You can run this test via SBT task <code>executeTests</code> or using IDE.
+        </p>
+        <pre class="brush: scala, highlight: []">
+            PS C:\apache\incubator-nlpcraft-examples\lightswitch_fr> sbt executeTests
+        </pre>
+    </section>
+    <section>
+        <h2 class="section-title">Done! 👌 <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <p>
+            You've created light switch data model and tested it.
+        </p>
+    </section>
+</div>
+<div class="col-md-2 third-column">
+    <ul class="side-nav">
+        <li class="side-nav-title">On This Page</li>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#new_project">New Project</a></li>
+        <li><a href="#model">Data Model</a></li>
+        <li><a href="#code">Model Class</a></li>
+        <li><a href="#testing">Testing</a></li>
+        {% include quick-links.html %}
+    </ul>
+</div>
+
+
+
+
+
+
