@@ -175,11 +175,9 @@ fa_icon: fa-cube
             import com.google.gson.Gson
             import org.apache.nlpcraft.*
             import org.apache.nlpcraft.annotations.*
-
             import demo.nlp.entity.parser.NCFrSemanticEntityParser
             import demo.lightswitch.nlp.token.enricher.*
             import demo.lightswitch.nlp.token.parser.NCFrTokenParser
-
             import scala.jdk.CollectionConverters.*
 
             class LightSwitchFrModel extends NCModelAdapter(
@@ -282,7 +280,7 @@ fa_icon: fa-cube
         </pre>
         <p>
             <code>NCFrTokenParser</code> is simple wrapper, which implements <code>NCTokenParser</code> based on
-            open source solution <a href="https://languagetool.org">Language Tool</a>  solution.
+            open source solution <a href="https://languagetool.org">Language Tool</a> solution.
             On <code>line 19</code> <code>NCToken</code> instances created.
         </p>
 
@@ -384,7 +382,6 @@ fa_icon: fa-cube
                 new NCFrTokenParser(),
                 mdlSrcOpt = Option(src)
             )
-
         </pre>
         <p>
             <code>NCFrSemanticEntityParser</code> extends <code>NCSemanticEntityParser</code>
