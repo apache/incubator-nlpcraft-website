@@ -1,0 +1,896 @@
+---
+active_crumb: Pizzeria <code><sub>ex</sub></code>
+layout: documentation
+id: pizzeria
+fa_icon: fa-cube
+---
+
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one or more
+ contributor license agreements.  See the NOTICE file distributed with
+ this work for additional information regarding copyright ownership.
+ The ASF licenses this file to You under the Apache License, Version 2.0
+ (the "License"); you may not use this file except in compliance with
+ the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<div class="col-md-8 second-column example">
+    <section id="overview">
+        <h2 class="section-title">Overview <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <p>
+            This example provides a simple pizzeria ordering system.
+            It demonstrates how to work with <code>ASK_DIALOG</code> states in callbacks and
+            how to process the systems which require confirmation logic.
+        </p>
+        <p>
+            <b>Complexity:</b> <span class="complexity-three-star"><i class="fas fa-gem"></i> <i class="fas fa-gem"></i> <i class="fas fa-gem"></i></span><br/>
+            <span class="ex-src">Source code: <a target="github" href="https://github.com/apache/incubator-nlpcraft/tree/master/nlpcraft-examples/caclulator">GitHub <i class="fab fa-fw fa-github"></i></a><br/></span>
+            <span class="ex-review-all">Review: <a target="github" href="https://github.com/apache/incubator-nlpcraft/tree/master/nlpcraft-examples">All Examples at GitHub <i class="fab fa-fw fa-github"></i></a></span>
+        </p>
+    </section>
+    <section id="new_project">
+        <h2 class="section-title">Create New Project <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <p>
+            You can create new Scala projects in many ways - we'll use SBT
+            to accomplish this task. Make sure that <code>build.sbt</code> file has the following content:
+        </p>
+        <pre class="brush: js, highlight: []">
+            ThisBuild / version := "0.1.0-SNAPSHOT"
+            ThisBuild / scalaVersion := "3.1.3"
+            lazy val root = (project in file("."))
+              .settings(
+                name := "NLPCraft Calculator Example",
+                version := "{{site.latest_version}}",
+                libraryDependencies += "org.apache.nlpcraft" % "nlpcraft" % "{{site.latest_version}}",
+                libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.14" % "test"
+              )
+        </pre>
+        <p><b>NOTE: </b>use the latest versions of Scala and ScalaTest.</p>
+        <p>Create the following files so that resulting project structure would look like the following:</p>
+        <ul>
+            <li><code>pizzeria_model.yaml</code> - YAML configuration file, which contains model description.</li>
+            <li><code>PizzeriaModel.scala</code> - Scala class, model implementation.</li>
+            <li><code>PizzeriaOrder.scala</code> - Scala class, pizzeria order state representation.</li>
+            <li><code>PizzeriaModelPipeline.scala</code> - Scala class, model pipeline.</li>
+            <li><code>PizzeriaOrderMapper.scala</code> - Scala class, <code>NCEntityMapper</code> custom implementation.</li>
+            <li><code>PizzeriaOrderValidator.scala</code> - Scala class, <code>NCEntityValidator</code> custom implementation.</li>
+            <li><code>PizzeriaModelSpec.scala</code> - Scala tests class, which allows to test your model.</li>
+        </ul>
+        <pre class="brush: plain, highlight: [7, 11, 12, 13, 14, 15, 19]">
+            |  build.sbt
+            +--project
+            |    build.properties
+            \--src
+               +--main
+               |  +--resources
+               |  |  pizzeria_model.yaml
+               |  \--scala
+               |     \--demo
+               |        \--components
+               |             PizzeriaModelPipeline.scala
+               |             PizzeriaOrderMapper.scala
+               |             PizzeriaOrderValidator.scala
+               |          PizzeriaModel.scala
+               |          PizzeriaOrder.scala
+               \--test
+                  \--scala
+                     \--demo
+                          PizzeriaModelSpec.scala
+        </pre>
+    </section>
+    <section id="model">
+        <h2 class="section-title">Data Model<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <p>
+            We are going to start with declaring the static part of our model using YAML which we will later load using
+            <code>NCModelAdapter</code> in our Scala-based model implementation.
+            Open <code>src/main/resources/<b>pizzeria_model.yaml</b></code>
+            file and replace its content with the following YAML:
+        </p>
+        <pre class="brush: js, highlight: [2, 9, 16, 23, 29, 35, 40, 46, 51]">
+             elements:
+              - id: "ord:pizza"
+                description: "Kinds of pizza."
+                values:
+                  "margherita": [ ]
+                  "carbonara": [ ]
+                  "marinara": [ ]
+
+              - id: "ord:pizza:size"
+                description: "Size of pizza."
+                values:
+                  "small": [ "{small|smallest|min|minimal|tiny} {size|piece|_}" ]
+                  "medium": [ "{medium|intermediate|normal|regular} {size|piece|_}" ]
+                  "large": [ "{big|biggest|large|max|maximum|huge|enormous} {size|piece|_}" ]
+
+              - id: "ord:drink"
+                description: "Kinds of drinks."
+                values:
+                  "tea": [ ]
+                  "coffee": [ ]
+                  "cola": [ "{pepsi|sprite|dr. pepper|dr pepper|fanta|soda|cola|coca cola|cocacola|coca-cola}" ]
+
+              - id: "ord:yes"
+                description: "Confirmation (yes)."
+                synonyms:
+                  - "{yes|yeah|right|fine|nice|excellent|good|correct|sure|ok|exact|exactly|agree}"
+                  - "{you are|_} {correct|right}"
+
+              - id: "ord:no"
+                description: "Confirmation (no)."
+                synonyms:
+                  - "{no|nope|incorrect|wrong}"
+                  - "{you are|_} {not|are not|aren't} {correct|right}"
+
+              - id: "ord:stop"
+                description: "Stop and cancel all."
+                synonyms:
+                  - "{stop|cancel|clear|interrupt|quit|close} {it|all|everything|_}"
+
+              - id: "ord:status"
+                description: "Order status information."
+                synonyms:
+                  - "{present|current|_} {order|_} {status|state|info|information}"
+                  - "what {already|_} ordered"
+
+              - id: "ord:finish"
+                description: "The order is over."
+                synonyms:
+                  - "{i|everything|order|_} {be|_} {finish|ready|done|over|confirmed}"
+
+              - id: "ord:menu"
+                description: "Order menu."
+                synonyms:
+                  - "{menu|carte|card}"
+                  - "{products|goods|food|item|_} list"
+                  - "{hi|help|hallo}"
+        </pre>
+        <p>There are number of important points here:</p>
+        <ul>
+            <li>
+                <code>Lines 1, 9, 16</code> define order elements, which present parts of orders.
+            </li>
+            <li>
+                <code>Lines 35, 40, 46, 51</code> define command elements, which are used to control order state.
+            </li>
+            <li>
+                <code>Lines 23, 29</code> define confirmation elements, which are used for commands confirmations or canceling.
+            </li>
+        </ul>
+        <div class="bq info">
+            <p><b>YAML vs. API</b></p>
+            <p>
+                As usual, this YAML-based static model definition is convenient but totally optional. All elements definitions
+                can be provided programmatically inside Scala model <code>PizzeriaModel</code> class as well.
+            </p>
+        </div>
+    </section>
+    <section id="code">
+        <h2 class="section-title">Model Class <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <p>
+            Open <code>src/main/scala/demo/<b>PizzeriaModel.scala</b></code> file and replace its content with the following code:
+        </p>
+        <pre class="brush: scala, highlight: [12, 27, 114, 115, 116, 126, 127, 135, 136, 143, 145, 147, 148, 158, 159, 168, 170, 173, 174, 187, 188, 201]">
+            package demo
+
+            import com.typesafe.scalalogging.LazyLogging
+            import org.apache.nlpcraft.*
+            import org.apache.nlpcraft.NCResultType.*
+            import org.apache.nlpcraft.annotations.*
+            import demo.{PizzeriaOrder as Order, PizzeriaOrderState as State}
+            import demo.PizzeriaOrderState.*
+            import demo.components.PizzeriaModelPipeline
+            import org.apache.nlpcraft.nlp.*
+
+            object PizzeriaExtractors:
+                def extractPizzaSize(e: NCEntity): String = e[String]("ord:pizza:size:value")
+                def extractQty(e: NCEntity, qty: String): Option[Int] =
+                    Option.when(e.contains(qty))(e[String](qty).toDouble.toInt)
+                def extractPizza(e: NCEntity): Pizza =
+                    Pizza(
+                        e[String]("ord:pizza:value"),
+                        e.get[String]("ord:pizza:size"),
+                        extractQty(e, "ord:pizza:qty")
+                    )
+                def extractDrink(e: NCEntity): Drink =
+                    Drink(e[String]("ord:drink:value"), extractQty(e, "ord:drink:qty"))
+
+            import PizzeriaExtractors.*
+
+            object PizzeriaModel extends LazyLogging:
+                type Result = (NCResult, State)
+                private val UNEXPECTED_REQUEST =
+                    new NCRejection("Unexpected request for current dialog context.")
+
+                private def getCurrentOrder()(using ctx: NCContext): Order =
+                    val sess = ctx.getConversation.getData
+                    val usrId = ctx.getRequest.getUserId
+                    sess.get[Order](usrId) match
+                        case Some(ord) => ord
+                        case None =>
+                            val ord = new Order()
+                            sess.put(usrId, ord)
+                            ord
+
+                private def mkResult(msg: String): NCResult = NCResult(msg, ASK_RESULT)
+                private def mkDialog(msg: String): NCResult = NCResult(msg, ASK_DIALOG)
+
+                private def doRequest(body: Order => Result)(using ctx: NCContext, im: NCIntentMatch): NCResult =
+                    val o = getCurrentOrder()
+
+                    logger.info(s"Intent '${im.getIntentId}' activated for text: '${ctx.getRequest.getText}'.")
+                    logger.info(s"Before call [desc=${o.getState.toString}, resState: $o.")
+
+                    val (res, resState) = body.apply(o)
+                    o.setState(resState)
+
+                    logger.info(s"After call [desc=$o, resState: $resState.")
+
+                    res
+
+                private def askIsReady(): Result = mkDialog("Is order ready?") -> DIALOG_IS_READY
+
+                private def askSpecify(o: Order): Result =
+                    require(!o.isValid)
+
+                    o.findPizzaWithoutSize match
+                        case Some(p) =>
+                            mkDialog(s"Choose size (large, medium or small) for: '${p.name}'") -> DIALOG_SPECIFY
+                        case None =>
+                            require(o.isEmpty)
+                            mkDialog("Please order something. Ask `menu` to look what you can order.") ->
+                                DIALOG_SPECIFY
+
+                private def askShouldStop(): Result =
+                    mkDialog("Should current order be canceled?") ->
+                        DIALOG_SHOULD_CANCEL
+
+                private def doShowMenuResult(): NCResult =
+                    mkResult(
+                        "There are accessible for order: margherita, carbonara and marinara. " +
+                        "Sizes: large, medium or small. " +
+                        "Also there are tea, coffee and cola."
+                    )
+
+                private def doShowMenu(state: State): Result = doShowMenuResult() -> state
+
+                private def doShowStatus(o: Order, state: State): Result =
+                    mkResult(s"Current order state: $o.") -> state
+
+                private def askConfirm(o: Order): Result =
+                    require(o.isValid)
+                    mkDialog(s"Let's specify your order: $o. Is it correct?") -> DIALOG_CONFIRM
+
+                private def doResultWithClear(msg: String)(using ctx: NCContext, im: NCIntentMatch): Result =
+                    val conv = ctx.getConversation
+                    conv.getData.remove(ctx.getRequest.getUserId)
+                    conv.clearStm(_ => true)
+                    conv.clearDialog(_ => true)
+                    mkResult(msg) -> DIALOG_EMPTY
+
+                private def doStop(o: Order)(using ctx: NCContext, im: NCIntentMatch): Result =
+                    doResultWithClear(
+                        if !o.isEmpty then "Everything cancelled. Ask `menu` to look what you can order."
+                        else "Nothing to cancel. Ask `menu` to look what you can order."
+                    )
+
+                private def doContinue(): Result = mkResult("OK, please continue.") -> DIALOG_EMPTY
+                private def askConfirmOrAskSpecify(o: Order): Result =
+                    if o.isValid then askConfirm(o) else askSpecify(o)
+                private def askIsReadyOrAskSpecify(o: Order): Result =
+                    if o.isValid then askIsReady() else askSpecify(o)
+                private def askStopOrDoStop(o: Order)(using ctx: NCContext, im: NCIntentMatch): Result =
+                    if o.isValid then askShouldStop() else doStop(o)
+
+            import org.apache.nlpcraft.examples.pizzeria.PizzeriaModel.*
+
+            class PizzeriaModel extends NCModelAdapter(
+                NCModelConfig("nlpcraft.pizzeria.ex", "Pizzeria Example Model", "1.0"),
+                PizzeriaModelPipeline.PIPELINE
+            ) with LazyLogging:
+                // This method is defined in class scope and has package access level for tests reasons.
+                private[pizzeria] def doExecute(o: Order)(using ctx: NCContext, im: NCIntentMatch): Result =
+                    require(o.isValid)
+                    doResultWithClear(s"Executed: $o.")
+
+                private def doExecuteOrAskSpecify(o: Order)(using ctx: NCContext, im: NCIntentMatch): Result =
+                    if o.isValid then doExecute(o) else askSpecify(o)
+
+                @NCIntent("intent=yes term(yes)={# == 'ord:yes'}")
+                def onYes(using ctx: NCContext, im: NCIntentMatch): NCResult = doRequest(
+                    o => o.getState match
+                        case DIALOG_CONFIRM => doExecute(o)
+                        case DIALOG_SHOULD_CANCEL => doStop(o)
+                        case DIALOG_IS_READY => askConfirmOrAskSpecify(o)
+                        case DIALOG_SPECIFY | DIALOG_EMPTY => throw UNEXPECTED_REQUEST
+                )
+
+                @NCIntent("intent=no term(no)={# == 'ord:no'}")
+                def onNo(using ctx: NCContext, im: NCIntentMatch): NCResult = doRequest(
+                    o => o.getState match
+                        case DIALOG_CONFIRM | DIALOG_IS_READY => doContinue()
+                        case DIALOG_SHOULD_CANCEL => askConfirmOrAskSpecify(o)
+                        case DIALOG_SPECIFY | DIALOG_EMPTY => throw UNEXPECTED_REQUEST
+                )
+
+                @NCIntent("intent=stop term(stop)={# == 'ord:stop'}")
+                // It doesn't depend on order validity and dialog state.
+                def onStop(using ctx: NCContext, im: NCIntentMatch): NCResult = doRequest(askStopOrDoStop)
+
+                @NCIntent("intent=status term(status)={# == 'ord:status'}")
+                def onStatus(using ctx: NCContext, im: NCIntentMatch): NCResult = doRequest(
+                    o => o.getState match
+                        // Ignore `status`, confirm again.
+                        case DIALOG_CONFIRM => askConfirm(o)
+                        // Changes state.
+                        case DIALOG_SHOULD_CANCEL => doShowStatus(o, DIALOG_EMPTY)
+                         // Keeps same state.
+                        case DIALOG_EMPTY | DIALOG_IS_READY | DIALOG_SPECIFY => doShowStatus(o, o.getState)
+                )
+
+                @NCIntent("intent=finish term(finish)={# == 'ord:finish'}")
+                def onFinish(using ctx: NCContext, im: NCIntentMatch): NCResult = doRequest(
+                    o => o.getState match
+                        // Like YES if valid.
+                        case DIALOG_CONFIRM => doExecuteOrAskSpecify(o)
+                        // Ignore `finish`, specify again.
+                        case DIALOG_SPECIFY => askSpecify(o)
+                        case DIALOG_EMPTY | DIALOG_IS_READY | DIALOG_SHOULD_CANCEL => askConfirmOrAskSpecify(o)
+                )
+
+                @NCIntent("intent=menu term(menu)={# == 'ord:menu'}")
+                // It doesn't depend and doesn't influence on order validity and dialog state.
+                def onMenu(using ctx: NCContext, im: NCIntentMatch): NCResult =
+                    doRequest(o => doShowMenu(o.getState))
+
+                @NCIntent("intent=order term(ps)={# == 'ord:pizza'}* term(ds)={# == 'ord:drink'}*")
+                def onOrder(
+                    using ctx: NCContext,
+                    im: NCIntentMatch,
+                    @NCIntentTerm("ps") ps: List[NCEntity],
+                    @NCIntentTerm("ds") ds: List[NCEntity]
+                ): NCResult = doRequest(
+                    o =>
+                        require(ps.nonEmpty || ds.nonEmpty);
+                        // It doesn't depend on order validity and dialog state.
+                        o.add(ps.map(extractPizza), ds.map(extractDrink));
+                        askIsReadyOrAskSpecify(o)
+                )
+
+                @NCIntent("intent=orderSpecify term(size)={# == 'ord:pizza:size'}")
+                def onOrderSpecify(
+                    using ctx: NCContext,
+                    im: NCIntentMatch,
+                    @NCIntentTerm("size") size: NCEntity
+                ): NCResult =
+                    doRequest(
+                        // If order in progress and has pizza with unknown size, it doesn't depend on dialog state.
+                        o =>
+                            if !o.isEmpty && o.fixPizzaWithoutSize(extractPizzaSize(size))
+                                then askIsReadyOrAskSpecify(o)
+                                else throw UNEXPECTED_REQUEST
+                    )
+
+                override def onRejection(
+                    using ctx: NCContext, im: Option[NCIntentMatch], e: NCRejection
+                ): Option[NCResult] =
+                    if im.isEmpty || getCurrentOrder().isEmpty then throw e
+                    Option(doShowMenuResult())
+        </pre>
+        <p>
+            There are few intents in the given model, which allow to prepare, change, confirm and cancel pizzeria orders.
+            Note please that given test model supports work with one single user.
+            Let's review this implementation step by step:
+        </p>
+        <ul>
+            <li>
+                On <code>line 12</code> declared <code>PizzeriaExtractors</code>, helper object, which provides
+                conversion methods from <code>NCEntity</code> objects and model data objects.
+            </li>
+            <li>
+                On <code>line 27</code> defined <code>PizzeriaModel</code> companion object, which contains
+                static content and helper methods.
+            </li>
+            <li>
+                On <code>line 114</code> our class <code>PizzeriaModel</code> extends <code>NCModelAdapter</code> that allows us to pass
+                prepared configuration and pipeline into model.
+            </li>
+            <li>
+                On <code>line 115</code> created model configuration with most default parameters.
+            </li>
+            <li>
+                On <code>line 116</code> represented pipeline, prepared in <code>PizzeriaModelPipeline</code> class.
+            </li>
+
+            <li>
+                <code>Lines 173 and 174</code> annotates intents <code>order</code> and its callback method <code>onOrder</code>.
+                Intent <code>order</code> requires lists of pizza and drinks in the order.
+                Note please, that at least one of these lists shouldn't be empty, otherwise intent is not triggered.
+                In the callback current order state is changed.
+                If order is in valid state, user receives order confirmation response "Is order ready?",
+                otherwise user receives response, which asks user to specify this order.
+                Both responses have type <code>ASK_DIALOG</code>.
+            </li>
+
+            <li>
+                Order pizza sizes can be specified by the model, as it was described above in <code>order</code> intent.
+                <code>Lines 187 and 188</code> annotates intents <code>orderSpecify</code> and its callback method <code>onOrderSpecify</code>.
+                Intent <code>orderSpecify</code> requires pizza size value parameter.
+                Callback checks that it was called just for suitable order state.
+                Current order state is changed  and user receives order confirmation response "Is order ready?"
+            </li>
+            <li>
+                <code>Lines 126, 127 and 135, 136</code> annotates intents <code>yes</code> and <code>no</code>
+                with related callbacks <code>onYes</code> and <code>onNo</code>.
+                These intents are expected after user received confirmation responses with type <code>ASK_DIALOG</code>,
+                like "Is order ready?". Callbacks change order state or send some another confirmation requests to user,
+                depends on current order state.
+            </li>
+            <li>
+                <code>Lines 143 and 145, 147 and 148, 158 and 159, 168 and 170</code> annotates intents
+                <code>stop</code>, <code>status</code>, <code>finish</code> and <code>menu</code> intents
+                with related callbacks. They are order management commands, these actions are depends on current order state.
+            </li>
+            <li>
+                <code>line 201</code> annotates <code>onRejection</code> method,
+                which is called if there aren't triggered intents.
+                <code>stop</code>, <code>status</code>, <code>finish</code> and <code>menu</code> intents
+                with related callbacks. They are order management commands, these actions are depends on current order state.
+            </li>
+        </ul>
+
+        <p>
+            Open <code>src/main/scala/demo/components/<b>PizzeriaOrderValidator.scala</b></code> file and replace its content with the following code:
+        </p>
+        <pre class="brush: scala, highlight: []">
+            package demo.components
+
+            import org.apache.nlpcraft.*
+
+            class PizzeriaOrderValidator extends NCEntityValidator:
+                override def validate(req: NCRequest, cfg: NCModelConfig, ents: List[NCEntity]): Unit =
+                    def count(id: String): Int = ents.count(_.getId == id)
+
+                    val cntPizza = count("ord:pizza")
+                    val cntDrink = count("ord:drink")
+                    val cntNums = count("stanford:number")
+                    val cntSize = count("ord:pizza:size")
+
+                    // Single size - it is order specification request.
+                    if cntSize != 1 && cntSize > cntPizza then
+                        throw new NCRejection("There are unrecognized pizza sizes in the request, maybe because some misprints.")
+
+                    if cntNums > cntPizza + cntDrink then
+                        throw new NCRejection("There are many unrecognized numerics in the request, maybe because some misprints.")
+        </pre>
+
+        <p>
+            <code>PizzeriaOrderValidator</code> is implementation of <code>NCEntityValidator</code>.
+            It is designed for validation order content and allows right away to reject invalid orders.
+        <p>
+
+        <p>
+            Open <code>src/main/scala/demo/components/<b>PizzeriaOrderMapper.scala</b></code> file and replace its content with the following code:
+        </p>
+        <pre class="brush: scala, highlight: [11, 25, 30, 61]">
+            package demo
+
+            import org.apache.nlpcraft.*
+            import com.typesafe.scalalogging.LazyLogging
+            import org.apache.nlpcraft.NCResultType.ASK_DIALOG
+            import scala.collection.*
+
+            case class PizzeriaOrderMapperDesc(elementId: String, propertyName: String)
+
+            object PizzeriaOrderMapper:
+                extension(entity: NCEntity)
+                    def position: Double =
+                        val toks = entity.getTokens
+                        (toks.head.getIndex + toks.last.getIndex) / 2.0
+                    def tokens: List[NCToken] = entity.getTokens
+
+                private def str(es: Iterable[NCEntity]): String =
+                    es.map(e => s"id=${e.getId}(${e.tokens.map(_.getIndex).mkString("[", ",", "]")})").
+                        mkString("{", ", ", "}")
+
+                def apply(extra: PizzeriaOrderMapperDesc, dests: PizzeriaOrderMapperDesc*): PizzeriaOrderMapper =
+                    new PizzeriaOrderMapper(extra, dests)
+
+            import PizzeriaOrderMapper.*
+
+            case class PizzeriaOrderMapper(
+                extra: PizzeriaOrderMapperDesc,
+                dests: Seq[PizzeriaOrderMapperDesc]
+            ) extends NCEntityMapper with LazyLogging:
+                override def map(req: NCRequest, cfg: NCModelConfig, ents: List[NCEntity]): List[NCEntity] =
+                    def map(destEnt: NCEntity, destProp: String, extraEnt: NCEntity): NCEntity =
+                        new NCPropertyMapAdapter with NCEntity:
+                            destEnt.keysSet.foreach(k => put(k, destEnt(k)))
+                            put[String](destProp, extraEnt[String](extra.propertyName).toLowerCase)
+                            override val getTokens: List[NCToken] =
+                                (destEnt.tokens ++ extraEnt.tokens).sortBy(_.getIndex)
+                            override val getRequestId: String = req.getRequestId
+                            override val getId: String = destEnt.getId
+
+                    val destsMap = dests.map(p => p.elementId -> p).toMap
+                    val destEnts = mutable.HashSet.empty ++ ents.filter(e => destsMap.contains(e.getId))
+                    val extraEnts = ents.filter(_.getId == extra.elementId)
+
+                    if destEnts.nonEmpty && extraEnts.nonEmpty && destEnts.size >= extraEnts.size then
+                        val used = (destEnts ++ extraEnts).toSet
+                        val dest2Extra = mutable.HashMap.empty[NCEntity, NCEntity]
+
+                        for (extraEnt <- extraEnts)
+                            val destEnt = destEnts.minBy(m => Math.abs(m.position - extraEnt.position))
+                            destEnts -= destEnt
+                            dest2Extra += destEnt -> extraEnt
+
+                        val unrelated = ents.filter(e => !used.contains(e))
+                        val artificial = for ((m, e) <- dest2Extra) yield map(m, destsMap(m.getId).propertyName, e)
+                        val unused = destEnts
+
+                        val res = (unrelated ++ artificial ++ unused).sortBy(_.tokens.head.getIndex)
+
+                        logger.debug(s"Elements mapped [input=${str(ents)}, output=${str(res)}]")
+
+                        res
+                    else ents
+        </pre>
+
+        <p>
+            <code>PizzeriaOrderMapper</code> is implementation of <code>NCEntityMapper</code>.
+            It is designed for building complex compound entities based on another entities.
+        <p>
+        <ul>
+            <li>
+                On <code>line 11</code> declared <code>PizzeriaOrderMapper</code>, model companion object, which contains
+                helper methods.
+            </li>
+            <li>
+                On <code>line 25</code> declared <code>PizzeriaOrderMapper</code> model which implements <code>NCEntityMapper</code>.
+            </li>
+            <li>
+                On <code>line 30</code> defined helper method <code>map</code>, which clones <code>destEn</code> entity,
+                extend it by <code>extraEnt</code> tokens and <code>destProp</code> property and returns new entities
+                instead of passed inti the method.
+            </li>
+            <li>
+                <code>Line 61</code> defines <code>PizzeriaOrderMapper</code> result entities,
+                which will be processed further instead of passed into this component method.
+            </li>
+        </ul>
+
+        <p>
+            Open <code>src/main/scala/demo/components/<b>PizzeriaModelPipeline.scala</b></code> file and replace its content with the following code:
+        </p>
+        <pre class="brush: scala, highlight: [14, 31, 37, 43]">
+            package demo.components
+
+            import edu.stanford.nlp.pipeline.StanfordCoreNLP
+            import opennlp.tools.stemmer.PorterStemmer
+            import org.apache.nlpcraft.nlp.parsers.*
+            import org.apache.nlpcraft.nlp.entity.parser.stanford.NCStanfordNLPEntityParser
+            import org.apache.nlpcraft.nlp.token.parser.stanford.NCStanfordNLPTokenParser
+            import org.apache.nlpcraft.*
+            import org.apache.nlpcraft.nlp.enrichers.NCEnStopWordsTokenEnricher
+            import org.apache.nlpcraft.nlp.parsers.{NCSemanticEntityParser, NCSemanticStemmer}
+            import java.util.Properties
+
+            object PizzeriaModelPipeline:
+                val PIPELINE: NCPipeline =
+                    val stanford =
+                        val props = new Properties()
+                        props.setProperty("annotators", "tokenize, ssplit, pos, lemma, ner")
+                        new StanfordCoreNLP(props)
+                    val tokParser = new NCStanfordNLPTokenParser(stanford)
+                    val stemmer = new NCSemanticStemmer():
+                        private val ps = new PorterStemmer
+                        override def stem(txt: String): String = ps.synchronized { ps.stem(txt) }
+
+                    import PizzeriaOrderMapperDesc as D
+
+                    new NCPipelineBuilder().
+                        withTokenParser(tokParser).
+                        withTokenEnricher(new NCEnStopWordsTokenEnricher()).
+                        withEntityParser(new NCStanfordNLPEntityParser(stanford, Set("number"))).
+                        withEntityParser(NCSemanticEntityParser(stemmer, tokParser, "pizzeria_model.yaml")).
+                        withEntityMapper(
+                            PizzeriaOrderMapper(
+                                extra = D("ord:pizza:size", "ord:pizza:size:value"),
+                                dests = D("ord:pizza", "ord:pizza:size")
+                            )
+                        ).
+                        withEntityMapper(
+                            PizzeriaOrderMapper(
+                                extra = D("stanford:number", "stanford:number:nne"),
+                                dests = D("ord:pizza", "ord:pizza:qty"), D("ord:drink", "ord:drink:qty")
+                            )
+                        ).
+                        withEntityValidator(new PizzeriaOrderValidator()).
+                        build
+        </pre>
+        <p>
+            In <code>PizzeriaModelPipeline</code> prepares model pipeline.
+        <p>
+        <ul>
+            <li>
+                On <code>line 14</code> pipeline is defined.
+            </li>
+            <li>
+                On <code>line 30</code> declared <code>NCSemanticEntityParser</code>
+                based on YAM model definition <code>pizzeria_model.yaml</code>.
+            </li>
+            <li>
+                On <code>lines 31 and 37</code> defined entity mappers <code>PizzeriaOrderMapper</code>, which
+                map <code>ord:pizza</code> elements with theirs sizes from <code>ord:pizza:size</code> and
+                quantities from <code>stanford:number</code>.
+            </li>
+            <li>
+                <code>Line 43</code> defines <code>PizzeriaOrderValidator</code> class, described above.
+            </li>
+        </ul>
+
+    </section>
+
+    <section id="testing">
+        <h2 class="section-title">Testing <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <p>
+            The test defined in <code>CalculatorModelSpec</code> allows to check that all input test sentences are
+            processed correctly and trigger the expected intents <code>calc</code> and <code>calcMem</code>:
+        </p>
+        <pre class="brush: scala, highlight: [14, 48, 61, 96]">
+            package demo
+
+            import org.apache.nlpcraft.*
+            import org.apache.nlpcraft.NCResultType.*
+            import demo.PizzeriaModel.Result
+            import demo.PizzeriaOrderState.*
+            import org.scalatest.BeforeAndAfter
+            import org.scalatest.funsuite.AnyFunSuite
+
+            import scala.language.implicitConversions
+            import scala.util.Using
+            import scala.collection.mutable
+
+            object PizzeriaModelSpec:
+                type Request = (String, NCResultType)
+                private class ModelTestWrapper extends PizzeriaModel:
+                    private var o: PizzeriaOrder = _
+
+                    override def doExecute(o: PizzeriaOrder)(using ctx: NCContext, im: NCIntentMatch): Result =
+                        val res = super.doExecute(o)
+                        this.o = o
+                        res
+
+                    def getLastExecutedOrder: PizzeriaOrder = o
+                    def clearLastExecutedOrder(): Unit = o = null
+
+                private class Builder:
+                    private val o = new PizzeriaOrder
+                    o.setState(DIALOG_EMPTY)
+                    def withPizza(name: String, size: String, qty: Int): Builder =
+                        o.add(Seq(Pizza(name, Some(size), Some(qty))), Seq.empty)
+                        this
+                    def withDrink(name: String, qty: Int): Builder =
+                        o.add(Seq.empty, Seq(Drink(name, Some(qty))))
+                        this
+                    def build: PizzeriaOrder = o
+
+            import PizzeriaModelSpec.*
+
+            class PizzeriaModelSpec extends AnyFunSuite with BeforeAndAfter:
+                private val mdl = new ModelTestWrapper()
+                private val client = new NCModelClient(mdl)
+                private val msgs = mutable.ArrayBuffer.empty[mutable.ArrayBuffer[String]]
+                private val errs = mutable.HashMap.empty[Int, Throwable]
+
+                private var testNum: Int = 0
+
+                after {
+                    if client != null then client.close()
+
+                    for ((seq, num) <- msgs.zipWithIndex)
+                        println("#" * 150)
+                        for (line <- seq) println(line)
+                        errs.get(num) match
+                            case Some(err) => err.printStackTrace()
+                            case None => // No-op.
+
+                    require(errs.isEmpty, s"There are ${errs.size} errors above.")
+                }
+
+                private def dialog(exp: PizzeriaOrder, reqs: Request*): Unit =
+                    val testMsgs = mutable.ArrayBuffer.empty[String]
+                    msgs += testMsgs
+
+                    testMsgs += s"Test: $testNum"
+
+                    for (((txt, expType), idx) <- reqs.zipWithIndex)
+                        try
+                            mdl.clearLastExecutedOrder()
+                            val resp = client.ask(txt, "userId")
+
+                            testMsgs += s">> Request: $txt"
+                            testMsgs += s">> Response: '${resp.getType}': ${resp.getBody}"
+
+                            if expType != resp.getType then
+                                errs += testNum -> new Exception(s"Unexpected result type [num=$testNum, txt=$txt, expected=$expType, type=${resp.getType}]")
+
+                            // Check execution result on last request.
+                            if idx == reqs.size - 1 then
+                                val lastOrder = mdl.getLastExecutedOrder
+                                def s(o: PizzeriaOrder) = if o == null then null else s"Order [state=${o.getState}, desc=$o]"
+                                val s1 = s(exp)
+                                val s2 = s(lastOrder)
+                                if s1 != s2 then
+                                    errs += testNum ->
+                                        new Exception(
+                                            s"Unexpected result [num=$testNum, txt=$txt]" +
+                                            s"\nExpected: $s1" +
+                                            s"\nReal    : $s2"
+                                        )
+                        catch
+                            case e: Exception => errs += testNum -> new Exception(s"Error during test [num=$testNum]", e)
+
+                    testNum += 1
+
+                test("test") {
+                    given Conversion[String, Request] with
+                        def apply(txt: String): Request = (txt, ASK_DIALOG)
+
+                    dialog(
+                        new Builder().withDrink("tea", 2).build,
+                        "Two tea",
+                        "yes",
+                        "yes" -> ASK_RESULT
+                    )
+
+                    dialog(
+                        new Builder().
+                            withPizza("carbonara", "large", 1).
+                            withPizza("marinara", "small", 1).
+                            withDrink("tea", 1).
+                            build,
+                        "I want to order carbonara, marinara and tea",
+                        "large size please",
+                        "smallest",
+                        "yes",
+                        "correct" -> ASK_RESULT
+                    )
+
+                    dialog(
+                        new Builder().withPizza("carbonara", "small", 2).build,
+                        "carbonara two small",
+                        "yes",
+                        "yes" -> ASK_RESULT
+                    )
+
+                    dialog(
+                        new Builder().withPizza("carbonara", "small", 1).build,
+                        "carbonara",
+                        "small",
+                        "yes",
+                        "yes" -> ASK_RESULT
+                    )
+
+                    dialog(
+                        null,
+                        "marinara",
+                        "stop" -> ASK_RESULT
+                    )
+
+                    dialog(
+                        new Builder().
+                            withPizza("carbonara", "small", 2).
+                            withPizza("marinara", "large", 4).
+                            withDrink("cola", 3).
+                            withDrink("tea", 1).
+                            build,
+                        "3 cola",
+                        "one tea",
+                        "carbonara 2",
+                        "small",
+                        "4 marinara big size",
+                        "menu" -> ASK_RESULT,
+                        "done",
+                        "yes" -> ASK_RESULT
+                    )
+
+                    dialog(
+                        new Builder().
+                            withPizza("margherita", "small", 2).
+                            withPizza("marinara", "small", 1).
+                            withDrink("tea", 3).
+                            build,
+                        "margherita two, marinara and three tea",
+                        "small",
+                        "small",
+                        "yes",
+                        "yes" -> ASK_RESULT
+                    )
+
+                    dialog(
+                        new Builder().
+                            withPizza("margherita", "small", 2).
+                            withPizza("marinara", "large", 1).
+                            withDrink("cola", 3).
+                            build,
+                        "small margherita two, marinara big one and three cola",
+                        "yes",
+                        "yes" -> ASK_RESULT
+                    )
+
+                    dialog(
+                        new Builder().
+                            withPizza("margherita", "small", 1).
+                            withPizza("marinara", "large", 2).
+                            withDrink("coffee", 2).
+                            build,
+                        "small margherita, 2 marinara and 2 coffee",
+                        "large",
+                        "yes",
+                        "yes" -> ASK_RESULT
+                    )
+                }
+        </pre>
+
+        <p>
+            <code>PizzeriaModelSpec</code> is complex test, which is designed as dialog with Pizzeria bot.
+        </p>
+
+        <ul>
+            <li>
+                On <code>line 14</code> declared <code>PizzeriaModelSpec</code>, test companion object, which contains
+                static content and helper methods.
+            </li>
+            <li>
+                On <code>line 48</code> defined <code>after</code> block.
+                It closes model client and prints test results.
+            </li>
+            <li>
+                On <code>line 61</code> defined test helper method <code>dialog</code>.
+                It sends request to model via <code>ask</code> method and accumulates execution results.
+            </li>
+            <li>
+                On <code>line 96</code> defined main test block.
+                It contains user request descriptions and expected results on them, taking into account order state.
+            </li>
+        </ul>
+        <p>
+            You can run this test via SBT task <code>executeTests</code> or using IDE.
+        </p>
+        <pre class="brush: scala, highlight: []">
+            PS C:\apache\incubator-nlpcraft-examples\pizzeria> sbt executeTests
+        </pre>
+    </section>
+    <section>
+        <h2 class="section-title">Done! 👌 <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <p>
+            You've created pizzeria model and tested it.
+        </p>
+    </section>
+</div>
+<div class="col-md-2 third-column">
+    <ul class="side-nav">
+        <li class="side-nav-title">On This Page</li>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#new_project">New Project</a></li>
+        <li><a href="#model">Data Model</a></li>
+        <li><a href="#code">Model Class</a></li>
+        <li><a href="#testing">Testing</a></li>
+        {% include quick-links.html %}
+    </ul>
+</div>
+
+
+
+
+
+
