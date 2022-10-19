@@ -27,7 +27,7 @@ fa_icon: fa-cube
         <h2 class="section-title">Overview <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             This example provides a very simple calculator implementation.
-            It supports restricted set of arithmetic operations under integer numeric values.
+            It supports restricted set of arithmetic operations for numeric values.
         </p>
         <p>
             <b>Complexity:</b> <span class="complexity-one-star"><i class="fas fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></span><br/>
@@ -76,12 +76,7 @@ fa_icon: fa-cube
     <section id="model">
         <h2 class="section-title">Data Model<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
-            All elements definitions can be provided programmatically inside Scala model <code>CalculatorModel</code> class as well.
-        </p>
-    </section>
-    <section id="code">
-        <h2 class="section-title">Model Class <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
-        <p>
+            All element definitions are provided programmatically inside Scala model <code>CalculatorModel</code> class.
             Open <code>src/main/scala/demo/<b>CalculatorModel.scala</b></code> file and replace its content with the following code:
         </p>
         <pre class="brush: scala, highlight: [11, 12, 14, 21, 22, 23, 31, 35, 41, 47, 56, 61]">
@@ -154,44 +149,46 @@ fa_icon: fa-cube
                     calc(mem.getOrElse(throw new NCRejection("Memory is empty.")), op.mkText, nne(y))
         </pre>
         <p>
-            There are two intents with simple logic. First returns arithmetic operation result under two input parameters,
-            second uses last operation result instead of first input value.
-            Also, the implication here is that arithmetic operations notations
-            (<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>) are used as is for simplifying the given example,
-            without any synonyms for them.
+            There are two intents with simple logic. First returns arithmetic operation result with two input parameters,
+            second uses last operation result instead of the first argument. Note also that the arithmetic notations
+            (<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>) are used as is for without any additional synonyms.
             Let's review this implementation step by step:
         </p>
         <ul>
             <li>
-                On <code>line 11</code> declared <code>CalculatorModel</code>, model companion object, which contains
+                <code>Line 11</code> declares <code>CalculatorModel</code>, model companion object, which contains
                 static content and helper methods.
             </li>
             <li>
-                On <code>line 12</code> defined arithmetic operations map, with notations as keys and functions definitions as values.
+                <code>Line 12</code> defines arithmetic operations map with notations as keys and functions definitions as values.
             </li>
             <li>
-                On <code>line 14</code> defined model pipeline, based on three built components.
-                On <code>line 21</code> defined Stanford token parser <code>NCStanfordNLPTokenParser</code>,
-                we have to use it because our model uses Stanford NLP components.
-                On <code>line 22</code> entity parser <code>NCNLPEntityParser</code>,
-                which allows find arithmetic operations notations.
-                On <code>line 23</code> defined entity parser <code>NCStanfordNLPEntityParser</code>,
+                <code>Line 14</code> defines model pipeline based on three built components.
+                <code>Line 21</code> defines Stanford token parser <code>NCStanfordNLPTokenParser</code>
+                (we use Stanford NLP components in this example).
+            </li>
+            <li>
+                <code>Line 22</code> declares entity parser <code>NCNLPEntityParser</code>
+                which allows to find arithmetic operations notations.
+            </li>
+            <li>
+                <code>Line 23</code> defines entity parser <code>NCStanfordNLPEntityParser</code>,
                 which allows to find numerics in the text input.
             </li>
             <li>
-                On <code>line 31</code> declared <code>CalculatorModel</code> model class.
+                <code>Line 31</code> declares<code>CalculatorModel</code> model class.
             </li>
             <li>
-                On <code>line 35</code> declared variable named <code>mem</code>, last operation result.
+                <code>line 35</code> declares variable named <code>mem</code> which act as a holder for the last operation result.
             </li>
             <li>
-                <code>Lines 41 and 47</code> annotates intents <code>calc</code> and its callback method <code>onMatch</code>.
-                Intent <code>calc</code> requires one arithmetic operation notation and two numerics as this operation arguments.
+                <code>Lines 41 and 47</code> annotate intents <code>calc</code> and its callback method <code>onMatch()</code>.
+                Intent <code>calc</code> requires one arithmetic operation notation and two numerics as its arguments.
             </li>
             <li>
-                <code>Lines 56 and 61</code> annotates intents <code>calcMem</code> and its callback method <code>onMatchMem</code>.
-                Intent <code>calcMem</code> requires one arithmetic operation notation and one numeric as this operation second arguments.
-                As first argument it uses last operation result, if there is existed.
+                <code>Lines 56 and 61</code> annotate intents <code>calcMem</code> and its callback method <code>onMatchMem()</code>.
+                Intent <code>calcMem</code> requires one arithmetic operation notation and one numeric as its second arguments.
+                Note that it attempts to use last operation result as its first argument, if one exists.
             </li>
         </ul>
     </section>
@@ -199,8 +196,8 @@ fa_icon: fa-cube
     <section id="testing">
         <h2 class="section-title">Testing <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
-            The test defined in <code>CalculatorModelSpec</code> allows to check that all input test sentences are
-            processed correctly and trigger the expected intents <code>calc</code> and <code>calcMem</code>:
+            The test provided in <code>CalculatorModelSpec</code> allows to check that all input test sentences are
+            processed correctly and trigger the expected intents <code>calc</code> or <code>calcMem</code>:
         </p>
         <pre class="brush: scala, highlight: [9, 10, 15, 16]">
             package demo
@@ -228,18 +225,18 @@ fa_icon: fa-cube
                 On <code>line 9</code> the client for our model is created.
             </li>
             <li>
-                On <code>line 10</code> a method <code>ask</code> is called. Its result is checked with expected value.
+                On <code>line 10</code> the method <code>ask()</code> is called. Its result is checked with expected value.
             </li>
             <li>
-                Note that for inputs on <code>lines 15, 16</code> expected <code>calcMem</code> intent triggering,
-                and <code>calc</code> intent for another inputs lines.
+                Note that test sentences on <code>lines 15, 16</code> trigger <code>calcMem</code> intent while other sentences
+                trigger <code>calc</code> intent.
             </li>
         </ul>
         <p>
             You can run this test via SBT task <code>executeTests</code> or using IDE.
         </p>
         <pre class="brush: scala, highlight: []">
-            PS C:\apache\incubator-nlpcraft-examples\calculator> sbt executeTests
+            $ sbt executeTests
         </pre>
     </section>
     <section>

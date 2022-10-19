@@ -193,8 +193,8 @@ fa_icon: fa-cube
             </li>
             <li>
                 <code>Lines 10 and 11</code> annotates intents <code>ls</code> and its callback method <code>onMatch</code>.
-                Intent <code>ls</code> requires one action (a token belonging to the group act) and optional list of light locations
-                (zero or more tokens with ID ls:loc) - by default we assume the entire house as a default location.
+                Intent <code>ls</code> requires one action (a token belonging to the group <code>act</code>) and optional list of light locations
+                (zero or more tokens with ID <code>ls:loc</code>) - by default we assume the entire house as a default location.
             </li>
             <li>
                 <code>Lines 14 and 15</code> map terms from detected intent to the formal method parameters of the
@@ -268,7 +268,7 @@ fa_icon: fa-cube
             You can run this test via SBT task <code>executeTests</code> or using IDE.
         </p>
         <pre class="brush: scala, highlight: []">
-            PS C:\apache\incubator-nlpcraft-examples\lightswitch> sbt executeTests
+            $ sbt executeTests
         </pre>
     </section>
     <section>
