@@ -1,0 +1,326 @@
+---
+active_crumb: Time <code><sub>ex</sub></code>
+layout: documentation
+id: time
+fa_icon: fa-cube
+---
+
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one or more
+ contributor license agreements.  See the NOTICE file distributed with
+ this work for additional information regarding copyright ownership.
+ The ASF licenses this file to You under the Apache License, Version 2.0
+ (the "License"); you may not use this file except in compliance with
+ the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<div class="col-md-8 second-column example">
+    <section id="overview">
+        <h2 class="section-title">Overview <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <p>
+            This example provides a very simple implementation for world time bot. You can say something like
+            "What time is it now in New York City" or "What's the local time?".
+        </p>
+        <p>
+            <b>Complexity:</b> <span class="complexity-one-star"><i class="fas fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></span><br/>
+            <span class="ex-src">Source code: <a target="github" href="https://github.com/apache/incubator-nlpcraft/tree/master/nlpcraft-examples/time">GitHub <i class="fab fa-fw fa-github"></i></a><br/></span>
+            <span class="ex-review-all">Review: <a target="github" href="https://github.com/apache/incubator-nlpcraft/tree/master/nlpcraft-examples">All Examples at GitHub <i class="fab fa-fw fa-github"></i></a></span>
+        </p>
+    </section>
+    <section id="new_project">
+        <h2 class="section-title">Create New Project <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <p>
+            You can create new Scala projects in many ways - we'll use SBT
+            to accomplish this task. Make sure that <code>build.sbt</code> file has the following content:
+        </p>
+        <pre class="brush: js, highlight: []">
+            ThisBuild / version := "0.1.0-SNAPSHOT"
+            ThisBuild / scalaVersion := "3.1.3"
+            lazy val root = (project in file("."))
+              .settings(
+                name := "NLPCraft Time Example",
+                version := "{{site.latest_version}}"
+              )
+        </pre>
+        <p><b>NOTE: </b>use the latest versions of Scala and ScalaTest.</p>
+        <p>Create the following files so that resulting project structure would look like the following:</p>
+        <ul>
+            <li><code>time_model.yaml</code> - YAML configuration file, which contains model description.</li>
+            <li><code>cities_timezones.txt</code> - Cities timezones database.</li>
+            <li><code>TimeModel.scala</code> - Scala class, model implementation.</li>
+            <li><code>CitiesDataProvider.scala</code> - Scala class, helper service which loads timezones database.</li>
+            <li><code>GeoManager.scala</code> - Scala class, helper service which provides cities timezones information for user request.</li>
+            <li><code>TimeModelSpec.scala</code> - Scala tests class, which allows to test your model.</li>
+        </ul>
+        <pre class="brush: plain, highlight: [7, 10, 14]">
+            |  build.sbt
+            +--project
+            |    build.properties
+            \--src
+               +--main
+               |  +--resources
+               |  |    time_model.yaml
+               |  |    cities_timezones.txt
+               |  \--scala
+               |     \--demo
+               |        \--utils
+               |           \--cities
+               |                CitiesDataProvider.scala
+               |           \--keycdn
+               |                GeoManager.scala
+               |          TimeModel.scala
+               \--test
+                  \--scala
+                     \--demo
+                          TimeModelSpec.scala
+        </pre>
+    </section>
+    <section id="model">
+        <h2 class="section-title">Data Model<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <p>
+            We are going to start with declaring the static part of our model using YAML which we will later load using
+            <code>NCModelAdapter</code> in our Scala-based model implementation.
+            Open <code>src/main/resources/<b>time.yaml</b></code>
+            file and replace its content with the following YAML:
+        </p>
+        <pre class="brush: js, highlight: [1, 10, 17, 25]">
+            macros:
+              "&lt;OF&gt;": "{of|for|per}"
+              "&lt;CUR&gt;": "{current|present|now|local}"
+              "&lt;TIME&gt;": "{time &lt;OF&gt; day|day time|date|time|moment|datetime|hour|o'clock|clock|date time|date and time|time and date}"
+            elements:
+              - id: "x:time"
+                description: "Date and/or time token indicator."
+                synonyms:
+                  - "{&lt;CUR&gt;|_} &lt;TIME&gt;"
+                  - "what &lt;TIME&gt; {is it now|now|is it|_}"
+        </pre>
+        <p>There are number of important points here:</p>
+        <ul>
+            <li>
+                <code>Line 1</code> defines several macros that are used later on throughout the model's elements
+                to shorten the synonym declarations. Note how macros coupled with option groups  
+                shorten overall synonym declarations 1000:1 vs. manually listing all possible word permutations.
+            </li>
+            <li>
+                On <code>line 6</code> defined <code>x:time</code> model elements, which
+                will be used in our intent, defined in <code>TimeModel</code> class. Note that these model
+                elements are defined mostly through macros we have defined above.
+            </li>
+        </ul>
+        <div class="bq info">
+            <p><b>YAML vs. API</b></p>
+            <p>
+                As usual, this YAML-based static model definition is convenient but totally optional. All elements definitions
+                can be provided programmatically inside Scala model <code>TimeModel</code> class as well.
+            </p>
+        </div>
+    </section>
+    <section id="code">
+        <h2 class="section-title">Model Class <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <p>
+            Open <code>src/main/scala/demo/<b>TimeModel.scala</b></code> file and replace its content with the following code:
+        </p>
+        <pre class="brush: scala, highlight: [16, 17, 18, 19, 20, 21, 56, 57, 70, 71]">
+            package demo
+
+            import com.fasterxml.jackson.core.JsonProcessingException
+            import com.fasterxml.jackson.databind.ObjectMapper
+            import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
+            import org.apache.nlpcraft.*
+            import org.apache.nlpcraft.annotations.*
+            import demo.utils.cities.*
+            import demo.utils.keycdn.GeoManager
+            import org.apache.nlpcraft.internal.util.NCResourceReader
+            import org.apache.nlpcraft.nlp.parsers.NCOpenNLPEntityParser
+            import java.time.format.DateTimeFormatter
+            import java.time.format.FormatStyle.MEDIUM
+            import java.time.*
+
+            @NCIntent("fragment=city term(city)~{# == 'opennlp:location'}")
+            @NCIntent("intent=intent2 term~{# == 'x:time'} fragment(city)")
+            @NCIntent("intent=intent1 term={# == 'x:time'}")
+            class TimeModel extends NCModelAdapter(
+                NCModelConfig("nlpcraft.time.ex", "Time Example Model", "1.0"),
+                new NCPipelineBuilder().
+                    withSemantic("en", "time_model.yaml").
+                    withEntityParser(NCOpenNLPEntityParser(
+                        NCResourceReader.getPath("opennlp/en-ner-location.bin"))
+                    ).
+                    build
+            ):
+                private val FMT: DateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(MEDIUM)
+
+                private val citiesData: Map[City, CityData] = CitiesDataProvider.get
+
+                private def mkResult(
+                    city: String, cntry: String, tmz: String, lat: Double, lon: Double
+                ): NCResult =
+                    val m =
+                        Map(
+                            "city" -> capitalize(city),
+                            "country" -> capitalize(cntry),
+                            "timezone" -> tmz,
+                            "lat" -> lat,
+                            "lon" -> lon,
+                            "localTime" -> ZonedDateTime.now(ZoneId.of(tmz)).format(FMT)
+                        )
+
+                    try
+                        NCResult(new ObjectMapper(new YAMLFactory).writeValueAsString(m))
+                    catch
+                        case e: JsonProcessingException =>
+                            throw new RuntimeException("YAML conversion error.", e)
+
+                private def capitalize(s: String): String =
+                    if s == null || s.isEmpty
+                        then s
+                        else s"${s.substring(0, 1).toUpperCase}${s.substring(1, s.length)}"
+
+                @NCIntentRef("intent2")
+                private def onRemoteMatch(
+                    ctx: NCContext, im: NCIntentMatch, @NCIntentTerm("city") cityEnt: NCEntity
+                ): NCResult =
+                    val cityName: String = cityEnt.mkText
+
+                    val (city, data) =
+                        citiesData.find(_._1.name.equalsIgnoreCase(cityName)).
+                        getOrElse(
+                            throw new NCRejection(String.format("No timezone mapping for %s.", cityName))
+                        )
+
+                    mkResult(city.name, city.country, data.timezone, data.latitude, data.longitude)
+
+                @NCIntentRef("intent1")
+                private def onLocalMatch(ctx: NCContext, im: NCIntentMatch): NCResult =
+                    val geo = GeoManager.get(ctx.getRequest).getOrElse(GeoManager.getSiliconValley)
+
+                    mkResult(geo.city, geo.country_name, geo.timezone, geo.latitude, geo.longitude)
+        </pre>
+        <p>
+            There are two intents, for local and remote location time. Result is represented as JSON value.
+            Let's review this implementation step by step:
+        </p>
+        <ul>
+            <li>
+                On <code>line 19</code> our class extends <code>NCModelAdapter</code> that allows us to pass
+                prepared configuration and pipeline into model.
+            </li>
+            <li>
+                On <code>line 16</code> created <code>IDL fragment</code>, which is used in <code>intent2</code> definition below.
+            </li>
+            <li>
+                On <code>lines 17 and 18</code> annotates two intents definitions <code>intent1</code> and <code>intent2</code> ,
+                callbacks below have references on them by their identifiers.
+            </li>
+            <li>
+                On <code>line 20</code> created model configuration with most default parameters.
+            </li>
+            <li>
+                On <code>line 21</code> created pipeline, based on built components.
+                <ul>
+                    <li>This pipeline is based on built EN semantic entity enrichers, configured with <code>time_model.yaml</code>.</li>
+                    <li>Also there is used entity parser <code>NCOpenNLPEntityParser</code>,
+                        configured with <code>opennlp/en-ner-location.bin</code> for detection GEO locations.
+                    </li>
+                </ul>
+                Look at documentations of these built components for more details.
+            </li>
+            <li>
+                <code>Lines 56 and 57</code> annotates intents <code>intent2</code> and its callback method <code>onRemoteMatch</code>.
+                This intent requires one mandatory entity - city, which is used for getting time for its timezone.
+            </li>
+            <li>
+                <code>Lines 70 and 71</code> annotates intents <code>intent1</code> and its callback method <code>onLocalMatch</code>.
+                This intent is triggered by default and tries to detect timezone by request data  and return time for this timezone.
+                Otherwise, it returns Silicon Valley current time.
+            </li>
+        </ul>
+
+        <p>
+            Implementations of helper classes <code>GeoManager</code> and <code>CitiesDataProvider</code> are not related to given example.
+            Just copy these classes and <code>cities_timezones.txt</code> from project source code into your demo project.
+        </p>
+    </section>
+
+    <section id="testing">
+        <h2 class="section-title">Testing <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <p>
+            The test defined in <code>TimeModelSpec</code> allows to check that all input test sentences are
+            processed correctly and trigger the expected intents <code>intent2</code> and <code>intent1</code>:
+        </p>
+        <pre class="brush: scala, highlight: [9, 11]">
+            package demo
+
+            import org.apache.nlpcraft.*
+            import org.scalatest.funsuite.AnyFunSuite
+            import scala.util.Using
+
+            class TimeModelSpec extends AnyFunSuite:
+                test("test") {
+                    Using.resource(new NCModelClient(new TimeModel())) { client =>
+                        def check(txt: String, intentId: String): Unit =
+                            require(client.debugAsk(txt, "userId", true).getIntentId == intentId)
+
+                        check("What time is it now in New York City?", "intent2")
+                        check("What's the current time in Moscow?", "intent2")
+                        check("Show me time of the day in London.", "intent2")
+                        check("Can you please give me the Tokyo's current date and time.", "intent2")
+
+                        check("What's the local time?", "intent1")
+                    }
+                }
+        </pre>
+        <ul>
+            <li>
+                On <code>line 9</code> the client for our model is created.
+            </li>
+            <li>
+                On <code>line 11</code> a special method <code>debugAsk</code> is called.
+                It allows to check the winning intent and its callback parameters without actually
+                calling the intent.
+            </li>
+            <li>
+                <code>Lines 13-18</code> define all the test input sentences that should all
+                trigger <code>ls</code> intent.
+            </li>
+        </ul>
+        <p>
+            You can run this test via SBT task <code>executeTests</code> or using IDE.
+        </p>
+        <pre class="brush: scala, highlight: []">
+            PS C:\apache\incubator-nlpcraft-examples\time> sbt executeTests
+        </pre>
+    </section>
+    <section>
+        <h2 class="section-title">Done! 👌 <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <p>
+            You've created time data model and tested it.
+        </p>
+    </section>
+</div>
+<div class="col-md-2 third-column">
+    <ul class="side-nav">
+        <li class="side-nav-title">On This Page</li>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#new_project">New Project</a></li>
+        <li><a href="#model">Data Model</a></li>
+        <li><a href="#code">Model Class</a></li>
+        <li><a href="#testing">Testing</a></li>
+        {% include quick-links.html %}
+    </ul>
+</div>
+
+
+
+
+
+

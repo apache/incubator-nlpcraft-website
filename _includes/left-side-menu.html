@@ -132,6 +132,13 @@
         {% endif %}
     </li>
     <li>
+        {% if page.id == "time" %}
+        <a class="active" href="/examples/time.html">Time</a>
+        {% else %}
+        <a href="/examples/time.html">Time</a>
+        {% endif %}
+    </li>
+    <li>
         {% if page.id == "light_switch" %}
         <a class="active" href="/examples/light_switch.html">Light Switch</a>
         {% else %}
