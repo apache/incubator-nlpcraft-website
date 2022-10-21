@@ -123,7 +123,7 @@ fa_icon: fa-cube
                   - "{out|no|off|down} &lt;LIGHT&gt;"
                   - "&lt;LIGHT&gt; {out|off|down}"
         </pre>
-        <p>There are number of important points here:</p>
+
         <ul>
             <li>
                 <code>Line 1</code> defines several macros that are used later on throughout the model's elements
@@ -192,13 +192,13 @@ fa_icon: fa-cube
                 described in <code>lightswitch_model.yaml</code> file.
             </li>
             <li>
-                <code>Lines 10 and 11</code> annotates intents <code>ls</code> and its callback method <code>onMatch</code>.
+                <code>Lines 10 and 11</code> annotates intents <code>ls</code> and its callback method <code>onMatch()</code>.
                 Intent <code>ls</code> requires one action (a token belonging to the group <code>act</code>) and optional list of light locations
                 (zero or more tokens with ID <code>ls:loc</code>) - by default we assume the entire house as a default location.
             </li>
             <li>
                 <code>Lines 14 and 15</code> map terms from detected intent to the formal method parameters of the
-                <code>onMatch</code> method.
+                <code>onMatch()</code> method.
             </li>
             <li>
                 On the <code>line 22</code> the intent callback simply returns a confirmation message.
@@ -252,10 +252,10 @@ fa_icon: fa-cube
         </pre>
         <ul>
             <li>
-                On <code>line 9</code> the client for our model is created.
+                <code>Line 9</code> creates the client for our model.
             </li>
             <li>
-                On <code>line 11</code> a special method <code>debugAsk</code> is called.
+                <code>Line 11</code> calls a special method <code>debugAsk()</code>.
                 It allows to check the winning intent and its callback parameters without actually
                 calling the intent.
             </li>
