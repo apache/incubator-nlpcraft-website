@@ -176,7 +176,7 @@ fa_icon: fa-cube
                 which allows to find numerics in the text input.
             </li>
             <li>
-                <code>Line 31</code> declares<code>CalculatorModel</code> model class.
+                <code>Line 31</code> declares <code>CalculatorModel</code> model class.
             </li>
             <li>
                 <code>line 35</code> declares variable named <code>mem</code> which act as a holder for the last operation result.
@@ -199,7 +199,7 @@ fa_icon: fa-cube
             The test provided in <code>CalculatorModelSpec</code> allows to check that all input test sentences are
             processed correctly and trigger the expected intents <code>calc</code> or <code>calcMem</code>:
         </p>
-        <pre class="brush: scala, highlight: [9, 10, 15, 16]">
+        <pre class="brush: scala, highlight: [9, 11, 15, 16]">
             package demo
 
             import org.apache.nlpcraft.*
@@ -222,10 +222,10 @@ fa_icon: fa-cube
         </pre>
         <ul>
             <li>
-                On <code>line 9</code> the client for our model is created.
+                <code>Line 9</code> creates the client for our model.
             </li>
             <li>
-                On <code>line 10</code> the method <code>ask()</code> is called. Its result is checked with expected value.
+                <code>Line 11</code> calls the method <code>ask()</code>. Its result is checked with expected value.
             </li>
             <li>
                 Note that test sentences on <code>lines 15, 16</code> trigger <code>calcMem</code> intent while other sentences
