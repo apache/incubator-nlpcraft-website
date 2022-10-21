@@ -26,9 +26,8 @@ fa_icon: fa-cube
     <section id="overview">
         <h2 class="section-title">Overview <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
-            This example provides a simple pizzeria ordering system.
-            It demonstrates how to work with <code>ASK_DIALOG</code> states in callbacks and
-            how to process the systems which require confirmation logic.
+            This example provides a simple pizza ordering model.
+            It demonstrates how to work with dialogue systems which require confirmation logic.
         </p>
         <p>
             <b>Complexity:</b> <span class="complexity-three-star"><i class="fas fa-gem"></i> <i class="fas fa-gem"></i> <i class="fas fa-gem"></i></span><br/>
@@ -56,13 +55,13 @@ fa_icon: fa-cube
         <p><b>NOTE: </b>use the latest versions of Scala and ScalaTest.</p>
         <p>Create the following files so that resulting project structure would look like the following:</p>
         <ul>
-            <li><code>pizzeria_model.yaml</code> - YAML configuration file, which contains model description.</li>
-            <li><code>PizzeriaModel.scala</code> - Scala class, model implementation.</li>
-            <li><code>PizzeriaOrder.scala</code> - Scala class, pizzeria order state representation.</li>
-            <li><code>PizzeriaModelPipeline.scala</code> - Scala class, model pipeline.</li>
-            <li><code>PizzeriaOrderMapper.scala</code> - Scala class, <code>NCEntityMapper</code> custom implementation.</li>
-            <li><code>PizzeriaOrderValidator.scala</code> - Scala class, <code>NCEntityValidator</code> custom implementation.</li>
-            <li><code>PizzeriaModelSpec.scala</code> - Scala tests class, which allows to test your model.</li>
+            <li><code>pizzeria_model.yaml</code> - YAML configuration file which contains model description.</li>
+            <li><code>PizzeriaModel.scala</code> - Model implementation.</li>
+            <li><code>PizzeriaOrder.scala</code> - Pizza order state representation.</li>
+            <li><code>PizzeriaModelPipeline.scala</code> - Model pipeline definition class.</li>
+            <li><code>PizzeriaOrderMapper.scala</code> - <code>NCEntityMapper</code> custom implementation.</li>
+            <li><code>PizzeriaOrderValidator.scala</code> - <code>NCEntityValidator</code> custom implementation.</li>
+            <li><code>PizzeriaModelSpec.scala</code> - Test that allows to test your model.</li>
         </ul>
         <pre class="brush: plain, highlight: [7, 11, 12, 13, 14, 15, 19]">
             |  build.sbt
@@ -152,16 +151,16 @@ fa_icon: fa-cube
                   - "{products|goods|food|item|_} list"
                   - "{hi|help|hallo}"
         </pre>
-        <p>There are number of important points here:</p>
+
         <ul>
             <li>
-                <code>Lines 1, 9, 16</code> define order elements, which present parts of orders.
+                <code>Lines 1, 9, 16</code> define order elements which present parts of order.
             </li>
             <li>
-                <code>Lines 35, 40, 46, 51</code> define command elements, which are used to control order state.
+                <code>Lines 35, 40, 46, 51</code> define command elements which are used to control order state.
             </li>
             <li>
-                <code>Lines 23, 29</code> define confirmation elements, which are used for commands confirmations or canceling.
+                <code>Lines 23, 29</code> define elements which are used for commands confirmation or cancellation.
             </li>
         </ul>
         <div class="bq info">
@@ -385,64 +384,60 @@ fa_icon: fa-cube
                     Option(doShowMenuResult())
         </pre>
         <p>
-            There are few intents in the given model, which allow to prepare, change, confirm and cancel pizzeria orders.
-            Note please that given test model supports work with one single user.
+            There are a number of intents in the given model which allow to prepare, change, confirm and cancel pizza orders.
+            Note that given test model works with only one single user.
             Let's review this implementation step by step:
         </p>
         <ul>
             <li>
-                On <code>line 12</code> declared <code>PizzeriaExtractors</code>, helper object, which provides
+                <code>Line 12</code> declares <code>PizzeriaExtractors</code> helper object which provides
                 conversion methods from <code>NCEntity</code> objects and model data objects.
             </li>
             <li>
-                On <code>line 27</code> defined <code>PizzeriaModel</code> companion object, which contains
+                <code>Line 27</code> defines <code>PizzeriaModel</code> companion object which contains
                 static content and helper methods.
             </li>
             <li>
                 On <code>line 114</code> our class <code>PizzeriaModel</code> extends <code>NCModelAdapter</code> that allows us to pass
-                prepared configuration and pipeline into model.
+                prepared configuration and pipeline into the model.
             </li>
             <li>
-                On <code>line 115</code> created model configuration with most default parameters.
+                <code>Line 115</code> creates model configuration with most default parameters.
             </li>
             <li>
-                On <code>line 116</code> represented pipeline, prepared in <code>PizzeriaModelPipeline</code> class.
+                <code>Line 116</code> passes pipeline parameter which was prepared in <code>PizzeriaModelPipeline</code>.
+            </li>
+            <li>
+                <code>Lines 173 and 174</code> annotate intents <code>order</code> and its callback method <code>onOrder()</code>.
+                Intent <code>order</code> requires lists of pizza and drinks for the order.
+                Note that at least one of these lists shouldn't be empty, otherwise intent is not triggered.
+                In its callback current order state is changed.
+                If processed order is in valid state user receives order confirmation request like "<i>Is order ready?</i>",
+                otherwise user receives request which asks him to specify the order.
+                Both responses have <code>ASK_DIALOG</code> type.
             </li>
 
             <li>
-                <code>Lines 173 and 174</code> annotates intents <code>order</code> and its callback method <code>onOrder</code>.
-                Intent <code>order</code> requires lists of pizza and drinks in the order.
-                Note please, that at least one of these lists shouldn't be empty, otherwise intent is not triggered.
-                In the callback current order state is changed.
-                If order is in valid state, user receives order confirmation response "Is order ready?",
-                otherwise user receives response, which asks user to specify this order.
-                Both responses have type <code>ASK_DIALOG</code>.
-            </li>
-
-            <li>
-                Order pizza sizes can be specified by the model, as it was described above in <code>order</code> intent.
-                <code>Lines 187 and 188</code> annotates intents <code>orderSpecify</code> and its callback method <code>onOrderSpecify</code>.
+                Order pizza sizes can be specified by the model as it was described above in <code>order</code> intent.
+                <code>Lines 187 and 188</code> annotate intents <code>orderSpecify</code> and its callback method <code>onOrderSpecify()</code>.
                 Intent <code>orderSpecify</code> requires pizza size value parameter.
                 Callback checks that it was called just for suitable order state.
-                Current order state is changed  and user receives order confirmation response "Is order ready?"
+                Current order state is changed  and user receives order confirmation request like "<i>Is order ready?</i>" again.
             </li>
             <li>
-                <code>Lines 126, 127 and 135, 136</code> annotates intents <code>yes</code> and <code>no</code>
-                with related callbacks <code>onYes</code> and <code>onNo</code>.
-                These intents are expected after user received confirmation responses with type <code>ASK_DIALOG</code>,
-                like "Is order ready?". Callbacks change order state or send some another confirmation requests to user,
-                depends on current order state.
+                <code>Lines 126, 127 and 135, 136</code> annotate intents <code>yes</code> and <code>no</code>
+                with related callbacks <code>onYes()</code> and <code>onNo()</code>.
+                These intents are expected after user answered on received confirmation requests.
+                Callbacks change order state, send another requests to user or reject these intents depending on current order state.
             </li>
             <li>
-                <code>Lines 143 and 145, 147 and 148, 158 and 159, 168 and 170</code> annotates intents
+                <code>Lines 143 and 145, 147 and 148, 158 and 159, 168 and 170</code> annotate intents
                 <code>stop</code>, <code>status</code>, <code>finish</code> and <code>menu</code> intents
-                with related callbacks. They are order management commands, these actions are depends on current order state.
+                with related callbacks. They are order management commands, their actions are depend on current order state.
             </li>
             <li>
-                <code>line 201</code> annotates <code>onRejection</code> method,
-                which is called if there aren't triggered intents.
-                <code>stop</code>, <code>status</code>, <code>finish</code> and <code>menu</code> intents
-                with related callbacks. They are order management commands, these actions are depends on current order state.
+                <code>Line 201</code> annotates <code>onRejection</code> method
+                which is called if there aren't any triggered intents.
             </li>
         </ul>
 
@@ -473,7 +468,7 @@ fa_icon: fa-cube
 
         <p>
             <code>PizzeriaOrderValidator</code> is implementation of <code>NCEntityValidator</code>.
-            It is designed for validation order content and allows right away to reject invalid orders.
+            It is designed for validation order content that allows to reject invalid orders right away.
         <p>
 
         <p>
@@ -546,24 +541,24 @@ fa_icon: fa-cube
 
         <p>
             <code>PizzeriaOrderMapper</code> is implementation of <code>NCEntityMapper</code>.
-            It is designed for building complex compound entities based on another entities.
+            It is designed for complex compound entities building based on another entities.
         <p>
         <ul>
             <li>
-                On <code>line 11</code> declared <code>PizzeriaOrderMapper</code>, model companion object, which contains
+                <code>Line 11</code> defines <code>PizzeriaOrderMapper</code> model companion object which contains
                 helper methods.
             </li>
             <li>
-                On <code>line 25</code> declared <code>PizzeriaOrderMapper</code> model which implements <code>NCEntityMapper</code>.
+                <code>Line 25</code> defines <code>PizzeriaOrderMapper</code> model which implements <code>NCEntityMapper</code>.
             </li>
             <li>
-                On <code>line 30</code> defined helper method <code>map</code>, which clones <code>destEn</code> entity,
-                extend it by <code>extraEnt</code> tokens and <code>destProp</code> property and returns new entities
-                instead of passed inti the method.
+                <code>Line 30</code> defines helper method <code>map()</code> which clones <code>destEn</code> entity,
+                extends it by <code>extraEnt</code> tokens and <code>destProp</code> property and, as result,
+                returns new entities instances instead of passed into the method.
             </li>
             <li>
-                <code>Line 61</code> defines <code>PizzeriaOrderMapper</code> result entities,
-                which will be processed further instead of passed into this component method.
+                <code>Line 61</code> defines <code>PizzeriaOrderMapper</code> result.
+                These entities will be processed further instead of passed into this component method.
             </li>
         </ul>
 
@@ -617,23 +612,23 @@ fa_icon: fa-cube
                         build
         </pre>
         <p>
-            In <code>PizzeriaModelPipeline</code> prepares model pipeline.
+            There is model pipeline preparing place.
         <p>
         <ul>
             <li>
-                On <code>line 14</code> pipeline is defined.
+                <code>Line 14</code> defines the pipeline.
             </li>
             <li>
-                On <code>line 30</code> declared <code>NCSemanticEntityParser</code>
-                based on YAM model definition <code>pizzeria_model.yaml</code>.
+                <code>Line 30</code> declares <code>NCSemanticEntityParser</code>
+                which is based on YAM model definition <code>pizzeria_model.yaml</code>.
             </li>
             <li>
-                On <code>lines 31 and 37</code> defined entity mappers <code>PizzeriaOrderMapper</code>, which
+                <code>Lines 31 and 37</code> define entity mappers <code>PizzeriaOrderMapper</code> which
                 map <code>ord:pizza</code> elements with theirs sizes from <code>ord:pizza:size</code> and
                 quantities from <code>stanford:number</code>.
             </li>
             <li>
-                <code>Line 43</code> defines <code>PizzeriaOrderValidator</code> class, described above.
+                <code>Line 43</code> defines <code>PizzeriaOrderValidator</code> class described above.
             </li>
         </ul>
 
@@ -643,7 +638,7 @@ fa_icon: fa-cube
         <h2 class="section-title">Testing <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             The test defined in <code>CalculatorModelSpec</code> allows to check that all input test sentences are
-            processed correctly and trigger the expected intents <code>calc</code> and <code>calcMem</code>:
+            processed correctly and trigger the expected intents:
         </p>
         <pre class="brush: scala, highlight: [14, 48, 61, 96]">
             package demo
@@ -842,25 +837,25 @@ fa_icon: fa-cube
         </pre>
 
         <p>
-            <code>PizzeriaModelSpec</code> is complex test, which is designed as dialog with Pizzeria bot.
+            <code>PizzeriaModelSpec</code> is complex test which is designed as dialog with pizza ordering bot.
         </p>
 
         <ul>
             <li>
-                On <code>line 14</code> declared <code>PizzeriaModelSpec</code>, test companion object, which contains
+                <code>Line 14</code> declares <code>PizzeriaModelSpec</code> test companion object which contains
                 static content and helper methods.
             </li>
             <li>
-                On <code>line 48</code> defined <code>after</code> block.
+                <code>Line 48</code> defines <code>after</code> block.
                 It closes model client and prints test results.
             </li>
             <li>
-                On <code>line 61</code> defined test helper method <code>dialog</code>.
+                <code>Line 61</code> defines test helper method <code>dialog()</code>.
                 It sends request to model via <code>ask</code> method and accumulates execution results.
             </li>
             <li>
-                On <code>line 96</code> defined main test block.
-                It contains user request descriptions and expected results on them, taking into account order state.
+                <code>Line 96</code> defines main test block.
+                It contains user request descriptions and their expected results taking into account order state.
             </li>
         </ul>
         <p>
@@ -873,7 +868,7 @@ fa_icon: fa-cube
     <section>
         <h2 class="section-title">Done! 👌 <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
-            You've created pizzeria model and tested it.
+            You've created pizza model and tested it.
         </p>
     </section>
 </div>
