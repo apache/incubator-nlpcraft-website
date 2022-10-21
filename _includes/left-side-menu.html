@@ -25,6 +25,13 @@
         {% endif %}
     </li>
     <li>
+        {% if page.id == "built-components" %}
+        <a class="active" href="/built-components.html">Built components</a>
+        {% else %}
+        <a href="/built-components.html">Built components</a>
+        {% endif %}
+    </li>
+    <li>
         {% if page.id == "installation" %}
         <a class="active" href="/installation.html">Installation</a>
         {% else %}
@@ -57,13 +64,6 @@
         <a class="active" href="/short-term-memory.html">Short-Term Memory</a>
         {% else %}
         <a href="/short-term-memory.html">Short-Term Memory</a>
-        {% endif %}
-    </li>
-    <li>
-        {% if page.id == "integrations" %}
-        <a class="active" href="/integrations.html">Integrations</a>
-        {% else %}
-        <a href="/integrations.html">Integrations</a>
         {% endif %}
     </li>
     <li class="side-nav-title">Examples</li>
