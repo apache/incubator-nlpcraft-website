@@ -27,11 +27,10 @@ id: overview
 
         <p>
             NlpCraft library contains two base elements: <code>Model</code> and <code>Client</code>.
+            When you work with the system - you should prepare model, configuring its parameters and defining its components.
+            After you just communicate with this model via client's methods.
         </p>
-    </section>
 
-    <section id="model-client">
-        <h2 class="section-title">Model and client <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <ul>
             <li>
                 <code>Model</code> is domain specific object which responsible for user input interpretation. Model contains intents, defined via NlpCraft IDL with related code callbacks. Intent is user defined callback and rule, according to which this callback should be called. Rule is most often some template, based on expected set of entities in user input, but it can be more flexible.
@@ -70,7 +69,33 @@ id: overview
                 <code>Pipeline</code> can be based on standard and custom user defined components.
             </li>
         </ul>
+
+        <p>
+            Base client methods:
+        </p>
+        <ul>
+            <li>
+                <code>ask</code> - sends user input to the model and receives triggered callback result or
+                rejection exception if there isn't any winning intents.
+            </li>
+            <li>
+                <code>debugAsk</code>> - sends user input to the model and receives callback and its parameters or
+                rejection exception if there isn't any winning intents.
+                Main difference from <code>ask</code> that callback of triggered intent is not called.
+                This method can be useful for tests scenarios.
+            </li>
+            <li>
+                <code>clearStm</code> - clears STM state. Read more .. TODO
+            </li>
+            <li>
+                <code>clearDialog</code> - clears dialog state. Read more .. TODO
+            </li>
+            <li>
+                <code>close</code> - Closes client.
+            </li>
+        </ul>
     </section>
+
     <section id="model-configuration">
         <h2 class="section-title">Model configuration <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
     </section>
@@ -152,7 +177,6 @@ id: overview
     <ul class="side-nav">
         <li class="side-nav-title">On This Page</li>
         <li><a href="#overview">Overview</a></li>
-        <li><a href="#model-client">Model and client</a></li>
         <li><a href="#model-configuration">Model configuration</a></li>
         <li><a href="#model-pipeline">Model pipeline</a></li>
         <li><a href="#model-intents">Model intents and callbacks</a></li>
