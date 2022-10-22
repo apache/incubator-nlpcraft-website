@@ -8,4 +8,5 @@ _site/
 target
 out
 Gemfile.lock
+vendor/
 
