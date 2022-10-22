@@ -25,10 +25,24 @@
         {% endif %}
     </li>
     <li>
+        {% if page.id == api-review" %}
+        <a class="active" href="/api-review.html">API review</a>
+        {% else %}
+        <a href="/api-review.html">API review</a>
+        {% endif %}
+    </li>
+    <li>
         {% if page.id == "built-components" %}
         <a class="active" href="/built-components.html">Built components</a>
         {% else %}
         <a href="/built-components.html">Built components</a>
+        {% endif %}
+    </li>
+    <li>
+        {% if page.id == "built-components" %}
+        <a class="active" href="/custom-components.html">Custom components</a>
+        {% else %}
+        <a href="/custom-components.html">Custom components</a>
         {% endif %}
     </li>
     <li>

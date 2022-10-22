@@ -1,0 +1,165 @@
+---
+active_crumb: Docs
+layout: documentation
+id: overview
+---
+
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one or more
+ contributor license agreements.  See the NOTICE file distributed with
+ this work for additional information regarding copyright ownership.
+ The ASF licenses this file to You under the Apache License, Version 2.0
+ (the "License"); you may not use this file except in compliance with
+ the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<div class="col-md-8 second-column">
+    <section id="overview">
+        <h2 class="section-title">Library API review <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+
+        <p>
+            NlpCraft library contains two base elements: <code>Model</code> and <code>Client</code>.
+        </p>
+    </section>
+
+    <section id="model-client">
+        <h2 class="section-title">Model and client <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <ul>
+            <li>
+                <code>Model</code> is domain specific object which responsible for user input interpretation. Model contains intents, defined via NlpCraft IDL with related code callbacks. Intent is user defined callback and rule, according to which this callback should be called. Rule is most often some template, based on expected set of entities in user input, but it can be more flexible.
+            </li>
+
+            <li>
+                <code>Client</code> is object, which allows to communicate with given model. Main methods are user input processing and control of communication session.
+            </li>
+        </ul>
+
+        <p>Typical part of code:</p>
+
+        <pre class="brush: scala, highlight: []">
+              // Prepares domain model.
+              val mdl = new CustomNlpModel()
+
+              // Prepares client for given model.
+              val client = new NCModelClient(mdl)
+
+              // Sends text request to model by user ID "userId".
+              val result = client.ask("Some user command", "userId")
+
+              // Clears dialog session for user with ID "userId".
+              client.clearDialog("userId")
+        </pre>
+
+        <p>
+            Model definition includes two parts:
+        </p>
+        <ul>
+            <li>
+                <code>Configuration</code>. Static configuration parameters including name, version, etc.
+            </li>
+            <li>
+                <code>Pipeline</code>. Most important component, which defines user input processing chain.
+                <code>Pipeline</code> can be based on standard and custom user defined components.
+            </li>
+        </ul>
+    </section>
+    <section id="model-configuration">
+        <h2 class="section-title">Model configuration <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+    </section>
+    <section id="model-pipeline">
+        <h2 class="section-title">Model pipeline <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <p>
+             Before looking at pipeline elements more throughly, let's start with terminology.
+        </p>
+
+        <ul>
+            <li>
+                <code>Token</code>. It is simple string, part of user input, which split according to some rules, for instance by spaces and some additional conditions, which depends on language and some expectations.
+                So user input "<b>Where is it?</b>" contains four tokens: "<b>Where</b>", "<b>is</b>", "<b>it</b>", "<b>?</b>".
+            </li>
+            <li>
+                <code>Entity</code>. According to wikipedia, named entity is a real-world object, such as a person, location, organization, product, etc., that can be denoted with a proper name. It can be abstract or have a physical existence. Each entity can contain one or more tokens.
+            </li>
+            <li>
+                <code>Variant</code>. List of entities. Potentially, each token can be recognized as different entities, so user input can be processed as set of variants. For example user input "Mercedes" can be processed as 2 variants, both of them contains single element list of entities: car brand or Spanish family name.
+            </li>
+        </ul>
+
+        <p>
+            Back to pipeline. Pipeline should be created based in following components:
+        </p>
+        <ul>
+            <li>
+                <code>Token parser</code>. Mandatory NLP component, it is required for parsing plain text, user input, and split this text into tokens  list. NlpCraft provides default EN implementation of token parser. Also, project contain various examples for FR and RU languages.
+            </li>
+            <li>
+                <code>Tokens enrichers</code> optional list. Tokens enricher is component which allows to add additional properties to prepared tokens, like part of speech, quote, stop-words flags or any other. NlpCraft provides default set of EN tokens enrichers implementations.
+            </li>
+            <li>
+                <code>Tokens validators</code> optional list. Tokens validator is user defined component, where tokens are inspected and exception can be thrown from user code to break user input processing.
+            </li>
+            <li>
+                <code>Entity parsers</code> mandatory list. At least one entity parser must be defined. Having prepared tokens as input, each entity parser tries to find user defined named entities. NlpCraft provides wrappers for named-entity recognition components of OpenNLP and Stanford libraries.
+            </li>
+            <li>
+                <code>Entity enrichers</code> optional list. Entity enricher is component which allows to add additional properties to prepared entities. Can be useful for extending existing entity enrichers functionality.
+            </li>
+            <li>
+                <code>Entity mappers</code> optional list. Entity mapper is component which allows to map one set of entities into another after the entities were parsed and enriched. Can be useful for building complex parsers based on existed.
+            </li>
+            <li>
+                <code>Entity validators</code> optional list. Entities validator is user defined component, where prepared entities are inspected and  exceptions can be thrown from user code to break user input processing.
+            </li>
+            <li>
+                <code>Variant filter</code>. Optional component which allows filtering detected variants, rejecting undesirable.
+            </li>
+        </ul>
+
+        <p>
+            Below example if <code>Model</code> creation. <code>Pipeline</code> is prepared using <code>NCPipelineBuilder</code> class helper.
+        </p>
+
+        <pre class="brush: scala, highlight: []">
+            val pipeline =
+                new NCPipelineBuilder().
+                    withTokenParser(new NCFrTokenParser()).
+                    withTokenEnricher(new NCFrLemmaPosTokenEnricher()).
+                    withTokenEnricher(new NCFrStopWordsTokenEnricher()).
+                    withEntityParser(new NCFrSemanticEntityParser("lightswitch_model_fr.yaml")).
+                    build
+            val cfg = NCModelConfig("nlpcraft.lightswitch.fr.ex", "LightSwitch Example Model FR", "1.0")
+
+            val mdl = new NCModelAdapter(cfg, pipeline)
+        </pre>
+
+        <p>
+            This flexible system allows to create any pipelines on any language. You can collect NlpCraft predefined components, write your own and easy reuse custom components.
+        </p>
+    </section>
+    <section id="model-intents">
+        <h2 class="section-title">Model intents and callbacks <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+    </section>
+</div>
+<div class="col-md-2 third-column">
+    <ul class="side-nav">
+        <li class="side-nav-title">On This Page</li>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#model-client">Model and client</a></li>
+        <li><a href="#model-configuration">Model configuration</a></li>
+        <li><a href="#model-pipeline">Model pipeline</a></li>
+        <li><a href="#model-intents">Model intents and callbacks</a></li>
+        {% include quick-links.html %}
+    </ul>
+</div>
+
+
+
+
