@@ -59,13 +59,13 @@ fa_icon: fa-cube
         </pre>
 
         <p>
-            On <code>lines 8, 9 and 10</code> added libraries, which used for support base NLP operations with French language.
+            <code>Lines 8, 9 and 10</code> add libraries which used for support base NLP operations with French language.
         </p>
 
         <p><b>NOTE: </b>use the latest versions of Scala and ScalaTest.</p>
         <p>Create the following files so that resulting project structure would look like the following:</p>
         <ul>
-            <li><code>lightswitch_model_fr.yaml</code> - YAML configuration file, which contains model description.</li>
+            <li><code>lightswitch_model_fr.yaml</code> - YAML configuration file which contains model description.</li>
             <li><code>LightSwitchFrModel.scala</code> - Model implementation.</li>
             <li><code>NCFrSemanticEntityParser.scala</code> - Semantic entity parser, custom implementation for French language.</li>
             <li><code>NCFrLemmaPosTokenEnricher.scala</code> - Lemma and point of speech token enricher, custom implementation for French language.</li>
@@ -141,7 +141,7 @@ fa_icon: fa-cube
                   - "&lt;KILL&gt; &lt;LIGHT&gt;"
                   - "&lt;LIGHT&gt; &lt;KILL&gt;"
         </pre>
-        <p>There are number of important points here:</p>
+
         <ul>
             <li>
                 <code>Line 1</code> defines several macros that are used later on throughout the model's elements
@@ -281,7 +281,7 @@ fa_icon: fa-cube
                 open source <a href="https://languagetool.org">Language Tool</a> library.
             </li>
             <li>
-                On <code>line 19</code> the <code>NCToken</code> instances created.
+                <code>Line 19</code> creates the <code>NCToken</code> instance.
             </li>
         </ul>
 
@@ -323,7 +323,7 @@ fa_icon: fa-cube
         </pre>
         <ul>
             <li>
-                <code>NCFrLemmaPosTokenEnricher</code> lemma and point of speech tokens enricher based on
+                <code>NCFrLemmaPosTokenEnricher</code> lemma and point of speech tokens enricher is based on
                 open source <a href="https://languagetool.org">Language Tool</a> library.
             </li>
             <li>
@@ -446,10 +446,10 @@ fa_icon: fa-cube
         </pre>
         <ul>
             <li>
-                On <code>line 9</code> the client for our model is created.
+                <code>Line 9</code> creates the client for our model.
             </li>
             <li>
-                On <code>line 11</code> a special method <code>debugAsk</code> is called.
+                <code>Line 11</code> calls a special method <code>debugAsk()</code>.
                 It allows to check the winning intent and its callback parameters without actually
                 calling the intent.
             </li>

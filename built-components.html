@@ -1,0 +1,262 @@
+---
+active_crumb: Docs
+layout: documentation
+id: overview
+---
+
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one or more
+ contributor license agreements.  See the NOTICE file distributed with
+ this work for additional information regarding copyright ownership.
+ The ASF licenses this file to You under the Apache License, Version 2.0
+ (the "License"); you may not use this file except in compliance with
+ the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<div class="col-md-8 second-column">
+    <section id="overview">
+        <h2 class="section-title">Built components <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+
+        <p>
+            Model pipeline <code>NCPipeline</code> is base component which responsible for sentence processing.
+            It is consists of a number of traits, some built implementations of them are described below.
+        </p>
+
+        <div class="bq info">
+            <p><b>Built component licenses.</b></p>
+            <p>
+                All built components which are based on <a href="https://nlp.stanford.edu/">Stanford NLP</a> models and classes
+                are provided with <a href="http://www.gnu.org/licenses/gpl-2.0.html">GNU General Public License</a>.
+                Look at Stanford NLP <a href="https://nlp.stanford.edu/software/">Software</a> page.
+                All such components are placed in special project module <code>nlpcraft-stanford</code>.
+                All other components are proved with <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License Version 2.0</a> license.
+            </p>
+        </div>
+
+        <ul>
+            <li>
+                <code>NCTokenParser</code>. There are provided two built implementations, both for English language.
+                <ul>
+                    <li>
+                        <code>NCOpenNLPTokenParser</code>. It is token parser implementation which is wrapper on
+                        <a href="https://opennlp.apache.org/">Apache OpenNLP</a> project tokenizer.
+                    </li>
+                    <li>
+                        <code>NCStanfordNLPTokenParser</code>. It is token parser implementation which is wrapper on
+                        <a href="https://nlp.stanford.edu/">Stanford NLP</a> project tokenizer.
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <code>NCTokenEnricher</code>. There are provided a number of built implementations, all of them for English language.
+                <ul>
+                    <li>
+                        <code>NCOpenNLPLemmaPosTokenEnricher</code> -
+                        this component allows to add <code>lemma</code> and <code>pos</code> values to processed token.
+                        Look at these links fpr more details: <a href="https://www.wikiwand.com/en/Lemma_(morphology)">Lemma</a> and
+                        <a href="https://www.wikiwand.com/en/Part-of-speech_tagging">Part of speech</a>.
+                        Current implementation is based on <a href="https://opennlp.apache.org/">Apache OpenNLP</a> project components.
+                        Is uses Apache OpenNLP models, which are accessible
+                        <a href="http://opennlp.sourceforge.net/models-1.5/">here</a> for POS taggers.
+                        English lemmatization model is accessible <a href="https://raw.githubusercontent.com/richardwilly98/elasticsearch-opennlp-auto-tagging/master/src/main/resources/models/en-lemmatizer.dict">here</a>.
+                        You can use any models which are compatible with Apache OpenNLP <a href="https://opennlp.apache.org/docs/2.0.0/apidocs/opennlp-tools/opennlp/tools/postag/POSTaggerME.html">POSTaggerME</a> and
+                        <a href="https://opennlp.apache.org/docs/2.0.0/apidocs/opennlp-tools/opennlp/tools/lemmatizer/DictionaryLemmatizer.html">DictionaryLemmatizer</a> components.
+                    </li>
+                    <li>
+                        <code>NCEnBracketsTokenEnricher</code> -
+                        this component allows to add <code>brackets</code> boolean flag to processed token.
+                    </li>
+                    <li>
+                        <code>NCEnQuotesTokenEnricher</code> -
+                        this component allows to add <code>quoted</code> boolean flag to processed token.
+                    </li>
+                    <li>
+                        <code>NCEnDictionaryTokenEnricher</code> -
+                        this component allows to add <code>dict</code> boolean flag to processed token.
+                        Note that it requires already defined <code>lemma</code> token property,
+                        You can use <code>NCOpenNLPLemmaPosTokenEnricher</code> or any another component which sets
+                        <code>lemma</code> into the token.
+                    </li>
+                    <li>
+                        <code>NCEnStopWordsTokenEnricher</code> -
+                        this component allows to add <code>stopword</code> boolean flag to processed token.
+                        It is based on predefined rules for English language, but it can be also extended by custom user word list and excluded list.
+                        Note that it requires already defined <code>lemma</code> token property,
+                        You can use <code>NCOpenNLPLemmaPosTokenEnricher</code> or any another component which sets
+                        <code>lemma</code> into the token.
+                    </li>
+                    <li>
+                        <code>NCEnSwearWordsTokenEnricher</code> -
+                        this component allows to add <code>swear</code> boolean flag to processed token.
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <code>NCEntityParser</code>. There are provided a number of built implementations, all of them for English language.
+                <ul>
+                    <li>
+                        <code>NCNLPEntityParser</code> converts NLP tokens into entities with four mandatory properties:
+                        <code>nlp:token:text</code>, <code>nlp:token:index</code>, <code>nlp:token:startCharIndex</code> and
+                        <code>nlp:token:endCharIndex</code>. However, if any other properties were added into
+                        processed tokens by <code>NCTokenEnricher</code> components, they will be copied also with names
+                        prefixed with <code>nlp:token:</code>.
+                        Note that converted tokens set can be restricted by predicate.
+                    </li>
+                    <li>
+                        <code>NCOpenNLPEntityParser</code> is wrapper on <a href="https://opennlp.apache.org/">Apache OpenNLP</a> NER components.
+                        Look at the supported <b>Name Finder</b> models <a href="https://opennlp.sourceforge.net/models-1.5/">here</a>.
+                        For example for English language are accessible: <code>Location</code>, <code>Money</code>,
+                        <code>Person</code>, <code>Organizationon</code>, <code>Date</code>, <code>Time</code> and <code>Percentage</code>.
+                    </li>
+                    <li>
+                        <code>NCStanfordNLPEntityParser</code> is wrapper on <a href="https://nlp.stanford.edu/">Stanford NLP</a> NER components.
+                        Look at the detailed information <a href="https://nlp.stanford.edu/software/CRF-NER.shtml">here</a>.
+                    </li>
+                    <li>
+                        <code>NCSemanticEntityParser</code> is entity parser which is based on list of synonyms elements.
+                        This component is described with more details below in <a href="#semantic">Semantic enrichers</a> section.
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <p>
+            Following pipeline components cannot have build implementation because their logic are depend on concrete user model:
+            <code>NCTokenValidator</code>, <code>NCEntityEnricher</code>, <code>NCEntityValidator</code>,
+            <code>NCEntityMapper</code> and <code>NCVariantFilter</code>.
+        </p>
+
+        <p>
+            <code>NCPipelineBuilder</code> class is designed for simplifying preparing <code>NCPipeline</code> instance.
+            It contains a number of methods <code>withSemantic()</code> which allow to prepare pipeline instance based on
+            <code>NCSemanticEntityParser</code> and configured language.
+            Currently only one language is supported - English.
+            It also adds following English components into pipeline:
+        </p>
+
+        <ul>
+            <li><code>NCOpenNLPTokenParser</code></li>
+            <li><code>NCOpenNLPLemmaPosTokenEnricher</code></li>
+            <li><code>NCEnStopWordsTokenEnricher</code></li>
+            <li><code>NCEnSwearWordsTokenEnricher</code></li>
+            <li><code>NCEnQuotesTokenEnricher</code></li>
+            <li><code>NCEnDictionaryTokenEnricher</code></li>
+            <li><code>NCEnBracketsTokenEnricher</code></li>
+        </ul>
+    </section>
+
+    <section id="semantic">
+        <h2 class="section-title">Semantic enrichers <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+    </section>
+
+    <section id="examples">
+        <h2 class="section-title">Examples <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+
+        <p><b>Simple example</b>:</p>
+
+        <pre class="brush: scala, highlight: []">
+            val pipeline = new NCPipelineBuilder().withSemantic("en", "lightswitch_model.yaml").build
+        </pre>
+        <ul>
+            <li>
+                It defines pipeline with all default English language components and one semantic entity parser with
+                model defined in <code>lightswitch_model.yaml</code>.
+            </li>
+        </ul>
+
+        <p><b>Example with pipeline configured by built components:</b></p>
+
+        <pre class="brush: scala, highlight: [2, 6, 7, 12, 13, 14, 15]">
+            val pipeline =
+                val stanford =
+                    val props = new Properties()
+                    props.setProperty("annotators", "tokenize, ssplit, pos, lemma, ner")
+                    new StanfordCoreNLP(props)
+                val tokParser = new NCStanfordNLPTokenParser(stanford)
+                val stemmer = new NCSemanticStemmer():
+                    private val ps = new PorterStemmer
+                    override def stem(txt: String): String = ps.synchronized { ps.stem(txt) }
+
+                new NCPipelineBuilder().
+                    withTokenParser(tokParser).
+                    withTokenEnricher(new NCEnStopWordsTokenEnricher()).
+                    withEntityParser(new NCStanfordNLPEntityParser(stanford, Set("number"))).
+                    build
+        </pre>
+        <ul>
+            <li>
+                <code>Line 2</code> defines configured <code>StanfordCoreNLP</code> class instance.
+                Look at <a href="https://nlp.stanford.edu/">Stanford NLP</a> documentation for more details.
+            </li>
+            <li>
+                <code>Line 6</code> defines token parser <code>NCStanfordNLPTokenParser</code>, pipeline mandatory component.
+                Note that this one instance is used for two places: in pipeline definition on <code>line 12</code> and
+                in <code>NCSemanticEntityParser</code> definition on <code>line 15</code>.
+            </li>
+            <li>
+                <code>Line 7</code> defines simple implementation of semantic stemmer which is necessary part
+                of <code>NCSemanticEntityParser</code>.
+            </li>
+            <li>
+                <code>Line 13</code> defines configured <code>NCEnStopWordsTokenEnricher</code> token enricher.
+            </li>
+            <li>
+                <code>Line 14</code> defines <code>NCStanfordNLPEntityParse</code> entity parser based on Stanford NER
+                configured for number values detection.
+            </li>
+            <li>
+                <code>Line 14</code> defines <code>NCStanfordNLPEntityParse</code> entity parser based on Stanford NER
+                configured for number values detection.
+            </li>
+            <li>
+                <code>Line 15</code> defines pipeline building.
+            </li>
+        </ul>
+
+        <p><b>Example with pipeline configured by custom components:</b></p>
+
+        <pre class="brush: scala, highlight: []">
+            val pipeline =
+                new NCPipelineBuilder().
+                    withTokenParser(new NCFrTokenParser()).
+                    withTokenEnricher(new NCFrLemmaPosTokenEnricher()).
+                    withTokenEnricher(new NCFrStopWordsTokenEnricher()).
+                    withEntityParser(new NCFrSemanticEntityParser("lightswitch_model_fr.yaml")).
+                    build
+        </pre>
+
+        <ul>
+            <li>
+                There is the pipeline created for work with French Language. All components of this pipeline are custom components.
+                You can get fore information at examples description chapters:
+                <a href="examples/light_switch_fr.html">Light Switch FR</a> and
+                <a href="examples/light_switch_ru.html">Light Switch RU</a>.
+                Note that these custom components are mostly wrappers on existing solutions and
+                should be prepared just once when you start work with new language.
+            </li>
+        </ul>
+    </section>
+</div>
+<div class="col-md-2 third-column">
+    <ul class="side-nav">
+        <li class="side-nav-title">On This Page</li>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#semantic">Semantic enrichers</a></li>
+        <li><a href="#examples">Examples</a></li>
+        {% include quick-links.html %}
+    </ul>
+</div>
+
+
+
+

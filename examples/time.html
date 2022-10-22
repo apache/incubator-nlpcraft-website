@@ -53,12 +53,12 @@ fa_icon: fa-cube
         <p><b>NOTE: </b>use the latest versions of Scala and ScalaTest.</p>
         <p>Create the following files so that resulting project structure would look like the following:</p>
         <ul>
-            <li><code>time_model.yaml</code> - YAML configuration file, which contains model description.</li>
+            <li><code>time_model.yaml</code> - YAML configuration file which contains model description.</li>
             <li><code>cities_timezones.txt</code> - Cities timezones database.</li>
-            <li><code>TimeModel.scala</code> - Scala class, model implementation.</li>
-            <li><code>CitiesDataProvider.scala</code> - Scala class, helper service which loads timezones database.</li>
-            <li><code>GeoManager.scala</code> - Scala class, helper service which provides cities timezones information for user request.</li>
-            <li><code>TimeModelSpec.scala</code> - Scala tests class, which allows to test your model.</li>
+            <li><code>TimeModel.scala</code> - Model implementation.</li>
+            <li><code>CitiesDataProvider.scala</code> - Helper service which loads timezones database.</li>
+            <li><code>GeoManager.scala</code> - Helper service which provides cities timezones information for user request.</li>
+            <li><code>TimeModelSpec.scala</code> - Test that allows to test your model.</li>
         </ul>
         <pre class="brush: plain, highlight: [7, 10, 14]">
             |  build.sbt
@@ -111,9 +111,9 @@ fa_icon: fa-cube
                 shorten overall synonym declarations 1000:1 vs. manually listing all possible word permutations.
             </li>
             <li>
-                On <code>line 6</code> defined <code>x:time</code> model elements, which
-                will be used in our intent, defined in <code>TimeModel</code> class. Note that these model
-                elements are defined mostly through macros we have defined above.
+                <code>Line 6</code> defines <code>x:time</code> model element which
+                will be used in our intent, defined in <code>TimeModel</code> class. Note that this model
+                element is defined mostly through macros we have defined above.
             </li>
         </ul>
         <div class="bq info">
@@ -206,7 +206,7 @@ fa_icon: fa-cube
                     mkResult(geo.city, geo.country_name, geo.timezone, geo.latitude, geo.longitude)
         </pre>
         <p>
-            There are two intents, for local and remote location time. Result is represented as JSON value.
+            There are two intents, for local and remote locations. Result is represented as JSON value.
             Let's review this implementation step by step:
         </p>
         <ul>
@@ -215,39 +215,40 @@ fa_icon: fa-cube
                 prepared configuration and pipeline into model.
             </li>
             <li>
-                On <code>line 16</code> created <code>IDL fragment</code>, which is used in <code>intent2</code> definition below.
+                <code>Line 16</code> creates <code>IDL fragment</code> which is used in <code>intent2</code> definition below.
             </li>
             <li>
-                On <code>lines 17 and 18</code> annotates two intents definitions <code>intent1</code> and <code>intent2</code> ,
-                callbacks below have references on them by their identifiers.
+                <code>Lines 17 and 18</code> annotate two intents definitions <code>intent1</code> and <code>intent2</code>.
+                Their callbacks below have references on them by their identifiers.
             </li>
             <li>
-                On <code>line 20</code> created model configuration with most default parameters.
+                <code>Line 20</code> creates model configuration with most default parameters.
             </li>
             <li>
-                On <code>line 21</code> created pipeline, based on built components.
+                <code>Line 21</code> creates pipeline based on built components.
                 <ul>
-                    <li>This pipeline is based on built EN semantic entity enrichers, configured with <code>time_model.yaml</code>.</li>
-                    <li>Also there is used entity parser <code>NCOpenNLPEntityParser</code>,
-                        configured with <code>opennlp/en-ner-location.bin</code> for detection GEO locations.
+                    <li>This pipeline is based on built EN semantic entity enricher configured with <code>time_model.yaml</code>.</li>
+                    <li>Also there is entity parser <code>NCOpenNLPEntityParser</code>
+                        configured by <code>opennlp/en-ner-location.bin</code> for GEO locations detection.
                     </li>
                 </ul>
-                Look at documentations of these built components for more details.
+                Look at these built components documentation for more details.
             </li>
             <li>
-                <code>Lines 56 and 57</code> annotates intents <code>intent2</code> and its callback method <code>onRemoteMatch</code>.
-                This intent requires one mandatory entity - city, which is used for getting time for its timezone.
+                <code>Lines 56 and 57</code> annotate intent <code>intent2</code> and its callback method <code>onRemoteMatch()</code>.
+                This intent requires one mandatory entity - city which is used for getting time for its timezone.
             </li>
             <li>
-                <code>Lines 70 and 71</code> annotates intents <code>intent1</code> and its callback method <code>onLocalMatch</code>.
-                This intent is triggered by default and tries to detect timezone by request data  and return time for this timezone.
+                <code>Lines 70 and 71</code> annotate intent <code>intent1</code> and its callback method <code>onLocalMatch()</code>.
+                This intent is triggered by default, tries to detect timezone by request data and return time for this timezone.
                 Otherwise, it returns Silicon Valley current time.
             </li>
         </ul>
 
         <p>
-            Implementations of helper classes <code>GeoManager</code> and <code>CitiesDataProvider</code> are not related to given example.
-            Just copy these classes and <code>cities_timezones.txt</code> from project source code into your demo project.
+            Implementations of helper classes <code>GeoManager</code> and <code>CitiesDataProvider</code> are not related
+            to given example logic.
+            Just copy these classes and <code>cities_timezones.txt</code> file from project source code into your demo project.
         </p>
     </section>
 
@@ -281,10 +282,10 @@ fa_icon: fa-cube
         </pre>
         <ul>
             <li>
-                On <code>line 9</code> the client for our model is created.
+                <code>Line 9</code> creates the client for our model.
             </li>
             <li>
-                On <code>line 11</code> a special method <code>debugAsk</code> is called.
+                <code>Line 11</code> calls a special method <code>debugAsk()</code>.
                 It allows to check the winning intent and its callback parameters without actually
                 calling the intent.
             </li>
