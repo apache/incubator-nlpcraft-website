@@ -32,17 +32,17 @@
         {% endif %}
     </li>
     <li>
+        {% if page.id == "semantic" %}
+        <a class="active" href="/semantic.html">Semantic parser</a>
+        {% else %}
+        <a href="/semantic.html">Semantic parser</a>
+        {% endif %}
+    </li>
+    <li>
         {% if page.id == "built-components" %}
         <a class="active" href="/built-components.html">Built components</a>
         {% else %}
         <a href="/built-components.html">Built components</a>
-        {% endif %}
-    </li>
-    <li>
-        {% if page.id == "semantic" %}
-        <a class="active" href="/semantic.html">Semantic model</a>
-        {% else %}
-        <a href="/semantic.html">Semantic model</a>
         {% endif %}
     </li>
     <li>

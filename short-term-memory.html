@@ -112,7 +112,7 @@ id: short_term_memory
             period of time, i.e. it “forgets” the conversational context after few minutes of inactivity.
             Note also that conversational context can also be cleared explicitly
             via <a href="https://app.swaggerhub.com/apis-docs/Apache-NLPCraft/apache-nlpcraft/{{site.latest_version}}" target="swaggerhub">REST API</a>
-            or from the <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCConversation.html">code</a>.
+            or from the <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/NCConversation.html">code</a>.
         </p>
         <p>
             To understand the algorithm behind the STM management let's back up a few steps...
@@ -184,22 +184,6 @@ id: short_term_memory
                 Entities that additionally have one or more specific values like <code>current</code> and <code>Tokyo</code> entities.
             </li>
         </ul>
-        <div class="bq info">
-            <div style="display: inline-block; margin-bottom: 20px">
-                <a style="margin-right: 10px" target=_ href="https://opennlp.apache.org"><img src="/images/opennlp-logo-h32.png" alt=""></a>
-                <a style="margin-right: 10px" target=_ href="https://cloud.google.com/natural-language/"><img src="/images/google-cloud-logo-small-h32.png" alt=""></a>
-                <a style="margin-right: 10px" target=_ href="https://stanfordnlp.github.io/CoreNLP"><img src="/images/corenlp-logo-h48.png" alt=""></a>
-                <a style="margin-right: 10px" target=_ href="https://spacy.io"><img src="/images/spacy-logo-h32.png" alt=""></a>
-            </div>
-            <p>
-                Note that NLPCraft provides <a href="/integrations.html">support</a> for wide variety of named entities (with all built-in ones being properly normalized)
-                including  <a href="/integrations.html">integrations</a> with
-                <a target="spacy" href="https://spacy.io/">spaCy</a>,
-                <a target="stanford" href="https://stanfordnlp.github.io/CoreNLP">Stanford CoreNLP</a>,
-                <a target="opennlp" href="https://opennlp.apache.org/">OpenNLP</a> and
-                <a target="google" href="https://cloud.google.com/natural-language/">Google Natural Language</a>.
-            </p>
-        </div>
     </section>
     <section id="incomplete">
         <h2 class="section-title">Incomplete Sentences <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
@@ -280,11 +264,11 @@ id: short_term_memory
             can have a "soft" context switch where you don't change the topic of the conversation 100% but yet sufficiently
             enough to forget at least some parts of the previously collected context. NLPCraft has a built-in algorithm
             to detect the hard switch in the conversation. It also exposes
-            <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCConversation.html">API</a> to perform a selective reset on the
+            <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/NCConversation.html">API</a> to perform a selective reset on the
             conversation in case of "soft" switch.
         </p>
         <p>
-            See <a class="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCConversation.html">NCConversion</a> interface
+            See <a class="javadoc" href="/apis/latest/org/apache/nlpcraft/NCConversation.html">NCConversion</a> interface
             for API details for STM management.
         </p>
     </section>
@@ -468,7 +452,7 @@ id: short_term_memory
         </p>
         <p>
             In NLPCraft you can also explicitly reset conversation context through
-            <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCConversation.html">API</a>
+            <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/NCConversation.html">API</a>
             or by switching the model on the request.
         </p>
     </section>
