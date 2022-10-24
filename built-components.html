@@ -108,7 +108,7 @@ id: overview
                 There are provided a number of built implementations, all of them for English language.
                 <ul>
                     <li>
-                        <a href="apis/latest/org/apache/nlpcraft/NCEntityParser.html">NCEntityParser</a> converts NLP tokens into entities with four mandatory properties:
+                        <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCNLPEntityParser.html">NCNLPEntityParser</a> converts NLP tokens into entities with four mandatory properties:
                         <code>nlp:token:text</code>, <code>nlp:token:index</code>, <code>nlp:token:startCharIndex</code> and
                         <code>nlp:token:endCharIndex</code>. However, if any other properties were added into
                         processed tokens by <code>NCTokenEnricher</code> components, they will be copied also with names
@@ -119,7 +119,7 @@ id: overview
                         <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCOpenNLPTokenParser.html">NCOpenNLPTokenParser</a> is wrapper on <a href="https://opennlp.apache.org/">Apache OpenNLP</a> NER components.
                         Look at the supported <b>Name Finder</b> models <a href="https://opennlp.sourceforge.net/models-1.5/">here</a>.
                         For example for English language are accessible: <code>Location</code>, <code>Money</code>,
-                        <code>Person</code>, <code>Organizationon</code>, <code>Date</code>, <code>Time</code> and <code>Percentage</code>.
+                        <code>Person</code>, <code>Organization</code>, <code>Date</code>, <code>Time</code> and <code>Percentage</code>.
                     </li>
                     <li>
                         <code>NCStanfordNLPEntityParser</code> is wrapper on <a href="https://nlp.stanford.edu/">Stanford NLP</a> NER components.
@@ -127,7 +127,8 @@ id: overview
                     </li>
                     <li>
                         <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCSemanticEntityParser.html">NCSemanticEntityParser</a> is entity parser which is based on list of synonyms elements.
-                        This component is described with more details below in <a href="#semantic">Semantic enrichers</a> section.
+                        It is very important component which allow to solve a wide range of tasks.
+                        Separated chapter  <a href="semantic.html">Semantic model</a> is dedicated to its detailed description.
                     </li>
                 </ul>
             </li>
@@ -160,49 +161,6 @@ id: overview
             <li><a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnDictionaryTokenEnricher.html">NCEnDictionaryTokenEnricher</a></li>
             <li><a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnBracketsTokenEnricher.html">NCEnBracketsTokenEnricher</a></li>
         </ul>
-    </section>
-
-    <section id="semantic">
-        <h2 class="section-title">Semantic entity parser <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
-
-        <p>
-            Semantic entity parser <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCSemanticEntityParser.html">NCSemanticEntityParser</a>
-            is the implementation of <a href="apis/latest/org/apache/nlpcraft/NCEntityParser.html">NCEntityParser</a>
-            which deserves a special mention.
-            It describes list of <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCSemanticElement.html">NCSemanticElement</a>
-            which are represented <a href="https://en.wikipedia.org/wiki/Named-entity_recognition">Named entities</a>.
-        </p>
-
-        <p>
-            Each <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCSemanticElement.html">NCSemanticElement</a>
-            is presented by <code>id</code>, <code>groups</code>, <code>synonyms</code>, <code>values</code> and <code>properties</code>.
-        <p>
-
-        <section id="element-synonyms">
-            <h3>Element synonyms</h3>
-            <p>TODO...</p>
-        </section>
-
-        <section id="element-values">
-            <h3>Element values</h3>
-            <p>TODO...</p>
-        </section>
-
-        <section id="element-groups">
-            <h3>Element values</h3>
-            <p>TODO...</p>
-        </section>
-
-        <section id="element-macros">
-            <h3>Element macros</h3>
-            <p>TODO...</p>
-        </section>
-
-        <section id="external-declaration">
-            <h3>External JSON/YAML Declaration</h3>
-            <p>TODO...</p>
-        </section>
-
     </section>
 
     <section id="examples">

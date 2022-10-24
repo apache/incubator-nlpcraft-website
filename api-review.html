@@ -76,29 +76,29 @@ id: overview
         </ul>
 
         <p>
-            Base client methods:
+            <b>Base client methods:</b>
         </p>
         <ul>
             <li>
-                <code>ask</code> passes user text input to the model and receives back triggered callback method execution result or
+                <code>ask()</code> passes user text input to the model and receives back triggered callback method execution result or
                 rejection exception if there isn't any triggered intents.
             </li>
             <li>
-                <code>debugAsk</code> passes user text input to the model and receives back callback and its parameters or
+                <code>debugAsk()</code> passes user text input to the model and receives back callback and its parameters or
                 rejection exception if there isn't any triggered intents.
                 Main difference from <code>ask</code> that triggered intent callback method is not called.
                 This method and this parameter can be useful for tests scenarios.
             </li>
             <li>
-                <code>clearStm</code> clears STM state. Memory is cleared wholly or with some predicate.
+                <code>clearStm()</code> clears STM state. Memory is cleared wholly or with some predicate.
                 Loot at <a href="short-term-memory.html">Conversation</a> chapter to get more details.
             </li>
             <li>
-                <code>clearDialog</code> clears dialog state. Dialog is cleared wholly or with some predicate.
+                <code>clearDialog()</code> clears dialog state. Dialog is cleared wholly or with some predicate.
                 Loot at <a href="short-term-memory.html">Conversation</a> chapter to get more details.
             </li>
             <li>
-                <code>close</code> - Closes client. You can't call another client's methods after this method was closed.
+                <code>close()</code> - Closes client. You can't call another client's methods after this method was closed.
             </li>
         </ul>
     </section>
@@ -142,20 +142,29 @@ id: overview
                 <code>Token</code> represented as <a  href="apis/latest/org/apache/nlpcraft/NCToken.html">NCToken</a>.
                 It is simple string, part of user input, which split according to some rules, for instance by spaces and some additional conditions, which depends on language and some expectations.
                 So user input "<b>Where is it?</b>" contains four tokens: "<b>Where</b>", "<b>is</b>", "<b>it</b>", "<b>?</b>".
+                Tokens data are input for searching <code>entities</code>.
             </li>
             <li>
                 <code>Entity</code> represented as <a  href="apis/latest/org/apache/nlpcraft/NCEntity.html">NCEntity</a>.
-                According to wikipedia, named entity is a real-world object, such as a person, location, organization, product, etc., that can be denoted with a proper name. It can be abstract or have a physical existence. Each entity can contain one or more tokens.
+                According to wikipedia, named entity is a real-world object, such as a person, location, organization,
+                product, etc., that can be denoted with a proper name. It can be abstract or have a physical existence.
+                Each entity can contain one or more tokens.
+                Entities data are input for searching <a href="intent-matching.html">Intent matching</a> conditions.
             </li>
             <li>
                 <code>Variant</code> represented as <a  href="apis/latest/org/apache/nlpcraft/NCVariant.html">NCVariant</a>.
-                List of entities. Potentially, each token can be recognized as different entities, so user input can be processed as set of variants. For example user input "Mercedes" can be processed as 2 variants, both of them contains single element list of entities: car brand or Spanish family name.
+                List of entities. Potentially, each token can be recognized as different entities,
+                so user input can be processed as set of variants.
+                For example user input "Mercedes" can be processed as 2 variants,
+                both of them contains single element list of entities: car brand or Spanish family name.
+                When words are not overlapped with different <code>entities</code> there is only one
+                <code>variant</code> detected.
             </li>
         </ul>
 
         <p>
-            Back to <code>Pipeline</code> represented as <a href="apis/latest/org/apache/nlpcraft/NCPipeline.html">pipeline</a>.
-            Pipeline should be created based in following components:
+            Back to <code>pipeline</code> represented as <a href="apis/latest/org/apache/nlpcraft/NCPipeline.html">NCPipeline</a>.
+            <code>Pipeline</code> should be created based in following components:
         </p>
         <ul>
             <li>

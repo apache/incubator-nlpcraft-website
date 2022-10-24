@@ -22,32 +22,21 @@ id: installation
 -->
 
 <div id="installation" class="col-md-8 second-column">
-    <section id="tldr">
-        <h2 class="section-title">TL;DR; <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
-        <p>
-            Watch this quick video (6:17) on how to download, install and verify your installation:
-        </p>
-        <div>
-            <iframe
-                width="514"
-                height="289"
-                src="https://www.youtube.com/embed/s4zEVJVhW68?modestbranding=1"
-                title="NLPCraft - Download, Install & Verify"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen>
-            </iframe>
-        </div>
-    </section>
     <section id="install">
         <h2 class="section-title">Installation <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             Apache NLPCraft requires <b>no special installation</b> operations:
         </p>
         <ul>
-            <li>If you <a href="/download.html">downloaded</a> binary ZIP archive - <a target="asf" href="https://www.apache.org/dyn/closer.cgi#verify">verify</a> it and unzip it</li>
-            <li>If you <a href="/download.html">cloned</a> GitHub repository or downloaded source archive - use <code>mvn clean package -P examples</code> to build it</li>
-            <li>If you <a href="/download.html">used</a> Maven/Gradle/SBT - you know what you are doing...</li>
+            <li>If you <a href="/download.html">downloaded</a> binary ZIP archive -
+                <a target="asf" href="https://www.apache.org/dyn/closer.cgi#verify">verify</a> it and unzip it.
+            </li>
+            <li>If you <a href="/download.html">cloned</a> GitHub repository or downloaded source archive -
+                <code>sbt clean compile</code>  to build it.
+            </li>
+            <li>Also you can use <code>maven</code> command <code>mvn -B clean package -P stanford-core,examples</code>
+                and get same result.
+            </li>
         </ul>
         <p>
             You are done 👍
@@ -57,68 +46,55 @@ id: installation
                 <b>Minimal Java and Scala versions</b>
             </p>
             <p>
+                Starting with version <b>1.0.0</b> NLPCraft requires JDK 11+ and Scala 3.1.3.<br/>
                 Starting with version <b>0.9.0</b> NLPCraft requires JDK 11+ and Scala 2.13.<br/>
                 Starting with version <b>0.7.0</b> NLPCraft requires JDK 11+ and Scala 2.12.<br/>
                 Prior versions supported JDK 8 and Scala 2.12.
             </p>
         </div>
     </section>
-    <section id="clean">
-        <h2 class="section-title">Reset Database <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+    <section id="new_project">
+        <h2 class="section-title">Create New Project <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
-            For releases marked with <i class="fas fa-fw fa-bomb"></i> you need to reset the existing database. If you are
-            using the Apache Ignite storage (default configuration for NLPCraft) you can accomplish this by
-            removing <code>${USER_HOME}/.nlpcraft/ignite</code> folder.
+            You can create new Scala projects in many ways - we'll use SBT
+            to accomplish this task. Make sure that <code>build.sbt</code> file has the following content:
         </p>
+        <pre class="brush: js, highlight: []">
+            ThisBuild / version := "0.1.0-SNAPSHOT"
+            ThisBuild / scalaVersion := "3.1.3"
+            lazy val root = (project in file("."))
+              .settings(
+                name := "Your project",
+                version := "{{site.latest_version}}",
+                libraryDependencies += "org.apache.nlpcraft" % "nlpcraft" % "{{site.latest_version}}",
+                libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.14" % "test"
+              )
+        </pre>
+
+        <ul>
+            <li>
+                Now you can use <code>NlpCraft</code> library in <code>Your project</code>.
+            </li>
+            <li>
+                You can use <code>Sbt</code> or <code>Maven</code> systems depending on your requirements via links
+                to <a href="https://search.maven.org/">Maven Central</a>.
+            </li>
+            <li>
+                You also can build <code>NlpCraft</code> library soource code and use references on jar files via <code>Ant</code>
+                or any another way.
+            </li>
+        </ul>
+
         <p>
-            If you are using other storage engines (e.g. Postgres or MySQL) you need to follow their specific
-            procedures to recreate the database using SQL scripts from <code>sql</code> sub-folder in NLPCraft
-            installation directory.
+            Go to Examples section to start work with concrete example.
         </p>
     </section>
-    <section id="config">
-        <h2 class="section-title">External Configuration <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
-        <p>
-            Due to <a target="asf" href="https://apache.org/legal/release-policy.html">Apache release policy</a> the official Apache release cannot include content that is based on
-            <a target=_ href="https://creativecommons.org/licenses/by/4.0/">Commons Attribution 4.0 International</a> (CC BY 4.0) license
-            or any binary artifacts regardless of their respective licences. Due to these restrictions the official Apache NLPCraft release
-            does not include certain configuration files that are necessary for its operation. These files will be auto-downloaded upon first star of NLPCraft (hence the internet
-            connection is required for the first start).
-            On subsequent starts the NLPCraft will check for the updates and will re-download these files only if they were changed.
-        </p>
-        <p>
-            By default, this external configuration is hosted on GitHub (in <code>external_config</code> branch of NLPCraft project) from where it will
-            be automatically downloaded on the first start: <a target="github" href="https://github.com/apache/incubator-nlpcraft/raw/external_config/external">https://github.com/apache/incubator-nlpcraft/raw/external_config/external</a>.
-            You can change this location, e.g. move the external configuration behind your firewall or onto your local file system,
-            as well as change other parameters related to auto-download of the external <a href="/server-and-probe.html#config">configuration</a>
-            in <code>*.conf</code> file (see <code>nlpcraft.extConfig</code> property).
-        </p>
-    </section>
-    <section id="ignite">
-        <h2 class="section-title">Apache Ignite 2.x <span class="amp">&amp;</span> Java 11+ <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
-        <p>
-            Starting with NLPCraft 0.7.0, NLPCraft requires JDK 11 as its minimum JDK version.
-            NLPCraft uses <a target=_ href="https://ignite.apache.org/">Apache Ignite 2.x</a> project as its
-            underlying in-memory distributed storage and cluster computing framework. When running Apache Ignite 2.x
-            on Java 11 you need to follow these
-            <a target=_ href="https://apacheignite.readme.io/docs/getting-started#section-running-ignite-with-java-9-10-11">instructions</a> which
-            are automatically followed when you use <a href="/tools/script.html"><code>nlpcraft.{sh|cmd}</code></a> script.
-        </p>
-        <div class="bq info">
-            <p>
-                <b>NOTE:</b> It is NOT recommended to change the version of Apache Ignite inside NLPCraft project.
-            </p>
-        </div>
-        <br/>
-    </section>
-</div>
+ </div>
 <div class="col-md-2 third-column">
     <ul class="side-nav">
         <li class="side-nav-title">On This Page</li>
         <li><a href="#install">Installation</a></li>
-        <li><a href="#clean">Reset Database</a></li>
-        <li><a href="#config">External Config</a></li>
-        <li><a href="#ignite">Apache Ignite</a></li>
+        <li><a href="#new_project">New Project</a></li>
         {% include quick-links.html %}
     </ul>
 </div>
