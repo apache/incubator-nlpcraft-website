@@ -74,14 +74,140 @@ id: overview
                 <code>Pipeline</code> can be based on standard and custom user defined components.
             </li>
         </ul>
+    </section>
+
+    <section id="model">
+        <h2 class="section-title">Model overview<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <p>
+            Let's start with terminology and describe work workflow.
+        </p>
+
+        <ul>
+            <li>
+                <code>Token</code> represented as <a  href="apis/latest/org/apache/nlpcraft/NCToken.html">NCToken</a>.
+                It is simple string, part of user input, which split according to some rules,
+                for instance by spaces and some additional conditions, which depends on language and some expectations.
+                So user input "<b>Where is it?</b>" contains four tokens: "<b>Where</b>", "<b>is</b>", "<b>it</b>", "<b>?</b>".
+                Usually <code>tokens</code>are words and punctuation symbols which can also contain some additional
+                information like point of speech etc.
+                Tokens data are input for searching <code>entities</code>.
+            </li>
+            <li>
+                <code>Entity</code> represented as <a  href="apis/latest/org/apache/nlpcraft/NCEntity.html">NCEntity</a>.
+                According to wikipedia, named entity is a real-world object, such as a person, location, organization,
+                product, etc., that can be denoted with a proper name. It can be abstract or have a physical existence.
+                Each entity can contain one or more tokens.
+                Entities data are input for searching <a href="intent-matching.html">Intent matching</a> conditions.
+            </li>
+            <li>
+                <code>Variant</code> represented as <a  href="apis/latest/org/apache/nlpcraft/NCVariant.html">NCVariant</a>.
+                List of entities. Potentially, each token can be recognized as different entities,
+                so user input can be processed as set of variants.
+                For example user input "Mercedes" can be processed as 2 variants,
+                both of them contains single element list of entities: car brand or Spanish family name.
+                When words are not overlapped with different <code>entities</code> there is only one
+                <code>variant</code> detected.
+            </li>
+        </ul>
 
         <p>
-            <b>Base client methods:</b>
+            <code>Model</code> must be able to do tree following things:
+        </p>
+
+        <ul>
+            <li>
+                Parse user input text as the <code>tokens</code>.
+                They are input for searching <code>name entities</code>.
+                Tokens parsing components should be included into <a href="#model-pipeline">Model pipeline</a>.
+            </li>
+            <li>
+                Find <code>name entities</code> based on these parsed tokens.
+                <code>name entities</code>.
+                They are input for searching <code>intents</code>.
+                Entity parsing components should be included into <a href="#model-pipeline">Model pipeline</a>.
+            </li>
+            <li>
+                Prepare callback methods which contain business logic
+                and rules for matching user requests on them.
+                These callbacks with their rules and named as <code>intents</code>.
+                These matched callback methods execution with parameters extracted from user text input and
+                these execution results returned to user as answer on his request.
+                These callbacks methods should be defined in the model or model should have reference in them.
+                It will be described below.
+            </li>
+        </ul>
+
+        <p>
+            Let's prepare the system which can call persons from your contact list.
+            Typical commands are: "Please call to John Smith" or "Connect me with Barbara Dillan".
+            This model should be able to recognize in user text following entities:
+            <code>command</code> and <code>person</code> to apply this command.
+        </p>
+
+        <ul>
+            <li>
+                Parsing split your input on tokens ["<code>please</code>", "<code>call</code>", "<code>to</code>", "<code>john</code>", "<code>smith</code>"]
+            </li>
+            <li>
+                By these tokens model should be able to found two named entities:
+                <ul>
+                    <li>
+                        <code>command</code> by token <code>call</code>.
+                    </li>
+                    <li>
+                        <code>person</code> by tokens <code>john</code> and <code>smith</code>.
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Also intents should be prepared:
+                <pre class="brush: scala, highlight: [1, 2, 5, 6]">
+                    @NCIntent("intent=call term(command)={# == command'} term(person)={# == 'person'}")
+                    def onMatch(
+                        ctx: NCContext,
+                        im: NCIntentMatch,
+                        @NCIntentTerm("command") command: NCEntity,
+                        @NCIntentTerm("person") person: NCEntity
+                    ): NCResult = ...
+                </pre>
+
+                <ul>
+                    <li>
+                        <code>Line 1</code> defines intent <code>ls</code> with two conditions.
+                    </li>
+                    <li>
+                        <code>Line 2</code> defines related callback method.
+                    </li>
+                    <li>
+                        <code>Lines 4 and 5</code> define two callback method's arguments which are corresponded to
+                        <code>call</code> intent conditions. You can extract normalized value
+                        <code>john smith</code> from the <code>person</code> parameter and use in the method body.
+                    </li>
+                </ul>
+
+                <p>
+                    Note that there are a lot of options of defining intents and their callback methods.
+                    They can be defined in configuration files, nested classes, etc.
+                    Look at the chapter <a href="intent-matching.html">Intent Matching</a> content for get more details.
+                </p>
+            </li>
+        </ul>
+
+    </section>
+
+    <section id="client">
+        <h2 class="section-title">Client overview<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+
+        <p>
+            Base client methods:
         </p>
         <ul>
             <li>
-                <code>ask()</code> passes user text input to the model and receives back triggered callback method execution result or
+                <code>ask()</code> passes user text input to the model and receives back execution
+                <a href="apis/latest/org/apache/nlpcraft/NCResult.html">NCResult</a> or
                 rejection exception if there isn't any triggered intents.
+                <a href="apis/latest/org/apache/nlpcraft/NCResult.html">NCResult</a> is wrapper on
+                callback method execution result with additional information.
             </li>
             <li>
                 <code>debugAsk()</code> passes user text input to the model and receives back callback and its parameters or
@@ -133,38 +259,10 @@ id: overview
 
     <section id="model-pipeline">
         <h2 class="section-title">Model pipeline <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
-        <p>
-             Before looking at <code>Pipeline</code> elements more throughly, let's start with terminology.
-        </p>
-
-        <ul>
-            <li>
-                <code>Token</code> represented as <a  href="apis/latest/org/apache/nlpcraft/NCToken.html">NCToken</a>.
-                It is simple string, part of user input, which split according to some rules, for instance by spaces and some additional conditions, which depends on language and some expectations.
-                So user input "<b>Where is it?</b>" contains four tokens: "<b>Where</b>", "<b>is</b>", "<b>it</b>", "<b>?</b>".
-                Tokens data are input for searching <code>entities</code>.
-            </li>
-            <li>
-                <code>Entity</code> represented as <a  href="apis/latest/org/apache/nlpcraft/NCEntity.html">NCEntity</a>.
-                According to wikipedia, named entity is a real-world object, such as a person, location, organization,
-                product, etc., that can be denoted with a proper name. It can be abstract or have a physical existence.
-                Each entity can contain one or more tokens.
-                Entities data are input for searching <a href="intent-matching.html">Intent matching</a> conditions.
-            </li>
-            <li>
-                <code>Variant</code> represented as <a  href="apis/latest/org/apache/nlpcraft/NCVariant.html">NCVariant</a>.
-                List of entities. Potentially, each token can be recognized as different entities,
-                so user input can be processed as set of variants.
-                For example user input "Mercedes" can be processed as 2 variants,
-                both of them contains single element list of entities: car brand or Spanish family name.
-                When words are not overlapped with different <code>entities</code> there is only one
-                <code>variant</code> detected.
-            </li>
-        </ul>
 
         <p>
-            Back to <code>pipeline</code> represented as <a href="apis/latest/org/apache/nlpcraft/NCPipeline.html">NCPipeline</a>.
-            <code>Pipeline</code> should be created based in following components:
+            Model <code>Pipeline</code> is represented as <a href="apis/latest/org/apache/nlpcraft/NCPipeline.html">NCPipeline</a> and
+            contains following components:
         </p>
         <ul>
             <li>
@@ -235,42 +333,6 @@ id: overview
             You can collect NlpCraft predefined components, write your own and easy reuse custom components.
         </p>
     </section>
-    <section id="model-intents">
-        <h2 class="section-title">Model intents and callbacks <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
-
-        <p>
-            Each model class should contain one or more callback methods which are mapped on their intents definitions.
-        </p>
-
-        <pre class="brush: scala, highlight: [1, 2, 4, 5]">
-            @NCIntent("intent=ls term(act)={# == 'ls:on'} term(loc)={# == 'ls:loc'}*")
-            def onMatch(
-                ctx: NCContext,
-                im: NCIntentMatch,
-                @NCIntentTerm("act") act: NCEntity,
-                @NCIntentTerm("loc") locs: List[NCEntity]
-            ): NCResult = NCResult("OK")
-        </pre>
-
-        <ul>
-            <li>
-                <code>Line 1</code> defines intent <code>ls</code> with two conditions.
-            </li>
-            <li>
-                <code>Line 2</code> defines related callback method.
-            </li>
-            <li>
-                <code>Lines 4 and 5</code> define two callback method's arguments which are corresponded to
-                <code>ls</code> intent conditions.
-            </li>
-        </ul>
-
-        <p>
-            Note that there are a lot of options of defining intents and their callback methods.
-            They can be defined in configuration files, nested classes, etc.
-            Look at the chapter <a href="intent-matching.html">Intent Matching</a> content for get more details.
-        </p>
-    </section>
 
     <section id="model-behavior">
         <h2 class="section-title">Model behavior overriding<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
@@ -302,9 +364,10 @@ id: overview
     <ul class="side-nav">
         <li class="side-nav-title">On This Page</li>
         <li><a href="#overview">Overview</a></li>
+        <li><a href="#model">Model overview</a></li>
+        <li><a href="#client">Client overview</a></li>
         <li><a href="#model-configuration">Model configuration</a></li>
         <li><a href="#model-pipeline">Model pipeline</a></li>
-        <li><a href="#model-intents">Model intents and callbacks</a></li>
         <li><a href="#model-behavior">Model behavior overriding</a></li>
         {% include quick-links.html %}
     </ul>
