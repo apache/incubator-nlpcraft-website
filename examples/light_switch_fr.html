@@ -176,8 +176,8 @@ fa_icon: fa-cube
             import org.apache.nlpcraft.*
             import org.apache.nlpcraft.annotations.*
             import demo.nlp.entity.parser.NCFrSemanticEntityParser
-            import demo.lightswitch.nlp.token.enricher.*
-            import demo.lightswitch.nlp.token.parser.NCFrTokenParser
+            import demo.nlp.token.enricher.*
+            import demo.nlp.token.parser.NCFrTokenParser
             import scala.jdk.CollectionConverters.*
 
             class LightSwitchFrModel extends NCModelAdapter(
@@ -380,7 +380,7 @@ fa_icon: fa-cube
             package demo.nlp.entity.parser
 
             import opennlp.tools.stemmer.snowball.SnowballStemmer
-            import org.apache.nlpcraft.examples.lightswitch.nlp.token.parser.NCFrTokenParser
+            import demo.nlp.token.parser.NCFrTokenParser
             import org.apache.nlpcraft.nlp.parsers.*
 
             class NCFrSemanticEntityParser(src: String) extends NCSemanticEntityParser(

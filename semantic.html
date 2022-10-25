@@ -611,6 +611,48 @@ id: semantic
                 <code>Line 3</code> makes semantic model which defined in <code>time_model.yaml</code> YAML file.
             </li>
         </ul>
+
+        <p>
+            If you want to use <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCSemanticEntityParser.html">NCSemanticEntityParser</a>
+            with not English language, you have to provide custom
+            <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCSemanticStemmer.html">NCSemanticStemmer</a> and
+            <a href="apis/latest/org/apache/nlpcraft/NCTokenParser.html">NCTokenParser</a>
+            implementations for required language. Look at the <a href="examples/light_switch_fr.html">Light Switch FR</a>
+            for more details.
+        </p>
+
+        <pre class="brush: scala, highlight: [4, 7, 8]">
+            package demo
+
+            import opennlp.tools.stemmer.snowball.SnowballStemmer
+            import demo.nlp.token.parser.NCFrTokenParser
+            import org.apache.nlpcraft.nlp.parsers.*
+
+            class NCFrSemanticEntityParser(src: String) extends NCSemanticEntityParser(
+                new NCSemanticStemmer:
+                    private val stemmer = new SnowballStemmer(SnowballStemmer.ALGORITHM.FRENCH)
+                    override def stem(txt: String): String = stemmer.synchronized { stemmer.stem(txt.toLowerCase).toString }
+                ,
+                new NCFrTokenParser(),
+                mdlSrcOpt = Option(src)
+            )
+        </pre>
+        <ul>
+            <li>
+                <code>Line 4</code> includes <code>NCFrTokenParser</code> import.
+                Its custom <a href="apis/latest/org/apache/nlpcraft/NCTokenParser.html">NCTokenParser</a>
+                implementation for French language, described here: <a href="examples/light_switch_fr.html">Light Switch FR</a>.
+            </li>
+            <li>
+                <code>Line 8</code> defines custom <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCSemanticStemmer.html">NCSemanticStemmer</a>
+                implementation for French language.
+            </li>
+            <li>
+                As you can see, <code>NCFrSemanticEntityParser</code> is very simple extension of
+                <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCSemanticEntityParser.html">NCSemanticEntityParser</a>
+                base class, look at <code>line 7</code>.
+            </li>
+        </ul>
     </section>
 </div>
 <div class="col-md-2 third-column">

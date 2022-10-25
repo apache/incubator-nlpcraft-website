@@ -44,7 +44,8 @@ id: overview
 
         <ul>
             <li>
-                <a href="apis/latest/org/apache/nlpcraft/NCTokenParser.html">NCTokenParser</a>. There are provided two built implementations, both for English language.
+                <a href="apis/latest/org/apache/nlpcraft/NCTokenParser.html">NCTokenParser</a>.
+                There are provided two built implementations, both of them are for English language.
                 <ul>
                     <li>
                         <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCOpenNLPTokenParser.html">NCOpenNLPTokenParser</a>.
@@ -60,7 +61,7 @@ id: overview
 
             <li>
                 <a href="apis/latest/org/apache/nlpcraft/NCTokenEnricher.html">NCTokenEnricher</a>.
-                There are provided a number of built implementations, all of them for English language.
+                There are provided a number of built implementations, all of them are for English language.
                 <ul>
                     <li>
                         <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCOpenNLPLemmaPosTokenEnricher.html">NCOpenNLPLemmaPosTokenEnricher</a> -
@@ -106,14 +107,16 @@ id: overview
 
             <li>
                 <a href="apis/latest/org/apache/nlpcraft/NCEntityParser.html">NCEntityParser</a>.
-                There are provided a number of built implementations, all of them for English language.
+                There are provided a number of language independent built implementations.
+                They use their own models which can be on different languages.
                 <ul>
                     <li>
                         <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCNLPEntityParser.html">NCNLPEntityParser</a> converts NLP tokens into entities with four mandatory properties:
                         <code>nlp:token:text</code>, <code>nlp:token:index</code>, <code>nlp:token:startCharIndex</code> and
                         <code>nlp:token:endCharIndex</code>. However, if any other properties were added into
-                        processed tokens by <code>NCTokenEnricher</code> components, they will be copied also with names
+                        processed tokens by <a href="apis/latest/org/apache/nlpcraft/NCTokenEnricher.html">NCTokenEnricher</a> components, they will be copied also with names
                         prefixed with <code>nlp:token:</code>.
+                        It is language independent component.
                         Note that converted tokens set can be restricted by predicate.
                     </li>
                     <li>
@@ -127,11 +130,18 @@ id: overview
                         <code>NCStanfordNLPEntityParser</code> is wrapper on <a href="https://nlp.stanford.edu/">Stanford NLP</a> NER components.
                         For example for English language are accessible: <code>Location</code>, <code>Money</code>,
                         <code>Person</code>, <code>Organization</code>, <code>Date</code>, <code>Time</code> and <code>Percent</code>.
+                        There are also accessible dome models for another languages.
                         Look at the detailed information <a href="https://nlp.stanford.edu/software/CRF-NER.shtml">here</a>.
                     </li>
                     <li>
                         <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCSemanticEntityParser.html">NCSemanticEntityParser</a> is entity parser which is based on list of synonyms elements.
                         It is very important component which allow to solve a wide range of tasks.
+                        If you want to use <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCSemanticEntityParser.html">NCSemanticEntityParser</a>
+                        with not English language, you have to provide custom
+                        <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCSemanticStemmer.html">NCSemanticStemmer</a> and
+                        <a href="apis/latest/org/apache/nlpcraft/NCTokenParser.html">NCTokenParser</a>
+                        implementations for required language.
+                        Look at the <a href="examples/light_switch_fr.html">Light Switch FR</a> for more details.
                         Separated chapter  <a href="semantic.html">Semantic parser</a> is dedicated to its detailed description.
                     </li>
                 </ul>
@@ -154,17 +164,14 @@ id: overview
             <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCSemanticEntityParser">NCSemanticEntityParser</a> and configured language.
             Currently only one language is supported - English.
             It also adds following English components into pipeline:
+            <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCOpenNLPTokenParser.html">NCOpenNLPTokenParser</a>,
+            <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCOpenNLPLemmaPosTokenEnricher.html">NCOpenNLPLemmaPosTokenEnricher</a>,
+            <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnStopWordsTokenEnricher.html">NCEnStopWordsTokenEnricher</a>,
+            <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnSwearWordsTokenEnricher.html">NCEnSwearWordsTokenEnricher</a>,
+            <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnQuotesTokenEnricher.html">NCEnQuotesTokenEnricher</a>,
+            <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnDictionaryTokenEnricher.html">NCEnDictionaryTokenEnricher</a>,
+            <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnBracketsTokenEnricher.html">NCEnBracketsTokenEnricher</a>.
         </p>
-
-        <ul>
-            <li><a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCOpenNLPTokenParser.html">NCOpenNLPTokenParser</a></li>
-            <li><a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCOpenNLPLemmaPosTokenEnricher.html">NCOpenNLPLemmaPosTokenEnricher</a></li>
-            <li><a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnStopWordsTokenEnricher.html">NCEnStopWordsTokenEnricher</a></li>
-            <li><a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnSwearWordsTokenEnricher.html">NCEnSwearWordsTokenEnricher</a></li>
-            <li><a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnQuotesTokenEnricher.html">NCEnQuotesTokenEnricher</a></li>
-            <li><a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnDictionaryTokenEnricher.html">NCEnDictionaryTokenEnricher</a></li>
-            <li><a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnBracketsTokenEnricher.html">NCEnBracketsTokenEnricher</a></li>
-        </ul>
     </section>
 
     <section id="examples">
