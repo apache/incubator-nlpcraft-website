@@ -31,11 +31,16 @@ id: installation
             <li>If you <a href="/download.html">downloaded</a> binary ZIP archive -
                 <a target="asf" href="https://www.apache.org/dyn/closer.cgi#verify">verify</a> it and unzip it.
             </li>
-            <li>If you <a href="/download.html">cloned</a> GitHub repository or downloaded source archive
-                <code>sbt clean compile</code> to build it.
+            <li>If you <a href="/download.html">cloned</a> GitHub repository or downloaded source archive compile
+                it via <code>SBT</code> command.
+                <pre class="brush: scala, highlight: []">
+                    $ sbt clean compile
+                </pre>
             </li>
-            <li>Also you can use <code>maven</code> command <code>mvn -B clean package -P stanford-core,examples</code>
-                and get same result.
+            <li>Also you can use <code>maven</code> command and get same result.
+                <pre class="brush: scala, highlight: []">
+                    $ mvn -B clean package -P stanford-core,examples
+                </pre>
             </li>
         </ul>
         <p>
@@ -47,9 +52,6 @@ id: installation
             </p>
             <p>
                 Starting with version <b>1.0.0</b> NLPCraft requires JDK 11+ and Scala 3.1.3.<br/>
-                Starting with version <b>0.9.0</b> NLPCraft requires JDK 11+ and Scala 2.13.<br/>
-                Starting with version <b>0.7.0</b> NLPCraft requires JDK 11+ and Scala 2.12.<br/>
-                Prior versions supported JDK 8 and Scala 2.12.
             </p>
         </div>
     </section>
@@ -71,24 +73,10 @@ id: installation
               )
         </pre>
 
-        <ul>
-            <li>
-                Now you can use <code>NlpCraft</code> library in <code>Your project</code>.
-            </li>
-            <li>
-                You can use <a href="https://www.scala-sbt.org/">SBT</a> or
-                <a href="https://maven.apache.org/">Maven</a>
-                systems depending on your requirements via links
-                to <a href="https://search.maven.org/">Maven Central</a>.
-            </li>
-            <li>
-                You also can build <code>NlpCraft</code> library source code and use references on jar files via
-                <a href="https://ant.apache.org/">Ant</a> or any another way.
-            </li>
-        </ul>
+        <p><b>NOTE: </b>use the latest versions of Scala and ScalaTest.</p>
 
         <p>
-            Go to Examples section to start work with concrete example.
+            Go to <a href="first-example.html">First example</a> section to look at concrete example.
         </p>
     </section>
  </div>

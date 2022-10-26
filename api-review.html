@@ -1,7 +1,7 @@
 ---
 active_crumb: Docs
 layout: documentation
-id: overview
+id: api-review
 ---
 
 <!--
@@ -23,10 +23,10 @@ id: overview
 
 <div class="col-md-8 second-column">
     <section id="overview">
-        <h2 class="section-title">Library API review <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <h2 class="section-title">API review <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
 
         <p>
-            NlpCraft library is based on two main concepts <code>Model</code> and <code>Client</code>
+            NLPCraft library is based on two main concepts <code>Data Model</code> and <code>Client</code>
             which have API representations
             <a href="apis/latest/org/apache/nlpcraft/NCModel.html">NCModel</a> and
             <a href="apis/latest/org/apache/nlpcraft/NCModelClient.html">NCModelClient</a>.
@@ -37,10 +37,10 @@ id: overview
 
         <ul>
             <li>
-                <code>Model</code> is domain specific object which responsible for user input interpretation.
+                <code>Data Model</code> is domain specific object which responsible for user input interpretation.
             </li>
             <li>
-                <code>Client</code> is object which allows to communicate with the given model.
+                <code>Client</code> is object which allows to communicate with the given data model.
             </li>
         </ul>
 
@@ -59,11 +59,10 @@ id: overview
               // Clears dialog session for user with ID "userId".
               client.clearDialog("userId")
         </pre>
-
     </section>
 
     <section id="model">
-        <h2 class="section-title">Model responsibility overview<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <h2 class="section-title">Data Model responsibility<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             Let's start with terminology and describe the system work workflow.
         </p>
@@ -102,13 +101,13 @@ id: overview
                 but it can be more flexible.
                 Parameters extracted from user text input are passed into callback methods.
                 These methods execution results are provided to user as answer on his request.
-                <code>Intent</code> callbacks are methods defined in <code>Model</code> class annotated by
+                <code>Intent</code> callbacks are methods defined in <code>Data Model</code> class annotated by
                 <code>intent</code> rules via <a href="intent-matching.html">IDL</a>.
             </li>
         </ul>
 
         <p>
-            <code>Model</code> must be able to do tree following things:
+            <code>Data Model</code> must be able to do tree following things:
         </p>
 
         <ul>
@@ -194,7 +193,7 @@ id: overview
     </section>
 
     <section id="client">
-        <h2 class="section-title">Client responsibility overview<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <h2 class="section-title">Client responsibility<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
 
         <p>
             Client which is represented as <a href="apis/latest/org/apache/nlpcraft/NCModelClient.html">NCModelClient</a>
@@ -233,7 +232,7 @@ id: overview
         <h2 class="section-title">Model configuration <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
 
         <p>
-            Model configuration <a href="apis/latest/org/apache/nlpcraft/NCModelConfig.html">NCModelConfig</a> represents set of model parameter values.
+            Data Model configuration <a href="apis/latest/org/apache/nlpcraft/NCModelConfig.html">NCModelConfig</a> represents set of model parameter values.
             Its properties are described below.
         </p>
         <ul>
@@ -268,7 +267,7 @@ id: overview
             <li>
                 <code>Token parser</code> represented as <a href="apis/latest/org/apache/nlpcraft/NCTokenParser.html">NCTokenParser</a>.
                 Mandatory pipeline component, it is required for parsing plain text, user input, and split this text
-                into tokens  list. NlpCraft provides default EN implementation of token parser.
+                into tokens  list. NLPCraft provides default EN implementation of token parser.
                 Also, project contain various examples for <a href="examples/light_switch_fr.html">French</a> and
                 <a href="examples/light_switch_ru.html">Russia</a> languages.
             </li>
@@ -276,7 +275,7 @@ id: overview
                 <code>Tokens enrichers</code> represented as <a href="apis/latest/org/apache/nlpcraft/NCTokenEnricher.html">NCTokenEnricher</a> optional list.
                 Tokens enricher is component which allows to add additional properties to prepared tokens,
                 like part of speech, quote, stop-words flags or any other.
-                NlpCraft provides default set of EN tokens enrichers implementations.
+                NLPCraft provides default set of EN tokens enrichers implementations.
             </li>
             <li>
                 <code>Tokens validators</code> represented as <a href="apis/latest/org/apache/nlpcraft/NCTokenValidator.html">NCTokenValidator</a> optional list.
@@ -287,7 +286,7 @@ id: overview
                 <code>Entity parsers</code> represented as <a href="apis/latest/org/apache/nlpcraft/NCEntityParser.html">NCEntityParser</a> mandatory list.
                 At least one entity parser must be defined. Having prepared tokens as input,
                 each entity parser tries to find user defined named entities.
-                NlpCraft provides wrappers for named-entity recognition components of OpenNLP and Stanford libraries.
+                NLPCraft provides wrappers for named-entity recognition components of OpenNLP and Stanford libraries.
             </li>
             <li>
                 <code>Entity enrichers</code> represented as <a href="apis/latest/org/apache/nlpcraft/NCEntityEnricher.html">NCEntityEnricher</a> optional list.
@@ -330,7 +329,7 @@ id: overview
 
         <p>
             This flexible system allows to create any pipelines on any language.
-            You can collect NlpCraft predefined components, write your own and easy reuse custom components.
+            You can collect NLPCraft predefined components, write your own and easy reuse custom components.
         </p>
     </section>
 

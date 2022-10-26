@@ -16,7 +16,7 @@
 -->
 
 <ul class="side-nav">
-    <li class="side-nav-title">Developer Guide</li>
+    <li class="side-nav-title">Introduction</li>
     <li>
         {% if page.id == "overview" %}
         <a class="active" href="/docs.html">Overview</a>
@@ -25,31 +25,50 @@
         {% endif %}
     </li>
     <li>
-        {% if page.id == api-review" %}
-        <a class="active" href="/api-review.html">API review</a>
+        {% if page.id == "installation" %}
+        <a class="active" href="/installation.html">Installation</a>
         {% else %}
-        <a href="/api-review.html">API review</a>
+        <a href="/installation.html">Installation</a>
         {% endif %}
     </li>
+    <li>
+        {% if page.id == "installation" %}
+        <a class="active" href="/first-example.html">First Example</a>
+        {% else %}
+        <a href="/first-example.html">First Example</a>
+        {% endif %}
+    </li>
+
+    <li class="side-nav-title">Built-in Components</li>
     <li>
         {% if page.id == "semantic" %}
-        <a class="active" href="/semantic.html">Semantic parser</a>
+        <a class="active" href="/semantic.html">Semantic Parser</a>
         {% else %}
-        <a href="/semantic.html">Semantic parser</a>
+        <a href="/semantic.html">Semantic Parser</a>
         {% endif %}
     </li>
     <li>
-        {% if page.id == "built-components" %}
-        <a class="active" href="/built-components.html">Built components</a>
+        {% if page.id == "built-in-components" %}
+        <a class="active" href="/built-in-components.html">Built-in Components</a>
         {% else %}
-        <a href="/built-components.html">Built components</a>
+        <a href="/built-in-components.html">Built-in Components</a>
         {% endif %}
     </li>
+
+    <li class="side-nav-title">Developer Guide</li>
     <li>
-        {% if page.id == "built-components" %}
-        <a class="active" href="/custom-components.html">Custom components</a>
+        {% if page.id == api-review" %}
+        <a class="active" href="/api-review.html">API Review</a>
         {% else %}
-        <a href="/custom-components.html">Custom components</a>
+        <a href="/api-review.html">API Review</a>
+        {% endif %}
+    </li>
+
+    <li>
+        {% if page.id == "custom-components" %}
+        <a class="active" href="/custom-components.html">Custom Components</a>
+        {% else %}
+        <a href="/custom-components.html">Custom Components</a>
         {% endif %}
     </li>
     <li>
@@ -66,13 +85,7 @@
         <a href="/short-term-memory.html">Short-Term Memory</a>
         {% endif %}
     </li>
-    <li>
-        {% if page.id == "installation" %}
-        <a class="active" href="/installation.html">Installation</a>
-        {% else %}
-        <a href="/installation.html">Installation</a>
-        {% endif %}
-    </li>
+
     <li class="side-nav-title">Examples</li>
     <li>
         {% if page.id == "calculator" %}
