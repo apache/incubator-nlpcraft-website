@@ -229,7 +229,7 @@ id: api-components
             </thead>
             <tbody>
             <tr>
-                <td><code>ask()</code></td>
+                <td><a href="apis/latest/org/apache/nlpcraft/NCModelClient.html#ask-fffff9ce">ask()</a></td>
                 <td>
                     Passes user text input to the model and receives back execution
                     <a href="apis/latest/org/apache/nlpcraft/NCResult.html">NCResult</a> or
@@ -239,7 +239,7 @@ id: api-components
                 </td>
             </tr>
             <tr>
-                <td><code>debugAsk()</code></td>
+                <td><a href="apis/latest/org/apache/nlpcraft/NCModelClient.html#debugAsk-fffff96c">debugAsk()</a></td>
                 <td>
                     Passes user text input to the model and receives back callback and its parameters or
                     rejection exception if there isn't any triggered intents.
@@ -248,21 +248,23 @@ id: api-components
                 </td>
             </tr>
             <tr>
-                <td><code>clearStm()</code></td>
+                <td><a href="apis/latest/org/apache/nlpcraft/NCModelClient.html#clearStm-571">clearStm()</a></td>
                 <td>
                     Clears STM state. Memory is cleared wholly or with some predicate.
                     Loot at <a href="short-term-memory.html">Conversation</a> chapter to get more details.
+                    Second variant odf given method with another parameters is here: <a href="apis/latest/org/apache/nlpcraft/NCModelClient.html#clearStm-1d8">clearStm()</a>.
                 </td>
             </tr>
             <tr>
-                <td><code>clearDialog()</code></td>
+                <td><a href="apis/latest/org/apache/nlpcraft/NCModelClient.html#clearDialog-571">clearDialog()</a></td>
                 <td>
                     Clears dialog state. Dialog is cleared wholly or with some predicate.
                     Loot at <a href="short-term-memory.html">Conversation</a> chapter to get more details.
+                    Second variant odf given method with another parameters is here: <a href="apis/latest/org/apache/nlpcraft/NCModelClient.html#clearDialog-1d8">clearDialog()</a>.
                 </td>
             </tr>
             <tr>
-                <td><code>close()</code></td>
+                <td><a href="apis/latest/org/apache/nlpcraft/NCModelClient.html#close-94c">close()</a></td>
                 <td>
                     Closes client. You can't call another client's methods after this method was closed.
                 </td>
@@ -410,8 +412,9 @@ id: api-components
         </table>
 
         <p>
-            Below <code>Model</code> creation example.
-            <code>Pipeline</code> is prepared using <code>NCPipelineBuilder</code> class helper.
+            Below <a href="apis/latest/org/apache/nlpcraft/NCModel.html">NCModel</a> creation example.
+            <a href="apis/latest/org/apache/nlpcraft/NCPipeline.html">NCPipeline</a> is prepared using
+            <a href="apis/latest/org/apache/nlpcraft/NCPipelineBuilder.html">NCPipelineBuilder</a> class helper.
         </p>
 
         <pre class="brush: scala, highlight: []">
@@ -452,25 +455,31 @@ id: api-components
             </thead>
             <tbody>
             <tr>
-                <td><code>onMatchedIntent()</code></td>
+                <td><a href="apis/latest/org/apache/nlpcraft/NCModel.html#onContext-38d">onContext()</a></td>
+                <td>
+                    Overriding this method allows to prepare result before intent matching.
+                </td>
+            </tr>
+            <tr>
+                <td><a href="apis/latest/org/apache/nlpcraft/NCModel.html#onMatchedIntent-946">onMatchedIntent()</a></td>
                 <td>
                     Overriding this method allows to reject matched intent and continue matching process.
                 </td>
             </tr>
             <tr>
-                <td><code>onResult()</code></td>
+                <td><a href="apis/latest/org/apache/nlpcraft/NCModel.html#onResult-fffffaf3">onResult()</a></td>
                 <td>
                     Overriding this method allows to replace callback method execution result.
                 </td>
             </tr>
             <tr>
-                <td><code>onRejection()</code></td>
+                <td><a href="apis/latest/org/apache/nlpcraft/NCModel.html#onRejection-4fa">onRejection()</a></td>
                 <td>
                     Overriding this method allows to change operation result when rejection occurs.
                 </td>
             </tr>
             <tr>
-                <td><code>onError()</code></td>
+                <td><a href="apis/latest/org/apache/nlpcraft/NCModel.html#onError-fffff759">onError()</a></td>
                 <td>
                     Overriding this method allows to change operation result when any error occurs.
                 </td>
