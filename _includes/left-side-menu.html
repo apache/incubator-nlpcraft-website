@@ -38,11 +38,34 @@
         <a href="/first-example.html">First Example</a>
         {% endif %}
     </li>
+
+    <li class="side-nav-title">Developer Guide</li>
     <li>
-        {% if page.id == api-components" %}
-        <a class="active" href="/api-components.html">API Components</a>
+        {% if page.id == "api-components" %}
+            <a class="active" href="/api-components.html">API Components</a>
         {% else %}
-        <a href="/api-components.html">API Components</a>
+            <a href="/api-components.html">API Components</a>
+        {% endif %}
+    </li>
+    <li>
+        {% if page.id == "custom-components" %}
+            <a class="active" href="/custom-components.html">Custom Components</a>
+        {% else %}
+            <a href="/custom-components.html">Custom Components</a>
+        {% endif %}
+    </li>
+    <li>
+        {% if page.id == "intent_matching" %}
+            <a class="active" href="/intent-matching.html">Intent Matching</a>
+        {% else %}
+            <a href="/intent-matching.html">Intent Matching</a>
+        {% endif %}
+    </li>
+    <li>
+        {% if page.id == "short_term_memory" %}
+            <a class="active" href="/short-term-memory.html">Short-Term Memory</a>
+        {% else %}
+            <a href="/short-term-memory.html">Short-Term Memory</a>
         {% endif %}
     </li>
 
@@ -56,16 +79,16 @@
     </li>
     <li>
         {% if page.id == "built-in-token-parser" %}
-        <a class="active" href="/built-in-token-parser.html">Token parsers</a>
+        <a class="active" href="/built-in-token-parser.html">Token Parsers</a>
         {% else %}
-        <a href="/built-in-token-parser.html">Token parsers</a>
+        <a href="/built-in-token-parser.html">Token Parsers</a>
         {% endif %}
     </li>
     <li>
         {% if page.id == "built-in-token-enricher" %}
-        <a class="active" href="/built-in-token-enricher.html">Token enrichers</a>
+        <a class="active" href="/built-in-token-enricher.html">Token Enrichers</a>
         {% else %}
-        <a href="/built-in-token-enricher.html">Token enrichers</a>
+        <a href="/built-in-token-enricher.html">Token Enrichers</a>
         {% endif %}
     </li>
     <li>
@@ -77,32 +100,9 @@
     </li>
     <li>
         {% if page.id == "built-in-builder" %}
-        <a class="active" href="/built-in-builder.html">Pipeline builder</a>
+        <a class="active" href="/built-in-builder.html">Pipeline Builder</a>
         {% else %}
-        <a href="/built-in-builder.html">Pipeline builder</a>
-        {% endif %}
-    </li>
-
-    <li class="side-nav-title">Developer Guide</li>
-    <li>
-        {% if page.id == "custom-components" %}
-        <a class="active" href="/custom-components.html">Custom Components</a>
-        {% else %}
-        <a href="/custom-components.html">Custom Components</a>
-        {% endif %}
-    </li>
-    <li>
-        {% if page.id == "intent_matching" %}
-        <a class="active" href="/intent-matching.html">Intent Matching</a>
-        {% else %}
-        <a href="/intent-matching.html">Intent Matching</a>
-        {% endif %}
-    </li>
-    <li>
-        {% if page.id == "short_term_memory" %}
-        <a class="active" href="/short-term-memory.html">Short-Term Memory</a>
-        {% else %}
-        <a href="/short-term-memory.html">Short-Term Memory</a>
+        <a href="/built-in-builder.html">Pipeline Builder</a>
         {% endif %}
     </li>
 
