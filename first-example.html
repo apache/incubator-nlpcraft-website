@@ -22,23 +22,6 @@ id: first_example
 -->
 
 <div class="col-md-8 second-column">
-    <section id="tldr">
-        <h2 class="section-title">TL;DR; <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
-        <p>
-            Watch this quick video (10>03) for NLPCraft "Hello World!" example:
-        </p>
-        <div>
-            <iframe
-                    width="514"
-                    height="289"
-                    src="https://www.youtube.com/embed/R7SRpxBxHHY?modestbranding=1"
-                    title="NLPCraft - Hello World!"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
-            </iframe>
-        </div>
-    </section>
     <section id="setup">
         <h2 class="section-title">Overview <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
@@ -51,423 +34,255 @@ id: first_example
         </p>
     </section>
     <section id="new_project">
-        <h2 class="section-title">New Project <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <h2 class="section-title">Create New Project <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
-            We'll use <a href="/tools/script.html">NLPCraft CLI</a> to perform all management operations.
-            Run <code>bin/nlpcraft.sh</code> script to create a new project stub:
+            You can create new Scala projects in many ways - we'll use SBT
+            to accomplish this task. Make sure that <code>build.sbt</code> file has the following content:
         </p>
-        <nav>
-            <div class="nav nav-tabs" role="tablist">
-                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-cmd" role="tab">Command</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-out" role="tab">Output <i class="fa fa-desktop output"></i></a>
-            </div>
-        </nav>
-        <div class="tab-content">
-            <div class="tab-pane fade show active" id="nav-cmd" role="tabpanel">
-                <pre class="brush: bash">
-                    $ bin/nlpcraft.sh gen-project --baseName=LightSwitch --outputDir=~ --lang=scala --pkgName=demo
-                </pre>
-            </div>
-            <div class="tab-pane fade show" id="nav-out" role="tabpanel">
-                <p></p>
-                <p>
-                    <img class="img-fluid" alt="" src="/images/first_example_fig1.png">
-                </p>
-            </div>
-        </div>
-        <p>
-            <b>NOTES:</b>
-        </p>
-        <ul>
-            <li>
-                New project created in <code>/home/LightSwitch</code> directory.
-            </li>
-            <li>
-                <code>gen-project</code> command defaults to Maven as its built tool.
-            </li>
-            <li>
-                Run <code class="script">bin/nlpcraft.sh help --cmd=gen-project</code> to get a full help on <code>gen-project</code> command.
-            </li>
-            <li>
-                <a href="/tools/script.html">NLPCraft CLI</a> is available as <code>nlpcraft.sh</code> for
-                <i class="fab fa-fw fa-linux"></i> and <code>nlpcraft.cmd</code>
-                for <i class="fab fa-fw fa-windows"></i>.
-            </li>
-        </ul>
-        <div class="bq info">
-            <p>
-                <i class="fas fa-lightbulb"></i> Learn more about <a href="/tools/script.html">NLPCraft CLI</a>.
-            </p>
-        </div>
-    </section>
-    <section id="data_model">
-        <h2 class="section-title">Data Model <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
-        <p>
-            In NLPCraft a data model is an implementation of <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModel.html">NCModel</a>
-            interface. You can move most of the model configuration out to an external JSON or YAML file and use
-            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelFileAdapter.html">NCModelFileAdapter</a> to
-            load this external configuration when creating a new model.
-        </p>
-        <p>
-            Open <code>src/main/resources/<b>light_switch.yaml</b></code> file and replace its content with
-            the following model declaration:
-        </p>
-        <pre class="brush: js, highlight: [6, 22, 23, 26, 33, 41, 52]">
-id: "nlpcraft.lightswitch.ex"
-name: "Light Switch Example Model"
-version: "1.0"
-description: "NLI-powered light switch example model."
-
-macros:
-  - name: "&lt;ACTION&gt;"
-    macro: "{turn|switch|dial|let|set|get|put}"
-  - name: "&lt;KILL&gt;"
-    macro: "{shut|kill|stop|eliminate}"
-  - name: "&lt;ENTIRE_OPT&gt;"
-    macro: "{entire|full|whole|total|_}"
-  - name: "&lt;FLOOR_OPT&gt;"
-    macro: "{upstairs|downstairs|{1st|2nd|3rd|4th|5th|top|ground} floor|_}"
-  - name: "&lt;TYPE&gt;"
-    macro: "{room|closet|attic|loft|{store|storage} {room|_}}"
-  - name: "&lt;LIGHT&gt;"
-    macro: "{all|_} {it|them|light|illumination|lamp|lamplight}"
-
-enabledBuiltInTokens: []
-
-permutateSynonyms: true
-sparse: true
-
-elements:
-  - id: "ls:loc"
-    description: "Location of lights."
-    synonyms:
-      - "&lt;ENTIRE_OPT&gt; &lt;FLOOR_OPT&gt; {kitchen|library|closet|garage|office|playroom|{dinning|laundry|play} &lt;TYPE&gt;}"
-      - "&lt;ENTIRE_OPT&gt; &lt;FLOOR_OPT&gt; {master|kid|children|child|guest|_} {bedroom|bathroom|washroom|storage} {&lt;TYPE&gt;|_}"
-      - "&lt;ENTIRE_OPT&gt; {house|home|building|{1st|first} floor|{2nd|second} floor}"
-
-  - id: "ls:on"
-    groups:
-      - "act"
-    description: "Light switch ON action."
-    synonyms:
-      - "&lt;ACTION&gt; {on|up|_} &lt;LIGHT&gt; {on|up|_}"
-      - "&lt;LIGHT&gt; {on|up}"
-
-  - id: "ls:off"
-    groups:
-      - "act"
-    description: "Light switch OFF action."
-    synonyms:
-      - "&lt;ACTION&gt; &lt;LIGHT&gt; {off|out}"
-      - "{&lt;ACTION&gt;|&lt;KILL&gt;} {off|out} &lt;LIGHT&gt;"
-      - "&lt;KILL&gt; &lt;LIGHT&gt;"
-      - "&lt;LIGHT&gt; &lt;KILL&gt;"
-      - "no &lt;LIGHT&gt;"
-
-intents:
-  - "intent=ls term(act)={has(tok_groups, 'act')} term(loc)={# == 'ls:loc'}*"
+        <pre class="brush: js, highlight: []">
+            ThisBuild / version := "0.1.0-SNAPSHOT"
+            ThisBuild / scalaVersion := "3.1.3"
+            lazy val root = (project in file("."))
+              .settings(
+                name := "NLPCraft LightSwitch Example",
+                version := "{{site.latest_version}}",
+                libraryDependencies += "org.apache.nlpcraft" % "nlpcraft" % "{{site.latest_version}}",
+                libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.14" % "test"
+              )
         </pre>
-        <p>There are number of important points here:</p>
+        <p><b>NOTE: </b>use the latest versions of Scala and ScalaTest.</p>
+        <p>Create the following files so that resulting project structure would look like the following:</p>
+        <ul>
+            <li><code>lightswitch_model.yaml</code> - YAML configuration file, which contains model description.</li>
+            <li><code>LightSwitchModel.scala</code> - Scala class, model implementation.</li>
+            <li><code>LightSwitchModelSpec.scala</code> - Scala tests class, which allows to test your model.</li>
+        </ul>
+        <pre class="brush: plain, highlight: [7, 10, 14]">
+            |  build.sbt
+            +--project
+            |    build.properties
+            \--src
+               +--main
+               |  +--resources
+               |  |    lightswitch_model.yaml
+               |  \--scala
+               |     \--demo
+               |          LightSwitchModel.scala
+               \--test
+                  \--scala
+                     \--demo
+                          LightSwitchModelSpec.scala
+        </pre>
+    </section>
+    <section id="model">
+        <h2 class="section-title">Data Model<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <p>
+            We are going to start with declaring the static part of our model using YAML which we will later load using
+            <code>NCModelAdapter</code> in our Scala-based model implementation.
+            Open <code>src/main/resources/<b>light_switch.yaml</b></code>
+            file and replace its content with the following YAML:
+        </p>
+        <pre class="brush: js, highlight: [1, 10, 17, 25]">
+            macros:
+              "&lt;ACTION&gt;" : "{turn|switch|dial|let|set|get|put}"
+              "&lt;KILL&gt;" : "{shut|kill|stop|eliminate}"
+              "&lt;ENTIRE_OPT&gt;" : "{entire|full|whole|total|_}"
+              "&lt;FLOOR_OPT&gt;" : "{upstairs|downstairs|{1st|first|2nd|second|3rd|third|4th|fourth|5th|fifth|top|ground} floor|_}"
+              "&lt;TYPE&gt;" : "{room|closet|attic|loft|{store|storage} {room|_}}"
+              "&lt;LIGHT&gt;" : "{all|_} {it|them|light|illumination|lamp|lamplight}"
+
+            elements:
+              - id: "ls:loc"
+                description: "Location of lights."
+                synonyms:
+                  - "&lt;ENTIRE_OPT&gt; &lt;FLOOR_OPT&gt; {kitchen|library|closet|garage|office|playroom|{dinning|laundry|play} &lt;TYPE&gt;}"
+                  - "&lt;ENTIRE_OPT&gt; &lt;FLOOR_OPT&gt; {master|kid|children|child|guest|_} {bedroom|bathroom|washroom|storage} {&lt;TYPE&gt;|_}"
+                  - "&lt;ENTIRE_OPT&gt; {house|home|building|{1st|first} floor|{2nd|second} floor}"
+
+              - id: "ls:on"
+                groups:
+                  - "act"
+                description: "Light switch ON action."
+                synonyms:
+                  - "&lt;ACTION&gt; {on|up|_} &lt;LIGHT&gt; {on|up|_}"
+                  - "&lt;LIGHT&gt; {on|up}"
+
+              - id: "ls:off"
+                groups:
+                  - "act"
+                description: "Light switch OFF action."
+                synonyms:
+                  - "&lt;ACTION&gt; &lt;LIGHT&gt; {off|out|down}"
+                  - "{&lt;ACTION&gt;|&lt;KILL&gt;} {off|out|down} &lt;LIGHT&gt;"
+                  - "&lt;KILL&gt; &lt;LIGHT&gt;"
+                  - "&lt;LIGHT&gt; &lt;KILL&gt;"
+                  - "{out|no|off|down} &lt;LIGHT&gt;"
+                  - "&lt;LIGHT&gt; {out|off|down}"
+        </pre>
+
         <ul>
             <li>
-                <code>Line 6</code> defines several macros that are used later on throughout the model's elements
+                <code>Line 1</code> defines several macros that are used later on throughout the model's elements
                 to shorten the synonym declarations. Note how macros coupled with option groups
                 shorten overall synonym declarations 1000:1 vs. manually listing all possible word permutations.
             </li>
             <li>
-                <code>Lines 22, 23</code> define model properties that allow for multi-word synonyms in this model
-                to be
-                <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#isSparse()">sparse</a> and
-                <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#isPermutateSynonyms()">permutate</a> them for better detection. These two properties generally enable a free-form
-                natural language comprehension.
-            </li>
-            <li>
-                <code>Lines 26, 33, 41</code> define three model elements: the location of the light, and actions to turn
+                <code>Lines 10, 17, 25</code> define three model elements: the location of the light, and actions to turn
                 the light on and off. Action elements belong to the same group <code>act</code> which
-                will be used in our intent (<code>line 42</code>). Note that these model elements are defined mostly
-                through macros we have provided above.
-            </li>
-            <li>
-                On <code>line 52</code> we define a non-conversational intent <code>ls</code> that requires
-                one action (a token belonging to the group <code>act</code>) and optional list of light locations
-                (zero or more tokens with ID <code>ls:loc</code>) - by default we assume the entire house as a default location.
+                will be used in our intent, defined in <code>LightSwitchModel</code> class. Note that these model
+                elements are defined mostly through macros we have defined above.
             </li>
         </ul>
-        <p>
-            Next, let's go ahead and add model's logic which we'll write in Scala with Java and Kotlin versions provided for reference.
-            Open <code>src/main/scala/demo/<b>LightSwitch.scala</b></code> file and replace its content with the following
-            code:
-        </p>
-        <nav>
-            <div class="nav nav-tabs" role="tablist">
-                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-scala" role="tab">Scala <img src="/images/scala-logo-h16.png" alt=""></a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-java" role="tab">Java <img src="/images/java2-h20.png" alt=""></a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-kotlin" role="tab">Kotlin <img src="/images/kotlin-h18.png" alt=""></a>
-            </div>
-        </nav>
-        <div class="tab-content">
-            <div class="tab-pane fade show active" id="nav-scala" role="tabpanel">
-        <pre class="brush: scala, highlight: [5, 6, 7, 22, 23]">
-package demo
-
-import org.apache.nlpcraft.model.{NCIntentTerm, _}
-
-class LightSwitchModel extends NCModelFileAdapter("light_switch.yaml") {
-    @NCIntentRef("ls")
-    @NCIntentSample(Array(
-        "Turn the lights off in the entire house.",
-        "Switch on the illumination in the master bedroom closet.",
-        "Get the lights on.",
-        "Please, put the light out in the upstairs bedroom.",
-        "Set the lights on in the entire house.",
-        "Turn the lights off in the guest bedroom.",
-        "Could you please switch off all the lights?",
-        "Dial off illumination on the 2nd floor.",
-        "Please, no lights!",
-        "Kill off all the lights now!",
-        "No lights in the bedroom, please.",
-        "Kill the illumination now!"
-    ))
-    def onMatch(
-        @NCIntentTerm("act") actTok: NCToken,
-        @NCIntentTerm("loc") locToks: List[NCToken]
-    ): NCResult = {
-        val status = if (actTok.getId == "ls:on") "on" else "off"
-        val locations =
-            if (locToks.isEmpty)
-                "entire house"
-            else
-                locToks.map(_.getOriginalText()).mkString(", ")
-
-        // Add HomeKit, Arduino or other integration here.
-
-        // By default - return a descriptive action string.
-        NCResult.text(s"Lights '$status' in '${locations.toLowerCase}'.")
-    }
-}
-        </pre>
-            </div>
-            <div class="tab-pane fade show" id="nav-java" role="tabpanel">
-        <pre class="brush: java">
-package demo;
-
-import org.apache.nlpcraft.model.*;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
-public class LightSwitchJavaModel extends NCModelFileAdapter {
-    public LightSwitchJavaModel() {
-        // Loading the model from the file in the classpath.
-        super("lightswitch_model.yaml");
-    }
-
-    @NCIntentRef("ls")
-    @NCIntentSample({
-        "Turn the lights off in the entire house.",
-        "Switch on the illumination in the master bedroom closet.",
-        "Get the lights on.",
-        "Lights up in the kitchen.",
-        "Please, put the light out in the upstairs bedroom.",
-        "Set the lights on in the entire house.",
-        "Turn the lights off in the guest bedroom.",
-        "Could you please switch off all the lights?",
-        "Dial off illumination on the 2nd floor.",
-        "Please, no lights!",
-        "Kill off all the lights now!",
-        "No lights in the bedroom, please.",
-        "Light up the garage, please!",
-        "Kill the illumination now!"
-    })
-    NCResult onMatch(
-        @NCIntentTerm("act") NCToken actTok,
-        @NCIntentTerm("loc") List&lt;NCToken&gt; locToks) {
-        String status = actTok.getId().equals("ls:on") ? "on" : "off";
-        String locations = locToks.isEmpty() ?
-            "entire house" :
-            locToks.stream().map(t -> (String)t.meta("nlpcraft:nlp:origtext"))
-                .collect(Collectors.joining(", "));
-
-        // Add HomeKit, Arduino or other integration here.
-
-        // By default - return a descriptive action string.
-        return NCResult.text("Lights are [" + status + "] in [" + locations.toLowerCase() + "].");
-    }
-}
-
-        </pre>
-            </div>
-            <div class="tab-pane fade show" id="nav-kotlin" role="tabpanel">
-        <pre class="brush: scala">
-package demo
-
-import org.apache.nlpcraft.model.*
-import java.util.stream.Collectors
-
-class LightSwitchKotlinModel : NCModelFileAdapter("lightswitch_model.yaml") {
-    @NCIntentRef("ls")
-    @NCIntentSample(
-        "Turn the lights off in the entire house.",
-        "Switch on the illumination in the master bedroom closet.",
-        "Get the lights on.",
-        "Lights up in the kitchen.",
-        "Please, put the light out in the upstairs bedroom.",
-        "Set the lights on in the entire house.",
-        "Turn the lights off in the guest bedroom.",
-        "Could you please switch off all the lights?",
-        "Dial off illumination on the 2nd floor.",
-        "Please, no lights!",
-        "Kill off all the lights now!",
-        "No lights in the bedroom, please.",
-        "Light up the garage, please!",
-        "Kill the illumination now!"
-    )
-    fun onMatch(
-        @NCIntentTerm("act") actTok: NCToken,
-        @NCIntentTerm("loc") locToks: List&lt;NCToken&gt;
-    ): NCResult {
-        val status = if (actTok.id == "ls:on") "on" else "off"
-        val locations = if (locToks.isEmpty()) "entire house" else locToks.stream()
-            .map { t: NCToken -> t.meta("nlpcraft:nlp:origtext") as String }
-            .collect(Collectors.joining(", "))
-
-        // Add HomeKit, Arduino or other integration here.
-
-        // By default - return a descriptive action string.
-        return NCResult.text("Lights are [" + status + "] in [" + locations.toLowerCase() + "].")
-    }
-}
-        </pre>
-            </div>
+        <div class="bq info">
+            <p><b>YAML vs. API</b></p>
+            <p>
+                As usual, this YAML-based static model definition is convenient but totally optional. All elements definitions
+                can be provided programmatically inside Scala model <code>LightSwitchModel</code> class as well.
+            </p>
         </div>
+    </section>
+    <section id="code">
+        <h2 class="section-title">Model Class <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
-            <b>NOTES:</b>
+            Open <code>src/main/scala/demo/<b>LightSwitchModel.scala</b></code> file and replace its content with the following code:
+        </p>
+        <pre class="brush: scala, highlight: [6, 7, 8, 10, 11, 14, 15, 22]">
+            package demo
+
+            import org.apache.nlpcraft.*
+            import org.apache.nlpcraft.annotations.*
+
+            class LightSwitchModel extends NCModelAdapter(
+                NCModelConfig("nlpcraft.lightswitch.java.ex", "LightSwitch Example Model", "1.0"),
+                new NCPipelineBuilder().withSemantic("en", "lightswitch_model.yaml").build
+            ):
+                @NCIntent("intent=ls term(act)={has(ent_groups, 'act')} term(loc)={# == 'ls:loc'}*")
+                def onMatch(
+                    ctx: NCContext,
+                    im: NCIntentMatch,
+                    @NCIntentTerm("act") actEnt: NCEntity,
+                    @NCIntentTerm("loc") locEnts: List[NCEntity]
+                ): NCResult =
+                    val status = if actEnt.getId == "ls:on" then "on" else "off"
+                    val locations = if locEnts.isEmpty then "entire house" else locEnts.map(_.mkText).mkString(", ")
+
+                    // Add HomeKit, Arduino or other integration here.=
+                    // By default - just return a descriptive action string.
+                    NCResult(s"Lights are [$status] in [${locations.toLowerCase}].")
+        </pre>
+        <p>
+            The intent callback logic is very simple - we return a descriptive confirmation message
+            back (explaining what lights were changed). With action and location detected, you can add
+            the actual light switching using HomeKit or Arduino devices. Let's review this implementation step by step:
         </p>
         <ul>
             <li>
-                On <code>line 5</code> we use <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelFileAdapter.html">NCModelFileAdapter</a>
-                to load its configuration from the external <code>light_switch.yaml</code> YAML file.
+                On <code>line 5</code> our class extends <code>NCModelAdapter</code> that allows us to pass
+                prepared configuration and pipeline into model.
             </li>
             <li>
-                Our data model uses intent-based matching of the user input. Intent is a template and a callback for when
-                a template is matched against user input:
-                <ul>
-                    <li>
-                        <code>Line 6</code> uses <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentRef.html">@NCIntentRef</a>
-                        annotation to reference the intent defined in our model (<code>light_switch.yaml</code>, <code>line 42</code>).
-                        The intent matches
-                        two parts: first should be any token belonging to <code>act</code> group (i.e. "on" or "off" action),
-                        and the second should be a zero or more tokens with ID equal to <code>ls:loc</code> (i.e. optional list of locations).
-                    </li>
-                    <li>
-                        <code>Line 7</code> uses <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a>
-                        annotation that is  used for <a href="#test">auto-testing</a> of the model.
-                    </li>
-                </ul>
+                On <code>line 6</code> created model configuration with most default parameters.
             </li>
             <li>
-                <code>Lines 22 and 23</code> use <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntent.html">@NCIntentTerm</a>
-                annotations to connect the matched result with a callback method formal parameters.
+                On <code>line 7</code> created pipeline, based on semantic model definition,
+                described in <code>lightswitch_model.yaml</code> file.
             </li>
             <li>
-                When our intent is selected as a matching winner the method <code>onMatch(...)</code> on <code>line 20</code> is invoked. It
-                returns a text response that indicates the light status at a requested location. That's where you can
-                also add <a target=_ href="https://developer.apple.com/homekit/">HomeKit</a>,
-                <a href="https://www.arduino.cc/" target=_>Ardunio</a> or other integrations to finish this implementation.
+                <code>Lines 10 and 11</code> annotates intents <code>ls</code> and its callback method <code>onMatch()</code>.
+                Intent <code>ls</code> requires one action (a token belonging to the group <code>act</code>) and optional list of light locations
+                (zero or more tokens with ID <code>ls:loc</code>) - by default we assume the entire house as a default location.
+            </li>
+            <li>
+                <code>Lines 14 and 15</code> map terms from detected intent to the formal method parameters of the
+                <code>onMatch()</code> method.
+            </li>
+            <li>
+                On the <code>line 22</code> the intent callback simply returns a confirmation message.
             </li>
         </ul>
-        <div class="bq info">
-            <p>
-                <i class="fas fa-lightbulb"></i> Learn more about <a href="/data-model.html">Data Model</a> and <a href="/intent-matching.html">Intents</a>.
-            </p>
-        </div>
     </section>
-    <section id="build_project">
-        <h2 class="section-title">Build Project <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+
+    <section id="build">
+        <h2 class="section-title">Build Project<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+
         <p>
-            Once the  model ready, run the Maven build:
+            Once the model ready, run the SBT build from the project folder:
         </p>
-        <pre class="brush: bash">
-            $ cd ~/LightSwitch
-            $ mvn clean package
+
+        <pre class="brush: scala, highlight: []">
+            $ sbt clean compile
         </pre>
     </section>
-    <section id="server">
-        <h2 class="section-title">Start Server <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
-        <p>
-            Start local REST server, if it hasn't been started already:
-        </p>
-        <nav>
-            <div class="nav nav-tabs" role="tablist">
-                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-srv-cmd" role="tab">Command</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-srv-out" role="tab">Output <i class="fa fa-desktop output"></i></a>
-            </div>
-        </nav>
-        <div class="tab-content">
-            <div class="tab-pane fade show active" id="nav-srv-cmd" role="tabpanel">
-                <pre class="brush: bash">
-                    $ bin/nlpcraft.sh start-server
-                </pre>
-            </div>
-            <div class="tab-pane fade show" id="nav-srv-out" role="tabpanel">
-                <p></p>
-                <p>
-                    <img class="img-fluid" alt="" src="/images/first_example_fig2.png">
-                </p>
-            </div>
-        </div>
-        <div class="bq info">
-            <p>
-                <i class="fas fa-lightbulb"></i> Learn more about <a href="/server-and-probe.html">Server <span class="amp">&</span> Data Probes</a>.
-            </p>
-        </div>
-    </section>
-    <section id="test">
+
+    <section id="testing">
         <h2 class="section-title">Testing <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
-            Recall the <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a>
-            annotation we have used in our code next to intent reference.
+            The test defined in <code>LightSwitchModelSpec</code> allows to check that all input test sentences are
+            processed correctly and trigger the expected intent <code>ls</code>:
         </p>
+        <pre class="brush: scala, highlight: [9, 11]">
+            package demo
+
+            import org.apache.nlpcraft.*
+            import org.scalatest.funsuite.AnyFunSuite
+            import scala.util.Using
+
+            class LightSwitchModelSpec extends AnyFunSuite:
+                test("test") {
+                    Using.resource(new NCModelClient(new LightSwitchModel())) { client =>
+                        def check(txt: String): Unit =
+                            require(client.debugAsk(txt, "userId", true).getIntentId == "ls")
+
+                        check("Turn the lights off in the entire house.")
+                        check("Turn off all lights now")
+                        check("Switch on the illumination in the master bedroom closet.")
+                        check("Get the lights on.")
+                        check("Off the lights on the 1st floor")
+                        check("Lights up in the kitchen.")
+                        check("Please, put the light out in the upstairs bedroom.")
+                        check("Set the lights on in the entire house.")
+                        check("Turn the lights off in the guest bedroom.")
+                        check("Could you please switch off all the lights?")
+                        check("Dial off illumination on the 2nd floor.")
+                        check("Turn down lights in 1st floor bedroom")
+                        check("Lights on at second floor kitchen")
+                        check("Please, no lights!")
+                        check("Kill off all the lights now!")
+                        check("Down the lights in the garage")
+                        check("Lights down in the kitchen!")
+                        check("Turn up the illumination in garage and master bedroom")
+                        check("Turn down all the light now!")
+                        check("No lights in the bedroom, please.")
+                        check("Light up the garage, please!")
+                        check("Kill the illumination now!")
+                    }
+                }
+        </pre>
+        <ul>
+            <li>
+                <code>Line 9</code> creates the client for our model.
+            </li>
+            <li>
+                <code>Line 11</code> calls a special method <code>debugAsk()</code>.
+                It allows to check the winning intent and its callback parameters without actually
+                calling the intent.
+            </li>
+            <li>
+                <code>Lines 13-34</code> define all the test input sentences that should all
+                trigger <code>ls</code> intent.
+            </li>
+        </ul>
         <p>
-            Part of the <a href="/tools/test_framework.html">test framework</a>, the auto-validator class <a
-                target="javadoc"
-                href="/apis/latest/org/apache/nlpcraft/model/tools/test/NCTestAutoModelValidator.html">NCTestAutoModelValidator</a> takes one or more model IDs
-            (or class names) and performs validation. Validation consists of starting an  <a href="/tools/embedded_probe.html">embedded probe</a> with a given model,
-            scanning for <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a> and
-            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSampleRef.html">@NCIntentSampleRef</a> annotations
-            and their corresponding callback methods, submitting each sample input
-            sentences from these annotations and checking that resulting intent matches the intent the sample was attached to.
-            Note that auto-testing does not require any additional code to be written - the class gathers all required information from the model
-            itself.
+            You can run this test via SBT task <code>executeTests</code> or using IDE.
         </p>
-        <p>
-            Run model auto-validator:
-        </p>
-        <nav>
-            <div class="nav nav-tabs" role="tablist">
-                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-test-cmd" role="tab">Command</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-test-out" role="tab">Output <i class="fa fa-desktop output"></i></a>
-            </div>
-        </nav>
-        <div class="tab-content">
-            <div class="tab-pane fade show active" id="nav-test-cmd" role="tabpanel">
-                <pre class="brush: bash">
-                    $ bin/nlpcraft.sh test-model --cp=~/LightSwitch/target/classes --mdls=demo.LightSwitchModel
-                </pre>
-            </div>
-            <div class="tab-pane fade show" id="nav-test-out" role="tabpanel">
-                <p></p>
-                <p>
-                    <img style="max-width: 910px !important;" class="img-fluid" alt="" src="/images/first_example_fig4.png">
-                </p>
-            </div>
-        </div>
+        <pre class="brush: scala, highlight: []">
+            $ sbt executeTests
+        </pre>
     </section>
     <section>
-        <h2 class="section-title">Congratulation! 👌 <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <h2 class="section-title">Done! 👌 <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
-            You've created your first data model, started the
-            REST server and tested the model using built-in model auto-validator.
+            You've created light switch data model and tested it.
         </p>
     </section>
 </div>
@@ -475,10 +290,10 @@ class LightSwitchKotlinModel : NCModelFileAdapter("lightswitch_model.yaml") {
     <ul class="side-nav">
         <li class="side-nav-title">On This Page</li>
         <li><a href="#new_project">New Project</a></li>
-        <li><a href="#data_model">Data Model</a></li>
-        <li><a href="#build_project">Build Project</a></li>
-        <li><a href="#server">Start Server</a></li>
-        <li><a href="#test">Testing</a></li>
+        <li><a href="#model">Data Model</a></li>
+        <li><a href="#code">Model Class</a></li>
+        <li><a href="#build">Build Project</a></li>
+        <li><a href="#testing">Testing</a></li>
         {% include quick-links.html %}
     </ul>
 </div>

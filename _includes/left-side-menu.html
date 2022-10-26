@@ -38,32 +38,52 @@
         <a href="/first-example.html">First Example</a>
         {% endif %}
     </li>
+    <li>
+        {% if page.id == api-components" %}
+        <a class="active" href="/api-components.html">API Components</a>
+        {% else %}
+        <a href="/api-components.html">API Components</a>
+        {% endif %}
+    </li>
 
     <li class="side-nav-title">Built-in Components</li>
     <li>
-        {% if page.id == "semantic" %}
-        <a class="active" href="/semantic.html">Semantic Parser</a>
+        {% if page.id == "built-in-overview" %}
+        <a class="active" href="/built-in-overview.html">Overview</a>
         {% else %}
-        <a href="/semantic.html">Semantic Parser</a>
+        <a href="/built-in-overview.html">Overview</a>
         {% endif %}
     </li>
     <li>
-        {% if page.id == "built-in-components" %}
-        <a class="active" href="/built-in-components.html">Built-in Components</a>
+        {% if page.id == "built-in-token-parser" %}
+        <a class="active" href="/built-in-token-parser.html">Token parsers</a>
         {% else %}
-        <a href="/built-in-components.html">Built-in Components</a>
+        <a href="/built-in-token-parser.html">Token parsers</a>
+        {% endif %}
+    </li>
+    <li>
+        {% if page.id == "built-in-token-enricher" %}
+        <a class="active" href="/built-in-token-enricher.html">Token enrichers</a>
+        {% else %}
+        <a href="/built-in-token-enricher.html">Token enrichers</a>
+        {% endif %}
+    </li>
+    <li>
+        {% if page.id == "built-in-entity-parser" %}
+        <a class="active" href="/built-in-entity-parser.html">Entity Parsers</a>
+        {% else %}
+        <a href="/built-in-entity-parser.html">Entity Parsers</a>
+        {% endif %}
+    </li>
+    <li>
+        {% if page.id == "built-in-builder" %}
+        <a class="active" href="/built-in-builder.html">Pipeline builder</a>
+        {% else %}
+        <a href="/built-in-builder.html">Pipeline builder</a>
         {% endif %}
     </li>
 
     <li class="side-nav-title">Developer Guide</li>
-    <li>
-        {% if page.id == api-review" %}
-        <a class="active" href="/api-review.html">API Review</a>
-        {% else %}
-        <a href="/api-review.html">API Review</a>
-        {% endif %}
-    </li>
-
     <li>
         {% if page.id == "custom-components" %}
         <a class="active" href="/custom-components.html">Custom Components</a>

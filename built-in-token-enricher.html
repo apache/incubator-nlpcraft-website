@@ -1,0 +1,115 @@
+---
+active_crumb: Docs
+layout: documentation
+id: built-in-token-enricher
+---
+
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one or more
+ contributor license agreements.  See the NOTICE file distributed with
+ this work for additional information regarding copyright ownership.
+ The ASF licenses this file to You under the Apache License, Version 2.0
+ (the "License"); you may not use this file except in compliance with
+ the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<div class="col-md-8 second-column">
+    <section id="overview">
+        <h2 class="section-title">Built-in Token Enricher<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+
+        <p>
+            <a href="apis/latest/org/apache/nlpcraft/NCTokenEnricher.html">NCTokenEnricher</a>
+            is a component which allows to add additional properties to prepared tokens,
+            like part of speech, quote, stop-words flags or any other.
+            NLPCraft provides English language default set of token enrichers implementations.
+        </p>
+    </section>
+
+    <section id="enricher-opennlp-lemmapos">
+        <h2 class="section-title">Lemma And POS Enricher<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+
+        <p>
+            <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCOpenNLPLemmaPosTokenEnricher.html">NCOpenNLPLemmaPosTokenEnricher</a> -
+            this component allows to add <code>lemma</code> and <code>pos</code> values to processed token.
+            Look at these links fpr more details: <a href="https://www.wikiwand.com/en/Lemma_(morphology)">Lemma</a> and
+            <a href="https://www.wikiwand.com/en/Part-of-speech_tagging">Part of speech</a>.
+            Current implementation is based on <a href="https://opennlp.apache.org/">Apache OpenNLP</a> project components.
+            Is uses Apache OpenNLP models, which are accessible
+            <a href="http://opennlp.sourceforge.net/models-1.5/">here</a> for POS taggers.
+            English lemmatization model is accessible <a href="https://raw.githubusercontent.com/richardwilly98/elasticsearch-opennlp-auto-tagging/master/src/main/resources/models/en-lemmatizer.dict">here</a>.
+            You can use any models which are compatible with Apache OpenNLP <a href="https://opennlp.apache.org/docs/2.0.0/apidocs/opennlp-tools/opennlp/tools/postag/POSTaggerME.html">POSTaggerME</a> and
+            <a href="https://opennlp.apache.org/docs/2.0.0/apidocs/opennlp-tools/opennlp/tools/lemmatizer/DictionaryLemmatizer.html">DictionaryLemmatizer</a> components.
+        </p>
+    </section>
+    <section id="enricher-opennlp-bracket">
+        <h2 class="section-title">Brackets Enricher<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+
+        <p>
+            <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnBracketsTokenEnricher.html">NCEnBracketsTokenEnricher</a> -
+            this component allows to add <code>brackets</code> boolean flag to processed token.
+        </p>
+    </section>
+    <section id="enricher-opennlp-quotes">
+        <h2 class="section-title">Quotes Enricher<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+
+        <p>
+            <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnQuotesTokenEnricher.html">NCEnQuotesTokenEnricher</a> -
+            this component allows to add <code>quoted</code> boolean flag to processed token.
+        </p>
+    </section>
+    <section id="enricher-opennlp-dict">
+        <h2 class="section-title">Dictionary Enricher<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+
+        <p>
+            <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnDictionaryTokenEnricher.html">NCEnDictionaryTokenEnricher</a> -
+            this component allows to add <code>dict</code> boolean flag to processed token.
+            Note that it requires already defined <code>lemma</code> token property,
+            You can use <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCOpenNLPLemmaPosTokenEnricher.html">NCOpenNLPLemmaPosTokenEnricher</a> or any another component which sets
+            <code>lemma</code> into the token.
+        </p>
+    </section>
+    <section id="enricher-opennlp-stopword">
+        <h2 class="section-title">Stop-words Enricher<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+
+        <p>
+            <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnStopWordsTokenEnricher.html">NCEnStopWordsTokenEnricher</a> -
+            this component allows to add <code>stopword</code> boolean flag to processed token.
+            It is based on predefined rules for English language, but it can be also extended by custom user word list and excluded list.
+            Note that it requires already defined <code>lemma</code> token property,
+            You can use <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCOpenNLPLemmaPosTokenEnricher.html">NCOpenNLPLemmaPosTokenEnricher</a> or any another component which sets
+            <code>lemma</code> into the token.
+        </p>
+    </section>
+    <section id="enricher-opennlp-swearword">
+        <h2 class="section-title">Swear-words Enricher<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+
+        <p>
+            <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnSwearWordsTokenEnricher.html">NCEnSwearWordsTokenEnricher</a> -
+            this component allows to add <code>swear</code> boolean flag to processed token.
+        </p>
+    </section>
+</div>
+<div class="col-md-2 third-column">
+    <ul class="side-nav">
+        <li class="side-nav-title">On This Page</li>
+        <li><a href="#enricher-opennlp-lemmapos">Lemma And POS Enricher</a></li>
+        <li><a href="#enricher-opennlp-bracket">Brackets Enricher</a></li>
+        <li><a href="#enricher-opennlp-quotes">Quotes Enricher</a></li>
+        <li><a href="#enricher-opennlp-dict">Dictionary Enricher</a></li>
+        <li><a href="#enricher-opennlp-stopword">Stop-words Enricher</a></li>
+        <li><a href="#enricher-opennlp-swearword">Swear-words Enricher</a></li>
+        {% include quick-links.html %}
+    </ul>
+</div>
+
+
+
+
