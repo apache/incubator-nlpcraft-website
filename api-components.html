@@ -78,8 +78,8 @@ id: api-components
             <tr>
                 <td><code>Token</code></td>
                 <td>
-                    <code>Token</code> represented as <a  href="apis/latest/org/apache/nlpcraft/NCToken.html">NCToken</a>.
-                    It is simple string, part of user input, which split according to some rules,
+                    <code>Token</code> represented as <a  href="apis/latest/org/apache/nlpcraft/NCToken.html">NCToken</a>
+                    is simple string, part of user input, which split according to some rules,
                     for instance by spaces and some additional conditions, which depends on language and some expectations.
                     So user input "<b>Where is it?</b>" contains four tokens:
                     "<code>Where</code>", "<code>is</code>", "<code>it</code>", "<code>?</code>".
@@ -91,18 +91,18 @@ id: api-components
             <tr>
                 <td><code>Entity</code></td>
                 <td>
-                    <code>Entity</code> represented as <a  href="apis/latest/org/apache/nlpcraft/NCEntity.html">NCEntity</a>.
-                    According to wikipedia, named entity is a real-world object, such as a person, location, organization,
+                    According to wikipedia, <code>named entity</code> is a real-world object, such as a person, location, organization,
                     product, etc., that can be denoted with a proper name. It can be abstract or have a physical existence.
                     Each <code>entity</code> can contain one or more tokens.
-                    <code>Entities</code> are input for searching <code>intents</code> according to <a href="intent-matching.html">Intent matching</a> conditions.
+                    <code>Entities</code> represented as
+                    <a href="apis/latest/org/apache/nlpcraft/NCEntity.html">NCEntity</a> are input for searching <code>intents</code> according to <a href="intent-matching.html">Intent matching</a> conditions.
                 </td>
             </tr>
             <tr>
                 <td><code>Variant</code></td>
                 <td>
-                    <code>Variant</code> represented as <a  href="apis/latest/org/apache/nlpcraft/NCVariant.html">NCVariant</a>.
-                    It is a list of <code>entities</code>. Potentially, each <code>token</code> can be recognized as
+                    <code>Variant</code> represented as <a  href="apis/latest/org/apache/nlpcraft/NCVariant.html">NCVariant</a>
+                    is a list of <code>entities</code>. Potentially, each <code>token</code> can be recognized as
                     different <code>entities</code>,
                     so user input can be processed as set of <code>variants</code>.
                     For example user input "Mercedes" can be processed as two <code>variants</code>,
@@ -287,13 +287,13 @@ id: api-components
             </thead>
             <tbody>
             <tr>
-                <td><code>Id</code>, <code>Name</code> and <code>Version</code></td>
+                <td><code>id</code>, <code>name</code> and <code>version</code></td>
                 <td>
                     Mandatory model properties.
                 </td>
             </tr>
             <tr>
-                <td><code>Description</code>, <code>Origin</code></td>
+                <td><code>description</code>, <code>origin</code></td>
                 <td>
                     Optional model properties.
                 </td>
