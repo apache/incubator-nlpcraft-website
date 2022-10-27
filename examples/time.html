@@ -62,7 +62,7 @@ fa_icon: fa-cube
             <li><code>GeoManager.scala</code> - Helper service which provides cities timezones information for user request.</li>
             <li><code>TimeModelSpec.scala</code> - Test that allows to test your model.</li>
         </ul>
-        <pre class="brush: plain, highlight: [7, 8, 13, 15, 16, 20]">
+        <pre class="brush: plain, highlight: [7, 8, 11, 12, 13, 17]">
             |  build.sbt
             +--project
             |    build.properties
@@ -73,11 +73,8 @@ fa_icon: fa-cube
                |  |    cities_timezones.txt
                |  \--scala
                |     \--demo
-               |        \--utils
-               |           \--cities
-               |                CitiesDataProvider.scala
-               |           \--keycdn
-               |                GeoManager.scala
+               |          CitiesDataProvider.scala
+               |          GeoManager.scala
                |          TimeModel.scala
                \--test
                   \--scala
@@ -90,7 +87,7 @@ fa_icon: fa-cube
         <p>
             We are going to start with declaring the static part of our model using YAML which we will later load using
             <a href="../apis/latest/org/apache/nlpcraft/NCModelAdapter.html">NCModelAdapter</a> in our Scala-based model implementation.
-            Open <code>src/main/resources/<b>time.yaml</b></code>
+            Open <code>src/main/resources/<b>time_model.yaml</b></code>
             file and replace its content with the following YAML:
         </p>
         <pre class="brush: js, highlight: [1, 6]">
@@ -131,7 +128,7 @@ fa_icon: fa-cube
         <p>
             Open <code>src/main/scala/demo/<b>TimeModel.scala</b></code> file and replace its content with the following code:
         </p>
-        <pre class="brush: scala, highlight: [16, 17, 18, 19, 20, 21, 56, 57, 70, 71]">
+        <pre class="brush: scala, highlight: [14, 15, 16, 17, 18, 19, 54, 55, 68, 69]">
             package demo
 
             import com.fasterxml.jackson.core.JsonProcessingException
@@ -139,8 +136,6 @@ fa_icon: fa-cube
             import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
             import org.apache.nlpcraft.*
             import org.apache.nlpcraft.annotations.*
-            import demo.utils.cities.*
-            import demo.utils.keycdn.GeoManager
             import org.apache.nlpcraft.internal.util.NCResourceReader
             import org.apache.nlpcraft.nlp.parsers.NCOpenNLPEntityParser
             import java.time.format.DateTimeFormatter
@@ -213,21 +208,21 @@ fa_icon: fa-cube
         </p>
         <ul>
             <li>
-                On <code>line 19</code> our class extends <a href="../apis/latest/org/apache/nlpcraft/NCModelAdapter.html">NCModelAdapter</a> that allows us to pass
+                On <code>line 17</code> our class extends <a href="../apis/latest/org/apache/nlpcraft/NCModelAdapter.html">NCModelAdapter</a> that allows us to pass
                 prepared configuration and pipeline into model.
             </li>
             <li>
-                <code>Line 16</code> creates <code>IDL fragment</code> which is used in <code>intent2</code> definition below.
+                <code>Line 14</code> creates <code>IDL fragment</code> which is used in <code>intent2</code> definition below.
             </li>
             <li>
-                <code>Lines 17 and 18</code> annotate two intents definitions <code>intent1</code> and <code>intent2</code>.
+                <code>Lines 15 and 16</code> annotate two intents definitions <code>intent1</code> and <code>intent2</code>.
                 Their callbacks below have references on them by their identifiers.
             </li>
             <li>
-                <code>Line 20</code> creates model configuration with most default parameters.
+                <code>Line 18</code> creates model configuration with most default parameters.
             </li>
             <li>
-                <code>Line 21</code> creates pipeline based on built-in components:
+                <code>Line 19</code> creates pipeline based on built-in components:
                 <ul>
                     <li>Built-in English language
                         <a href="../apis/latest/org/apache/nlpcraft/nlp/parsers/NCSemanticEntityParser.html">NCSemanticEntityParser</a>
@@ -236,14 +231,13 @@ fa_icon: fa-cube
                         configured by <code>opennlp/en-ner-location.bin</code> for GEO locations detection.
                     </li>
                 </ul>
-                Look at these built-in components documentation for more details.
             </li>
             <li>
-                <code>Lines 56 and 57</code> annotate intent <code>intent2</code> and its callback method <code>onRemoteMatch()</code>.
+                <code>Lines 54 and 55</code> annotate intent <code>intent2</code> and its callback method <code>onRemoteMatch()</code>.
                 This intent requires one mandatory entity - city which is used for getting time for its timezone.
             </li>
             <li>
-                <code>Lines 70 and 71</code> annotate intent <code>intent1</code> and its callback method <code>onLocalMatch()</code>.
+                <code>Lines 68 and 69</code> annotate intent <code>intent1</code> and its callback method <code>onLocalMatch()</code>.
                 This intent is triggered by default, tries to detect timezone by request data and return time for this timezone.
                 Otherwise, it returns Silicon Valley current time.
             </li>
@@ -252,8 +246,21 @@ fa_icon: fa-cube
         <p>
             Implementations of helper classes <code>GeoManager</code> and <code>CitiesDataProvider</code> are not related
             to given example logic.
-            Just copy these classes and <code>cities_timezones.txt</code> file from project source code into your demo project.
+            Just copy these classes and <code>cities_timezones.txt</code> file from project source code into your demo project
+            and don't forget to correct package names to <code>demo</code> for copied classes.
+            Links are below:
         </p>
+        <ul>
+            <li>
+                <a href="https://raw.githubusercontent.com/apache/incubator-nlpcraft/master/nlpcraft-examples/time/src/main/scala/org/apache/nlpcraft/examples/time/utils/keycdn/GeoManager.scala">GeoManager.scala</a>
+            </li>
+            <li>
+                <a href="https://raw.githubusercontent.com/apache/incubator-nlpcraft/master/nlpcraft-examples/time/src/main/scala/org/apache/nlpcraft/examples/time/utils/cities/CitiesDataProvider.scala">CitiesDataProvider.scala</a>
+            </li>
+            <li>
+                <a href="https://raw.githubusercontent.com/apache/incubator-nlpcraft/master/nlpcraft-examples/time/src/main/resources/cities_timezones.txt">cities_timezones.txt</a>
+            </li>
+        </ul>
     </section>
 
     <section id="testing">
@@ -294,8 +301,8 @@ fa_icon: fa-cube
                 calling the intent.
             </li>
             <li>
-                <code>Lines 13-18</code> define all the test input sentences that should all
-                trigger <code>ls</code> intent.
+                <code>Lines 13-18</code> define all the test input sentences that should
+                trigger requited intent.
             </li>
         </ul>
         <p>

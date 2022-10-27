@@ -49,10 +49,12 @@ fa_icon: fa-cube
                 name := "NLPCraft Calculator Example",
                 version := "{{site.latest_version}}",
                 libraryDependencies += "org.apache.nlpcraft" % "nlpcraft" % "{{site.latest_version}}",
+                libraryDependencies += "org.apache.nlpcraft" % "nlpcraft-stanford" % "1.0.0",
+                libraryDependencies += "edu.stanford.nlp" % "stanford-corenlp" % "4.5.1",
                 libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.14" % "test"
               )
         </pre>
-        <p><b>NOTE: </b>use the latest versions of Scala and ScalaTest.</p>
+        <p><b>NOTE: </b>use the latest versions of Scala, ScalaTest and StanfordNLP library.</p>
         <p>Create the following files so that resulting project structure would look like the following:</p>
         <ul>
             <li><code>CalculatorModel.scala</code> - Model implementation</li>
@@ -156,7 +158,7 @@ fa_icon: fa-cube
         </p>
         <ul>
             <li>
-                <code>Line 11</code> declares <code>CalculatorModel</code>, model companion object, which contains
+                <code>Line 11</code> declares <code>CalculatorModel</code> model companion object which contains
                 static content and helper methods.
             </li>
             <li>
@@ -175,7 +177,7 @@ fa_icon: fa-cube
             </li>
             <li>
                 <code>Line 23</code> defines entity parser
-                <a href="NCStanfordNLPEntityParser">NCStanfordNLPEntityParser</a>,
+                <a href="NCStanfordNLPEntityParser">NCStanfordNLPEntityParser</a>
                 which allows to find numerics in the text input.
             </li>
             <li>

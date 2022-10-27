@@ -49,10 +49,12 @@ fa_icon: fa-cube
                 name := "NLPCraft Calculator Example",
                 version := "{{site.latest_version}}",
                 libraryDependencies += "org.apache.nlpcraft" % "nlpcraft" % "{{site.latest_version}}",
+                libraryDependencies += "org.apache.nlpcraft" % "nlpcraft-stanford" % "1.0.0",
+                libraryDependencies += "edu.stanford.nlp" % "stanford-corenlp" % "4.5.1",
                 libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.14" % "test"
               )
         </pre>
-        <p><b>NOTE: </b>use the latest versions of Scala and ScalaTest.</p>
+        <p><b>NOTE: </b>use the latest versions of Scala, ScalaTest and StanfordNLP library.</p>
         <p>Create the following files so that resulting project structure would look like the following:</p>
         <ul>
             <li><code>pizzeria_model.yaml</code> - YAML configuration file which contains model description.</li>
@@ -89,7 +91,7 @@ fa_icon: fa-cube
         <h2 class="section-title">Data Model<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             We are going to start with declaring the static part of our model using YAML which we will later load using
-            <a href="../apis/latest/org/apache/nlpcraft/NCModelAdapter.html">NCModelAdapter</a> custom implementation.</li> in our Scala-based model implementation.
+            <a href="../apis/latest/org/apache/nlpcraft/NCModelAdapter.html">NCModelAdapter</a> custom implementation in our Scala-based model implementation.
             Open <code>src/main/resources/<b>pizzeria_model.yaml</b></code>
             file and replace its content with the following YAML:
         </p>
