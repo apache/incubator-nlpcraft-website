@@ -181,18 +181,18 @@ fa_icon: fa-cube
         </p>
         <ul>
             <li>
-                On <code>line 5</code> our class extends <a href="../apis/latest/org/apache/nlpcraft/NCModelAdapter.html">NCModelAdapter</a> that allows us to pass
+                On <code>line 6</code> our class extends <a href="../apis/latest/org/apache/nlpcraft/NCModelAdapter.html">NCModelAdapter</a> that allows us to pass
                 prepared configuration and pipeline into model.
             </li>
             <li>
-                On <code>line 6</code> created model configuration with most default parameters.
+                <code>Line 7</code> creates model configuration with most default parameters.
             </li>
             <li>
-                On <code>line 7</code> created pipeline, based on semantic model definition,
+                <code>Line 8</code> creates pipeline, based on semantic model definition,
                 described in <code>lightswitch_model.yaml</code> file.
             </li>
             <li>
-                <code>Lines 10 and 11</code> annotates intents <code>ls</code> and its callback method <code>onMatch()</code>.
+                <code>Lines 10 and 11</code> annotate intents <code>ls</code> and its callback method <code>onMatch()</code>.
                 Intent <code>ls</code> requires one action (a token belonging to the group <code>act</code>) and optional list of light locations
                 (zero or more tokens with ID <code>ls:loc</code>) - by default we assume the entire house as a default location.
             </li>
@@ -255,7 +255,8 @@ fa_icon: fa-cube
                 <code>Line 9</code> creates the client for our model.
             </li>
             <li>
-                <code>Line 11</code> calls a special method <code>debugAsk()</code>.
+                <code>Line 11</code> calls a special method
+                <a href="../apis/latest/org/apache/nlpcraft/NCModelClient.html#debugAsk-fffff96c">debugAsk()</a>.
                 It allows to check the winning intent and its callback parameters without actually
                 calling the intent.
             </li>

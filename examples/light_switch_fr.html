@@ -53,7 +53,7 @@ fa_icon: fa-cube
                 libraryDependencies += "org.apache.nlpcraft" % "nlpcraft" % "{{site.latest_version}}",
                 libraryDependencies += "org.apache.lucene" % "lucene-analyzers-common" % "8.11.2",
                 libraryDependencies += "org.languagetool" % "languagetool-core" % "5.8",
-                libraryDependencies += "org.languagetool" % "language-fr" % "5.8"
+                libraryDependencies += "org.languagetool" % "language-fr" % "5.8",
                 libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.14" % "test"
               )
         </pre>
@@ -67,10 +67,26 @@ fa_icon: fa-cube
         <ul>
             <li><code>lightswitch_model_fr.yaml</code> - YAML configuration file which contains model description.</li>
             <li><code>LightSwitchFrModel.scala</code> - Model implementation.</li>
-            <li><code>NCFrSemanticEntityParser.scala</code> - Semantic entity parser, custom implementation for French language.</li>
-            <li><code>NCFrLemmaPosTokenEnricher.scala</code> - Lemma and point of speech token enricher, custom implementation for French language.</li>
-            <li><code>NCFrStopWordsTokenEnricher.scala</code> - Stop-words token enricher, custom implementation for French language.</li>
-            <li><code>NCFrTokenParser.scala</code> - Token parser, custom implementation for French language.</li>
+            <li>
+                <code>NCFrSemanticEntityParser.scala</code> - Semantic entity parser, custom implementation of
+                <a href="../apis/latest/org/apache/nlpcraft/nlp/parsers/NCSemanticEntityParser.html">NCSemanticEntityParser</a>
+                for French language.
+            </li>
+            <li>
+                <code>NCFrLemmaPosTokenEnricher.scala</code> - Lemma and point of speech token enricher, custom implementation of
+                <a href="../apis/latest/org/apache/nlpcraft/NCTokenEnricher.html">NCTokenEnricher</a>
+                for French language.
+            </li>
+            <li>
+                <code>NCFrStopWordsTokenEnricher.scala</code> - Stop-words token enricher token enricher, custom implementation of
+                <a href="../apis/latest/org/apache/nlpcraft/NCTokenEnricher.html">NCTokenEnricher</a>
+                for French language.
+            </li>
+            <li>
+                <code>NCFrTokenParser.scala</code> - Token parser, custom implementation of
+                <a href="../apis/latest/org/apache/nlpcraft/NCTokenParser.html">NCTokenParser</a>
+                for French language.
+            </li>
             <li><code>LightSwitchFrModelSpec.scala</code> - Test that allows to test your model.</li>
         </ul>
         <pre class="brush: plain, highlight: [7, 10, 14, 17, 18, 20, 24]">
@@ -105,7 +121,7 @@ fa_icon: fa-cube
         <p>
             We are going to start with declaring the static part of our model using YAML which we will later load using
             <a href="../apis/latest/org/apache/nlpcraft/NCModelAdapter.html">NCModelAdapter</a> in our Scala-based model implementation.
-            Open <code>src/main/resources/<b>light_switch_fr.yaml</b></code>
+            Open <code>src/main/resources/<b>lightswitch_model_fr.yaml</b></code>
             file and replace its content with the following YAML:
         </p>
         <pre class="brush: js, highlight: [1, 10, 17, 25]">
@@ -449,7 +465,8 @@ fa_icon: fa-cube
                 <code>Line 9</code> creates the client for our model.
             </li>
             <li>
-                <code>Line 11</code> calls a special method <code>debugAsk()</code>.
+                <code>Line 11</code> calls a special method
+                <a href="../apis/latest/org/apache/nlpcraft/NCModelClient.html#debugAsk-fffff96c">debugAsk()</a>.
                 It allows to check the winning intent and its callback parameters without actually
                 calling the intent.
             </li>
@@ -484,9 +501,3 @@ fa_icon: fa-cube
         {% include quick-links.html %}
     </ul>
 </div>
-
-
-
-
-
-
