@@ -55,8 +55,8 @@ fa_icon: fa-cube
         <p><b>NOTE: </b>use the latest versions of Scala and ScalaTest.</p>
         <p>Create the following files so that resulting project structure would look like the following:</p>
         <ul>
-            <li><code>CalculatorModel.scala</code> - Scala class, model implementation.</li>
-            <li><code>CalculatorModelSpec.scala</code> - Scala tests class, which allows to test your model.</li>
+            <li><code>CalculatorModel.scala</code> - Model implementation</li>
+            <li><code>CalculatorModelSpec.scala</code> - Test that allows to test your model.</li>
         </ul>
         <pre class="brush: plain, highlight: [8, 12]">
             |  build.sbt
@@ -164,15 +164,18 @@ fa_icon: fa-cube
             </li>
             <li>
                 <code>Line 14</code> defines model pipeline based on three built-in components.
-                <code>Line 21</code> defines Stanford token parser <code>NCStanfordNLPTokenParser</code>
+                <code>Line 21</code> defines Stanford token parser
+                <a href="NCStanfordNLPTokenParser">NCStanfordNLPTokenParser</a>
                 (we use Stanford NLP components in this example).
             </li>
             <li>
-                <code>Line 22</code> declares entity parser <code>NCNLPEntityParser</code>
+                <code>Line 22</code> declares entity parser
+                <a href="../apis/latest/org/apache/nlpcraft/nlp/parsers/NCNLPEntityParser.html">NCNLPEntityParser</a>
                 which allows to find arithmetic operations notations.
             </li>
             <li>
-                <code>Line 23</code> defines entity parser <code>NCStanfordNLPEntityParser</code>,
+                <code>Line 23</code> defines entity parser
+                <a href="NCStanfordNLPEntityParser">NCStanfordNLPEntityParser</a>,
                 which allows to find numerics in the text input.
             </li>
             <li>

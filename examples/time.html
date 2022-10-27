@@ -62,7 +62,7 @@ fa_icon: fa-cube
             <li><code>GeoManager.scala</code> - Helper service which provides cities timezones information for user request.</li>
             <li><code>TimeModelSpec.scala</code> - Test that allows to test your model.</li>
         </ul>
-        <pre class="brush: plain, highlight: [7, 10, 14]">
+        <pre class="brush: plain, highlight: [7, 8, 13, 15, 16, 20]">
             |  build.sbt
             +--project
             |    build.properties
@@ -89,11 +89,11 @@ fa_icon: fa-cube
         <h2 class="section-title">Data Model<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             We are going to start with declaring the static part of our model using YAML which we will later load using
-            <code>NCModelAdapter</code> in our Scala-based model implementation.
+            <a href="../apis/latest/org/apache/nlpcraft/NCModelAdapter.html">NCModelAdapter</a> in our Scala-based model implementation.
             Open <code>src/main/resources/<b>time.yaml</b></code>
             file and replace its content with the following YAML:
         </p>
-        <pre class="brush: js, highlight: [1, 10, 17, 25]">
+        <pre class="brush: js, highlight: [1, 6]">
             macros:
               "&lt;OF&gt;": "{of|for|per}"
               "&lt;CUR&gt;": "{current|present|now|local}"
@@ -114,7 +114,7 @@ fa_icon: fa-cube
             </li>
             <li>
                 <code>Line 6</code> defines <code>x:time</code> model element which
-                will be used in our intent, defined in <code>TimeModel</code> class. Note that this model
+                is used in our intent defined in <code>TimeModel</code> class. Note that this model
                 element is defined mostly through macros we have defined above.
             </li>
         </ul>
@@ -213,7 +213,7 @@ fa_icon: fa-cube
         </p>
         <ul>
             <li>
-                On <code>line 19</code> our class extends <code>NCModelAdapter</code> that allows us to pass
+                On <code>line 19</code> our class extends <a href="../apis/latest/org/apache/nlpcraft/NCModelAdapter.html">NCModelAdapter</a> that allows us to pass
                 prepared configuration and pipeline into model.
             </li>
             <li>
@@ -227,10 +227,12 @@ fa_icon: fa-cube
                 <code>Line 20</code> creates model configuration with most default parameters.
             </li>
             <li>
-                <code>Line 21</code> creates pipeline based on built-in components.
+                <code>Line 21</code> creates pipeline based on built-in components:
                 <ul>
-                    <li>This pipeline is based on built-in EN semantic entity enricher configured with <code>time_model.yaml</code>.</li>
-                    <li>Also there is entity parser <code>NCOpenNLPEntityParser</code>
+                    <li>Built-in English language
+                        <a href="../apis/latest/org/apache/nlpcraft/nlp/parsers/NCSemanticEntityParser.html">NCSemanticEntityParser</a>
+                        configured with <code>time_model.yaml</code>.</li>
+                    <li>Entity parser <a href="../apis/latest/org/apache/nlpcraft/nlp/parsers/NCOpenNLPTokenParser.html">NCOpenNLPTokenParser</a>
                         configured by <code>opennlp/en-ner-location.bin</code> for GEO locations detection.
                     </li>
                 </ul>
@@ -300,7 +302,7 @@ fa_icon: fa-cube
             You can run this test via SBT task <code>executeTests</code> or using IDE.
         </p>
         <pre class="brush: scala, highlight: []">
-            PS C:\apache\incubator-nlpcraft-examples\time> sbt executeTests
+            sbt executeTests
         </pre>
     </section>
     <section>
