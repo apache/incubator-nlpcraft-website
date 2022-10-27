@@ -28,19 +28,16 @@ id: installation
             Apache NLPCraft requires <b>no special installation</b> operations:
         </p>
         <ul>
-            <li>If you <a href="/download.html">downloaded</a> binary ZIP archive -
+            <li>
+                If you <a href="/download.html">downloaded</a> binary ZIP archive -
                 <a target="asf" href="https://www.apache.org/dyn/closer.cgi#verify">verify</a> it and unzip it.
             </li>
-            <li>If you <a href="/download.html">cloned</a> GitHub repository or downloaded source archive compile
-                it via <code>SBT</code> command:
-                <pre class="brush: scala, highlight: []">
-                    $ sbt clean compile
-                </pre>
+            <li>
+                If you <a href="/download.html">cloned</a> GitHub repository or downloaded source archive compile
+                it via <code>SBT</code>: <code class="script">$ sbt clean compile</code>
             </li>
-            <li>Also you can use <code>maven</code> command and get same result:
-                <pre class="brush: scala, highlight: []">
-                    $ mvn -B clean package -P stanford-core,examples
-                </pre>
+            <li>
+                If you prefer to use <code>maven</code>: <code class="script">$ mvn -B clean package -P stanford-core,examples</code>
             </li>
         </ul>
         <p>
