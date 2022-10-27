@@ -214,35 +214,35 @@ fa_icon: fa-cube
                 def isValid: Boolean = !isEmpty && findPizzaWithoutSize.isEmpty
 
                 def add(ps: Seq[Pizza], ds: Seq[Drink]): Unit =
-                    def setByName[T <: OrderPosition](buf: mutable.ArrayBuffer[T], t: T): Unit =
+                    def setByName[T &lt;: OrderPosition](buf: mutable.ArrayBuffer[T], t: T): Unit =
                             buf.find(_.name == t.name) match
-                            case Some(foundT) => if t.qty.nonEmpty then foundT.qty = t.qty
-                            case None => buf += t
+                            case Some(foundT) =&gt; if t.qty.nonEmpty then foundT.qty = t.qty
+                            case None =&gt; buf += t
 
-                    for (p <- ps)
-                        def setPizza(pred: Pizza => Boolean, notFound: => () => Unit): Unit =
+                    for (p &lt;- ps)
+                        def setPizza(pred: Pizza =&gt; Boolean, notFound: =&gt; () =&gt; Unit): Unit =
                             pizzas.find(pred) match
-                                case Some(foundPizza) =>
+                                case Some(foundPizza) =&gt;
                                     if p.size.nonEmpty then foundPizza.size = p.size
                                     if p.qty.nonEmpty then foundPizza.qty = p.qty
-                                case None => notFound()
+                                case None =&gt; notFound()
 
                         if p.size.nonEmpty then setPizza(
-                            x => x.name == p.name && x.size == p.size,
-                            () => setPizza(x => x.name == p.name && x.size.isEmpty, () => pizzas += p)
+                            x =&gt; x.name == p.name && x.size == p.size,
+                            () =&gt; setPizza(x =&gt; x.name == p.name && x.size.isEmpty, () =&gt; pizzas += p)
                         )
                         else setByName(pizzas, p)
 
-                    for (d <- ds) setByName(drinks, d)
+                    for (d &lt;- ds) setByName(drinks, d)
 
                 def findPizzaWithoutSize: Option[Pizza] = pizzas.find(_.size.isEmpty)
 
                 def fixPizzaWithoutSize(size: String): Boolean =
                     findPizzaWithoutSize match
-                        case Some(p) =>
+                        case Some(p) =&gt;
                             p.size = size.?
                             true
-                        case None => false
+                        case None =&gt; false
 
                 def getState: PizzeriaOrderState = state
 
