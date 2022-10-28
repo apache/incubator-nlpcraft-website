@@ -36,6 +36,8 @@ layout: interior
             </p>
             <ul>
                 <li>
+                    Look through {% doc installation Installation %} instructions
+                <li>
                     File a bug or improvement in <a target="jira" href="https://issues.apache.org/jira/projects/NLPCRAFT">NLPCraft JIRA</a>
                 </li>
                 <li>
@@ -100,26 +102,16 @@ layout: interior
                     </td>
                     <td>
                         <a href="/relnotes/release-notes-{{rel.version}}.html"><i class="fas fa-fw fa-file-alt"></i></a>
-                        <a target=_ href="/apis/javadoc-{{rel.version}}/index.html"><i class="fab fa-fw fa-java"></i></a>
+                        <a target=_ href="/apis/scaladoc-{{rel.version}}/index.html"><i class="fas fa-fw fa-code"></i></a>
                         <a target="github" href="{{rel.github_link}}"><i class="fab fa-fw fa-github"></i></a>
                     </td>
                 </tr>
                 {% endfor %}
                 </tbody>
             </table>
-            <div class="bq warn">
-                <p>
-                    <b>Supported <i class="fab fa-fw fa-java"></i>Java and <span class="scala-16"></span>Scala versions:</b>
-                </p>
-                <ul>
-                    <li>NLPCraft 0.9.0+ requires JDK 11 and Scala 2.13</li>
-                    <li>NLPCraft 0.7.0+ requires JDK 11 and Scala 2.12</li>
-                    <li>NLPCraft 0.5.0-0.6.2 requires JDK 8 and Scala 2.12</li>
-                </ul>
-            </div>
             <div class="bq info">
                 <p>
-                    Releases marked with <i class="fas fa-fw fa-bomb"></i> are <b>NOT</b> 100% <em>backward</em> compatible.
+                    <b>Release Verification</b>
                 </p>
                 <p>
                     All release files should be verified using the PGP signatures and the <a href="https://downloads.apache.org/incubator/nlpcraft/KEYS">project release KEYS</a>.
@@ -175,7 +167,7 @@ layout: interior
                     </td>
                     <td>
                         <a href="/relnotes/release-notes-{{rel.version}}.html"><i class="fas fa-fw fa-file-alt"></i></a>
-                        <a target=_ href="/apis/javadoc-{{rel.version}}/index.html"><i class="fab fa-fw fa-java"></i></a>
+                        <a target=_ href="/apis/scaladoc-{{rel.version}}/index.html"><i class="fas fa-fw fa-code"></i></a>
                         <a target="github" href="{{rel.github_link}}"><i class="fab fa-fw fa-github"></i></a>
                         {% if rel.dockerhub_link %}<a target="docker" href="{{rel.dockerhub_link}}"><i class="fab fa-fw fa-docker"></i></a>{% endif %}
                     </td>
@@ -183,7 +175,7 @@ layout: interior
                 {% endfor %}
                 </tbody>
             </table>
-            <div class="bq warn">
+            <div class="bq success">
                 <p>
                     <b>Apache Release Policy</b>
                 </p>
@@ -191,15 +183,8 @@ layout: interior
                     Binary downloads are provided for the convenience of our users and <b>are not official</b> Apache NLPCraft
                     releases. In order to verify the release, we recommend that you download the official source
                     distribution and <a href="#verification">verify</a> the signatures of the downloaded files before opening them.
-                </p>
-                <p>
                     See <a target="asf" href="https://www.apache.org/dev/release.html#what">more</a> information about
                     Apache release policy.
-                </p>
-            </div>
-            <div class="bq info">
-                <p>
-                    Releases marked with <i class="fas fa-fw fa-bomb"></i> are <b>NOT</b> 100% <em>backward</em> compatible.
                 </p>
             </div>
         </section>
@@ -313,16 +298,6 @@ layout: interior
                     </pre>
                 </div>
             </div>
-            <div class="bq warn">
-                <p>
-                    <b>Missing <code>nlpcraft.{sh|cmd}</code> script</b>
-                </p>
-                <p>
-                    Note that when use just Maven dependencies you will not get non-code components of the project
-                    such as <code>nlpcraft.{sh|cmd}</code> management script, SQL for various optional databases,
-                    local Javadoc, etc. If you need any of these components you will need to download full project.
-                </p>
-            </div>
             <p>
                 See <a href="/integrations.html#stanford">integration</a> section for additional integration
                 with Stanford CoreNLP library that is not part of the official Apache NLPCraft release.
@@ -349,59 +324,6 @@ layout: interior
                 </p>
             </div>
         </section>
-        <section id="java-client">
-            <h2 class="section-title">Java Client <i class="fab fa-java"></i> <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
-            <p>
-                NLPCraft provides native Java Client for <a href="using-rest.html">REST APIs</a>. Java Client is hosted as a separate
-                <a target="github" href="https://github.com/apache/incubator-nlpcraft-java-client">GitHub project</a> and you
-                can add Maven dependency (Grape, SBT, etc.) to your project to start using it:
-            </p>
-            <nav>
-                <div class="nav nav-tabs" role="tablist">
-                    <a class="nav-item nav-link active" data-toggle="tab" href="#nav-java-client-maven" role="tab">Maven <img src="/images/java2-h20.png" alt=""></a>
-                    <a class="nav-item nav-link" data-toggle="tab" href="#nav-java-client-grape" role="tab">Grape <img src="/images/groovy-h18.png" alt=""></a>
-                    <a class="nav-item nav-link" data-toggle="tab" href="#nav-java-client-gradle" role="tab">Gradle <img src="/images/kotlin-h18.png" alt=""></a>
-                    <a class="nav-item nav-link" data-toggle="tab" href="#nav-java-client-sbt" role="tab">SBT <img src="/images/scala-logo-h16.png" alt=""></a>
-                </div>
-            </nav>
-            <div class="tab-content">
-                <div class="tab-pane fade show active" id="nav-java-client-maven" role="tabpanel">
-                    <pre class="brush: xml">
-                    &lt;dependency&gt;
-                        &lt;groupId&gt;org.apache.nlpcraft&lt;/groupId&gt;
-                        &lt;artifactId&gt;java-client&lt;/artifactId&gt;
-                        &lt;version&gt;{{site.java_client_latest_version}}&lt;/version&gt;
-                    &lt;/dependency&gt;
-                    </pre>
-                </div>
-                <div class="tab-pane fade" id="nav-java-client-grape" role="tabpanel">
-                    <pre class="brush: java">
-                    @Grab ('org.apache.nlpcraft:java-client:{{site.java_client_latest_version}}')
-                    </pre>
-                </div>
-                <div class="tab-pane fade" id="nav-java-client-gradle" role="tabpanel">
-                    <pre class="brush: java">
-                    dependencies {
-                        runtime group: 'org.apache.nlpcraft', name: 'java-client', version: '{{site.java_client_latest_version}}'
-                    }
-                    </pre>
-                </div>
-                <div class="tab-pane fade" id="nav-java-client-sbt" role="tabpanel">
-                    <pre class="brush: scala">
-                    libraryDependencies += "org.apache.nlpcraft" % "java-client" % "{{site.java_client_latest_version}}"
-                    </pre>
-                </div>
-            </div>
-            <div class="bq info">
-                <p>
-                    <b>Latest Version</b>
-                </p>
-                <p>
-                    <code>{{site.java_client_latest_version}}</code> is the latest Java Client version. You can replace it
-                    with a desired version.
-                </p>
-            </div>
-        </section>
     </div>
     <div class="col-md-2 third-column">
         <ul class="side-nav">
@@ -412,7 +334,6 @@ layout: interior
             <li><a href="#verification">Verification</a></li>
             <li><a href="#maven">Maven/Grape/SBT</a></li>
             <li><a href="#github">GitHub</a></li>
-            <li><a href="#java-client">Java Client</a></li>
             {% include quick-links.html %}
         </ul>
     </div>
