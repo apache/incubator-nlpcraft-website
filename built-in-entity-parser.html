@@ -27,19 +27,22 @@ id: built-in-entity-parser
 
         <p>
             <a href="apis/latest/org/apache/nlpcraft/NCEntityParser.html">NCEntityParser</a>
-            is a component which allow to find user defined named entities
+            is a component which allows to find user defined named entities
             based on prepared tokens as input.
         </p>
 
         <p>
-            There are proved:
+            There are provided following built-in parsers:
         </p>
 
         <ul>
             <li>
-                Wrappers for <a href="https://opennlp.apache.org/">Apache OpenNLP</a> and
-                <a href="https://nlp.stanford.edu/">Stanford NLP</a> NER components.
-                Their models support English and some another languages for their NER recognition.
+                Wrapper for <a href="https://opennlp.apache.org/">Apache OpenNLP</a> named entities finder which
+                prepared models support English and some other languages.
+            </li>
+            <li>
+                Wrapper for <a href="https://nlp.stanford.edu/">Stanford NLP</a> named entities finder which
+                prepared models support English and some other languages.
             </li>
             <li>
                 NLP data wrapper implementation. It is not depends on language.
@@ -55,10 +58,10 @@ id: built-in-entity-parser
 
         <p>
             <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCOpenNLPTokenParser.html">NCOpenNLPTokenParser</a> is wrapper on <a href="https://opennlp.apache.org/">Apache OpenNLP</a> NER components.
-            Look at the supported <b>Name Finder</b> models <a href="https://opennlp.sourceforge.net/models-1.5/">here</a>.
+            Look at the supported NER finders models <a href="https://opennlp.sourceforge.net/models-1.5/">here</a>.
             For example for English language are accessible: <code>Location</code>, <code>Money</code>,
             <code>Person</code>, <code>Organization</code>, <code>Date</code>, <code>Time</code> and <code>Percentage</code>.
-            There are also accessible dome models for another languages.
+            There are also accessible models for other languages.
         </p>
     </section>
 
@@ -67,10 +70,11 @@ id: built-in-entity-parser
 
         <p>
             <code>NCStanfordNLPEntityParser</code> is wrapper on <a href="https://nlp.stanford.edu/">Stanford NLP</a> NER components.
+            Look at the supported NER finders models <a href="https://nlp.stanford.edu/software/CRF-NER.shtml">here</a>.
             For example for English language are accessible: <code>Location</code>, <code>Money</code>,
             <code>Person</code>, <code>Organization</code>, <code>Date</code>, <code>Time</code> and <code>Percent</code>.
-            There are also accessible dome models for another languages.
-            Look at the detailed information <a href="https://nlp.stanford.edu/software/CRF-NER.shtml">here</a>.
+            There are also accessible models for other languages.
+
         </p>
     </section>
 
@@ -80,9 +84,11 @@ id: built-in-entity-parser
         <p>
             <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCOpenNLPTokenParser.html">NCOpenNLPTokenParser</a> converts NLP tokens into entities with four mandatory properties:
             <code>nlp:token:text</code>, <code>nlp:token:index</code>, <code>nlp:token:startCharIndex</code> and
-            <code>nlp:token:endCharIndex</code>. However, if any other properties were added into
-            processed tokens by <a href="apis/latest/org/apache/nlpcraft/NCTokenEnricher.html">NCTokenEnricher</a> components, they will be copied also with names
-            prefixed with <code>nlp:token:</code>.
+            <code>nlp:token:endCharIndex</code>.
+            However, if any other <a href="apis/latest/org/apache/nlpcraft/NCTokenEnricher.html">NCTokenEnricher</a> components
+            are registered in the <a href="apis/latest/org/apache/nlpcraft/NCPipeline.html">NCPipeline</a>
+            and they add other properties into the tokens,
+            these properties also will be copied with names prefixed with <code>nlp:token:</code>.
             It is language independent component.
             Note that converted tokens set can be restricted by predicate.
         </p>
@@ -94,8 +100,7 @@ id: built-in-entity-parser
         <p>
             Semantic entity parser
             <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCSemanticEntityParser.html">NCSemanticEntityParser</a>
-            is the implementation of <a href="apis/latest/org/apache/nlpcraft/NCEntityParser.html">NCEntityParser</a>,
-            which in turn is component of the model pipeline <a href="apis/latest/org/apache/nlpcraft/NCPipeline.html">NCPipeline</a>.
+            is synonyms based  implementation of <a href="apis/latest/org/apache/nlpcraft/NCEntityParser.html">NCEntityParser</a>.
             This parser provides simple but very powerful way to find domain specific data in the input text.
             It defines list of <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCSemanticElement.html">NCSemanticElement</a>
             which are represent <a href="https://en.wikipedia.org/wiki/Named-entity_recognition">Named entities</a>.
@@ -630,13 +635,14 @@ id: built-in-entity-parser
             </pre>
             <ul>
                 <li>
-                    <code>Line 5</code> shows <code>macro</code> parameter usage.
+                    <code>Line 5</code> shows <code>macro</code> parameter definition.
                 </li>
                 <li>
                     <code>Line 10</code> shows <code>macro</code> list of <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCSemanticElement.html">NCSemanticElement</a> parameter usage.
                 </li>
                 <li>
-                    Note that usage <code>withSemantic()</code> method which represented on <code>line 3</code> i optional.
+                    Note that usage <a href="apis/latest/org/apache/nlpcraft/NCPipelineBuilder.html#withSemantic-fffff4b0">withSemantic()</a>
+                    method which represented on <code>line 3</code> is optional.
                     You can add <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCNLPEntityParser.html">NCNLPEntityParser</a>
                     as usual <a href="apis/latest/org/apache/nlpcraft/NCEntityParser.html">NCEntityParser</a>
                     when you define your <a href="apis/latest/org/apache/nlpcraft/NCPipeline.html">NCPipeline</a>.
@@ -644,7 +650,7 @@ id: built-in-entity-parser
             </ul>
 
             <p>
-                The following examples is based on YAML semantic elements representation.
+                The following example is based on YAML semantic elements representation.
             </p>
 
             <pre class="brush: js, highlight: []">
@@ -673,7 +679,7 @@ id: built-in-entity-parser
             </pre>
             <ul>
                 <li>
-                    <code>Line 3</code> makes semantic model which defined in <code>time_model.yaml</code> YAML file.
+                    <code>Line 3</code> makes semantic model which elements are defined in <code>time_model.yaml</code> YAML file.
                 </li>
             </ul>
 
@@ -723,11 +729,12 @@ id: built-in-entity-parser
             <h3 class="sub-section-title">Languages Extending</h3>
 
             <p>
-                If you want to use <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCSemanticEntityParser.html">NCSemanticEntityParser</a>
-                with not English language, you have to provide custom
+                If you want to use
+                <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCSemanticEntityParser.html">NCSemanticEntityParser</a>
+                with any not English language you have to provide custom
                 <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCSemanticStemmer.html">NCSemanticStemmer</a> and
                 <a href="apis/latest/org/apache/nlpcraft/NCTokenParser.html">NCTokenParser</a>
-                implementations for required language.
+                implementations for this desirable language.
                 Look at the <a href="examples/light_switch_fr.html">Light Switch FR</a> for more details.
             </p>
         </section>
@@ -747,7 +754,3 @@ id: built-in-entity-parser
         {% include quick-links.html %}
     </ul>
 </div>
-
-
-
-

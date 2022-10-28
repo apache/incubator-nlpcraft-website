@@ -28,11 +28,12 @@ id: built-in-builder
         <p>
             <a href="apis/latest/org/apache/nlpcraft/NCPipelineBuilder.html">NCPipelineBuilder</a> class
             is designed for simplifying preparing <a href="apis/latest/org/apache/nlpcraft/NCPipeline.html">NCPipeline</a> instance.
-            It contains a number of methods <a href="apis/latest/org/apache/nlpcraft/NCPipelineBuilder.html#withSemantic-fffff4b0">withSemantic()</a>
+            It allows to construct <a href="apis/latest/org/apache/nlpcraft/NCPipeline.html">NCPipeline</a> instance
+            adding nested components via its methods.
+            It also contains a number of methods <a href="apis/latest/org/apache/nlpcraft/NCPipelineBuilder.html#withSemantic-fffff4b0">withSemantic()</a>
             which allow to prepare pipeline instance based on
             <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCSemanticEntityParser">NCSemanticEntityParser</a> and configured language.
-            Currently only English language is supported.
-            It also adds following English built-in components into pipeline:
+            Currently only <b>English</b> language is supported with broad set of built-in components:
             <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCOpenNLPTokenParser.html">NCOpenNLPTokenParser</a>,
             <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCOpenNLPLemmaPosTokenEnricher.html">NCOpenNLPLemmaPosTokenEnricher</a>,
             <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnStopWordsTokenEnricher.html">NCEnStopWordsTokenEnricher</a>,
@@ -53,14 +54,14 @@ id: built-in-builder
         </pre>
         <ul>
             <li>
-                It defines pipeline with all default English language components and one semantic entity parser with
+                It defines pipeline with all built-in English language components and one semantic entity parser with
                 model defined in <code>lightswitch_model.yaml</code>.
             </li>
         </ul>
 
-        <p><b>Example with pipeline configured by built-in components:</b></p>
+        <p><b>Pipeline creation example constructed from built-in components:</b></p>
 
-        <pre class="brush: scala, highlight: [2, 6, 7, 12, 13, 14, 15]">
+        <pre class="brush: scala, highlight: [2, 6, 7, 12, 13, 14, 15, 16]">
             val pipeline =
                 val stanford =
                     val props = new Properties()
@@ -74,36 +75,38 @@ id: built-in-builder
                 new NCPipelineBuilder().
                     withTokenParser(tokParser).
                     withTokenEnricher(new NCEnStopWordsTokenEnricher()).
+                    withEntityParser(NCSemanticEntityParser(stemmer, tokParser, "pizzeria_model.yaml")).
                     withEntityParser(new NCStanfordNLPEntityParser(stanford, Set("number"))).
                     build
         </pre>
         <ul>
             <li>
-                <code>Line 2</code> defines configured <code>StanfordCoreNLP</code> class instance.
+                <code>Line 2</code> defines configured <a href="StanfordCoreNLP">StanfordCoreNLP</a> class instance.
                 Look at <a href="https://nlp.stanford.edu/">Stanford NLP</a> documentation for more details.
             </li>
             <li>
-                <code>Line 6</code> defines token parser <code>NCStanfordNLPTokenParser</code>, pipeline mandatory component.
+                <code>Line 6</code> defines token parser <a href="NCStanfordNLPTokenParser">NCStanfordNLPTokenParser</a>, pipeline mandatory component.
                 Note that this one instance is used for two places: in pipeline definition on <code>line 12</code> and
-                in <code>NCSemanticEntityParser</code> definition on <code>line 15</code>.
+                in <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCSemanticEntityParser.html">NCSemanticEntityParser</a> definition on <code>line 14</code>.
+            </li>
+
+            <li>
+                <code>Line 13</code> defines configured
+                <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnStopWordsTokenEnricher.html">NCEnStopWordsTokenEnricher </a>
+                token enricher.
             </li>
             <li>
-                <code>Line 7</code> defines simple implementation of semantic stemmer which is necessary part
-                of <code>NCSemanticEntityParser</code>.
+                <code>Line 14</code> defines <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCSemanticEntityParser.html">NCSemanticEntityParser</a>
+                configured in YAML file <code>pizzeria_model.yaml</code>.
+                It uses also simple implementation of <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCSemanticStemmer.html">NCSemanticStemmer</a>
+                created on <code>line 7</code> and token parser prepared on <code>line 6</code>.
             </li>
             <li>
-                <code>Line 13</code> defines configured <code>NCEnStopWordsTokenEnricher</code> token enricher.
-            </li>
-            <li>
-                <code>Line 14</code> defines <code>NCStanfordNLPEntityParser</code> entity parser based on Stanford NER
+                <code>Line 15</code> defines <a href="NCStanfordNLPEntityParser">NCStanfordNLPEntityParser</a> based on Stanford NER
                 configured for number values detection.
             </li>
             <li>
-                <code>Line 14</code> defines <code>NCStanfordNLPEntityParser</code> entity parser based on Stanford NER
-                configured for number values detection.
-            </li>
-            <li>
-                <code>Line 15</code> defines pipeline building.
+                <code>Line 16</code> defines pipeline building.
             </li>
         </ul>
 
@@ -125,7 +128,7 @@ id: built-in-builder
                 You can get fore information at examples description chapters:
                 <a href="examples/light_switch_fr.html">Light Switch FR</a> and
                 <a href="examples/light_switch_ru.html">Light Switch RU</a>.
-                Note that these custom components are mostly wrappers on existing solutions and
+                Note that these custom components are mostly wrappers on existing open source on NLPCraft built-in solutions and
                 should be prepared just once when you start work with new language.
             </li>
         </ul>

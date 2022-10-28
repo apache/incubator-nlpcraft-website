@@ -21,7 +21,7 @@ id: api-components
  limitations under the License.
 -->
 
-<div class="col-md-8 second-column">
+<div class="col-md-8 second-column" xmlns="http://www.w3.org/1999/html">
     <section id="overview">
         <h2 class="section-title">API Components<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
 
@@ -47,7 +47,7 @@ id: api-components
         <p>Typical part of code:</p>
 
         <pre class="brush: scala, highlight: []">
-              // Initialized prepared domain model.
+              // Initializes prepared domain model.
               val mdl = new CustomNlpModel()
 
               // Creates client for given model.
@@ -79,8 +79,8 @@ id: api-components
                 <td><code>Token</code></td>
                 <td>
                     <code>Token</code> represented as <a  href="apis/latest/org/apache/nlpcraft/NCToken.html">NCToken</a>
-                    is simple string, part of user input, which split according to some rules,
-                    for instance by spaces and some additional conditions, which depends on language and some expectations.
+                    is simple string, part of user input, which split according to some rules
+                    for instance by spaces and some additional conditions which depend on language and some expectations.
                     So user input "<b>Where is it?</b>" contains four tokens:
                     "<code>Where</code>", "<code>is</code>", "<code>it</code>", "<code>?</code>".
                     Usually <code>tokens</code> are words and punctuation symbols which can also contain some additional
@@ -114,8 +114,8 @@ id: api-components
             <tr>
                 <td><code>Intent</code></td>
                 <td>
-                    <code>Intent</code> is user defined callback and rule, according to which this callback should be called.
-                    Rule is most often some template, based on expected set of <code>entities</code> in user input,
+                    <code>Intent</code> is user defined callback and rule according to which this callback should be called.
+                    Rule is most often some template based on expected set of <code>entities</code> in user input,
                     but it can be more flexible.
                     Parameters extracted from user text input are passed into callback methods.
                     These methods execution results are provided to user as answer on his request.
@@ -189,7 +189,8 @@ id: api-components
 
                 <ul>
                     <li>
-                        <code>Line 1</code> defines intent <code>call</code> with two conditions.
+                        <code>Line 1</code> defines intent <code>call</code> with two conditions
+                        which expects two named entities in user input text.
                     </li>
                     <li>
                         <code>Line 2</code> defines related callback method <code>onCommand()</code>.
@@ -216,8 +217,8 @@ id: api-components
         <h2 class="section-title">Client responsibility<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
 
         <p>
-            Client which is represented as <a href="apis/latest/org/apache/nlpcraft/NCModelClient.html">NCModelClient</a>
-            is necessary for communication with the model. Base client methods  are described below.
+            <code>Client</code>  represented as <a href="apis/latest/org/apache/nlpcraft/NCModelClient.html">NCModelClient</a>
+            is necessary for communication with the <code>Data Model</code>. Base client methods  are described below.
         </p>
 
         <table class="gradient-table">
@@ -244,7 +245,7 @@ id: api-components
                     Passes user text input to the model and receives back callback and its parameters or
                     rejection exception if there isn't any triggered intents.
                     Main difference from <code>ask</code> that triggered intent callback method is not called.
-                    This method and this parameter can be useful for tests scenarios.
+                    This method and this parameter can be useful in tests scenarios.
                 </td>
             </tr>
             <tr>
@@ -252,7 +253,7 @@ id: api-components
                 <td>
                     Clears STM state. Memory is cleared wholly or with some predicate.
                     Loot at <a href="short-term-memory.html">Conversation</a> chapter to get more details.
-                    Second variant odf given method with another parameters is here: <a href="apis/latest/org/apache/nlpcraft/NCModelClient.html#clearStm-1d8">clearStm()</a>.
+                    Second variant of given method with another parameters is here - <a href="apis/latest/org/apache/nlpcraft/NCModelClient.html#clearStm-1d8">clearStm()</a>.
                 </td>
             </tr>
             <tr>
@@ -260,7 +261,7 @@ id: api-components
                 <td>
                     Clears dialog state. Dialog is cleared wholly or with some predicate.
                     Loot at <a href="short-term-memory.html">Conversation</a> chapter to get more details.
-                    Second variant odf given method with another parameters is here: <a href="apis/latest/org/apache/nlpcraft/NCModelClient.html#clearDialog-1d8">clearDialog()</a>.
+                    Second variant of given method with another parameters is here - <a href="apis/latest/org/apache/nlpcraft/NCModelClient.html#clearDialog-1d8">clearDialog()</a>.
                 </td>
             </tr>
             <tr>
@@ -277,8 +278,9 @@ id: api-components
         <h2 class="section-title">Model configuration <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
 
         <p>
-            Data Model configuration <a href="apis/latest/org/apache/nlpcraft/NCModelConfig.html">NCModelConfig</a> represents set of model parameter values.
-            Its properties are described below.
+            <code>Data Model</code> configuration represented as
+            <a href="apis/latest/org/apache/nlpcraft/NCModelConfig.html">NCModelConfig</a>
+            contains set of parameters which are described below.
         </p>
         <table class="gradient-table">
             <thead>
@@ -306,7 +308,7 @@ id: api-components
                     Timeout of the user's conversation.
                     If user doesn't communicate with the model this time period STM is going to be cleared.
                     Loot at <a href="short-term-memory.html">Conversation</a> chapter to get more details.
-                    Mandatory parameter with default value.
+                    It is the mandatory parameter with default value.
                 </td>
             </tr>
             <tr>
@@ -314,7 +316,7 @@ id: api-components
                 <td>
                     Maximum supported depth the user's conversation.
                     Loot at <a href="short-term-memory.html">Conversation</a> chapter to get more details.
-                    Mandatory parameter with default value.
+                    It is the mandatory parameter with default value.
                 </td>
             </tr>
             </tbody>
@@ -342,9 +344,9 @@ id: api-components
                 <td><a href="apis/latest/org/apache/nlpcraft/NCTokenParser.html">NCTokenParser</a></td>
                 <td>Mandatory single</td>
                 <td>
-                    <code>Token parser</code> should parse user input plain text and split this text
+                    <code>Token parser</code> should be able to parse user input plain text and split this text
                     into <code>tokens</code> list.
-                    NLPCraft provides default English language implementation of token parser.
+                    NLPCraft provides two default English language implementations of token parser.
                     Also, project contains examples for <a href="examples/light_switch_fr.html">French</a> and
                     <a href="examples/light_switch_ru.html">Russia</a> languages token parser implementations.
                 </td>
@@ -353,9 +355,9 @@ id: api-components
                 <td> <a href="apis/latest/org/apache/nlpcraft/NCTokenEnricher.html">NCTokenEnricher</a></td>
                 <td>Optional list</td>
                 <td>
-                    <code>Tokens enricher</code> is a component which allow to add additional properties to prepared tokens,
+                    <code>Tokens enricher</code> is a component which allow to add additional properties for prepared tokens,
                     like part of speech, quote, stop-words flags or any other.
-                    NLPCraft provides English language default set of token enrichers implementations.
+                    NLPCraft provides built-in English language set of token enrichers implementations.
                 </td>
             </tr>
             <tr>
@@ -372,8 +374,9 @@ id: api-components
                 <td>
                     <code>Entity parser</code> is a component which allow to find user defined named entities
                     based on prepared tokens as input.
-                    NLPCraft provides wrappers for named-entity recognition components of <a href="https://opennlp.apache.org/">Apache OpenNLP</a> and
-                    <a href="https://nlp.stanford.edu/">Stanford NLP</a>.
+                    NLPCraft provides wrappers for named-entity recognition components of
+                    <a href="https://opennlp.apache.org/">Apache OpenNLP</a> and
+                    <a href="https://nlp.stanford.edu/">Stanford NLP</a> and its own implementations.
                     Note that at least one entity parser must be defined.
                 </td>
             </tr>
@@ -381,7 +384,7 @@ id: api-components
                 <td> <a href="apis/latest/org/apache/nlpcraft/NCEntityEnricher.html">NCEntityEnricher</a></td>
                 <td>Optional list</td>
                 <td>
-                    <code>Entity enricher</code> is component which allows to add additional properties to prepared entities.
+                    <code>Entity enricher</code> is component which allows to add additional properties for prepared entities.
                     Can be useful for extending existing entity enrichers functionality.
                 </td>
             </tr>
@@ -389,7 +392,7 @@ id: api-components
                 <td> <a href="apis/latest/org/apache/nlpcraft/NCEntityMapper.html">NCEntityMapper</a></td>
                 <td>Optional list</td>
                 <td>
-                    <code>Entity mappers</code> is component which allows to map one set of entities into another after the entities
+                    <code>Entity mappers</code> is component which allows to map one set of entities to another after the entities
                     were parsed and enriched. Can be useful for building complex parsers based on existing.
                 </td>
             </tr>

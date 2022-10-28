@@ -30,7 +30,7 @@ id: built-in-token-parser
             component implementation should parse user input plain text and split this text
             into <code>tokens</code> list.
 
-            NLPCraft provides default English language implementation of token parser.
+            NLPCraft provides two English language token parser implementations.
 
             Also, project contains examples for <a href="examples/light_switch_fr.html">French</a> and
             <a href="examples/light_switch_ru.html">Russia</a> languages token parser implementations.
@@ -43,7 +43,7 @@ id: built-in-token-parser
         <p>
             There is <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCOpenNLPTokenParser.html">NCOpenNLPTokenParser</a> implementation.
 
-            It is token parser implementation which is wrapper on
+            This implementation is wrapper on
             <a href="https://opennlp.apache.org/">Apache OpenNLP</a> project tokenizer.
             </p>
     </section>
@@ -53,7 +53,7 @@ id: built-in-token-parser
         <p>
             There is <a href="NCStanfordNLPTokenParser.html">NCStanfordNLPTokenParser</a> implementation.
 
-            It is token parser implementation which is wrapper on
+            This implementation is wrapper on
             <a href="https://nlp.stanford.edu/">Stanford NLP</a> project tokenizer.
         </p>
     </section>
@@ -61,10 +61,9 @@ id: built-in-token-parser
         <h2 class="section-title">Remarks<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
 
         <p>
-            There are two built-in token parsers added for one English language because they have some difference
-            in their algorithm and can provide different list of tokens for same user text input.
+            There are two different English language implementations are provided because they have some difference
+            in their algorithms and can provide different list of tokens for same user text input.
             Some built-in components are required token parser instance as their parameter.
-
         </p>
         <ul>
             <li>

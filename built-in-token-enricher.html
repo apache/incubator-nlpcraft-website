@@ -39,8 +39,9 @@ id: built-in-token-enricher
         <p>
             <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCOpenNLPLemmaPosTokenEnricher.html">NCOpenNLPLemmaPosTokenEnricher</a> -
             this component allows to add <code>lemma</code> and <code>pos</code> values to processed token.
-            Look at these links fpr more details: <a href="https://www.wikiwand.com/en/Lemma_(morphology)">Lemma</a> and
-            <a href="https://www.wikiwand.com/en/Part-of-speech_tagging">Part of speech</a>.
+            Look at these links fpr more details:
+            <a href="https://en.wikipedia.org/wiki/Lemma_(morphology)">Lemma</a> and
+            <a href="https://en.wikipedia.org/wiki/Part-of-speech_tagging">Part of speech</a>.
             Current implementation is based on <a href="https://opennlp.apache.org/">Apache OpenNLP</a> project components.
             Is uses Apache OpenNLP models, which are accessible
             <a href="http://opennlp.sourceforge.net/models-1.5/">here</a> for POS taggers.
@@ -71,9 +72,10 @@ id: built-in-token-enricher
         <p>
             <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnDictionaryTokenEnricher.html">NCEnDictionaryTokenEnricher</a> -
             this component allows to add <code>dict</code> boolean flag to processed token.
-            Note that it requires already defined <code>lemma</code> token property,
+            Note that it requires already defined <code>lemma</code> token property.
             You can use <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCOpenNLPLemmaPosTokenEnricher.html">NCOpenNLPLemmaPosTokenEnricher</a> or any another component which sets
-            <code>lemma</code> into the token.
+            <code>lemma</code> into the token. Note that you have to define it in model pipilene token enricher list before
+            <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnDictionaryTokenEnricher.html">NCEnDictionaryTokenEnricher</a>.
         </p>
     </section>
     <section id="enricher-opennlp-stopword">
@@ -83,9 +85,10 @@ id: built-in-token-enricher
             <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnStopWordsTokenEnricher.html">NCEnStopWordsTokenEnricher</a> -
             this component allows to add <code>stopword</code> boolean flag to processed token.
             It is based on predefined rules for English language, but it can be also extended by custom user word list and excluded list.
-            Note that it requires already defined <code>lemma</code> token property,
+            Note that it requires already defined <code>lemma</code> token property.
             You can use <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCOpenNLPLemmaPosTokenEnricher.html">NCOpenNLPLemmaPosTokenEnricher</a> or any another component which sets
-            <code>lemma</code> into the token.
+            <code>lemma</code> into the toke. Note that you have to define it in model pipilene token enricher list before
+            <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnStopWordsTokenEnricher.html">NCEnStopWordsTokenEnricher</a>.
         </p>
     </section>
     <section id="enricher-opennlp-swearword">
