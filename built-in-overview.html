@@ -26,7 +26,7 @@ id: built-in-overview
         <h2 class="section-title">Built-in Components Overview<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
 
         <p>
-            Model <a href="apis/latest/org/apache/nlpcraft/NCPipeline.html">NCPipeline</a> contains
+            Model {% scaladoc NCPipeline NCPipeline %} contains
             chain of components traits which are responsible for sentence processing.
             Some built-in implementations of these traits are described below.
         </p>
@@ -35,17 +35,17 @@ id: built-in-overview
         <ul>
             <li>
                 Pipeline components which have built-in implementations and can have broad range of uses:
-                <a href="apis/latest/org/apache/nlpcraft/NCTokenParser.html">NCTokenParser</a>,
-                <a href="apis/latest/org/apache/nlpcraft/NCTokenEnricher.html">NCTokenEnricher</a>,
-                <a href="apis/latest/org/apache/nlpcraft/NCEntityParser.html">NCEntityParser</a>.
+                {% scaladoc NCTokenParser NCTokenParser %},
+                {% scaladoc NCTokenEnricher NCTokenEnricher %},
+                {% scaladoc NCEntityParser NCEntityParser %}.
             </li>
             <li>
                 Pipeline components which can't have built-in implementations because their logic are depended on concrete user model:
-                <a href="apis/latest/org/apache/nlpcraft/NCTokenValidator.html">NCTokenValidator</a>,
-                <a href="apis/latest/org/apache/nlpcraft/NCEntityEnricher.html">NCEntityEnricher</a>,
-                <a href="apis/latest/org/apache/nlpcraft/NCEntityValidator.html">NCEntityValidator</a>,
-                <a href="apis/latest/org/apache/nlpcraft/NCEntityMapper.html">NCEntityMapper</a> and
-                <a href="apis/latest/org/apache/nlpcraft/NCVariantFilter.html">NCVariantFilter</a>.
+                {% scaladoc NCTokenValidator NCTokenValidator %},
+                {% scaladoc NCEntityEnricher NCEntityEnricher %},
+                {% scaladoc NCEntityValidator NCEntityValidator %},
+                {% scaladoc NCEntityMapper NCEntityMapper %} and
+                {% scaladoc NCVariantFilter NCVariantFilter %}.
             </li>
         </ul>
 

@@ -26,7 +26,7 @@ id: built-in-token-enricher
         <h2 class="section-title">Built-in Token Enricher<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
 
         <p>
-            <a href="apis/latest/org/apache/nlpcraft/NCTokenEnricher.html">NCTokenEnricher</a>
+            {% scaladoc NCTokenEnricher NCTokenEnricher %}
             is a component which allows to add additional properties to prepared tokens,
             like part of speech, quote, stop-words flags or any other.
             NLPCraft provides English language default set of token enrichers implementations.
@@ -37,7 +37,7 @@ id: built-in-token-enricher
         <h2 class="section-title">Lemma And POS Enricher<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
 
         <p>
-            <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCOpenNLPLemmaPosTokenEnricher.html">NCOpenNLPLemmaPosTokenEnricher</a> -
+            {% scaladoc nlp/enrichers/NCOpenNLPLemmaPosTokenEnricher NCOpenNLPLemmaPosTokenEnricher %} -
             this component allows to add <code>lemma</code> and <code>pos</code> values to processed token.
             Look at these links fpr more details:
             <a href="https://en.wikipedia.org/wiki/Lemma_(morphology)">Lemma</a> and
@@ -54,7 +54,7 @@ id: built-in-token-enricher
         <h2 class="section-title">Brackets Enricher<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
 
         <p>
-            <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnBracketsTokenEnricher.html">NCEnBracketsTokenEnricher</a> -
+            {% scaladoc nlp/enrichers/NCEnBracketsTokenEnricher NCEnBracketsTokenEnricher %} -
             this component allows to add <code>brackets</code> boolean flag to processed token.
         </p>
     </section>
@@ -62,7 +62,7 @@ id: built-in-token-enricher
         <h2 class="section-title">Quotes Enricher<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
 
         <p>
-            <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnQuotesTokenEnricher.html">NCEnQuotesTokenEnricher</a> -
+            {% scaladoc nlp/enrichers/NCEnQuotesTokenEnricher NCEnQuotesTokenEnricher %} -
             this component allows to add <code>quoted</code> boolean flag to processed token.
         </p>
     </section>
@@ -70,32 +70,32 @@ id: built-in-token-enricher
         <h2 class="section-title">Dictionary Enricher<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
 
         <p>
-            <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnDictionaryTokenEnricher.html">NCEnDictionaryTokenEnricher</a> -
+            {% scaladoc nlp/enrichers/NCEnDictionaryTokenEnricher NCEnDictionaryTokenEnricher %} -
             this component allows to add <code>dict</code> boolean flag to processed token.
             Note that it requires already defined <code>lemma</code> token property.
-            You can use <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCOpenNLPLemmaPosTokenEnricher.html">NCOpenNLPLemmaPosTokenEnricher</a> or any another component which sets
+            You can use {% scaladoc nlp/enrichers/NCOpenNLPLemmaPosTokenEnricher NCOpenNLPLemmaPosTokenEnricher %} or any another component which sets
             <code>lemma</code> into the token. Note that you have to define it in model pipilene token enricher list before
-            <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnDictionaryTokenEnricher.html">NCEnDictionaryTokenEnricher</a>.
+            {% scaladoc nlp/enrichers/NCEnDictionaryTokenEnricher NCEnDictionaryTokenEnricher %}.
         </p>
     </section>
     <section id="enricher-opennlp-stopword">
         <h2 class="section-title">Stop-words Enricher<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
 
         <p>
-            <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnStopWordsTokenEnricher.html">NCEnStopWordsTokenEnricher</a> -
+            {% scaladoc nlp/enrichers/NCEnStopWordsTokenEnricher NCEnStopWordsTokenEnricher %} -
             this component allows to add <code>stopword</code> boolean flag to processed token.
             It is based on predefined rules for English language, but it can be also extended by custom user word list and excluded list.
             Note that it requires already defined <code>lemma</code> token property.
-            You can use <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCOpenNLPLemmaPosTokenEnricher.html">NCOpenNLPLemmaPosTokenEnricher</a> or any another component which sets
+            You can use {% scaladoc nlp/enrichers/NCOpenNLPLemmaPosTokenEnricher NCOpenNLPLemmaPosTokenEnricher %} or any another component which sets
             <code>lemma</code> into the toke. Note that you have to define it in model pipilene token enricher list before
-            <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnStopWordsTokenEnricher.html">NCEnStopWordsTokenEnricher</a>.
+            {% scaladoc nlp/enrichers/NCEnStopWordsTokenEnricher NCEnStopWordsTokenEnricher %}.
         </p>
     </section>
     <section id="enricher-opennlp-swearword">
         <h2 class="section-title">Swear-words Enricher<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
 
         <p>
-            <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnSwearWordsTokenEnricher.html">NCEnSwearWordsTokenEnricher</a> -
+            {% scaladoc nlp/enrichers/NCEnSwearWordsTokenEnricher NCEnSwearWordsTokenEnricher %} -
             this component allows to add <code>swear</code> boolean flag to processed token.
         </p>
     </section>

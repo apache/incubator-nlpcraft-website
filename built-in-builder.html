@@ -26,21 +26,21 @@ id: built-in-builder
         <h2 class="section-title">Pipeline builder<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
 
         <p>
-            <a href="apis/latest/org/apache/nlpcraft/NCPipelineBuilder.html">NCPipelineBuilder</a> class
-            is designed for simplifying preparing <a href="apis/latest/org/apache/nlpcraft/NCPipeline.html">NCPipeline</a> instance.
-            It allows to construct <a href="apis/latest/org/apache/nlpcraft/NCPipeline.html">NCPipeline</a> instance
+            {% scaladoc NCPipelineBuilder NCPipelineBuilder %} class
+            is designed for simplifying preparing {% scaladoc NCPipeline NCPipeline %} instance.
+            It allows to construct {% scaladoc NCPipeline NCPipeline %} instance
             adding nested components via its methods.
             It also contains a number of methods <a href="apis/latest/org/apache/nlpcraft/NCPipelineBuilder.html#withSemantic-fffff4b0">withSemantic()</a>
             which allow to prepare pipeline instance based on
-            <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCSemanticEntityParser">NCSemanticEntityParser</a> and configured language.
+            {% scaladoc nlp/parsers/NCSemanticEntityParser NCSemanticEntityParser %} and configured language.
             Currently only <b>English</b> language is supported with broad set of built-in components:
-            <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCOpenNLPTokenParser.html">NCOpenNLPTokenParser</a>,
-            <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCOpenNLPLemmaPosTokenEnricher.html">NCOpenNLPLemmaPosTokenEnricher</a>,
-            <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnStopWordsTokenEnricher.html">NCEnStopWordsTokenEnricher</a>,
-            <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnSwearWordsTokenEnricher.html">NCEnSwearWordsTokenEnricher</a>,
-            <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnQuotesTokenEnricher.html">NCEnQuotesTokenEnricher</a>,
-            <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnDictionaryTokenEnricher.html">NCEnDictionaryTokenEnricher</a>,
-            <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnBracketsTokenEnricher.html">NCEnBracketsTokenEnricher</a>.
+            {% scaladoc nlp/parsers/NCOpenNLPTokenParser NCOpenNLPTokenParser %},
+            {% scaladoc nlp/enrichers/NCOpenNLPLemmaPosTokenEnricher NCOpenNLPLemmaPosTokenEnricher %},
+            {% scaladoc nlp/enrichers/NCEnStopWordsTokenEnricher NCEnStopWordsTokenEnricher %},
+            {% scaladoc nlp/enrichers/NCEnSwearWordsTokenEnricher NCEnSwearWordsTokenEnricher %},
+            {% scaladoc nlp/enrichers/NCEnQuotesTokenEnricher NCEnQuotesTokenEnricher %},
+            {% scaladoc nlp/enrichers/NCEnDictionaryTokenEnricher NCEnDictionaryTokenEnricher %},
+            {% scaladoc nlp/enrichers/NCEnBracketsTokenEnricher NCEnBracketsTokenEnricher %}.
         </p>
     </section>
 
@@ -87,18 +87,18 @@ id: built-in-builder
             <li>
                 <code>Line 6</code> defines token parser <code>NCStanfordNLPTokenParser</code>, pipeline mandatory component.
                 Note that this one instance is used for two places: in pipeline definition on <code>line 12</code> and
-                in <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCSemanticEntityParser.html">NCSemanticEntityParser</a> definition on <code>line 14</code>.
+                in {% scaladoc nlp/parsers/NCSemanticEntityParser NCSemanticEntityParser %} definition on <code>line 14</code>.
             </li>
 
             <li>
                 <code>Line 13</code> defines configured
-                <a href="apis/latest/org/apache/nlpcraft/nlp/enrichers/NCEnStopWordsTokenEnricher.html">NCEnStopWordsTokenEnricher </a>
+                {% scaladoc nlp/enrichers/NCEnStopWordsTokenEnricher NCEnStopWordsTokenEnricher  %}
                 token enricher.
             </li>
             <li>
-                <code>Line 14</code> defines <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCSemanticEntityParser.html">NCSemanticEntityParser</a>
+                <code>Line 14</code> defines {% scaladoc nlp/parsers/NCSemanticEntityParser NCSemanticEntityParser %}
                 configured in YAML file <code>pizzeria_model.yaml</code>.
-                It uses also simple implementation of <a href="apis/latest/org/apache/nlpcraft/nlp/parsers/NCSemanticStemmer.html">NCSemanticStemmer</a>
+                It uses also simple implementation of {% scaladoc nlp/parsers/NCSemanticStemmer NCSemanticStemmer %}
                 created on <code>line 7</code> and token parser prepared on <code>line 6</code>.
             </li>
             <li>
