@@ -15,113 +15,12 @@
 # limitations under the License.
 #
 
-- version: 0.9.0
-  date: July 30, 2021
-  sdk: <i class="fab fa-fw fa-java"></i>11 - <div class="scala-16"></div>2.13
-  zip_name: apache-nlpcraft-bin-0.9.0.zip
-  zip_url: https://github.com/aradzinski/binstore/releases/download/v0.9.0/apache-nlpcraft-incubating-bin-0.9.0.zip
-  sha256_url: https://github.com/aradzinski/binstore/releases/download/v0.9.0/apache-nlpcraft-incubating-bin-0.9.0.zip.sha256
-  pgp_url: https://github.com/aradzinski/binstore/releases/download/v0.9.0/apache-nlpcraft-incubating-bin-0.9.0.zip.asc
-  github_link: https://github.com/apache/incubator-nlpcraft/tree/v0.9.0.2
-  #  dockerhub_link: https://hub.docker.com/r/nlpcraftserver/server
+- version: 1.0.0
+  date: March 30, 2023
+  sdk: <i class="fab fa-fw fa-java"></i>11 - <div class="scala-16"></div>3.1.3
+  zip_name: apache-nlpcraft-bin-1.0.0.zip
+  zip_url: https://github.com/aradzinski/binstore/releases/download/v1.0.0/apache-nlpcraft-incubating-bin-1.0.0.zip
+  sha256_url: https://github.com/aradzinski/binstore/releases/download/v1.0.0/apache-nlpcraft-incubating-bin-1.0.0.zip.sha256
+  pgp_url: https://github.com/aradzinski/binstore/releases/download/v1.0.0/apache-nlpcraft-incubating-bin-1.0.0.zip.asc
+  github_link: https://github.com/apache/incubator-nlpcraft/tree/v1.0.0
   backward_compatible: yes
-
-- version: 0.8.0
-  date: June 7, 2021
-  sdk: <i class="fab fa-fw fa-java"></i>11 - <div class="scala-16"></div>2.12
-  zip_name: apache-nlpcraft-bin-0.8.0.zip
-  zip_url: https://github.com/aradzinski/binstore/releases/download/v0.8.0/apache-nlpcraft-incubating-bin-0.8.0.zip
-  sha256_url: https://github.com/aradzinski/binstore/releases/download/v0.8.0/apache-nlpcraft-incubating-bin-0.8.0.zip.sha256
-  pgp_url: https://github.com/aradzinski/binstore/releases/download/v0.8.0/apache-nlpcraft-incubating-bin-0.8.0.zip.asc
-  github_link: https://github.com/apache/incubator-nlpcraft/tree/v0.8.0
-  #  dockerhub_link: https://hub.docker.com/r/nlpcraftserver/server
-  backward_compatible: yes
-
-- version: 0.7.5
-  date: Apr 30, 2021
-  sdk: <i class="fab fa-fw fa-java"></i>11 - <div class="scala-16"></div>2.12
-  zip_name: apache-nlpcraft-bin-0.7.5.zip
-  zip_url: https://github.com/aradzinski/binstore/releases/download/v0.7.5/apache-nlpcraft-incubating-bin-0.7.5.zip
-  sha256_url: https://github.com/aradzinski/binstore/releases/download/v0.7.5/apache-nlpcraft-incubating-bin-0.7.5.zip.sha256
-  pgp_url: https://github.com/aradzinski/binstore/releases/download/v0.7.5/apache-nlpcraft-incubating-bin-0.7.5.zip.asc
-  github_link: https://github.com/apache/incubator-nlpcraft/tree/v0.7.5
-  #  dockerhub_link: https://hub.docker.com/r/nlpcraftserver/server
-  backward_compatible: no
-
-- version: 0.7.4
-  date: Jan 31, 2021
-  sdk: <i class="fab fa-fw fa-java"></i>11 - <div class="scala-16"></div>2.12
-  zip_name: apache-nlpcraft-bin-0.7.4.zip
-  zip_url: https://github.com/aradzinski/binstore/releases/download/v0.7.4/apache-nlpcraft-incubating-bin-0.7.4.zip
-  sha256_url: https://github.com/aradzinski/binstore/releases/download/v0.7.4/apache-nlpcraft-incubating-bin-0.7.4.zip.sha256
-  pgp_url: https://github.com/aradzinski/binstore/releases/download/v0.7.4/apache-nlpcraft-incubating-bin-0.7.4.zip.asc
-  github_link: https://github.com/apache/incubator-nlpcraft/tree/v0.7.4
-  #  dockerhub_link: https://hub.docker.com/r/nlpcraftserver/server
-  backward_compatible: yes
-
-- version: 0.7.3
-  date: Dec 31, 2020
-  sdk: <i class="fab fa-fw fa-java"></i>11 - <div class="scala-16"></div>2.12
-  zip_name: apache-nlpcraft-bin-0.7.3.zip
-  zip_url: https://github.com/aradzinski/binstore/releases/download/v0.7.3/apache-nlpcraft-incubating-bin-0.7.3.zip
-  sha256_url: https://github.com/aradzinski/binstore/releases/download/v0.7.3/apache-nlpcraft-incubating-bin-0.7.3.zip.sha256
-  pgp_url: https://github.com/aradzinski/binstore/releases/download/v0.7.3/apache-nlpcraft-incubating-bin-0.7.3.zip.asc
-  github_link: https://github.com/apache/incubator-nlpcraft/tree/v0.7.3
-  #  dockerhub_link: https://hub.docker.com/r/nlpcraftserver/server
-  backward_compatible: no
-
-- version: 0.7.2
-  date: Nov 19, 2020
-  sdk: <i class="fab fa-fw fa-java"></i>11 - <div class="scala-16"></div>2.12
-  zip_name: apache-nlpcraft-bin-0.7.2.zip
-  zip_url: https://github.com/aradzinski/binstore/releases/download/v0.7.2/apache-nlpcraft-incubating-bin-0.7.2.zip
-  sha256_url: https://github.com/aradzinski/binstore/releases/download/v0.7.2/apache-nlpcraft-incubating-bin-0.7.2.zip.sha256
-  pgp_url: https://github.com/aradzinski/binstore/releases/download/v0.7.2/apache-nlpcraft-incubating-bin-0.7.2.zip.asc
-  github_link: https://github.com/apache/incubator-nlpcraft/tree/v0.7.2
-  #  dockerhub_link: https://hub.docker.com/r/nlpcraftserver/server
-  backward_compatible: yes
-
-- version: 0.7.1
-  date: Oct 29, 2020
-  sdk: <i class="fab fa-fw fa-java"></i>11 - <div class="scala-16"></div>2.12
-  zip_name: apache-nlpcraft-bin-0.7.1.zip
-  zip_url: https://github.com/aradzinski/binstore/releases/download/v0.7.1/apache-nlpcraft-incubating-bin-0.7.1.zip
-  sha256_url: https://github.com/aradzinski/binstore/releases/download/v0.7.1/apache-nlpcraft-incubating-bin-0.7.1.zip.sha256
-  pgp_url: https://github.com/aradzinski/binstore/releases/download/v0.7.1/apache-nlpcraft-incubating-bin-0.7.1.zip.asc
-  github_link: https://github.com/apache/incubator-nlpcraft/tree/v0.7.1
-  #  dockerhub_link: https://hub.docker.com/r/nlpcraftserver/server
-  backward_compatible: yes
-
-- version: 0.7.0
-  date: Sep 29, 2020
-  sdk: <i class="fab fa-fw fa-java"></i>11 - <div class="scala-16"></div>2.12
-  zip_name: apache-nlpcraft-bin-0.7.0.zip
-  zip_url: https://github.com/aradzinski/binstore/releases/download/apache-nlpcraft-v0.7.0/apache-nlpcraft-incubating-bin-0.7.0.zip
-  sha256_url: https://github.com/aradzinski/binstore/releases/download/apache-nlpcraft-v0.7.0/apache-nlpcraft-incubating-bin-0.7.0.zip.sha256
-  pgp_url: https://github.com/aradzinski/binstore/releases/download/apache-nlpcraft-v0.7.0/apache-nlpcraft-incubating-bin-0.7.0.zip.asc
-  github_link: https://github.com/apache/incubator-nlpcraft/tree/v0.7.0
-  #  dockerhub_link: https://hub.docker.com/r/nlpcraftserver/server
-  backward_compatible: no
-
-- version: 0.6.2
-  date: Jul 19, 2020
-  sdk: <i class="fab fa-fw fa-java"></i>8 - <div class="scala-16"></div>2.12
-  zip_name: apache-nlpcraft-bin-0.6.2.zip
-  zip_url: https://github.com/aradzinski/binstore/releases/download/apache-nlpcraft-v0.6.2/apache-nlpcraft-incubating-bin-0.6.2.zip
-  sha256_url: https://github.com/aradzinski/binstore/releases/download/apache-nlpcraft-v0.6.2/apache-nlpcraft-incubating-bin-0.6.2.zip.sha256
-  pgp_url: https://github.com/aradzinski/binstore/releases/download/apache-nlpcraft-v0.6.2/apache-nlpcraft-incubating-bin-0.6.2.zip.asc
-  github_link: https://github.com/apache/incubator-nlpcraft/tree/v0.6.2
-  #  dockerhub_link: https://hub.docker.com/r/nlpcraftserver/server
-  backward_compatible: yes
-
-- version: 0.5.0
-  date: Apr 29, 2020
-  sdk: <i class="fab fa-fw fa-java"></i>8 - <div class="scala-16"></div>2.12
-  zip_name: apache-nlpcraft-bin-0.5.0.zip
-  zip_url: https://github.com/aradzinski/binstore/releases/download/apache-nlpcraft-v0.5.0/apache-nlpcraft-incubating-bin-0.5.0.zip
-  sha256_url: https://github.com/aradzinski/binstore/releases/download/apache-nlpcraft-v0.5.0/apache-nlpcraft-incubating-bin-0.5.0.zip.sha256
-  pgp_url: https://github.com/aradzinski/binstore/releases/download/apache-nlpcraft-v0.5.0/apache-nlpcraft-incubating-bin-0.5.0.zip.asc
-  github_link: https://github.com/apache/incubator-nlpcraft/tree/v0.5.0
-#  dockerhub_link: https://hub.docker.com/r/nlpcraftserver/server
-  backward_compatible: yes
-
