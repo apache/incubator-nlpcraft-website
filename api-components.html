@@ -62,7 +62,7 @@ id: api-components
     </section>
 
     <section id="model">
-        <h2 class="section-title">Data Model responsibility<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <h2 class="section-title">Data Model Responsibility<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
             Let's start with terminology and describe the system work workflow.
         </p>
@@ -111,6 +111,23 @@ id: api-components
                     <code>variant</code> detected.
                 </td>
             </tr>
+
+            </tbody>
+        </table>
+
+        <p>
+            When <code>Variant</code> is prepared, the suitable  <code>Intent</code> is trying to matched with it.
+        </p>
+
+        <table class="gradient-table">
+            <thead>
+            <tr>
+                <th>Term</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+
             <tr>
                 <td><code>Intent</code></td>
                 <td>
@@ -123,11 +140,29 @@ id: api-components
                     <code>intent</code> rules via <a href="intent-matching.html">IDL</a>.
                 </td>
             </tr>
+            <tr>
+                <td><code>IDL</code></td>
+                <td>
+                    IDL, Intent Definition Language, is a relatively straightforward declarative language which
+                    defines a match between the parsed user input represented as the collection of tokens,
+                    and the user-define callback method.
+                    IDL intents are bound to their callbacks via Java annotation and can be located
+                    in the same Java annotations or placed in model YAML/JSON file as well as in external *.idl files.
+                </td>
+            </tr>
+            <tr>
+                <td><code>Callback</code></td>
+                <td>
+                    The user defined code which mapped to the <code>intent</code>.
+                    This method is received as its parameters normalized values from user input text according to
+                    IDL matched terms.
+                </td>
+            </tr>
             </tbody>
         </table>
 
         <p>
-            <code>Data Model</code> must be able to do tree following things:
+            So, <code>Data Model</code> must be able to do tree following things:
         </p>
 
         <ul>
@@ -144,7 +179,8 @@ id: api-components
             <li>
                 Prepare <code>intents</code> with their callbacks methods which contain business logic.
                 These methods should be defined directly in the model class definition or the model should have references on them.
-                It will be described below.
+                It will be described below. Callback can de defined in model scala class directly or via references.
+                Look at the chapter <a href="intent-matching.html">Intent Matching</a> content for get more details.
             </li>
         </ul>
 
@@ -203,18 +239,13 @@ id: api-components
                     </li>
                 </ul>
 
-                <p>
-                    Note that there are a lot of options of defining intents and their callback methods.
-                    They can be defined in configuration files, nested classes, etc.
-                    Look at the chapter <a href="intent-matching.html">Intent Matching</a> content for get more details.
-                </p>
             </li>
         </ul>
 
     </section>
 
     <section id="client">
-        <h2 class="section-title">Client responsibility<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <h2 class="section-title">Client Responsibility<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
 
         <p>
             <code>Client</code>  represented as {% scaladoc NCModelClient NCModelClient %}
@@ -230,7 +261,7 @@ id: api-components
             </thead>
             <tbody>
             <tr>
-                <td><a href="apis/latest/org/apache/nlpcraft/NCModelClient.html#ask-fffff9ce">ask()</a></td>
+                <td>{% scaladoc NCModelClient#ask-fffff9ce ask() %}</td>
                 <td>
                     Passes user text input to the model and receives back execution
                     {% scaladoc NCResult NCResult %} or
@@ -240,7 +271,7 @@ id: api-components
                 </td>
             </tr>
             <tr>
-                <td><a href="apis/latest/org/apache/nlpcraft/NCModelClient.html#debugAsk-fffff96c">debugAsk()</a></td>
+                <td>{% scaladoc NCModelClient#debugAsk-fffff96c debugAsk() %}</td>
                 <td>
                     Passes user text input to the model and receives back callback and its parameters or
                     rejection exception if there isn't any triggered intents.
@@ -249,23 +280,23 @@ id: api-components
                 </td>
             </tr>
             <tr>
-                <td><a href="apis/latest/org/apache/nlpcraft/NCModelClient.html#clearStm-571">clearStm()</a></td>
+                <td>{% scaladoc NCModelClient#clearStm-571 clearStm() %}</td>
                 <td>
                     Clears STM state. Memory is cleared wholly or with some predicate.
                     Loot at <a href="short-term-memory.html">Conversation</a> chapter to get more details.
-                    Second variant of given method with another parameters is here - <a href="apis/latest/org/apache/nlpcraft/NCModelClient.html#clearStm-1d8">clearStm()</a>.
+                    Second variant of given method with another parameters is here - {% scaladoc NCModelClient#clearStm-1d8 clearStm() %}.
                 </td>
             </tr>
             <tr>
-                <td><a href="apis/latest/org/apache/nlpcraft/NCModelClient.html#clearDialog-571">clearDialog()</a></td>
+                <td>{% scaladoc NCModelClient#clearDialog-571 clearDialog() %}</td>
                 <td>
                     Clears dialog state. Dialog is cleared wholly or with some predicate.
                     Loot at <a href="short-term-memory.html">Conversation</a> chapter to get more details.
-                    Second variant of given method with another parameters is here - <a href="apis/latest/org/apache/nlpcraft/NCModelClient.html#clearDialog-1d8">clearDialog()</a>.
+                    Second variant of given method with another parameters is here - {% scaladoc NCModelClient#clearDialog-1d8 clearDialog() %}.
                 </td>
             </tr>
             <tr>
-                <td><a href="apis/latest/org/apache/nlpcraft/NCModelClient.html#close-94c">close()</a></td>
+                <td>{% scaladoc NCModelClient#close-94c close() %}</td>
                 <td>
                     Closes client. You can't call another client's methods after this method was closed.
                 </td>
@@ -275,7 +306,7 @@ id: api-components
     </section>
 
     <section id="model-configuration">
-        <h2 class="section-title">Model configuration <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <h2 class="section-title">Model Configuration<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
 
         <p>
             <code>Data Model</code> configuration represented as
@@ -324,7 +355,7 @@ id: api-components
     </section>
 
     <section id="model-pipeline">
-        <h2 class="section-title">Model pipeline <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <h2 class="section-title">Model Pipeline<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
 
         <p>
             Model <code>Pipeline</code> is represented as {% scaladoc NCPipeline NCPipeline %} and
@@ -440,7 +471,7 @@ id: api-components
     </section>
 
     <section id="model-behavior">
-        <h2 class="section-title">Model behavior overriding<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <h2 class="section-title">Model Behavior Overriding<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
 
         <p>
             There are also several {% scaladoc NCModel NCModel %}
@@ -458,31 +489,31 @@ id: api-components
             </thead>
             <tbody>
             <tr>
-                <td><a href="apis/latest/org/apache/nlpcraft/NCModel.html#onContext-38d">onContext()</a></td>
+                <td>{% scaladoc NCModel#onContext-38d onContext() %}</td>
                 <td>
                     Overriding this method allows to prepare result before intent matching.
                 </td>
             </tr>
             <tr>
-                <td><a href="apis/latest/org/apache/nlpcraft/NCModel.html#onMatchedIntent-946">onMatchedIntent()</a></td>
+                <td>{% scaladoc NCModel#onMatchedIntent-946 onMatchedIntent() %}</td>
                 <td>
                     Overriding this method allows to reject matched intent and continue matching process.
                 </td>
             </tr>
             <tr>
-                <td><a href="apis/latest/org/apache/nlpcraft/NCModel.html#onResult-fffffaf3">onResult()</a></td>
+                <td>{% scaladoc NCModel#onResult-fffffaf3 onResult() %}</td>
                 <td>
                     Overriding this method allows to replace callback method execution result.
                 </td>
             </tr>
             <tr>
-                <td><a href="apis/latest/org/apache/nlpcraft/NCModel.html#onRejection-4fa">onRejection()</a></td>
+                <td>{% scaladoc NCModel#onRejection-4fa onRejection() %}</td>
                 <td>
                     Overriding this method allows to change operation result when rejection occurs.
                 </td>
             </tr>
             <tr>
-                <td><a href="apis/latest/org/apache/nlpcraft/NCModel.html#onError-fffff759">onError()</a></td>
+                <td>{% scaladoc NCModel#onError-fffff759 onError() %}</td>
                 <td>
                     Overriding this method allows to change operation result when any error occurs.
                 </td>
@@ -496,11 +527,11 @@ id: api-components
     <ul class="side-nav">
         <li class="side-nav-title">On This Page</li>
         <li><a href="#overview">Overview</a></li>
-        <li><a href="#model">Model responsibility overview</a></li>
-        <li><a href="#client">Client responsibility overview</a></li>
-        <li><a href="#model-configuration">Model configuration</a></li>
-        <li><a href="#model-pipeline">Model pipeline</a></li>
-        <li><a href="#model-behavior">Model behavior overriding</a></li>
+        <li><a href="#model">Data Model Responsibility</a></li>
+        <li><a href="#client">Client Responsibility</a></li>
+        <li><a href="#model-configuration">Model Configuration</a></li>
+        <li><a href="#model-pipeline">Model Pipeline</a></li>
+        <li><a href="#model-behavior">Model Behavior Overriding</a></li>
         {% include quick-links.html %}
     </ul>
 </div>

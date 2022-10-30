@@ -23,7 +23,7 @@ id: built-in-entity-parser
 
 <div class="col-md-8 second-column">
     <section id="overview">
-        <h2 class="section-title">Built-in Entity Parser<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <h2 class="section-title">Overview<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
 
         <p>
             {% scaladoc NCEntityParser NCEntityParser %}
@@ -297,7 +297,7 @@ id: built-in-entity-parser
                 When a semantic element is recognized it is made available to the model's matching logic as an instance of
                 the {% scaladoc NCToken NCToken %} interface.
                 This interface has a method
-                <a href="/apis/latest/org/apache/nlpcraft/NCToken.html">getValue()</a> which
+                {% scaladoc NCToken getValue() %} which
                 returns the name of the value, if any, by which
                 that semantic element was recognized. That value name can be further used in intent matching.
             </p>
@@ -356,7 +356,7 @@ id: built-in-entity-parser
             <span id="groups" class="section-sub-title">Element Groups <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></span>
             <p>
                 Each semantic element always belongs to one or more groups. Semantic element provides its groups via
-                <a href="/apis/latest/org/apache/nlpcraft/nlp/parsers/NCSemanticElement.html">getGroups()</a> method.
+                {% scaladoc nlp/parsers/NCSemanticElement getGroups() %} method.
                 By default, if element group is not specified, the element ID will act as its default group ID.
                 Group membership is a quick and easy way to organise similar semantic elements together and use this
                 categorization in <a href="/intent-matching.html">IDL</a> intents.
@@ -641,7 +641,7 @@ id: built-in-entity-parser
                     <code>Line 10</code> shows <code>macro</code> list of {% scaladoc nlp/parsers/NCSemanticElement NCSemanticElement %} parameter usage.
                 </li>
                 <li>
-                    Note that usage <a href="apis/latest/org/apache/nlpcraft/NCPipelineBuilder.html#withSemantic-fffff4b0">withSemantic()</a>
+                    Note that usage {% scaladoc NCPipelineBuilder#withSemantic-fffff4b0 withSemantic() %}
                     method which represented on <code>line 3</code> is optional.
                     You can add {% scaladoc nlp/parsers/NCNLPEntityParser NCNLPEntityParser %}
                     as usual {% scaladoc NCEntityParser NCEntityParser %}
@@ -743,6 +743,7 @@ id: built-in-entity-parser
 <div class="col-md-2 third-column">
     <ul class="side-nav">
         <li class="side-nav-title">On This Page</li>
+        <li><a href="#overview">Overview</a></li>
         <li><a href="#parser-opennlp">OpenNLP Based Parser</a></li>
         <li><a href="#parser-stanford">Stanford NLP Based Entity</a></li>
         <li><a href="#parser-nlp">NLP Parser</a></li>
