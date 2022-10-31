@@ -26,7 +26,7 @@ id: built-in-overview
         <h2 class="section-title">Built-in Components Overview<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
 
         <p>
-            Model {% scaladoc NCPipeline NCPipeline %} contains
+            <a href="/api-components.html#model-pipeline">Model Pipeline</a> contains
             chain of components traits which are responsible for sentence processing.
             Some built-in implementations of these traits are described below.
         </p>
@@ -38,14 +38,14 @@ id: built-in-overview
                 {% scaladoc NCTokenParser NCTokenParser %},
                 {% scaladoc NCTokenEnricher NCTokenEnricher %},
                 {% scaladoc NCEntityParser NCEntityParser %}.
+                Built-in implementation of them are described in related sections:
+                <a href="/built-in-token-parser.html">Token parsers</a>,
+                <a href="/built-in-token-enricher.html">Token enrichers</a>,
+                <a href="/built-in-entity-parser.html">Entity parsers</a>.
             </li>
             <li>
-                Pipeline components which can't have built-in implementations because their logic are depended on concrete user model:
-                {% scaladoc NCTokenValidator NCTokenValidator %},
-                {% scaladoc NCEntityEnricher NCEntityEnricher %},
-                {% scaladoc NCEntityValidator NCEntityValidator %},
-                {% scaladoc NCEntityMapper NCEntityMapper %} and
-                {% scaladoc NCVariantFilter NCVariantFilter %}.
+                Other pipeline components can't have built-in implementations
+                because their logic are depended on concrete user model.
             </li>
         </ul>
 
