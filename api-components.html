@@ -115,6 +115,11 @@ id: api-components
             </tbody>
         </table>
 
+        <figure>
+            <img alt="named entities" class="img-fluid" src="/images/text-tokens-entities.png">
+            <figcaption><b>Fig 2.</b> Named Entities</figcaption>
+        </figure>
+
         <p>
             When <code>Variant</code> is prepared, the suitable  <code>Intent</code> is trying to matched with it.
         </p>
@@ -214,7 +219,7 @@ id: api-components
             <li>
                 Have prepared intent:
                 <pre class="brush: scala, highlight: [1, 2, 5, 6]">
-                    @NCIntent("intent=call term(command)={# == command'} term(person)={# == 'person'}")
+                    @NCIntent("intent=call term(command)={# == 'command'} term(person)={# == 'person'}")
                     def onCommand(
                         ctx: NCContext,
                         im: NCIntentMatch,
@@ -361,6 +366,11 @@ id: api-components
             Model <code>Pipeline</code> is represented as {% scaladoc NCPipeline NCPipeline %} and
             contains following components:
         </p>
+
+        <figure>
+            <img alt="pipeline" class="img-fluid" src="/images/pipeline.png">
+            <figcaption><b>Fig 2.</b>Pipeline</figcaption>
+        </figure>
 
         <table class="gradient-table">
             <thead>
