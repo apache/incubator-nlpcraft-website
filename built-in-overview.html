@@ -34,17 +34,24 @@ id: built-in-overview
         <p>There are two kinds of pipeline components:</p>
         <ul>
             <li>
-                Pipeline components which have built-in implementations and can have broad range of uses:
-                {% scaladoc NCTokenParser NCTokenParser %},
-                {% scaladoc NCTokenEnricher NCTokenEnricher %},
-                {% scaladoc NCEntityParser NCEntityParser %}.
-                Built-in implementation of them are described in related sections:
-                <a href="/built-in-token-parser.html">Token parsers</a>,
-                <a href="/built-in-token-enricher.html">Token enrichers</a>,
-                <a href="/built-in-entity-parser.html">Entity parsers</a>.
+                Pipeline components
+                <code>token parser</code>,
+                <code>token enricher</code> and
+                <code>entity parser</code>
+                have built-in implementations and can have broad range of uses.
+                Built-in implementations of them are described in related sections:
+                <a href="/built-in-token-parser.html">Token Parsers</a>,
+                <a href="/built-in-token-enricher.html">Token Enrichers</a>,
+                <a href="/built-in-entity-parser.html">Entity Parsers</a>.
             </li>
             <li>
-                Other pipeline components can't have built-in implementations
+                Other pipeline components:
+                <code>token validator</code>,
+                <code>entity enricher</code>,
+                <code>entity mapper</code>,
+                <code>entity validator</code> and
+                <code>variant filter</code>
+                can't have built-in implementations
                 because their logic are depended on concrete user model.
             </li>
         </ul>
