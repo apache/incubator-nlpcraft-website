@@ -102,11 +102,11 @@ id: api-components
                 <td><code>Variant</code></td>
                 <td>
                     <code>Variant</code> represented as {% scaladoc NCVariant NCVariant %}
-                    is a list of <code>entities</code>. Potentially, each <code>token</code> can be recognized as
-                    different <code>entities</code>,
+                    is a set of <code>entities</code> list. Potentially, each <code>token</code> or group
+                    of <code>tokens</code> can be recognized as different <code>entities</code>,
                     so user input can be processed as set of <code>variants</code>.
-                    For example user input <b>crane</b> can be processed as two <code>variants</code>,
-                    both of them contains single element list of <code>entities</code>: <b>bird</b> or <b>mechanism</b>.
+                    For example user input <b>look at this crane</b> can be processed as two <code>variants</code>,
+                    one of them contains <code>entity</code> <b>bird</b> and one contains <code>entity</code> <b>mechanism</b>.
                     When words are not overlapped with different <code>entities</code> there is only one
                     <code>variant</code> detected.
                 </td>
@@ -136,11 +136,11 @@ id: api-components
             <tr>
                 <td><code>Intent</code></td>
                 <td>
-                    <code>Intent</code> is user defined callback and rule according to which this callback should be called.
-                    Rule is most often some template based on expected set of <code>entities</code> in user input,
-                    but it can be more flexible.
-                    Parameters extracted from user text input are passed into callback methods.
-                    These methods execution results are provided to user as answer on his request.
+                    <code>Intent</code> is user defined callback method and rule according to which this callback should be called.
+                    Most often rule is some template based on expected set of <code>entities</code> in user input,
+                    but it can be defined more flexible.
+                    Parameters extracted from user text input are passed into callback method.
+                    This method execution result is provided to user as answer on his request.
                     <code>Intent</code> callbacks are methods defined in <code>Data Model</code> class annotated by
                     <code>intent</code> rules via <a href="intent-matching.html">IDL</a>.
                 </td>
@@ -158,8 +158,8 @@ id: api-components
             <tr>
                 <td><code>Callback</code></td>
                 <td>
-                    The user defined code which mapped to the <code>intent</code>.
-                    This method is received as its parameters normalized values from user input text according to
+                    The user defined Scala method which mapped to the <code>intent</code>.
+                    This method receives as its parameters normalized values from user input text according to
                     IDL matched terms.
                 </td>
             </tr>
@@ -243,71 +243,8 @@ id: api-components
                         for getting his phone number etc.
                     </li>
                 </ul>
-
             </li>
         </ul>
-
-    </section>
-
-    <section id="client">
-        <h2 class="section-title">Client Responsibility<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
-
-        <p>
-            <code>Client</code>  represented as {% scaladoc NCModelClient NCModelClient %}
-            is necessary for communication with the <code>Data Model</code>. Base client methods  are described below.
-        </p>
-
-        <table class="gradient-table">
-            <thead>
-            <tr>
-                <th>Method</th>
-                <th>Description</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>{% scaladoc NCModelClient#ask-fffff9ce ask() %}</td>
-                <td>
-                    Passes user text input to the model and receives back execution
-                    {% scaladoc NCResult NCResult %} or
-                    rejection exception if there isn't any triggered intents.
-                    {% scaladoc NCResult NCResult %} is wrapper on
-                    callback method execution result with additional information.
-                </td>
-            </tr>
-            <tr>
-                <td>{% scaladoc NCModelClient#debugAsk-fffff96c debugAsk() %}</td>
-                <td>
-                    Passes user text input to the model and receives back callback and its parameters or
-                    rejection exception if there isn't any triggered intents.
-                    Main difference from <code>ask</code> that triggered intent callback method is not called.
-                    This method and this parameter can be useful in tests scenarios.
-                </td>
-            </tr>
-            <tr>
-                <td>{% scaladoc NCModelClient#clearStm-571 clearStm() %}</td>
-                <td>
-                    Clears STM state. Memory is cleared wholly or with some predicate.
-                    Loot at <a href="short-term-memory.html">Conversation</a> chapter to get more details.
-                    Second variant of given method with another parameters is here - {% scaladoc NCModelClient#clearStm-1d8 clearStm() %}.
-                </td>
-            </tr>
-            <tr>
-                <td>{% scaladoc NCModelClient#clearDialog-571 clearDialog() %}</td>
-                <td>
-                    Clears dialog state. Dialog is cleared wholly or with some predicate.
-                    Loot at <a href="short-term-memory.html">Conversation</a> chapter to get more details.
-                    Second variant of given method with another parameters is here - {% scaladoc NCModelClient#clearDialog-1d8 clearDialog() %}.
-                </td>
-            </tr>
-            <tr>
-                <td>{% scaladoc NCModelClient#close-94c close() %}</td>
-                <td>
-                    Closes client. You can't call another client's methods after this method was closed.
-                </td>
-            </tr>
-            </tbody>
-        </table>
     </section>
 
     <section id="model-configuration">
@@ -530,7 +467,67 @@ id: api-components
             </tr>
             </tbody>
         </table>
+    </section>
 
+    <section id="client">
+        <h2 class="section-title">Client Responsibility<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+
+        <p>
+            <code>Client</code>  represented as {% scaladoc NCModelClient NCModelClient %}
+            is necessary for communication with the <code>Data Model</code>. Base client methods  are described below.
+        </p>
+
+        <table class="gradient-table">
+            <thead>
+            <tr>
+                <th>Method</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{% scaladoc NCModelClient#ask-fffff9ce ask() %}</td>
+                <td>
+                    Passes user text input to the model and receives back execution
+                    {% scaladoc NCResult NCResult %} or
+                    rejection exception if there isn't any triggered intents.
+                    {% scaladoc NCResult NCResult %} is wrapper on
+                    callback method execution result with additional information.
+                </td>
+            </tr>
+            <tr>
+                <td>{% scaladoc NCModelClient#debugAsk-fffff96c debugAsk() %}</td>
+                <td>
+                    Passes user text input to the model and receives back callback and its parameters or
+                    rejection exception if there isn't any triggered intents.
+                    Main difference from <code>ask</code> that triggered intent callback method is not called.
+                    This method and this parameter can be useful in tests scenarios.
+                </td>
+            </tr>
+            <tr>
+                <td>{% scaladoc NCModelClient#clearStm-571 clearStm() %}</td>
+                <td>
+                    Clears STM state. Memory is cleared wholly or with some predicate.
+                    Loot at <a href="short-term-memory.html">Conversation</a> chapter to get more details.
+                    Second variant of given method with another parameters is here - {% scaladoc NCModelClient#clearStm-1d8 clearStm() %}.
+                </td>
+            </tr>
+            <tr>
+                <td>{% scaladoc NCModelClient#clearDialog-571 clearDialog() %}</td>
+                <td>
+                    Clears dialog state. Dialog is cleared wholly or with some predicate.
+                    Loot at <a href="short-term-memory.html">Conversation</a> chapter to get more details.
+                    Second variant of given method with another parameters is here - {% scaladoc NCModelClient#clearDialog-1d8 clearDialog() %}.
+                </td>
+            </tr>
+            <tr>
+                <td>{% scaladoc NCModelClient#close-94c close() %}</td>
+                <td>
+                    Closes client. You can't call another client's methods after this method was closed.
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </section>
 </div>
 <div class="col-md-2 third-column">
@@ -538,10 +535,10 @@ id: api-components
         <li class="side-nav-title">On This Page</li>
         <li><a href="#overview">Overview</a></li>
         <li><a href="#model">Data Model Responsibility</a></li>
-        <li><a href="#client">Client Responsibility</a></li>
         <li><a href="#model-configuration">Model Configuration</a></li>
         <li><a href="#model-pipeline">Model Pipeline</a></li>
         <li><a href="#model-behavior">Model Behavior Overriding</a></li>
+        <li><a href="#client">Client Responsibility</a></li>
         {% include quick-links.html %}
     </ul>
 </div>
