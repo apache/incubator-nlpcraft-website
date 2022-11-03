@@ -52,8 +52,8 @@ fa_icon: fa-cube
                 version := "{{site.latest_version}}",
                 libraryDependencies += "org.apache.nlpcraft" % "nlpcraft" % "{{site.latest_version}}",
                 libraryDependencies += "org.apache.lucene" % "lucene-analyzers-common" % "8.11.2",
-                libraryDependencies += "org.languagetool" % "languagetool-core" % "5.8",
-                libraryDependencies += "org.languagetool" % "language-ru" % "5.8",
+                libraryDependencies += "org.languagetool" % "languagetool-core" % "5.9",
+                libraryDependencies += "org.languagetool" % "language-ru" % "5.9",
                 libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.14" % "test"
               )
         </pre>
@@ -461,7 +461,7 @@ fa_icon: fa-cube
             </li>
             <li>
                 <code>Line 11</code> calls a special method
-                <a href="../apis/latest/org/apache/nlpcraft/NCModelClient.html#debugAsk-fffff96c">debugAsk()</a>.
+                {% scaladoc NCModelClient#debugAsk-fffff96c debugAsk() %}.
                 It allows to check the winning intent and its callback parameters without actually
                 calling the intent.
             </li>
