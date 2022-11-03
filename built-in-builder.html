@@ -28,19 +28,13 @@ id: built-in-builder
         <p>
             {% scaladoc NCPipelineBuilder NCPipelineBuilder %} class
             is designed for simplifying preparing {% scaladoc NCPipeline NCPipeline %} instance.
-            It allows to construct {% scaladoc NCPipeline NCPipeline %} instance
-            adding nested components via its methods.
-            It also contains a number of methods {% scaladoc NCPipelineBuilder#withSemantic-fffff4b0 withSemantic() %}
+            It allows to prepare {% scaladoc NCPipeline NCPipeline %} instance
+            adding pipeline chain components via its methods.
+            Also, it contains a number of {% scaladoc NCPipelineBuilder#withSemantic-fffff4b0 withSemantic() %} methods
             which allow to prepare pipeline instance based on
             {% scaladoc nlp/parsers/NCSemanticEntityParser NCSemanticEntityParser %} and configured language.
-            Currently only <b>English</b> language is supported with broad set of built-in components:
-            {% scaladoc nlp/parsers/NCOpenNLPTokenParser NCOpenNLPTokenParser %},
-            {% scaladoc nlp/enrichers/NCOpenNLPLemmaPosTokenEnricher NCOpenNLPLemmaPosTokenEnricher %},
-            {% scaladoc nlp/enrichers/NCEnStopWordsTokenEnricher NCEnStopWordsTokenEnricher %},
-            {% scaladoc nlp/enrichers/NCEnSwearWordsTokenEnricher NCEnSwearWordsTokenEnricher %},
-            {% scaladoc nlp/enrichers/NCEnQuotesTokenEnricher NCEnQuotesTokenEnricher %},
-            {% scaladoc nlp/enrichers/NCEnDictionaryTokenEnricher NCEnDictionaryTokenEnricher %},
-            {% scaladoc nlp/enrichers/NCEnBracketsTokenEnricher NCEnBracketsTokenEnricher %}.
+            Currently only <b>English</b> language is supported.
+            Pipeline for <b>English</b> language is created with useful set of built-in components.
         </p>
     </section>
 
@@ -56,6 +50,17 @@ id: built-in-builder
             <li>
                 It defines pipeline with all built-in English language components and one semantic entity parser with
                 model defined in <code>lightswitch_model.yaml</code>.
+            </li>
+            <li>
+                It adds to the pipeline by default token parser implementation
+                {% scaladoc nlp/parsers/NCOpenNLPTokenParser NCOpenNLPTokenParser %} and
+                following token enrichers implementations:
+                {% scaladoc nlp/enrichers/NCOpenNLPLemmaPosTokenEnricher NCOpenNLPLemmaPosTokenEnricher %},
+                {% scaladoc nlp/enrichers/NCEnStopWordsTokenEnricher NCEnStopWordsTokenEnricher %},
+                {% scaladoc nlp/enrichers/NCEnSwearWordsTokenEnricher NCEnSwearWordsTokenEnricher %},
+                {% scaladoc nlp/enrichers/NCEnQuotesTokenEnricher NCEnQuotesTokenEnricher %},
+                {% scaladoc nlp/enrichers/NCEnDictionaryTokenEnricher NCEnDictionaryTokenEnricher %},
+                {% scaladoc nlp/enrichers/NCEnBracketsTokenEnricher NCEnBracketsTokenEnricher %}.
             </li>
         </ul>
 
