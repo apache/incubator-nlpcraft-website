@@ -331,6 +331,7 @@ id: api-components
                     <code>Tokens enricher</code> is a component which allow to add additional properties for prepared tokens,
                     like part of speech, quote, stop-words flags or any other.
                     NLPCraft provides built-in English language set of token enrichers implementations.
+                    Here is an <a href="custom-components.html#token-enrichers">example</a>.
                 </td>
             </tr>
             <tr>
@@ -339,6 +340,7 @@ id: api-components
                 <td>
                     <code>Token validator</code> is a component which allow to inspect prepared tokens and
                     throw an exception to break user input processing.
+                    Here is an <a href="custom-components.html#token-validators">example</a>.
                 </td>
             </tr>
             <tr>
@@ -351,6 +353,7 @@ id: api-components
                     <a href="https://opennlp.apache.org/">Apache OpenNLP</a> and
                     <a href="https://nlp.stanford.edu/">Stanford NLP</a> and its own implementations.
                     Note that at least one entity parser must be defined.
+                    Here is an <a href="custom-components.html#entity-parsers">example</a>.
                 </td>
             </tr>
             <tr>
@@ -359,6 +362,7 @@ id: api-components
                 <td>
                     <code>Entity enricher</code> is component which allows to add additional properties for prepared entities.
                     Can be useful for extending existing entity enrichers functionality.
+                    Here is an <a href="custom-components.html#entity-enrichers">example</a>.
                 </td>
             </tr>
             <tr>
@@ -367,6 +371,7 @@ id: api-components
                 <td>
                     <code>Entity mappers</code> is component which allows to map one set of entities to another after the entities
                     were parsed and enriched. Can be useful for building complex parsers based on existing.
+                    Here is an <a href="custom-components.html#entity-mappers">example</a>.
                 </td>
             </tr>
             <tr>
@@ -375,13 +380,16 @@ id: api-components
                 <td>
                     <code>Entity validator</code> is a component which allow to inspect prepared entities and
                     throw an exception to break user input processing.
+                    Here is an <a href="custom-components.html#entity-validators">example</a>.
                 </td>
             </tr>
             <tr>
                 <td> {% scaladoc NCVariantFilter NCVariantFilter %}</td>
                 <td>Optional single</td>
                 <td>
-                    <code>Variant filter</code> is a component which allows filtering detected variants and rejecting undesirable.
+                    <code>Variant filter</code> is a component which allows filtering detected variants and
+                    rejecting undesirable.
+                    Here is an <a href="custom-components.html#variant-filters">example</a>.
                 </td>
             </tr>
             </tbody>
