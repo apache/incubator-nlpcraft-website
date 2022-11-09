@@ -119,8 +119,8 @@ fa_icon: fa-cube
     <section id="model">
         <h2 class="section-title">Data Model<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
-            We are going to start with declaring the static part of our model using YAML which we will later load using
-            {% scaladoc NCModelAdapter NCModelAdapter %} in our Scala-based model implementation.
+            We are going to start with declaring the static part of our model using YAML which we will later load
+            in our Scala-based model implementation.
             Open <code>src/main/resources/<b>lightswitch_model_ru.yaml</b></code>
             file and replace its content with the following YAML:
         </p>
@@ -193,7 +193,7 @@ fa_icon: fa-cube
             import demo.nlp.token.parser.NCRuTokenParser
             import scala.jdk.CollectionConverters.*
 
-            class LightSwitchRuModel extends NCModelAdapter(
+            class LightSwitchRuModel extends NCModel(
                 NCModelConfig("nlpcraft.lightswitch.ru.ex", "LightSwitch Example Model RU", "1.0"),
                 new NCPipelineBuilder().
                     withTokenParser(new NCRuTokenParser()).
@@ -223,8 +223,7 @@ fa_icon: fa-cube
         </p>
         <ul>
             <li>
-                On <code>line 11</code> our class extends {% scaladoc NCModelAdapter NCModelAdapter %} that allows us to pass
-                prepared configuration and pipeline into model.
+                On <code>line 11</code> our class extends {% scaladoc NCModel NCModel %} with two mandatory parameters.
             </li>
             <li>
                 <code>Line 12</code> creates model configuration with most default parameters.

@@ -616,7 +616,7 @@ id: built-in-entity-parser
             </p>
 
             <pre class="brush: scala, highlight: [3, 5, 10]">
-                val mdl = new NCModelAdapter(
+                val mdl = new NCModel(
                     NCModelConfig("test.id", "Test Model", "1.0"),
                     new NCPipelineBuilder().withSemantic(
                         "en",
@@ -631,7 +631,8 @@ id: built-in-entity-parser
                                 override def getSynonyms: Set[String] = Set("{&lt;CUR&gt;|_} &lt;TIME&gt;", "what &lt;TIME&gt; {is it now|now|is it|_}" )
                         )
                     ).build
-                )
+                ):
+                    // Add your callbacks definition or references on them here.
             </pre>
             <ul>
                 <li>
@@ -672,10 +673,11 @@ id: built-in-entity-parser
                 </li>
             </ul>
             <pre class="brush: scala, highlight: [3]">
-                val mdl = new NCModelAdapter(
+                val mdl = new NCModel(
                     NCModelConfig("test.id", "Test Model", "1.0"),
                     new NCPipelineBuilder().withSemantic("en", "time_model.yaml").build
-                )
+                ):
+                    // Add your callbacks definition or references on them here.
             </pre>
             <ul>
                 <li>

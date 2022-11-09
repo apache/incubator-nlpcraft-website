@@ -416,7 +416,8 @@ id: api-components
                     build
             val cfg = NCModelConfig("nlpcraft.lightswitch.fr.ex", "LightSwitch Example Model FR", "1.0")
 
-            val mdl = new NCModelAdapter(cfg, pipeline)
+            val mdl = new NCModel(cfg, pipeline):
+                // Add your callbacks definition or references on them here.
         </pre>
 
         <p>
