@@ -1,7 +1,7 @@
 ---
 active_crumb: Docs
 layout: documentation
-id: api-components
+id: key_concepts
 ---
 
 <!--
@@ -23,79 +23,70 @@ id: api-components
 
 <div class="col-md-8 second-column" xmlns="http://www.w3.org/1999/html">
     <section id="overview">
-        <h2 class="section-title">API Components<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <h2 class="section-title">Key Concepts<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
 
         <p>
-            NLPCraft project is based on two main concepts <code>Data Model</code> and <code>Client</code>
-            which have API representations
-            {% scaladoc NCModel NCModel %} and
-            {% scaladoc NCModelClient NCModelClient %}.
-            For work with the system you should prepare {% scaladoc NCModel NCModel %} instance
-            which is based on configuration and list of components named <code>Pipeline</code>.
-            After you just communicate with prepared model via client's methods.
+            NLPCraft is based on three main concepts:
         </p>
-
         <ul>
             <li>
-                <code>Data Model</code> is domain specific object which responsible for user input interpretation.
+                {% scaladoc NCModel NCModel %} is a user-configured object responsible for input interpretation.
             </li>
             <li>
-                <code>Client</code> is object which allows to communicate with the given data model.
+                {% scaladoc NCPipeline NCPipeline %} is a part of the model configuration that defines
+                specifics of the user input processing.
+            </li>
+            <li>
+                {% scaladoc NCModelClient NCModelClient %} is responsible for communication with the data model.
             </li>
         </ul>
 
-        <p>Typical part of code:</p>
+        <p>Here's the typical code structure when working with NLPCraft:</p>
 
         <pre class="brush: scala, highlight: []">
-              // Initializes prepared domain model.
+              // Init data model.
               val mdl = new CustomNlpModel()
 
               // Creates client for given model.
-              val client = new NCModelClient(mdl)
+              val cli = new NCModelClient(mdl)
 
-              // Sends text request to model by user ID "userId".
-              val result = client.ask("Some user command", "userId")
-
-              // Clears dialog session for user with ID "userId".
-              client.clearDialog("userId")
+              // Sends text request to model by user ID "user01".
+              val result = client.ask("Some user command", "user01")
         </pre>
     </section>
 
-    <section id="model">
-        <h2 class="section-title">Data Model Responsibility<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+    <section id="terminology">
+        <h2 class="section-title">Terminology<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
-            Let's start with terminology and describe the system work workflow.
+            Let's start with the nomenclature of the main NLPCraft types:
         </p>
 
         <table class="gradient-table">
             <thead>
             <tr>
-                <th>Term</th>
+                <th>Type</th>
                 <th>Description</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td><code>Token</code></td>
+                <td><b>{% scaladoc NCToken NCToken %}</b></td>
                 <td>
-                    <code>Token</code> represented as {% scaladoc NCToken NCToken %}
-                    is simple string, part of user input, which split according to some rules
-                    for instance by spaces and some additional conditions which depend on language and some expectations.
-                    So user input "<b>Where is it?</b>" contains four tokens:
+                    <code>Token</code> is simple string, part of user input, which is obtained by splitting user input
+                    according to some rules. For example, the user input "<b>Where is it?</b>" contains four tokens:
                     "<code>Where</code>", "<code>is</code>", "<code>it</code>", "<code>?</code>".
-                    Usually <code>tokens</code> are words and punctuation symbols which can also contain some additional
-                    information like point of speech etc.
-                    <code>Tokens</code> are input for searching the <code>entities</code>.
+                    Usually <code>tokens</code> are words and punctuation symbols which also contain additional
+                    information like point of speech tags, relative position in the overall input text, stem and lemma forms, etc.
+                    List of parsed <code>tokens</code> serves as an input for parsing <code>entities</code>.
                 </td>
             </tr>
             <tr>
-                <td><code>Entity</code></td>
+                <td><b>{% scaladoc NCEntity NCEntity %}</b></td>
                 <td>
-                    According to wikipedia, <code>named entity</code> is a real-world object, such as a person, location, organization,
-                    product, etc., that can be denoted with a proper name. It can be abstract or have a physical existence.
-                    Each <code>entity</code> can contain one or more tokens.
-                    <code>Entities</code> represented as
-                    {% scaladoc NCEntity NCEntity %} are input for searching <code>intents</code> according to <a href="intent-matching.html">Intent matching</a> conditions.
+                    <code>Entity</code> typically represents a real-world object, such as a person, location, organization,
+                    or product that can often be denoted with a proper name. It can be abstract or have a physical existence.
+                    Each <code>entity</code> consists of zero or more <code>tokens</code>. Entities form one or more parsing
+                    <code>variants</code> that serve as an input to <a href="intent-matching.html">Intent matching</a>.
                 </td>
             </tr>
             <tr>
@@ -542,12 +533,12 @@ id: api-components
 <div class="col-md-2 third-column">
     <ul class="side-nav">
         <li class="side-nav-title">On This Page</li>
-        <li><a href="#overview">Overview</a></li>
-        <li><a href="#model">Data Model Responsibility</a></li>
-        <li><a href="#model-configuration">Model Configuration</a></li>
-        <li><a href="#model-pipeline">Model Pipeline</a></li>
-        <li><a href="#model-behavior">Model Behavior Overriding</a></li>
-        <li><a href="#client">Client Responsibility</a></li>
+        <li><a href="#overview">Key Concepts</a></li>
+        <li><a href="#terminology">Terminology</a></li>
+<!--         <li><a href="#model-configuration">Model Configuration</a></li> -->
+<!--         <li><a href="#model-pipeline">Model Pipeline</a></li> -->
+<!--         <li><a href="#model-behavior">Model Behavior Overriding</a></li> -->
+<!--         <li><a href="#client">Client Responsibility</a></li> -->
         {% include quick-links.html %}
     </ul>
 </div>
