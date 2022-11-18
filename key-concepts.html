@@ -76,8 +76,8 @@ id: key_concepts
                     according to some rules. For example, the user input "<b>Where is it?</b>" contains four tokens:
                     "<code>Where</code>", "<code>is</code>", "<code>it</code>", "<code>?</code>".
                     Usually <code>tokens</code> are words and punctuation symbols which also contain additional
-                    information like point of speech tags, relative position in the overall input text, stem and lemma forms, etc.
-                    List of parsed <code>tokens</code> serves as an input for parsing <code>entities</code>.
+                    information like point of speech tags, relative position in the overall input text, stopword flag,
+                    stem and lemma forms, etc. List of parsed <code>tokens</code> serves as an input for parsing <code>entities</code>.
                 </td>
             </tr>
             <tr>
@@ -85,21 +85,39 @@ id: key_concepts
                 <td>
                     <code>Entity</code> typically represents a real-world object, such as a person, location, organization,
                     or product that can often be denoted with a proper name. It can be abstract or have a physical existence.
-                    Each <code>entity</code> consists of zero or more <code>tokens</code>. Entities form one or more parsing
-                    <code>variants</code> that serve as an input to <a href="intent-matching.html">Intent matching</a>.
+                    Each <code>entity</code> consists of zero or more <code>tokens</code>. Combination of entities form one or more parsing
+                    <code>variants</code>.
                 </td>
             </tr>
             <tr>
-                <td><code>Variant</code></td>
+                <td><b>{% scaladoc NCVariant NCVariant %}</b></td>
                 <td>
-                    <code>Variant</code> represented as {% scaladoc NCVariant NCVariant %}
-                    is a set of <code>entities</code> list. Potentially, each <code>token</code> or group
-                    of <code>tokens</code> can be recognized as different <code>entities</code>,
-                    so user input can be processed as set of <code>variants</code>.
-                    For example user input <b>look at this crane</b> can be processed as two <code>variants</code>,
-                    one of them contains <code>entity</code> <b>bird</b> and one contains <code>entity</code> <b>mechanism</b>.
-                    When words are not overlapped with different <code>entities</code> there is only one
-                    <code>variant</code> detected.
+                    <code>Variant</code> is a unique set of <code>entities</code>. In many cases, a <code>token</code> or a group
+                    of <code>tokens</code> can be recognized as more than one <code>entity</code> - resulting in multiple possible
+                    interpretations of the original sequence of tokens. Each such interpretation is defined as a parsing <code>variant</code>.
+                    For example, user input <b>"Look at this crane."</b> can be interpreted as two <code>variants</code>,
+                    one of them containing <code>entity</code> <b>BIRD<sub>[crane]</sub></b> and another containing <code>entity</code> <b>MACHINE<sub>[crane]</sub></b>.
+                    Set of <code>variants</code> ultimately serves as an input to <a href="intent-matching.html">intent matching</a>.
+                </td>
+            </tr>
+            <tr>
+                <td><b>{% scaladoc NCPipeline NCPipeline %}</b></td>
+                <td>
+                    <code>Variant</code> is a unique set of <code>entities</code>. In many cases, a <code>token</code> or a group
+                    of <code>tokens</code> can be recognized as more than one <code>entity</code> - resulting in multiple possible
+                    interpretations of the original sequence of tokens. Each such interpretation is defined as a parsing <code>variant</code>.
+                    For example, user input <b>"Look at this crane."</b> can be interpreted as two <code>variants</code>,
+                    one of them containing <code>entity</code> <b>BIRD<sub>[crane]</sub></b> and another containing <code>entity</code> <b>MACHINE<sub>[crane]</sub></b>.
+                </td>
+            </tr>
+            <tr>
+                <td><b><a target="scaladoc" href="/apis/latest/">@NCIntent</a></b></td>
+                <td>
+                    <code>Variant</code> is a unique set of <code>entities</code>. In many cases, a <code>token</code> or a group
+                    of <code>tokens</code> can be recognized as more than one <code>entity</code> - resulting in multiple possible
+                    interpretations of the original sequence of tokens. Each such interpretation is defined as a parsing <code>variant</code>.
+                    For example, user input <b>"Look at this crane."</b> can be interpreted as two <code>variants</code>,
+                    one of them containing <code>entity</code> <b>BIRD<sub>[crane]</sub></b> and another containing <code>entity</code> <b>MACHINE<sub>[crane]</sub></b>.
                 </td>
             </tr>
 
@@ -108,7 +126,7 @@ id: key_concepts
 
         <figure>
             <img alt="named entities" class="img-fluid" src="/images/text-tokens-entities2.png">
-            <figcaption><b>Fig 1.</b> Text -> Tokens -> Entities.</figcaption>
+            <figcaption><b>Fig 1.</b> Text -> Tokens -> Entities -> Parsing Variants.</figcaption>
         </figure>
 
         <p>

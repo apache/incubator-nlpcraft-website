@@ -360,7 +360,7 @@ $bq-success-border-color: $brand-success;
 }
 
 .not-code {}
-a[target=javadoc]:not(.not-code) {
+a[target=scaladoc]:not(.not-code) {
     font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     word-break: keep-all;
     white-space: nowrap !important;
