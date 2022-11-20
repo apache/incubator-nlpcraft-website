@@ -70,6 +70,19 @@ id: key_concepts
             </thead>
             <tbody>
             <tr>
+                <td><b>{% scaladoc NCModel NCModel %}</b></td>
+                <td>
+                    <code>Model</code> is the main component in NLPCraft. User-define data model contains its {% scaladoc NCModelConfig NCModelConfig %},
+                    input processing {% scaladoc NCPipeline NCPipeline %} and life-cycle callbacks.
+                    NLPCraft employs model-as-a-code approach where entire data model is an implementation of just
+                    this interface. The instance of this interface is passed to {% scaladoc NCModelClient NCModelClient %} class.
+                    Note that the model-as-a-code approach natively supports any software life cycle tools and frameworks
+                    like various build tools, CI/SCM tools, IDEs, etc. You don't need any additional tools to manage some
+                    aspects of your data models - your entire model and all of its components are part of your project's source code.
+                    Note that in most cases, one would use a convenient {% scaladoc NCModelAdapter NCModelAdapter %} adapter to implement this interface.
+                </td>
+            </tr>
+            <tr>
                 <td><b>{% scaladoc NCToken NCToken %}</b></td>
                 <td>
                     <code>Token</code> is simple string, part of user input, which is obtained by splitting user input
@@ -103,13 +116,19 @@ id: key_concepts
             <tr>
                 <td><b>{% scaladoc NCPipeline NCPipeline %}</b></td>
                 <td>
-                    <code>Pipeline</code> is the main configuration of the model. Pipeline consists of an ordered sequence
-                    of <a href="/pipeline-components.html">pipeline components</a>.
-                    <code>Variant</code> is a unique set of <code>entities</code>. In many cases, a <code>token</code> or a group
-                    of <code>tokens</code> can be recognized as more than one <code>entity</code> - resulting in multiple possible
-                    interpretations of the original sequence of tokens. Each such interpretation is defined as a parsing <code>variant</code>.
-                    For example, user input <b>"Look at this crane."</b> can be interpreted as two <code>variants</code>,
-                    one of them containing <code>entity</code> <b>BIRD<sub>[crane]</sub></b> and another containing <code>entity</code> <b>MACHINE<sub>[crane]</sub></b>.
+                    <code>Pipeline</code> is the main configuration property of the model. Pipeline consists of an ordered sequence
+                    of <a href="/pipeline-components.html">pipeline components</a>. User input starts at the first component of the
+                    pipeline as a simple text and exits the end of the pipeline as a one or more parsing <code>variants</code>.
+                    The output of the pipeline is further passed as an input to <a href="intent-matching.html">intent matching</a>.
+                </td>
+            </tr>
+            <tr>
+                <td><b>{% scaladoc NCModelCofig NCModelConfig %}</b></td>
+                <td>
+                    <code>Pipeline</code> is the main configuration property of the model. Pipeline consists of an ordered sequence
+                    of <a href="/pipeline-components.html">pipeline components</a>. User input starts at the first component of the
+                    pipeline as a simple text and exits the end of the pipeline as a one or more parsing <code>variants</code>.
+                    The output of the pipeline is further passed as an input to <a href="intent-matching.html">intent matching</a>.
                 </td>
             </tr>
             <tr>
