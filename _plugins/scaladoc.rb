@@ -19,7 +19,8 @@ module Jekyll
       super
       arr = text.split(' ')
       @path = arr.shift.strip
-      @label = arr.join(' ')
+      @label = arr.join(' ') # Optional.
+      if @label.empty? then @label = @path end
     end
 
     def render(context)
@@ -32,7 +33,8 @@ module Jekyll
       super
       arr = text.split(' ')
       @path = arr.shift.strip
-      @label = arr.join(' ')
+      @label = arr.join(' ') # Optional.
+      if @label.empty? then @label = @path end
     end
 
     def render(context)

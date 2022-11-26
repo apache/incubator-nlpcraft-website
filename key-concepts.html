@@ -33,21 +33,22 @@ id: key_concepts
                 {% scaladoc NCModel NCModel %} is a user-configured object responsible for input interpretation.
             </li>
             <li>
-                {% scaladoc NCPipeline NCPipeline %} is a part of the model configuration that defines
-                specifics of the user input processing.
+                {% scaladoc NCPipeline NCPipeline %} is a part of the model that defines
+                specifics of the step-by-step user input processing.
             </li>
             <li>
-                {% scaladoc NCModelClient NCModelClient %} is responsible for interaction with the data model.
+                {% scaladoc NCModelClient NCModelClient %} is responsible for submitting user input to be
+                processed by the model.
             </li>
         </ul>
 
         <p>Here's the typical code structure when working with NLPCraft:</p>
 
         <pre class="brush: scala, highlight: []">
-              // Init data model.
+              // Initialize data model including its pipeline.
               val mdl = new CustomNlpModel()
 
-              // Creates client for given model.
+              // Creates client instance for given model.
               val cli = new NCModelClient(mdl)
 
               // Sends text request to model by user ID "user01".
@@ -58,7 +59,7 @@ id: key_concepts
     <section id="terminology">
         <h2 class="section-title">Main Types<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
-            Let's start with the nomenclature of the main NLPCraft types:
+            Here's the list of the main NLPCraft types:
         </p>
 
         <table class="gradient-table">
@@ -85,23 +86,35 @@ id: key_concepts
             <tr>
                 <td><b>{% scaladoc NCToken NCToken %}</b></td>
                 <td>
-                    <code>Token</code> is simple string, part of user input, which is obtained by splitting user input
-                    according to some rules. For example, the user input "<b>Where is it?</b>" contains four tokens:
-                    "<code>Where</code>", "<code>is</code>", "<code>it</code>", "<code>?</code>".
-                    Usually <code>tokens</code> are words and punctuation symbols which also contain additional
-                    information like point of speech tags, relative position in the overall input text, stopword flag,
-                    stem and lemma forms, etc. List of parsed <code>tokens</code> serves as an input for parsing <code>entities</code>.
+                    <p>
+                        <code>Token</code> is simple string, part of user input, which is obtained by splitting user input
+                        according to some rules. For example, the user input "<b>Where is it?</b>" contains four tokens:
+                        "<code>Where</code>", "<code>is</code>", "<code>it</code>", "<code>?</code>".
+                        Usually <code>tokens</code> are words and punctuation symbols which also contain additional
+                        information like point of speech tags, relative position in the overall input text, stopword flag,
+                        stem and lemma forms, etc. List of parsed <code>tokens</code> serves as an input for parsing <code>entities</code>.
+                    </p>
+                    <p>
+                        Tokens are produced by {% scaladoc NCTokenParser %} that is part of the processing
+                        <a href="/pipeline-components.html">pipeline</a>.
+                    </p>
                 </td>
             </tr>
             <tr>
                 <td><b>{% scaladoc NCEntity NCEntity %}</b></td>
                 <td>
-                    <code>Entity</code> typically represents a real-world object, such as a person, location, organization,
-                    or product that can often be denoted with a proper name. It can be abstract or have a physical existence.
-                    Each <code>entity</code> consists of zero or more <code>tokens</code> and therefore is represented by zero
-                    or more substrings from the original input text. Note that entities may have only a very loose mapping back
-                    to the original text as entities represent a higher-level abstractions compared to tokens. Combination of
-                    entities form one or more parsing <code>variants</code>.
+                    <p>
+                        <code>Entity</code> typically represents a real-world object, such as a person, location, organization,
+                        or product that can often be denoted with a proper name. It can be abstract or have a physical existence.
+                        Each <code>entity</code> consists of zero or more <code>tokens</code> and therefore is represented by zero
+                        or more substrings from the original input text. Note that entities may have only a very loose mapping back
+                        to the original text as entities represent a higher-level abstractions compared to tokens. Combination of
+                        entities form one or more parsing <code>variants</code>.
+                    </p>
+                    <p>
+                        Entities are produced by {% scaladoc NCEntityParser %} that is part of the processing
+                        <a href="/pipeline-components.html">pipeline</a>.
+                    </p>
                 </td>
             </tr>
             <tr>
@@ -118,9 +131,9 @@ id: key_concepts
             <tr>
                 <td><b>{% scaladoc NCPipeline NCPipeline %}</b></td>
                 <td>
-                    <code>Pipeline</code> is the main configuration property of the model. Pipeline consists of an ordered sequence
+                    <code>Pipeline</code> is the main property of the model. A pipeline consists of an ordered sequence
                     of <a href="/pipeline-components.html">pipeline components</a>. User input starts at the first component of the
-                    pipeline as a simple text and exits the end of the pipeline as a one or more parsing <code>variants</code>.
+                    pipeline as a simple text and exits the end of the pipeline as a one or more filtered and validated parsing <code>variants</code>.
                     The output of the pipeline is further passed as an input to <a href="intent-matching.html">intent matching</a>.
                 </td>
             </tr>
@@ -128,8 +141,8 @@ id: key_concepts
                 <td><b><a target="scaladoc" href="/apis/latest/">@NCIntent</a></b></td>
                 <td>
                     <a target="scaladoc" href="/apis/latest/">@NCIntent</a> annotation binds a declarative intent to its
-                    callback method. The intent generally refers to the goal that the end-user had in mind when speaking
-                    or typing the input utterance. The intent has a <em>declarative part or template</em> written in <a href="/intent-matching.html#idl">IDL - Intent Definition Language</a>
+                    callback method on the model. The intent generally refers to the goal that the end-user had in mind when speaking
+                    or typing the input utterance. The intent has a declarative part or a template written in <a href="/intent-matching.html#idl">IDL - Intent Definition Language</a>
                     that strictly defines a particular form the user input.
                     Intent is also bound to a callback method that will be executed
                     when that intent, i.e. its template, is detected as the best match for a given input.
