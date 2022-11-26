@@ -111,8 +111,7 @@ id: short_term_memory
             Conversation management implementation is also smart enough to clear STM after certain
             period of time, i.e. it “forgets” the conversational context after few minutes of inactivity.
             Note also that conversational context can also be cleared explicitly
-            via <a href="https://app.swaggerhub.com/apis-docs/Apache-NLPCraft/apache-nlpcraft/{{site.latest_version}}" target="swaggerhub">REST API</a>
-            or from the <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/NCConversation.html">code</a>.
+            using {% scaladoc NCConversation %}.
         </p>
         <p>
             To understand the algorithm behind the STM management let's back up a few steps...
@@ -263,13 +262,11 @@ id: short_term_memory
             Despite somewhat obvious logic the implementation of context switch is not an exact science. Sometimes, you
             can have a "soft" context switch where you don't change the topic of the conversation 100% but yet sufficiently
             enough to forget at least some parts of the previously collected context. NLPCraft has a built-in algorithm
-            to detect the hard switch in the conversation. It also exposes
-            <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/NCConversation.html">API</a> to perform a selective reset on the
-            conversation in case of "soft" switch.
+            to detect the hard switch in the conversation. You can also use {% scaladoc NCConversation %} to perform a
+            selective reset on the conversation in case of "soft" switch.
         </p>
         <p>
-            See <a class="javadoc" href="/apis/latest/org/apache/nlpcraft/NCConversation.html">NCConversion</a> interface
-            for API details for STM management.
+            See {% scaladoc NCConversation %} interface for API details for STM management.
         </p>
     </section>
     <section id="override">
@@ -452,8 +449,7 @@ id: short_term_memory
         </p>
         <p>
             In NLPCraft you can also explicitly reset conversation context through
-            <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/NCConversation.html">API</a>
-            or by switching the model on the request.
+            {% scaladoc NCConversation %} interface or by switching the model on the request.
         </p>
     </section>
 </div>
