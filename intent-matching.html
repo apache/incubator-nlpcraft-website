@@ -25,7 +25,7 @@ id: intent_matching
     <section>
         <h2 class="section-title">Overview <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
-            <a href="/data-model.html">Data Model</a> processing logic is defined as a collection of one or more intents. The sections
+            {% scaladoc NCModel NCModel %} processing logic is defined as a collection of one or more intents. The sections
             below explain what intent is, how to define it in your model, and how it works.
         </p>
     </section>
@@ -64,18 +64,19 @@ id: intent_matching
         <pre class="brush: idl">
             intent=x
                 term(a)~{# == 'my_elm'}
-                term(b)={has(tok_groups, "my_group")}
+                term(b)={has(ent_groups, "my_group")}
         </pre>
         <p>
             IDL intent defines a match between the parsed user input represented as the collection of
-            <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html">tokens</a>,
+            {% scaladoc NCEntity entities %},
             and the user-define callback method. IDL intents are <a href="#binding">bound</a> to their callbacks via <a href="#binding">Java
             annotation</a> and can be <a href="#idl_location">located</a> in the same Java annotations or placed in model YAML/JSON file
             as well as in external <code>*.idl</code> files.
         </p>
         <p>
             You can review the formal
-            <a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft/src/main/scala/org/apache/nlpcraft/model/intent/compiler/antlr4/NCIdl.g4">ANTLR4 grammar</a> for IDL,
+            <a target="github" href="https://github.com/apache/incubator-nlpcraft/blob/master/nlpcraft/src/main/scala/org/apache/nlpcraft/internal/intent/compiler/antlr4/NCIDL.g4">ANTLR4 grammar</a>
+            for IDL,
             but here are the general properties of IDL:
         </p>
         <ul>
@@ -135,7 +136,7 @@ id: intent_matching
                 </p>
                 <p>
                     Intent is defined as one or more terms. Each term is a predicate over a instance of
-                    <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html">NCToken</a> interface.
+                    {% scaladoc NCEntity NCEntity %} trait.
                     For an intent to match all of its terms have to evaluate to true.
                     Intent definition can be informally explained using the following full-feature example:
                 </p>
@@ -145,7 +146,7 @@ id: intent_matching
                         meta={'enabled': true}
                         term(a)={month >= 6 && !# != "z" && meta_intent('enabled') == true}[1,3]
                         term(b)~{
-                            @usrTypes = meta_model('user_types')
+                            @usrTypes = meta_req('user_types')
 
                             (# == 'order' || # == 'order_cancel') && has_all(@usrTypes, list(1, 2, 3))
                         }
@@ -154,8 +155,7 @@ id: intent_matching
                         options={
                             'ordered': false,
                             'unused_free_words': true,
-                            'unused_sys_toks': true,
-                            'unused_usr_toks': false,
+                            'unused_entities': false,
                             'allow_stm_only': false
                         }
                         flow=/#flowModelMethod/
@@ -212,13 +212,11 @@ id: intent_matching
                                             <li><code>tok_is_last()</code></li>
                                             <li><code>tok_is_first()</code></li>
                                             <li><code>tok_is_before_id()</code></li>
-                                            <li><code>tok_is_before_parent()</code></li>
                                             <li><code>tok_is_before_group()</code></li>
                                             <li><code>tok_is_between_ids()</code></li>
                                             <li><code>tok_is_between_parents()</code></li>
                                             <li><code>tok_is_between_groups()</code></li>
                                             <li><code>tok_is_after_id()</code></li>
-                                            <li><code>tok_is_after_parent()</code></li>
                                             <li><code>tok_is_after_group()</code></li>
                                         </ul>
                                     </td>
@@ -237,23 +235,13 @@ id: intent_matching
                                     <td><code>true</code></td>
                                 </tr>
                                 <tr>
-                                    <td><code>unused_sys_toks</code></td>
+                                    <td><code>unused_entities</code></td>
                                     <td><code>Boolean</code></td>
                                     <td>
-                                        Whether or not unused <a href="/data-model.html#builtin">system tokens</a> should be
+                                        Whether or not unused entities should be
                                         ignored (value <code>true</code>) or reject the intent match (value <code>false</code>).
-                                        By default, tne unused system tokens are ignored.
-                                    </td>
-                                    <td><code>true</code></td>
-                                </tr>
-                                <tr>
-                                    <td><code>unused_usr_toks</code></td>
-                                    <td><code>Boolean</code></td>
-                                    <td>
-                                        Whether or not unused user-defined tokens should be
-                                        ignored (value <code>true</code>) or reject the intent match (value <code>false</code>).
-                                        By default, tne unused user tokens are not ignored since it is assumed that user would
-                                        define his or her own tokens on purpose and construct the intent logic appropriate.
+                                        By default, tne unused entities are not ignored since it is assumed that user would
+                                        define pipeline entity parser on purpose and construct the intent logic appropriate.
                                     </td>
                                     <td><code>false</code></td>
                                 </tr>
@@ -304,7 +292,7 @@ id: intent_matching
                                     In this case the dialog flow specification is defined as a callback in a form <code>/x.y.z.Cass#method/</code>,
                                     where <code>x.y.z.Class</code> should be a fully qualified name of the class where callback is defined, and
                                     <code>method</code> must be the name of the callback method. This method should take one
-                                    parameter of type <code>java.util.List[<a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCDialogFlowItem.html">NCDialogFlowItem</a>]</code>
+                                    parameter of type <code>java.util.List[{% scaladoc NCDialogFlowItem NCDialogFlowItem %}]</code>
                                     and return <code>boolean</code> result.
                                 </p>
                                 <p>
@@ -1238,7 +1226,7 @@ id: intent_matching
                     <td>Callback method or model class</td>
                     <td>
                         <p>
-                        When applied to a method this annotation allows to defines IDL intent in-place on the method
+                        When applied to a method this annotation allows to define IDL intent in-place on the method
                         serving as its callback.
                         This annotation can also be applied to a model's class in which case it will just declare the intent
                         without binding it and the
