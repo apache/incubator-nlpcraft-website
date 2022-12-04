@@ -23,10 +23,10 @@ fn-ent:
   - name: ent_id
     sig: |
       <b>ent_id</b>(t: Entity<em><sub>opt</sub></em>) ⇒ String, # ⇒ String
-    synopsis: Returns {% scaladoc NCEntity.html#getId-0 >entity ID() %}
+    synopsis: Returns {% scaladoc NCEntity.html#getId-0 entity ID() %}
     desc: |
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCEntity.html#getId()">entity ID</a>
-      for the current entity (default) or the provided one by the optional paremeter <code><b>t</b></code>. Note that this
+      for the current entity (default) or the provided one by the optional parameter <code><b>t</b></code>. Note that this
       functions has a special shorthand <code><b>#</b></code>.
     usage: |
       // Result: 'true' if the current entity ID is equal to 'my_id'.
@@ -41,7 +41,7 @@ fn-ent:
     synopsis: Gets the list of <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCEntity.html#getGroups()">groups</a> this entity belongs to
     desc: |
       Gets the list of <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCEntity.html#getGroups()">groups</a>
-      the current entity (default) or the provided one by the optional paremeter <code><b>t</b></code> belongs to. Note that,
+      the current entity (default) or the provided one by the optional parameter <code><b>t</b></code> belongs to. Note that,
       by default, if not specified explicitly, entity always belongs to one group with ID equal to entity ID.
       May return an empty list but never a <code>null</code>.
     usage: |
