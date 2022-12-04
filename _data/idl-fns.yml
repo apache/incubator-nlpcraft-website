@@ -19,591 +19,207 @@
 # IDL functions documentation.
 #
 
-fn-token:
-  - name: tok_id
+fn-ent:
+  - name: ent_id
     sig: |
-      <b>tok_id</b>(t: Token<em><sub>opt</sub></em>) ⇒ String, # ⇒ String
-    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getId()">token ID</a>
+      <b>ent_id</b>(t: Entity<em><sub>opt</sub></em>) ⇒ String, # ⇒ String
+    synopsis: Returns {% scaladoc NCEntity.html#getId-0 >entity ID() %}
     desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getId()">token ID</a>
-      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>. Note that this
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCEntity.html#getId()">entity ID</a>
+      for the current entity (default) or the provided one by the optional paremeter <code><b>t</b></code>. Note that this
       functions has a special shorthand <code><b>#</b></code>.
     usage: |
-      // Result: 'true' if the current token ID is equal to 'my_id'.
-      tok_id == 'my_id'
+      // Result: 'true' if the current entity ID is equal to 'my_id'.
+      ent_id == 'my_id'
       # == 'my_id'
-      tok_id(tok_this) == 'my_id'
-      #(tok_this) == 'my_id'
+      ent_id(ent_this) == 'my_id'
+      #(ent_this) == 'my_id'
 
-  - name: tok_lemma
+  - name: ent_groups
     sig: |
-      <b>tok_lemma</b>(t: Token<em><sub>opt</sub></em>) ⇒ String
-    synopsis: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getLemma()">token lemma</a>
+      <b>ent_groups</b>(t: Entity<em><sub>opt</sub></em>) ⇒ List[String]
+    synopsis: Gets the list of <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCEntity.html#getGroups()">groups</a> this entity belongs to
     desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getLemma()">token lemma</a>
-      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
-    usage: |
-      // Result: 'true' if the current token lemma is equal to 'work'.
-      tok_lemma == 'work'
-      tok_lemma(tok_this) == 'work'
-
-  - name: tok_stem
-    sig: |
-      <b>tok_stem</b>(t: Token<em><sub>opt</sub></em>) ⇒ String
-    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getStem()">token stem</a>
-    desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getStem()">token stem</a>
-      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
-    usage: |
-      // Result: 'true' if the current token stem is equal to 'work'.
-      tok_stem == 'work'
-      tok_stem(tok_this) == 'work'
-
-  - name: tok_pos
-    sig: |
-      <b>tok_pos</b>(t: Token<em><sub>opt</sub></em>) ⇒ String
-    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getPos()">token PoS</a> tag
-    desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getPos()">token PoS</a> tag
-      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
-    usage: |
-      // Result: 'true' if the current token PoS tag is equal to 'NN'.
-      tok_pos == 'NN'
-      tok_pos(tok_this) == 'NN'
-
-  - name: tok_sparsity
-    sig: |
-      <b>tok_sparsity</b>(t: Token<em><sub>opt</sub></em>) ⇒ Long
-    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getSparsity()">token sparsity</a> value
-    desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getSparsity()">token sparsity</a> value
-      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
-    usage: |
-      // Result: token sparsity value.
-      tok_sparsity
-      tok_sparsity(tok_this)
-
-  - name: tok_unid
-    sig: |
-      <b>tok_unid</b>(t: Token<em><sub>opt</sub></em>) ⇒ String
-    synopsis: Returns internal <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getUnid()">token globally unique ID</a>
-    desc: |
-      Returns internal <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getUnid()">token globally unique ID</a>
-      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
-    usage: |
-      // Result: internal token globally unique ID.
-      tok_unid
-      tok_unid(tok_this)
-
-  - name: tok_is_abstract
-    sig: |
-      <b>tok_is_abstract</b>(t: Token<em><sub>opt</sub></em>) ⇒ Boolean
-    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isAbstract()">token abstract</a> flag
-    desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isAbstract()">token abstract</a> flag
-      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
-    usage: |
-      // Result: token abstract flag.
-      tok_is_abstract
-      tok_is_abstract(tok_this)
-
-  - name: tok_is_bracketed
-    sig: |
-      <b>tok_is_bracketed</b>(t: Token<em><sub>opt</sub></em>) ⇒ Boolean
-    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isBracketed()">token bracketed</a> flag
-    desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isBracketed()">token bracketed</a> flag
-      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
-    usage: |
-      // Result: token bracketed flag.
-      tok_is_bracketed
-      tok_is_bracketed(tok_this)
-
-  - name: tok_is_direct
-    sig: |
-      <b>tok_is_direct</b>(t: Token<em><sub>opt</sub></em>) ⇒ Boolean
-    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isDirect()">token direct</a> flag
-    desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isDirect()">token direct</a> flag
-      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
-    usage: |
-      // Result: token direct flag.
-      tok_is_direct
-      tok_is_direct(tok_this)
-
-  - name: tok_is_permutated
-    sig: |
-      <b>tok_is_permutated</b>(t: Token<em><sub>opt</sub></em>) ⇒ Boolean
-    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isPermutated()">token permutated</a> flag
-    desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isPermutated()">token permutated</a> flag
-      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
-    usage: |
-      // Result: token permutated flag.
-      tok_is_permutated
-      tok_is_permutated(tok_this)
-
-  - name: tok_is_english
-    sig: |
-      <b>tok_is_english</b>(t: Token<em><sub>opt</sub></em>) ⇒ Boolean
-    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isEnglish()">token English</a> detection flag
-    desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isEnglish()">token English</a> detection flag
-      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
-    usage: |
-      // Result: token English detection flag.
-      tok_is_english
-      tok_is_english(tok_this)
-
-  - name: tok_is_freeword
-    sig: |
-      <b>tok_is_freeword</b>(t: Token<em><sub>opt</sub></em>) ⇒ Boolean
-    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isFreeWord()">token freeword</a> flag
-    desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isFreeWord()">token freeword</a> flag
-      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
-    usage: |
-      // Result: token freeword flag.
-      tok_is_freeword
-      tok_is_freeword(tok_this)
-
-  - name: tok_is_quoted
-    sig: |
-      <b>tok_is_quoted</b>(t: Token<em><sub>opt</sub></em>) ⇒ Boolean
-    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isQuoted()">token quoted</a> flag
-    desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isQuoted()">token quoted</a> flag
-      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
-    usage: |
-      // Result: token quoted flag.
-      tok_is_quoted
-      tok_is_quoted(tok_this)
-
-  - name: tok_is_stopword
-    sig: |
-      <b>tok_is_stopword</b>(t: Token<em><sub>opt</sub></em>) ⇒ Boolean
-    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isStopWord()">token stopword</a> flag
-    desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isStopWord()">token stopword</a> flag
-      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
-    usage: |
-      // Result: token stopword flag.
-      tok_is_stopword
-      tok_is_stopword(tok_this)
-
-  - name: tok_is_swear
-    sig: |
-      <b>tok_is_swear</b>(t: Token<em><sub>opt</sub></em>) ⇒ Boolean
-    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isSwearWord()">token swear word</a> flag
-    desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isSwearWord()">token swear word</a> flag
-      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
-    usage: |
-      // Result: token swear flag.
-      tok_is_swear
-      tok_is_swear(tok_this)
-
-  - name: tok_is_user
-    sig: |
-      <b>tok_is_user</b>(t: Token<em><sub>opt</sub></em>) ⇒ Boolean
-    synopsis: Returns if this token is <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isUserDefined()">user-defined</a>
-    desc: |
-      Returns if this token is defined by <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isUserDefined()">user-defined</a> model element or a built-in element
-      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
-    usage: |
-      // Result: wether or not this is defined by user model element vs. built-in,
-      tok_is_user
-      tok_is_user(tok_this)
-
-  - name: tok_is_wordnet
-    sig: |
-      <b>tok_is_wordnet</b>(t: Token<em><sub>opt</sub></em>) ⇒ Boolean
-    synopsis: Returns if this token is part of <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isWordnet()">WordNet</a> dictionary
-    desc: |
-      Returns if this token's text is a known part of <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#isWordnet()">WordNet</a> dictionary
-      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>.
-    usage: |
-      // Result: whether or not this token is part of WordNet dictionary.
-      tok_is_wordnet
-      tok_is_wordnet(tok_this)
-
-  - name: tok_ancestors
-    sig: |
-      <b>tok_ancestors</b>(t: Token<em><sub>opt</sub></em>) ⇒ List[String]
-    synopsis: Gets the <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getAncestors()">list of all parent IDs</a> for this token
-    desc: |
-      Gets the <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getAncestors()">list of all parent IDs</a>
-      for the current token (default) or the provided one by the optional paremeter <code><b>t</b></code> up to the root.
-      This only available for user-defined model elements - built-in tokens do not have parents and will return an empty list.
+      Gets the list of <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCEntity.html#getGroups()">groups</a>
+      the current entity (default) or the provided one by the optional paremeter <code><b>t</b></code> belongs to. Note that,
+      by default, if not specified explicitly, entity always belongs to one group with ID equal to entity ID.
       May return an empty list but never a <code>null</code>.
     usage: |
-      // Result: list of all ancestors.
-      tok_ancestors
-      tok_ancestors(tok_this)
+      // Result: list of groups this entity belongs to.
+      ent_groups
+      ent_groups(ent_this)
 
-  - name: tok_parent
+  - name: ent_this
     sig: |
-      <b>tok_parent</b>(t: Token<em><sub>opt</sub></em>) ⇒ String
-    synopsis: Gets optional <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getParentId()">parent ID</a> for this token
+      <b>ent_this</b> ⇒ Entity
+    synopsis: Returns current entity
     desc: |
-      Gets the optional <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getParentId()">parent ID</a> of the
-      model element the current token (default) or the provided one by the optional paremeter <code><b>t</b></code>
-      represents. This only available for user-defined model elements - built-in tokens do not have parents and
-      this will return <code>null</code>.
+      Returns current entity.
     usage: |
-      // Result: list of all ancestors.
-      tok_parent
-      tok_parent(tok_this)
+      // Result: current entity.
+      ent_this
 
-  - name: tok_groups
+  - name: ent_text
     sig: |
-      <b>tok_groups</b>(t: Token<em><sub>opt</sub></em>) ⇒ List[String]
-    synopsis: Gets the list of <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getGroups()">groups</a> this token belongs to
+      <b>ent_text</b>(t: Entity<em><sub>opt</sub></em>) ⇒ String
+    synopsis: Returns entity's original text
     desc: |
-      Gets the list of <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getGroups()">groups</a>
-      the current token (default) or the provided one by the optional paremeter <code><b>t</b></code> belongs to. Note that,
-      by default, if not specified explicitly, token always belongs to one group with ID equal to token ID.
-      May return an empty list but never a <code>null</code>.
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCEntity.html#getOriginalText()">entity's original text</a>.
+      If <code>t</code> is not provided the current entity is assumed.
     usage: |
-      // Result: list of groups this token belongs to.
-      tok_groups
-      tok_groups(tok_this)
+      // Result: entity original input text.
+      ent_text
 
-  - name: tok_value
+  - name: ent_index
     sig: |
-      <b>tok_value</b>(t: Token<em><sub>opt</sub></em>) ⇒ String
-    synopsis: Gets the <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getValue()">value</a> if this token was detected via element's value
+      <b>ent_index</b>(t: Entity<em><sub>opt</sub></em>) ⇒ Long
+    synopsis: Returns entity's index in the original input
     desc: |
-      Gets the <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getValue()">value</a> if
-      the current token (default) or the provided one by the optional paremeter <code><b>t</b></code> was detected via
-      element's value (or its synonyms). Otherwise returns <code>null</code>. Only applicable for user-defined
-      model elements - built-in tokens do not have values and it will return <code>null</code>.
+      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCEntity.html#getIndex()">entity's index</a> in the original input. Note that this is an index of the entity and not of the character.
+      If <code>t</code> is not provided the current entity is assumed.
     usage: |
-      // Result: the token value if this token was detected via element's value
-      tok_value
-      tok_value(tok_this)
+      // Result: 'true' if index of this entity in the original input is equal to 1.
+      ent_index == 1
+      ent_index(ent_this) == 1
 
-  - name: tok_aliases
+  - name: ent_is_first
     sig: |
-      <b>tok_aliases</b>(t: Token<em><sub>opt</sub></em>) ⇒ List[String]
-    synopsis: Gets optional <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getAliases()">list of aliases</a> this token is known by
+      <b>ent_is_first</b>(t: Entity<em><sub>opt</sub></em>) ⇒ Boolean
+    synopsis: Returns <code>true</code> if this entity is the first in the original input
     desc: |
-      Gets optional <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getAliases()">list of aliases</a>
-      the current token (default) or the provided one by the optional paremeter <code><b>t</b></code> is known by. Token can get an alias if it is a part of
-      other composed token and IDL expression that was used to match it specified an alias. Note
-      that token can have zero, one or more aliases. May return an empty list but never a <code>null</code>.
+      Returns <code>true</code> if this entity is the first in the original input. Note that this checks index of the entity and not of the character.
+      If <code>t</code> is not provided the current entity is assumed.
     usage: |
-      // Result: checks if this token is known by 'alias' alias.
-      has(tok_aliases, 'alias')
-      has(tok_aliases(tok_this), 'alias')
+      // Result: 'true' if this entity is the first entity in the original input.
+      ent_is_first
+      ent_is_first(ent_this)
 
-  - name: tok_start_idx
+  - name: ent_is_last
     sig: |
-      <b>tok_start_idx</b>(t: Token<em><sub>opt</sub></em>) ⇒ Long
-    synopsis: Gets <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getStartCharIndex()">start character index</a> of this token in the original text
+      <b>ent_is_last</b>(t: Entity<em><sub>opt</sub></em>) ⇒ Boolean
+    synopsis: Returns <code>true</code> if this entity is the last in the original input
     desc: |
-      Gets <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getStartCharIndex()">start character index</a>
-      of the current token (default) or the provided one by the optional paremeter <code><b>t</b></code> in the original text.
+      Returns <code>true</code> if this entity is the last in the original input. Note that this checks index of the entity and not of the character.
+      If <code>t</code> is not provided the current entity is assumed
     usage: |
-      // Result: start character index of this token in the original text.
-      tok_start_idx
-      tok_start_idx(tok_this)
+      // Result: 'true' if this entity is the last entity in the original input.
+      ent_is_last
+      ent_is_last(ent_this)
 
-  - name: tok_end_idx
+  - name: ent_is_before_id
     sig: |
-      <b>tok_end_idx</b>(t: Token<em><sub>opt</sub></em>) ⇒ Long
-    synopsis: Gets <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getEndCharIndex()">end character index</a> of this token in the original text
+      <b>ent_is_before_id</b>(id: String) ⇒ Boolean
+    synopsis: Returns <code>true</code> if there is a entity with ID <code>id</code> after this entity
     desc: |
-      Gets <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getEndCharIndex()">end character index</a>
-      of the current token (default) or the provided one by the optional paremeter <code><b>t</b></code> in the original text.
-      If <code>t</code> is not provided the current token is assumed.
+      Returns <code>true</code> if there is a entity with ID <code>id</code> after this entity.
     usage: |
-      // Result: end character index of this token in the original text.
-      tok_end_idx
-      tok_end_idx(tok_this)
+      // Result: 'true' if there is a entity with ID 'a' after this entity.
+      ent_is_before_id('a')
 
-  - name: tok_this
+  - name: ent_is_after_id
     sig: |
-      <b>tok_this</b> ⇒ Token
-    synopsis: Returns current token.
+      <b>ent_is_after_id</b>(id: String) ⇒ Boolean
+    synopsis: Returns <code>true</code> if there is a entity with ID <code>id</code> before this entity
     desc: |
-      Returns current token.
+      Returns <code>true</code> if there is a entity with ID <code>id</code> before this entity.
     usage: |
-      // Result: current token.
-      tok_this
+      // Result: 'true' if there is a entity with ID 'a' before this entity.
+      ent_is_after_id('a')
 
-  - name: tok_find_part
+  - name: ent_is_between_ids
     sig: |
-      <b>tok_find_part</b>(t: Token, a: String) ⇒ Token
-    synopsis: Finds part token with given alias or ID.
+      <b>ent_is_between_ids</b>(id1: String, id2: String) ⇒ Boolean
+    synopsis: Returns <code>true</code> if this entity is located between entities with IDs <code>id1</code> and <code>id2</code>
     desc: |
-      Finds part token with given ID or aliase traversing entire part token graph. The start token is provided
-      by <code><b>t</b></code> parameter. Token ID or alias to find is defined by <code><b>a</b></code> parameter. This function
-      throws runtime exception if given alias or ID cannot be found or more than one token is found. This function
-      never returns <code>null</code>. If more than one token is expected - use <code>tok_find_parts()</code>
-      function instead. See also <code>tok_has_part()</code> function to check if certain part token exists.
+      Returns <code>true</code> if this entity is located between entities with IDs <code>id1</code> and <code>id2</code>.
     usage: |
-      // Result: part token of the current token found by 'alias' alias,
-      //         if any, or throws runtime exception.
-      tok_find_part(tok_this, 'alias')
+      // Result: 'true' if this entity is located after entity with ID 'before' and before the entity with ID 'after'.
+      ent_is_between_ids('before', 'after')
 
-  - name: tok_has_part
+  - name: ent_is_between_groups
     sig: |
-      <b>tok_has_part</b>(t: Token, a: String) ⇒ Boolean
-    synopsis: Checks if part token with given alias or ID exists.
+      <b>ent_is_between_groups</b>(grp1: String, grp2: String) ⇒ Boolean
+    synopsis: Returns <code>true</code> if this entity is located between entities with group IDs <code>grp1</code> and <code>grp2</code>
     desc: |
-      Checks the existence of the part token with given ID or aliase traversing entire part token graph.
-      The start token is provided by <code><b>t</b></code> parameter. Token ID or alias to find is defined by <code><b>a</b></code>
-      parameter. See also <code>if()</code> function for 'if-then-else' branching support.
+      Returns <code>true</code> if this entity is located between entities with group IDs <code>grp1</code> and <code>grp2</code>.
     usage: |
-      // Result: 'true' if part token of the current token found by 'alias' alias, 'false' otherwise.
-      tok_has_part(tok_this, 'alias')
+      // Result: 'true' if this entity is located after entity belonging to the group 'before' and before the entity belonging to the group 'after'.
+      ent_is_between_groups('before', 'after')
 
-      // Result: part token 'alias' if it exists or the current token if it does not.
-      @this = tok_this
-      @tok = if(tok_has_part(@this, 'alias'), tok_find_part(@this, 'alias'), @this)
-
-  - name: tok_find_parts
+  - name: ent_is_before_group
     sig: |
-      <b>tok_find_parts</b>(t: Token, a: String) ⇒ List[Token]
-    synopsis: Finds part tokens with given alias or ID.
-    desc: |
-      Finds part tokens with given ID or aliase traversing entire part token graph. The start token is provided
-      by <code><b>t</b></code> parameter. Token ID or alias to find is defined by <code><b>a</b></code> parameter. This function
-      may return an empty list but never a <code>null</code>.
-    usage: |
-      // Result: list of part tokens, potentially empty, of the current token found by 'alias' alias.
-      tok_find_parts(tok_this, 'alias')
-
-      // Result: part token 'alias' if it exists or the current token if it does not.
-      @this = tok_this
-      @parts = tok_find_parts(@this, 'alias')
-      @tok = if(is_empty(@parts), @this, first(@parts))
-
-  - name: tok_txt
-    sig: |
-      <b>tok_txt</b>(t: Token<em><sub>opt</sub></em>) ⇒ String
-    synopsis: Returns token's original text
-    desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getOriginalText()">token's original text</a>.
-      If <code>t</code> is not provided the current token is assumed.
-    usage: |
-      // Result: token original input text.
-      tok_txt
-
-  - name: tok_norm_txt
-    sig: |
-      <b>tok_norm_txt</b>(t: Token<em><sub>opt</sub></em>) ⇒ String
-    synopsis: Returns token's normalized text
-    desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getNormalizedText()">token's normalized text</a>.
-      If <code>t</code> is not provided the current token is assumed.
-    usage: |
-      // Result: token normalized input text.
-      tok_norm_txt
-
-  - name: tok_index
-    sig: |
-      <b>tok_index</b>(t: Token<em><sub>opt</sub></em>) ⇒ Long
-    synopsis: Returns token's index in the original input
-    desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getIndex()">token's index</a> in the original input. Note that this is an index of the token and not of the character.
-      If <code>t</code> is not provided the current token is assumed.
-    usage: |
-      // Result: 'true' if index of this token in the original input is equal to 1.
-      tok_index == 1
-      tok_index(tok_this) == 1
-
-  - name: tok_is_first
-    sig: |
-      <b>tok_is_first</b>(t: Token<em><sub>opt</sub></em>) ⇒ Boolean
-    synopsis: Returns <code>true</code> if this token is the first in the original input
-    desc: |
-      Returns <code>true</code> if this token is the first in the original input. Note that this checks index of the token and not of the character.
-      If <code>t</code> is not provided the current token is assumed.
-    usage: |
-      // Result: 'true' if this token is the first token in the original input.
-      tok_is_first
-      tok_is_first(tok_this)
-
-  - name: tok_is_last
-    sig: |
-      <b>tok_is_last</b>(t: Token<em><sub>opt</sub></em>) ⇒ Boolean
-    synopsis: Returns <code>true</code> if this token is the last in the original input
-    desc: |
-      Returns <code>true</code> if this token is the last in the original input. Note that this checks index of the token and not of the character.
-      If <code>t</code> is not provided the current token is assumed
-    usage: |
-      // Result: 'true' if this token is the last token in the original input.
-      tok_is_last
-      tok_is_last(tok_this)
-
-  - name: tok_is_before_id
-    sig: |
-      <b>tok_is_before_id</b>(id: String) ⇒ Boolean
-    synopsis: Returns <code>true</code> if there is a token with ID <code>id</code> after this token
-    desc: |
-      Returns <code>true</code> if there is a token with ID <code>id</code> after this token.
-    usage: |
-      // Result: 'true' if there is a token with ID 'a' after this token.
-      tok_is_before_id('a')
-
-  - name: tok_is_after_id
-    sig: |
-      <b>tok_is_after_id</b>(id: String) ⇒ Boolean
-    synopsis: Returns <code>true</code> if there is a token with ID <code>id</code> before this token
-    desc: |
-      Returns <code>true</code> if there is a token with ID <code>id</code> before this token.
-    usage: |
-      // Result: 'true' if there is a token with ID 'a' before this token.
-      tok_is_after_id('a')
-
-  - name: tok_is_between_ids
-    sig: |
-      <b>tok_is_between_ids</b>(id1: String, id2: String) ⇒ Boolean
-    synopsis: Returns <code>true</code> if this token is located between tokens with IDs <code>id1</code> and <code>id2</code>.
-    desc: |
-      Returns <code>true</code> if this token is located between tokens with IDs <code>id1</code> and <code>id2</code>.
-    usage: |
-      // Result: 'true' if this token is located after token with ID 'before' and before the token with ID 'after'.
-      tok_is_between_ids('before', 'after')
-
-  - name: tok_is_between_groups
-    sig: |
-      <b>tok_is_between_groups</b>(grp1: String, grp2: String) ⇒ Boolean
-    synopsis: Returns <code>true</code> if this token is located between tokens with group IDs <code>grp1</code> and <code>grp2</code>.
-    desc: |
-      Returns <code>true</code> if this token is located between tokens with group IDs <code>grp1</code> and <code>grp2</code>.
-    usage: |
-      // Result: 'true' if this token is located after token belonging to the group 'before' and before the token belonging to the group 'after'.
-      tok_is_between_groups('before', 'after')
-
-  - name: tok_is_between_parents
-    sig: |
-      <b>tok_is_between_parents</b>(id1: String, id2: String) ⇒ Boolean
-    synopsis: Returns <code>true</code> if this token is located between tokens with parent IDs <code>id1</code> and <code>id2</code>.
-    desc: |
-      Returns <code>true</code> if this token is located between tokens with parent IDs <code>id1</code> and <code>id2</code>.
-    usage: |
-      // Result: 'true' if this token is located after token with parent ID 'before' and before the token with parent ID 'after'.
-      tok_is_between_parents('before', 'after')
-
-  - name: tok_is_before_group
-    sig: |
-      <b>tok_is_before_group</b>(grp: String) ⇒ Boolean
+      <b>ent_is_before_group</b>(grp: String) ⇒ Boolean
     synopsis: |
-      Returns <code>true</code> if there is a token that belongs to the
-      <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getGroups()">group</a>
-      <code>grp</code> after this token
+      Returns <code>true</code> if there is a entity that belongs to the
+      <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCEntity.html#getGroups()">group</a>
+      <code>grp</code> after this entity
     desc: |
-      Returns <code>true</code> if there is a token that belongs to the
-      <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getGroups()">group</a>
-      <code>grp</code> after this token.
+      Returns <code>true</code> if there is a entity that belongs to the
+      <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCEntity.html#getGroups()">group</a>
+      <code>grp</code> after this entity.
     usage: |
-      // Result: 'true' if there is a token that belongs to the group 'grp' after this token.
-      tok_is_before_group('grp')
+      // Result: 'true' if there is a entity that belongs to the group 'grp' after this entity.
+      ent_is_before_group('grp')
 
-  - name: tok_is_after_group
+  - name: ent_is_after_group
     sig: |
-      <b>tok_is_after_group</b>(grp: String) ⇒ Boolean
+      <b>ent_is_after_group</b>(grp: String) ⇒ Boolean
     synopsis: |
-      Returns <code>true</code> if there is a token that belongs to the
-      <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getGroups()">group</a>
-      <code>grp</code> before this token
+      Returns <code>true</code> if there is a entity that belongs to the
+      <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCEntity.html#getGroups()">group</a>
+      <code>grp</code> before this entity
     desc: |
-      Returns <code>true</code> if there is a token that belongs to the
-      <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getGroups()">group</a>
-      <code>grp</code> before this token.
+      Returns <code>true</code> if there is a entity that belongs to the
+      <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCEntity.html#getGroups()">group</a>
+      <code>grp</code> before this entity.
     usage: |
-      // Result: 'true' if there is a token that belongs to the group 'grp' before this token.
-      tok_is_after_group('grp')
+      // Result: 'true' if there is a entity that belongs to the group 'grp' before this entity.
+      ent_is_after_group('grp')
 
-  - name: tok_is_after_parent
+  - name: ent_all
     sig: |
-      <b>tok_is_after_parent</b>(parentId: String) ⇒ Boolean
+      <b>ent_all</b> ⇒ List[Entity]
     synopsis: |
-      Returns <code>true</code> if there is a token with
-      <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getParentId()">parent ID</a>
-      <code>parentId</code> before this token
+      Returns all entities from the original input
     desc: |
-      Returns <code>true</code> if there is a token with
-      <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getParentId()">parent ID</a>
-      <code>parentId</code> before this token.
+      Returns all entities from the original input.
     usage: |
-      // Result: 'true' if there is a token with parent ID 'owner' before this token.
-      tok_is_after_parent('owner')
+      // Result: list of all entities for the original input.
+      ent_all
 
-  - name: tok_is_before_parent
+  - name: ent_count
     sig: |
-      <b>tok_is_before_parent</b>(parentId: String) ⇒ Boolean
+      <b>ent_count</b> ⇒ Long
     synopsis: |
-      Returns <code>true</code> if there is a token with
-      <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getParentId()">parent ID</a>
-      <code>parentId</code> after this token
+      Returns number of entities from the original input
     desc: |
-      Returns <code>true</code> if there is a token with
-      <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html#getParentId()">parent ID</a>
-      <code>parentId</code> after this token.
+      Returns number of entities from the original input.
+      It is equivalent to <code>size(ent_all)</code>
     usage: |
-      // Result: 'true' if there is a token with parent ID 'owner' after this token.
-      tok_is_before_parent('owner')
+      // Result: number of all entities for the original input.
+      ent_count
 
-  - name: tok_all
+  - name: ent_all_for_id
     sig: |
-      <b>tok_all</b> ⇒ List[Token]
+      <b>ent_all_for_id</b>(id: String) ⇒ List[Entity]
     synopsis: |
-      Returns all tokens from the original input
+      Returns list of entities from the original input with ID <code>id</code>
     desc: |
-      Returns all tokens from the original input.
+      Returns list of entities from the original input with ID <code>id</code>.
     usage: |
-      // Result: list of all tokens for the original input.
-      tok_all
+      // Result: list of entities for the original input that have ID 'id'.
+      ent_all_for_id('id')
 
-  - name: tok_count
+  - name: ent_all_for_group
     sig: |
-      <b>tok_count</b> ⇒ Long
+      <b>ent_all_for_group</b>(grp: String) ⇒ List[Entity]
     synopsis: |
-      Returns number of tokens from the original input
+      Returns list of entities from the original input that belong to the group <code>grp</code>
     desc: |
-      Returns number of tokens from the original input.
-      It is equivalent to <code>size(tok_all)</code>
+      Returns list of entities from the original input that belong to the group <code>grp</code>.
     usage: |
-      // Result: number of all tokens for the original input.
-      tok_count
-
-  - name: tok_all_for_id
-    sig: |
-      <b>tok_all_for_id</b>(id: String) ⇒ List[Token]
-    synopsis: |
-      Returns list of tokens from the original input with ID <code>id</code>
-    desc: |
-      Returns list of tokens from the original input with ID <code>id</code>.
-    usage: |
-      // Result: list of tokens for the original input that have ID 'id'.
-      tok_all_for_id('id')
-
-  - name: tok_all_for_parent
-    sig: |
-      <b>tok_all_for_id</b>(parentId: String) ⇒ List[Token]
-    synopsis: |
-      Returns list of tokens from the original input with parent ID <code>parentId</code>
-    desc: |
-      Returns list of tokens from the original input with parent ID <code>parentId</code>.
-    usage: |
-      // Result: list of tokens for the original input that have parent ID 'id'.
-      tok_all_for_parent('id')
-
-  - name: tok_all_for_group
-    sig: |
-      <b>tok_all_for_group</b>(grp: String) ⇒ List[Token]
-    synopsis: |
-      Returns list of tokens from the original input that belong to the group <code>grp</code>
-    desc: |
-      Returns list of tokens from the original input that belong to the group <code>grp</code>.
-    usage: |
-      // Result: list of tokens for the original input that belong to th group 'grp'.
-      tok_all_for_group('grp')
+      // Result: list of entities for the original input that belong to th group 'grp'.
+      ent_all_for_group('grp')
 
 fn-datetime:
   - name: year
@@ -748,15 +364,15 @@ fn-req:
       // Result: server request ID.
       req_id
 
-  - name: req_normtext
+  - name: req_text
     sig: |
-      <b>req_normtext</b> ⇒ String
+      <b>req_text</b> ⇒ String
     synopsis: Returns request <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getNormalizedText()">normalied text</a>
     desc: |
       Returns request <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getNormalizedText()">normalized text</a>.
     usage: |
-      // Result: request normalized text.
-      req_normtext
+      // Result: request text.
+      req_text
 
   - name: req_tstamp
     sig: |
@@ -767,31 +383,8 @@ fn-req:
       in ms when user input was received.
     usage: |
       // Result: input receive timsstamp in ms.
-      req_tstamp
+      req_tstamp    
 
-  - name: req_addr
-    sig: |
-      <b>req_addr</b> ⇒ String
-    synopsis: Gets remote client <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getRemoteAddress()">address</a>
-    desc: |
-      Gets remote client <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getRemoteAddress()">address</a> that made the original REST call.
-      Returns <code>null</code> if remote client address is not available.
-    usage: |
-      // Result: remote client address or 'null'.
-      req_addr
-
-  - name: req_agent
-    sig: |
-      <b>req_agent</b> ⇒ String
-    synopsis: Gets remote client <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getClientAgent()">agent</a>
-    desc: |
-      Gets remote client <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getRemoteClientAgent()">agent</a> that made the original REST call.
-      Returns <code>null</code> if remote client agent is not available.
-    usage: |
-      // Result: remote client agent or 'null'.
-      req_agent
-
-fn-user:
   - name: user_id
     sig: |
       <b>user_id</b> ⇒ String
@@ -800,138 +393,7 @@ fn-user:
       Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getId()">user ID</a>.
     usage: |
       // Result: user ID.
-      user_id
-
-  - name: user_fname
-    sig: |
-      <b>user_fname</b> ⇒ String
-    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getFirstName()">user first name</a>
-    desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getFirstName()">user first name</a>.
-    usage: |
-      // Result: user first name.
-      user_fname
-
-  - name: user_lname
-    sig: |
-      <b>user_lname</b> ⇒ String
-    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getLastName()">user last name</a>
-    desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getLastName()">user last name</a>.
-    usage: |
-      // Result: user last name.
-      user_lname
-
-  - name: user_email
-    sig: |
-      <b>user_email</b> ⇒ String
-    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getEmail()">user email</a>
-    desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getEmail()">user email</a>.
-    usage: |
-      // Result: user email.
-      user_email
-
-  - name: user_admin
-    sig: |
-      <b>user_admin</b> ⇒ Boolean
-    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#isAdmin()">user admin</a> flag
-    desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#isAdmin()">user admin</a> flag.
-    usage: |
-      // Result: user admin flag.
-      user_admin
-
-  - name: user_signup_tstamp
-    sig: |
-      <b>user_signup_tstamp</b> ⇒ Long
-    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getSignupTimestamp()">user signup timestamp</a>
-    desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getSignupTimestamp()">user signup timestamp</a>.
-    usage: |
-      // Result: user signup timestamp in milliseconds.
-      user_signup_tstamp
-
-fn-company:
-  - name: comp_id
-    sig: |
-      <b>comp_id</b> ⇒ String
-    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getId()">company ID</a>
-    desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getId()">company ID</a>.
-    usage: |
-      // Result: company ID.
-      comp_id
-
-  - name: comp_name
-    sig: |
-      <b>comp_name</b> ⇒ String
-    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getName()">company name</a>
-    desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getName()">company name</a>.
-    usage: |
-      // Result: company name.
-      comp_name
-
-  - name: comp_website
-    sig: |
-      <b>comp_website</b> ⇒ String
-    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getWebsite()">company website</a>
-    desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getWebsite()">company website</a>.
-    usage: |
-      // Result: company website.
-      comp_website
-
-  - name: comp_country
-    sig: |
-      <b>comp_country</b> ⇒ String
-    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getCountry()">company country</a>
-    desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getCountry()">company country</a>.
-    usage: |
-      // Result: company country.
-      comp_country
-
-  - name: comp_region
-    sig: |
-      <b>comp_region</b> ⇒ String
-    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getRegion()">company region</a>
-    desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getRegion()">company region</a>.
-    usage: |
-      // Result: company region.
-      comp_region
-
-  - name: comp_city
-    sig: |
-      <b>comp_city</b> ⇒ String
-    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getCity()">company city</a>
-    desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getCity()">company city</a>.
-    usage: |
-      // Result: company region.
-      comp_city
-
-  - name: comp_addr
-    sig: |
-      <b>comp_addr</b> ⇒ String
-    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getAddress()">company address</a>
-    desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getAddress()">company address</a>.
-    usage: |
-      // Result: company address.
-      comp_addr
-
-  - name: comp_postcode
-    sig: |
-      <b>comp_postcode</b> ⇒ String
-    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getPostalCode()">company postal code</a>
-    desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCCompany.html#getPostalCode()">company postal code</a>.
-    usage: |
-      // Result: company postal code.
-      comp_postcode
+      user_id      
 
 fn-math:
   - name: abs
@@ -1430,38 +892,16 @@ fn-collections:
       concat(list(1, 2), list(3, 4))
 
 fn-metadata:
-  - name: meta_part
+  - name: meta_ent
     sig: |
-      <b>meta_part</b>(a: String, p: String) ⇒ Any
-    synopsis: Gets metadata property <code><b>p</b></code> of part token <code><b>a</b></code>
+      <b>meta_ent</b>(p: String) ⇒ Any
+    synopsis: Gets entity metadata property <code><b>p</b></code>
     desc: |
-      Finds a part token with alias or ID <code><b>a</b></code>, if any, and returns its metadata property <code><b>p</b></code>.
-      If part token cannot be found the runtime exception will be thrown. Returns <code>null</code> if metadata
-      does not exist.
+      Gets entity metadata property <code><b>p</b></code>. See
+      <a href="/data-model.html#meta">entity metadata</a> for more information.
     usage: |
-      // Result: 'prop' property of 'alias' part token of the current token.
-      meta_part('alias', 'prop')
-
-  - name: meta_tok
-    sig: |
-      <b>meta_tok</b>(p: String) ⇒ Any
-    synopsis: Gets token metadata property <code><b>p</b></code>
-    desc: |
-      Gets token metadata property <code><b>p</b></code>. See
-      <a href="/data-model.html#meta">token metadata</a> for more information.
-    usage: |
-      // Result: 'nlpcraft:num:unit' token metadata property.
-      meta_tok('nlpcraft:num:unit')
-
-  - name: meta_model
-    sig: |
-      <b>meta_model</b>(p: String) ⇒ Any
-    synopsis: Gets model metadata property <code><b>p</b></code>
-    desc: |
-      Gets model metadata property <code><b>p</b></code>.
-    usage: |
-      // Result: 'my:prop' model metadata property.
-      meta_model('my:prop')
+      // Result: 'nlp:token:text' entity metadata property.
+      meta_ent('nlp:token:text')
 
   - name: meta_req
     sig: |
@@ -1473,26 +913,6 @@ fn-metadata:
     usage: |
       // Result: 'my:prop' user request data property.
       meta_req('my:prop')
-
-  - name: meta_user
-    sig: |
-      <b>meta_user</b>(p: String) ⇒ Any
-    synopsis: Gets user metadata property <code><b>p</b></code>
-    desc: |
-      Gets user metadata property <code><b>p</b></code>.
-    usage: |
-      // Result: 'my:prop' user metadata property.
-      meta_user('my:prop')
-
-  - name: meta_company
-    sig: |
-      <b>meta_company</b>(p: String) ⇒ Any
-    synopsis: Gets company metadata property <code><b>p</b></code>
-    desc: |
-      Gets company metadata property <code><b>p</b></code>.
-    usage: |
-      // Result: 'my:prop' company metadata property.
-      meta_company('my:prop')
 
   - name: meta_intent
     sig: |
@@ -1536,6 +956,16 @@ fn-metadata:
       meta_sys('java.home')
       // Result: 'HOME' environment variable.
       meta_sys('HOME')
+
+  - name: meta_cfg
+    sig: |
+      <b>meta_cfg</b>(p: String) ⇒ Any
+    synopsis: Gets configuration property <code><b>p</b></code>
+    desc: |
+      Gets configuration property <code><b>p</b></code>.
+    usage: |
+      // Result: 'my:prop' configuration property.
+      meta_cfg('my:prop')
 
 fn-other:
   - name: if

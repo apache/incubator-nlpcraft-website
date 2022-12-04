@@ -836,22 +836,20 @@ id: intent_matching
         </p>
         <nav>
             <div class="nav nav-tabs" role="tablist">
-                <a class="nav-item nav-link active" data-toggle="tab" id="fn_token_tab" href="#fn_token" role="tab">Token</a>
+                <a class="nav-item nav-link active" data-toggle="tab" id="fn_token_tab" href="#fn_ent" role="tab">Entity</a>
                 <a class="nav-item nav-link" data-toggle="tab" id="fn_text_tab" href="#fn_text" role="tab">Text</a>
                 <a class="nav-item nav-link" data-toggle="tab" id="fn_math_tab" href="#fn_math" role="tab">Math</a>
                 <a class="nav-item nav-link" data-toggle="tab" id="fn_collection_tab" href="#fn_collection" role="tab">Collection</a>
                 <a class="nav-item nav-link" data-toggle="tab" id="fn_metadata_tab" href="#fn_metadata" role="tab">Metadata</a>
                 <a class="nav-item nav-link" data-toggle="tab" id="fn_datetime_tab" href="#fn_datetime" role="tab">Date <span class="amp">&amp;</span> Time</a>
                 <a class="nav-item nav-link" data-toggle="tab" id="fn_request_tab" href="#fn_req" role="tab">Request</a>
-                <a class="nav-item nav-link" data-toggle="tab" id="fn_user_tab" href="#fn_user" role="tab">User</a>
-                <a class="nav-item nav-link" data-toggle="tab" id="fn_company_tab" href="#fn_company" role="tab">Company</a>
                 <a class="nav-item nav-link" data-toggle="tab" id="fn_other_tab" href="#fn_other" role="tab">Other</a>
             </div>
         </nav>
         <div class="tab-content">
-            <div class="tab-pane fade show active" id="fn_token" role="tabpanel">
-                <div class="accordion" id="token_fns">
-                    {% for fn in site.data.idl-fns.fn-token %}
+            <div class="tab-pane fade show active" id="fn_ent" role="tabpanel">
+                <div class="accordion" id="ent_fns">
+                    {% for fn in site.data.idl-fns.fn-ent %}
                     <div class="card">
                         <div class="card-header">
                             <h2 class="mb-0">
@@ -861,7 +859,7 @@ id: intent_matching
                                 </button>
                             </h2>
                         </div>
-                        <div id="fn_{{fn.name}}" class="collapse" data-parent="#token_fns">
+                        <div id="fn_{{fn.name}}" class="collapse" data-parent="#ent_fns">
                             <div class="card-body">
                                 <p class="fn-desc">
                                     <em>Description:</em><br>
@@ -1030,62 +1028,6 @@ id: intent_matching
                             </h2>
                         </div>
                         <div id="fn_{{fn.name}}" class="collapse" data-parent="#req_fns">
-                            <div class="card-body">
-                                <p class="fn-desc">
-                                    <em>Description:</em><br>
-                                    {{fn.desc}}
-                                </p>
-                                <p class="fn-usage">
-                                    <em>Usage:</em><br>
-                                </p>
-                                <pre class="brush:idl">{{fn.usage}}</pre>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="tab-pane fade show" id="fn_user" role="tabpanel">
-                <div class="accordion" id="user_fns">
-                    {% for fn in site.data.idl-fns.fn-user %}
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_{{fn.name}}">
-                                    <span><code>{{fn.sig}}</code></span>
-                                    <span class="fn-short-desc">{{fn.synopsis}}</span>
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="fn_{{fn.name}}" class="collapse" data-parent="#user_fns">
-                            <div class="card-body">
-                                <p class="fn-desc">
-                                    <em>Description:</em><br>
-                                    {{fn.desc}}
-                                </p>
-                                <p class="fn-usage">
-                                    <em>Usage:</em><br>
-                                </p>
-                                <pre class="brush:idl">{{fn.usage}}</pre>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="tab-pane fade show" id="fn_company" role="tabpanel">
-                <div class="accordion" id="company_fns">
-                    {% for fn in site.data.idl-fns.fn-company %}
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fn_{{fn.name}}">
-                                    <span><code>{{fn.sig}}</code></span>
-                                    <span class="fn-short-desc">{{fn.synopsis}}</span>
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="fn_{{fn.name}}" class="collapse" data-parent="#company_fns">
                             <div class="card-body">
                                 <p class="fn-desc">
                                     <em>Description:</em><br>
@@ -1739,114 +1681,6 @@ id: intent_matching
             intent context can only be the 1st parameter in the callback, and if not declared as such - it won't be passed in.
         </p>
     </section>
-    <section id="model_callbacks">
-        <h2 class="section-title">Model Callbacks <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
-        <p>
-            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModel.html">NCModel</a> interface provides
-            several callbacks that are invoked before, during and after intent matching. They provide an opportunity to inject
-            user cross-cutting concerns into a standard intent matching workflow of NLPCraft. Usage of these callbacks
-            is completely optional, yet they provide convenient joint points for logging, statistic collections, security
-            audit and validation, explicit conversation context management, model metadata updates, and many other aspects
-            that may depend on the standard intent matching workflow:
-        </p>
-        <table class="gradient-table">
-            <thead>
-            <tr>
-                <th>Callback</th>
-                <th>Description</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td><a href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onParsedVariant(org.apache.nlpcraft.model.NCVariant)"><code>NCModel#<b>onParsedVariant(...)</b></code></a></td>
-                <td>
-                    <p>
-                        A callback to accept or reject a parsed variant. This callback is called before any other
-                        callbacks at the beginning of the processing pipeline and it is called for each parsed variant.
-                        Note that a given user input can have one or more possible parsing variants. Depending on
-                        model configuration a user input can produce hundreds or even thousands of parsing variants that
-                        can significantly slow down the overall processing. This method allows to filter out unnecessary
-                        parsing variants based on variety of user-defined factors like number of tokens, presence
-                        of a particular token in the variant, etc.
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td><a href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onContext(org.apache.nlpcraft.model.NCContext)"><code>NCModel#<b>onContext(...)</b></code></a></td>
-                <td>
-                    <p>
-                        A callback that is called when a fully assembled query context is ready. This callback is called
-                        after all <a href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onParsedVariant(org.apache.nlpcraft.model.NCVariant)"><code>onParsedVariant(...)</code></a>
-                        callbacks are called but before any <a href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onMatchedIntent(org.apache.nlpcraft.model.NCIntentMatch)"><code>onMatchedIntent(...)</code></a>
-                        are called, i.e. right before the intent matching is performed. It's called always once per user request processing.
-                        Typical use case for this callback is to perform logging, debugging, statistic or usage collection,
-                        explicit update or initialization of conversation context, security audit or validation, etc.
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td><a href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onMatchedIntent(org.apache.nlpcraft.model.NCIntentMatch)"><code>NCModel#<b>onMatchedIntent(...)</b></code></a></td>
-                <td>
-                    <p>
-                        A callback that is called when intent was successfully matched but right before its callback is called.
-                        This callback is called after <a href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onContext(org.apache.nlpcraft.model.NCContext)"><code>onContext(...)</code></a>
-                        is called and may be called multiple times depending on its return value. If <code>true</code> is
-                        returned than the default workflow will continue and the matched intent's callback will be called.
-                        However, if <code>false</code> is returned than the entire existing set of parsing variants will be
-                        re-matched against all declared intents again. Returning <code>false</code> allows this method to alter the state
-                        of the model (like soft-reset conversation or change metadata) and force the full re-evaluation
-                        of the parsing variants against all declared intents. Note that user logic should be careful not
-                        to induce infinite loop in this behavior.
-                    </p>
-                    <p>
-                        Note that this callback may not be called at all based on the return value of
-                        <a href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onContext(org.apache.nlpcraft.model.NCContext)"><code>onContext(...)</code></a> callback.
-                        Typical use case for this callback is to perform logging, debugging, statistic or usage collection,
-                        explicit update or initialization of conversation context, security audit or validation, etc. This
-                        callback is especially useful for a soft reset of the conversation context when a condition for such
-                        reset can only be derived from within of intent callback.
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td><a href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onResult(org.apache.nlpcraft.model.NCIntentMatch,org.apache.nlpcraft.model.NCResult)"><code>NCModel#<b>onResult(...)</b></code></a></td>
-                <td>
-                    <p>
-                        A callback that is called when successful result is obtained from the intent callback and right
-                        before sending it back to the caller. This callback is called after
-                        <a href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onMatchedIntent(org.apache.nlpcraft.model.NCIntentMatch)"><code>onMatchedIntent(...)</code></a> is called.
-                        Note that this callback may not be called at all, and if called - it's called only once. Typical
-                        use case for this callback is to perform logging, debugging, statistic or usage collection,
-                        explicit update or initialization of conversation context, security audit or validation, etc.
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td><a href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onRejection(org.apache.nlpcraft.model.NCIntentMatch,org.apache.nlpcraft.model.NCRejection)"><code>NCModel#<b>onRejection(...)</b></code></a></td>
-                <td>
-                    <p>
-                        A callback that is called when intent callback threw <a href="/apis/latest/org/apache/nlpcraft/model/NCRejection.html"><code>NCRejection</code></a> exception.
-                        This callback is called after <a href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onMatchedIntent(org.apache.nlpcraft.model.NCIntentMatch)"><code>onMatchedIntent(...)</code></a> is called.
-                        Note that this callback may not be called at all, and if called - it's called only once. Typical
-                        use case for this callback is to perform logging, debugging, statistic or usage collection,
-                        explicit update or initialization of conversation context, security audit or validation, etc.
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td><a href="/apis/latest/org/apache/nlpcraft/model/NCModel.html#onError(org.apache.nlpcraft.model.NCContext,java.lang.Throwable)"><code>NCModel#<b>onError(...)</b></code></a></td>
-                <td>
-                    <p>
-                        A callback that is called when intent callback failed with unexpected exception. Note that this
-                        callback may not be called at all, and if called - it's called only once. Typical use case for
-                        this callback is to perform logging, debugging, statistic or usage collection, explicit update
-                        or initialization of conversation context, security audit or validation, etc.
-                    </p>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </section>
 </div>
 <div class="col-md-2 third-column">
     <ul class="side-nav">
@@ -1857,21 +1691,18 @@ id: intent_matching
         <li><a class="toc2" href="#intent-examples">Intent Examples</a></li>
         <li><a class="toc2" href="#syntax_highlighting">Syntax Highlighting</a></li>
         <li><a href="#idl_functions">IDL Functions</a></li>
-        <li><a class="toc2" onclick="$('#fn_token_tab').trigger('click')" href="#fn-list"><code><b>Token</b></code> Functions</a></li>
+        <li><a class="toc2" onclick="$('#fn_ent_tab').trigger('click')" href="#fn-list"><code><b>Token</b></code> Functions</a></li>
         <li><a class="toc2" onclick="$('#fn_text_tab').trigger('click')" href="#fn-list"><code><b>Text</b></code> Functions</a></li>
         <li><a class="toc2" onclick="$('#fn_math_tab').trigger('click')" href="#fn-list"><code><b>Math</b></code> Functions</a></li>
         <li><a class="toc2" onclick="$('#fn_collection_tab').trigger('click')" href="#fn-list"><code><b>Collection</b></code> Functions</a></li>
         <li><a class="toc2" onclick="$('#fn_metadata_tab').trigger('click')" href="#fn-list"><code><b>Metadata</b></code> Functions</a></li>
         <li><a class="toc2" onclick="$('#fn_datetime_tab').trigger('click')" href="#fn-list"><code><b>Datetime</b></code> Functions</a></li>
         <li><a class="toc2" onclick="$('#fn_request_tab').trigger('click')" href="#fn-list"><code><b>Request</b></code> Functions</a></li>
-        <li><a class="toc2" onclick="$('#fn_user_tab').trigger('click')" href="#fn-list"><code><b>User</b></code> Functions</a></li>
-        <li><a class="toc2" onclick="$('#fn_company_tab').trigger('click')" href="#fn-list"><code><b>Company</b></code> Functions</a></li>
         <li><a class="toc2" onclick="$('#fn_other_tab').trigger('click')" href="#fn-list"><code><b>Other</b></code> Functions</a></li>
         <li><a href="#idl_location">IDL Location</a></li>
         <li><a href="#binding">Intent Binding</a></li>
         <li><a href="#logic">Intent Matching</a></li>
         <li><a href="#intent_callback">Intent Callback</a></li>
-        <li><a href="#model_callbacks">Model Callbacks</a></li>
         {% include quick-links.html %}
     </ul>
 </div>
