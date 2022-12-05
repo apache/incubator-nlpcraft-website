@@ -69,8 +69,8 @@ id: intent_matching
         <p>
             IDL intent defines a match between the parsed user input represented as the collection of
             {% scaladoc NCEntity entities %},
-            and the user-define callback method. IDL intents are <a href="#binding">bound</a> to their callbacks via <a href="#binding">Java
-            annotation</a> and can be <a href="#idl_location">located</a> in the same Java annotations or placed in model YAML/JSON file
+            and the user-define callback method. IDL intents are <a href="#binding">bound</a> to their callbacks via
+            <a href="#binding">Java annotation</a> and can be <a href="#idl_location">located</a> in the same Java annotations or placed in model YAML/JSON file
             as well as in external <code>*.idl</code> files.
         </p>
         <p>
@@ -418,10 +418,10 @@ id: intent_matching
                     fragment=when
                         term(nums)~{
                             // Term variable.
-                            @type = meta_ent('nlpcraft:num:unittype')
-                            @iseq = meta_ent('nlpcraft:num:isequalcondition')
+                            @type = meta_ent('num:unittype')
+                            @iseq = meta_ent('num:isequalcondition')
 
-                            # == 'nlpcraft:num' && @type == 'datetime' && @iseq == true
+                            # == 'num' && @type == 'datetime' && @iseq == true
                         }[0,7]
 
                     // Intents.
@@ -513,7 +513,7 @@ id: intent_matching
         <pre class="brush: idl">
         intent=a
             term~{# == 'x:id'}
-            term(nums)~{# == 'nlpcraft:num' && lowercase(meta_ent('nlpcraft:num:unittype')) == 'datetime'}[0,2]
+            term(nums)~{# == 'num' && lowercase(meta_ent('num:unittype')) == 'datetime'}[0,2]
         </pre>
         <p><b>NOTES:</b></p>
         <ul>
@@ -534,11 +534,11 @@ id: intent_matching
                 First term matches any single entity with ID <code>x:id</code>.
             </li>
             <li>
-                Second term can appear zero, once or two times and it matches entity with ID <code>nlpcraft:num</code> with
-                <code>nlpcraft:num:unittype</code> metadata property equal to <code>'datetime'</code> string.
+                Second term can appear zero, once or two times and it matches entity with ID <code>num</code> with
+                <code>num:unittype</code> metadata property equal to <code>'datetime'</code> string.
             </li>
             <li>
-                IDL function <code>lowercase</code> used on <code>nlpcraft:num:unittype</code> metadata property value.
+                IDL function <code>lowercase</code> used on <code>num:unittype</code> metadata property value.
             </li>
             <li>
                 Note that since second term has ID (<code>nums</code>) it can be references by <code>@NCIntentTerm</code>
@@ -552,7 +552,7 @@ id: intent_matching
         <pre class="brush: idl">
         intent=id2
             flow='id1 id2'
-            term={# == 'mytok' && signum(get(meta_ent('score'), 'best')) != -1}
+            term={# == 'myent' && signum(get(meta_ent('score'), 'best')) != -1}
             term={has_any(ent_groups, list('actors', 'owners'))}
         </pre>
         <p><b>NOTES:</b></p>
@@ -571,7 +571,7 @@ id: intent_matching
                 Both terms have to be found in the user input for the intent to match.
             </li>
             <li>
-                First term should be a entity with ID <code>mytok</code> and have metadata property <code>score</code> of type
+                First term should be a entity with ID <code>myent</code> and have metadata property <code>score</code> of type
                 map. This map should have a value with the string key <code>'best'</code>. <code>signum</code> of this map value
                 should not equal <code>-1</code>. Note that <code>meta_ent()</code>, <code>get()</code> and
                 <code>signum()</code> are all built-in <a href="#idl_functions">IDL functions</a>.
@@ -946,10 +946,10 @@ id: intent_matching
                     fragment=when
                         term(nums)~{
                             // Term variables.
-                            @type = meta_ent('nlpcraft:num:unittype')
-                            @iseq = meta_ent('nlpcraft:num:isequalcondition')
+                            @type = meta_ent('num:unittype')
+                            @iseq = meta_ent('num:isequalcondition')
 
-                            # == 'nlpcraft:num' && @type != 'datetime' && @iseq == true
+                            # == 'num' && @type != 'datetime' && @iseq == true
                         }[0,7]
 
                     // Intents.
@@ -1331,12 +1331,12 @@ id: intent_matching
         <p>
             For example:
         </p>
-        <pre class="brush: java">
+        <pre class="brush: scala">
             NCIntent("intent=id term(termId)~{# == 'my_ent'}?")
             private def onMatch(
                 ctx: NCContext,
                 im: NCIntentMatch,
-                @NCIntentTerm("termId") myTok: Option[NCEntity]
+                @NCIntentTerm("termId") myEnt: Option[NCEntity]
             ): NCResult = {
                ...
             }
