@@ -906,10 +906,9 @@ fn-metadata:
   - name: meta_req
     sig: |
       <b>meta_req</b>(p: String) ⇒ Any
-    synopsis: Gets user REST call data property <code><b>p</b></code>
+    synopsis: Gets request metadata property <code><b>p</b></code>
     desc: |
-      Gets user REST call data property <code><b>p</b></code>. See <a href="/using-rest.html">REST API</a> for more details on <code>ask</code>
-      and <code>ask/sync</code> REST calls.
+      Gets request metadata property <code><b>p</b></code>.
     usage: |
       // Result: 'my:prop' user request data property.
       meta_req('my:prop')

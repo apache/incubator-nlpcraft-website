@@ -577,103 +577,9 @@ id: intent_matching
                 <code>signum()</code> are all built-in <a href="#idl_functions">IDL functions</a>.
             </li>
             <li>
-                Second term should be a entity that belongs to either <code>actors</code> or <code>owners</code> group.
+                Second term should be an entity that belongs to either <code>actors</code> or <code>owners</code> group.
             </li>
         </ul>
-        <h2 id="syntax_highlighting" class="section-sub-title">Syntax Highlighting <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
-        <p>
-            NLPCraft IDL has relatively simple <a href="#idl">syntax</a> and you can easily configure its syntax highlighting in most modern
-            code editors and IDEs. Here are two examples of how to add IDL syntax highlighting:
-        </p>
-        <nav>
-            <div class="nav nav-tabs" role="tablist">
-                <a class="nav-item nav-link active" data-toggle="tab" href="#idea_highlight" role="tab">IntelliJ IDEA</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#sh_highlight" role="tab">SyntaxHighlighter.js</a>
-            </div>
-        </nav>
-        <div class="tab-content">
-            <div class="tab-pane fade show active" id="idea_highlight" role="tabpanel">
-                <p></p>
-                <p>
-                    NLPCraft project comes with <code><b>idea/nlpcraft_idl_idea_settings.zip</b></code> file that contains
-                    syntax highlighting configuration for <code>*.idl</code> file types. Import this
-                    file (File -> Manage IDE Settings -> Import Settings...) and you will get proper syntax highlighting
-                    for <code>*.idl</code> files in your project.
-                </p>
-            </div>
-            <div class="tab-pane fade" id="sh_highlight" role="tabpanel">
-                <p></p>
-                <p>
-                    For highlighting the IDL syntax on the web you can use
-                    <a target="github" href="https://github.com/syntaxhighlighter/syntaxhighlighter">SyntaxHighlighter</a> JavaScript library
-                    that is used for all IDL code on this website.
-                </p>
-                <p>
-                    To add custom language support, create a new brush file <code><b>shBrushIdl.js</b></code> with the
-                    following content and place it under <code>scripts</code> folder in your local <a target="github" href="https://github.com/syntaxhighlighter/syntaxhighlighter">SyntaxHighlighter</a>
-                    installation:
-                </p>
-                <pre class="brush: js">
-;(function()
-{
-    // CommonJS
-    typeof(require) != 'undefined' ? SyntaxHighlighter = require('shCore').SyntaxHighlighter : null;
-
-    function Brush()
-    {
-        const keywords = 'flow fragment import intent meta options term';
-        const literals = 'false null true';
-        const symbols =	'[\\[\\]{}*@+?~=]+';
-        const fns = 'abs asin atan atan2 avg cbrt ceil concat contains cos cosh count day_of_month day_of_week day_of_year degrees distinct ends_with ent_id ent_index ent_text ent_groups ent_count ent_all ent_all_for_id ent_all_for_group ent_this ent_is_last ent_is_first ent_is_before_id ent_is_before_group ent_is_after_id ent_is_after_group ent_is_between_ids ent_is_between_groups euler exp expm1 first floor get has has_all has_any hour hypot if index_of is_alpha is_alphanum is_alphanumspace is_alphaspace is_empty is_num is_numspace is_whitespace json keys last length list log log10 log1p lowercase max meta_conv meta_cfg meta_ent meta_frag meta_intent meta_req meta_sys min minute month non_empty now or_else pi pow quarter radians rand replace req_addr req_agent req_id req_text req_tstamp reverse rint round second signum sin sinh size sort split split_trim sqrt square starts_with stdev strip substr tan tanh to_double to_int to_string trim uppercase user_id values week_of_month week_of_year year';
-
-        this.regexList = [
-            { regex: SyntaxHighlighter.regexLib.singleLineCComments, css: 'comments' },	// One line comments.
-            { regex: SyntaxHighlighter.regexLib.multiLineCComments,	css: 'comments' }, // Multiline comments.
-            { regex: SyntaxHighlighter.regexLib.doubleQuotedString,	css: 'string' }, // String.
-            { regex: SyntaxHighlighter.regexLib.singleQuotedString, css: 'string' }, // String.
-            { regex: /0x[a-f0-9]+|\d+(\.\d+)?/gi, css: 'value' }, // Numbers.
-            { regex: new RegExp(this.getKeywords(keywords), 'gm'), css: 'keyword' }, // Keywords.
-            { regex: new RegExp(this.getKeywords(literals), 'gm'), css: 'color1' }, // Literals.
-            { regex: /<|>|<=|>=|==|!=|&&|\|\|/g, css: 'color2' }, // Operators.
-            { regex: new RegExp(this.getKeywords(fns), 'gm'), css: 'functions' }, // Functions.
-            { regex: new RegExp(symbols, 'gm'), css: 'color3' } // Symbols.
-        ];
-    }
-
-    Brush.prototype	= new SyntaxHighlighter.Highlighter();
-    Brush.aliases	= ['idl'];
-
-    SyntaxHighlighter.brushes.Idl = Brush;
-
-    // CommonJS.
-    typeof(exports) != 'undefined' ? exports.Brush = Brush : null;
-})();
-                </pre>
-                <p>
-                    Make sure to include this script in your page:
-                </p>
-                <pre class="brush: js">
-&lt;script src="/path/to/your/scripts/shBrushIdl.js" type="text/javascript"&gt;&lt;/script&gt;
-                </pre>
-                <p>
-                    And then you can use it to display IDL code from HTML using <code>&lt;pre&gt;</code> tag and
-                    <code>brush: idl</code> CSS class:
-                </p>
-                <pre class="brush: html, highlight: [1]">
-&lt;pre class="brush: idl"&gt;
-    intent=xa
-        flow="^(?:login)(^:logout)*$"
-        meta={'enabled': true}
-        term(a)={month >= 6 && # != "z" && meta_intent('enabled') == true}[1,3]
-        term(b)~{
-            @usrTypes = meta_req('user_types')
-
-            (# == 'order' || # == 'order_cancel') && has_all(@usrTypes, list(1, 2, 3))
-        }
-&lt;/pre&gt;
-                </pre>
-            </div>
-        </div>
     </section>
     <section id="idl_functions" >
         <h2 class="section-title">IDL Functions <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
@@ -1516,7 +1422,6 @@ id: intent_matching
         <li><a href="#idl">IDL Syntax</a></li>
         <li><a class="toc2" href="#intent-lifecycle">Intent Lifecycle</a></li>
         <li><a class="toc2" href="#intent-examples">Intent Examples</a></li>
-        <li><a class="toc2" href="#syntax_highlighting">Syntax Highlighting</a></li>
         <li><a href="#idl_functions">IDL Functions</a></li>
         <li><a class="toc2" onclick="$('#fn_ent_tab').trigger('click')" href="#fn-list"><code><b>Entity</b></code> Functions</a></li>
         <li><a class="toc2" onclick="$('#fn_text_tab').trigger('click')" href="#fn-list"><code><b>Text</b></code> Functions</a></li>
