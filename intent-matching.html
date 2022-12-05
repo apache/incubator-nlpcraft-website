@@ -158,21 +158,20 @@ id: intent_matching
                             'unused_entities': false,
                             'allow_stm_only': false
                         }
-                        flow=/#flowModelMethod/
-                        term(a)=/org.mypackage.MyClass#termMethod/?
+                        term(a)={length("some text") > 0}
                         fragment(frag, {'p1': 25, 'p2': {'a': false}})
                 </pre>
                 <p><b>NOTES:</b></p>
                 <dl>
                     <dt>
                         <code>intent=xa</code> <sup><small>line 1</small></sup><br/>
-                        <code>intent=xb</code> <sup><small>line 12</small></sup>
+                        <code>intent=xb</code> <sup><small>line 11</small></sup>
                     </dt>
                     <dd>
                         <code>xa</code> and <code>xb</code> are the mandatory intent IDs. Intent ID is any arbitrary unique string matching the following lexer template:
                         <code>(UNI_CHAR|UNDERSCORE|LETTER|DOLLAR)+(UNI_CHAR|DOLLAR|LETTER|[0-9]|COLON|MINUS|UNDERSCORE)*</code>
                     </dd>
-                    <dt><code>options={...}</code> <sup><small>line 13</small></sup></dt>
+                    <dt><code>options={...}</code> <sup><small>line 12</small></sup></dt>
                     <dd>
                         <em>Optional.</em>
                         Matching options specified as JSON object. Entire JSON object as well as each individual JSON field is optional. Allows
@@ -201,23 +200,22 @@ id: intent_matching
                                         </p>
                                         <p>
                                             Note that while the <code>ordered</code> flag affect entire intent and all its
-                                            terms, you can define the individual term that depends on the position of the token.
+                                            terms, you can define the individual term that depends on the position of the entity.
                                             This, in fact, allows you have a subset of terms that order dependant. See
                                             the following <a href="#idl_functions">IDL functions</a> for details:
                                         </p>
                                         <ul>
-                                            <li><code>tok_index()</code></li>
-                                            <li><code>tok_all()</code></li>
-                                            <li><code>tok_count()</code></li>
-                                            <li><code>tok_is_last()</code></li>
-                                            <li><code>tok_is_first()</code></li>
-                                            <li><code>tok_is_before_id()</code></li>
-                                            <li><code>tok_is_before_group()</code></li>
-                                            <li><code>tok_is_between_ids()</code></li>
-                                            <li><code>tok_is_between_parents()</code></li>
-                                            <li><code>tok_is_between_groups()</code></li>
-                                            <li><code>tok_is_after_id()</code></li>
-                                            <li><code>tok_is_after_group()</code></li>
+                                            <li><code>ent_index()</code></li>
+                                            <li><code>ent_all()</code></li>
+                                            <li><code>ent_count()</code></li>
+                                            <li><code>ent_is_last()</code></li>
+                                            <li><code>ent_is_first()</code></li>
+                                            <li><code>ent_is_before_id()</code></li>
+                                            <li><code>ent_is_before_group()</code></li>
+                                            <li><code>ent_is_between_ids()</code></li>
+                                            <li><code>ent_is_between_groups()</code></li>
+                                            <li><code>ent_is_after_id()</code></li>
+                                            <li><code>ent_is_after_group()</code></li>
                                         </ul>
                                     </td>
                                     <td><code>false</code></td>
@@ -228,8 +226,8 @@ id: intent_matching
                                     <td>
                                         Whether or not free words - that are unused by intent matching - should be
                                         ignored (value <code>true</code>) or reject the intent match (value <code>false</code>).
-                                        Free words are the words in the user input that were not recognized as any user or system
-                                        token. Typically, for the natural language comprehension it is safe to ignore free
+                                        Free words are the words in the user input that were not recognized as any
+                                        entity. Typically, for the natural language comprehension it is safe to ignore free
                                         words. For the formal grammar, however, this could make the matching logic too loose.
                                     </td>
                                     <td><code>true</code></td>
@@ -249,7 +247,7 @@ id: intent_matching
                                     <td><code>allow_stm_only</code></td>
                                     <td><code>Boolean</code></td>
                                     <td>
-                                        Whether or not the intent can match when all of the matching tokens came from STM.
+                                        Whether or not the intent can match when all of the matching entities came from STM.
                                         By default, this special case is disabled (value <code>false</code>). However, in specific intents
                                         designed for free-form language comprehension scenario, like, for example, SMS messaging - you
                                         may want to enable this option.
@@ -261,50 +259,25 @@ id: intent_matching
                     </dd>
                     <dt>
                         <code>flow="^(?:login)(^:logout)*$"</code> <sup><small>line 2</small></sup><br/>
-                        <code>flow=/#flowModelMethod/</code> <sup><small>line 20</small></sup>
                     </dt>
                     <dd>
                         <p>
                             <em>Optional.</em> Dialog flow is a history of previously matched intents to match on. If provided,
                             the intent will first match on the history of the previously matched intents before processing its
-                            terms. There are two way to define a match on the dialog flow:
+                            terms by using <b>regular expressions</b>.
+                            Dialog flow specification is a string with the standard
+                            <a target=_blank href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/regex/Pattern.html">Java regular expression</a>.
+                            The history of previously matched intents is presented as a space separated string of intent IDs that were
+                            selected as the best match during the current conversation, in the chronological order with the most
+                            recent matched intent ID being the first element in the string. Dialog flow regular expression
+                            will be matched against that string representing intent IDs.
                         </p>
-                        <ul>
-                            <li>
-                                <p><b>Regular Expression</b></p>
-                                <p>
-                                    In this case dialog flow specification is a string with the standard <a target=_blank href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/regex/Pattern.html">Java regular expression</a>.
-                                    The history of previously matched intents is presented as a space separated string of intent IDs that were
-                                    selected as the best match during the current conversation, in the chronological order with the most
-                                    recent matched intent ID being the first element in the string. Dialog flow regular expression
-                                    will be matched against that string representing intent IDs.
-                                </p>
-                                <p>
-                                    In the line 2, the <code>^(?:login)(^:logout)*$</code> dialog flow regular expression defines that intent
-                                    should only match when the immediate previous intent was <code>login</code> and no <code>logout</code> intents
-                                    are in the history. If the history is <code>"login order order"</code> - this intent will match. However, for
-                                    <code>"login logout"</code> or <code>"order login"</code> history this dialog flow will not match.
-                                </p>
-                            </li>
-                            <li id="user-defined-callback">
-                                <p><b>User-Defined Callback</b></p>
-                                <p>
-                                    In this case the dialog flow specification is defined as a callback in a form <code>/x.y.z.Cass#method/</code>,
-                                    where <code>x.y.z.Class</code> should be a fully qualified name of the class where callback is defined, and
-                                    <code>method</code> must be the name of the callback method. This method should take one
-                                    parameter of type <code>java.util.List[{% scaladoc NCDialogFlowItem NCDialogFlowItem %}]</code>
-                                    and return <code>boolean</code> result.
-                                </p>
-                                <p>
-                                    Class name is optional in which case the model class will be used by default. Note that if the custom class
-                                    is in fact specified, the instance of this class will be created for each dialog flow test.
-                                    This class must have a no-arg constructor to instantiate via standard Java reflection
-                                    and its creation must be as light as possible to avoid performance degradation during its
-                                    instantiation. For this reasons it is recommended to have dialog flow callback
-                                    on the model class itself which will avoid instantiating the class on each dialog flow evaluation.
-                                </p>
-                            </li>
-                        </ul>
+                        <p>
+                            In the line 2, the <code>^(?:login)(^:logout)*$</code> dialog flow regular expression defines that intent
+                            should only match when the immediate previous intent was <code>login</code> and no <code>logout</code> intents
+                            are in the history. If the history is <code>"login order order"</code> - this intent will match. However, for
+                            <code>"login logout"</code> or <code>"order login"</code> history this dialog flow will not match.
+                        </p>
                         <p>
                             Note that if dialog flow is defined and it doesn't match the history the terms of the intent won't be tested at all.
                         </p>
@@ -326,23 +299,23 @@ id: intent_matching
                     <dt>
                         <code>term(a)={month >= 6 && !# != "z" && meta_intent('enabled') == true}[1,3]</code> <sup><small>line 4</small></sup><br>
                         <code>term(b)~{</code> <sup><small>line 5</small></sup><br>
-                        <code style="padding-left: 20px">@usrTypes = meta_model('user_types')</code><br>
+                        <code style="padding-left: 20px">@usrTypes = meta_req('user_types')</code><br>
                         <code style="padding-left: 20px">(# == 'order' || # == 'order_cancel') && has_all(@usrTypes, list(1, 2, 3))</code><br>
                         <code>}</code><br>
-                        <code>term(a)=/org.mypackage.MyClass#termMethod/?</code> <sup><small>line 21</small></sup>
+                        <code>term(a)={length("some text") > 0}</code> <sup><small>line 18</small></sup>
                     </dt>
                     <dd>
                         <p>
                             Term is a building block of the intent. Intent must have at least one term.
-                            Term has optional ID, a token predicate and optional quantifiers.
+                            Term has optional ID, an entity predicate and optional quantifiers.
                             It supports conversation context if it uses <code>'~'</code> symbol or not if it uses <code>'='</code>
-                            symbol in its definition. For the conversational term the system will search for a match using tokens from
-                            the current request as well as the tokens from conversation STM (short-term-memory). For a non-conversational
-                            term - only tokens from the current request will be considered.
+                            symbol in its definition. For the conversational term the system will search for a match using entities from
+                            the current request as well as the entities from conversation STM (short-term-memory). For a non-conversational
+                            term - only entities from the current request will be considered.
                         </p>
                         <p>
-                            A term is matched if its token predicate returns true.
-                            The matched term represents one or more tokens, sequential or not, that were detected in the user input. Intent has a list of terms
+                            A term is matched if its entity predicate returns true.
+                            The matched term represents one or more entities, sequential or not, that were detected in the user input. Intent has a list of terms
                             (always at least one) that all have to be matched in the user input for the intent to match. Note that term
                             can be optional if its min quantifier is zero. Whether the order of the terms is important
                             for matching is governed by intent's <code>ordered</code> parameter.
@@ -350,85 +323,58 @@ id: intent_matching
                         <p>
                             Term ID (<code>a</code> and <code>b</code>) is optional. It is only required by
                             <a href="#binding"><code>@NCIntentTerm</code></a>
-                            annotation to link term's tokens to a formal parameter of the callback method. Note that term ID follows
+                            annotation to link term's entities to a formal parameter of the callback method. Note that term ID follows
                             the same lexical rules as intent ID.
                         </p>
                         <p>
-                            Term's body can be defined in two ways:
+                            Term's body can be defined via <b>IDL Expression</b>:
                         </p>
-                        <ul>
-                            <li>
-                                <p><b>IDL Expression</b></p>
-                                <p>
-                                    Inside of curly brackets <code>{</code> <code>}</code> you can have an optional list of term variables
-                                    and the mandatory term expression that must evaluate to a boolean value. Term variable name must start with
-                                    <code>@</code> symbol and be unique within the scope of the current term. All term variables must be defined
-                                    and initialized before term expression which must be the last statement in the term:
-                                </p>
-                                <pre class="brush: idl">
+                        <p>
+                            Inside of curly brackets <code>{</code> <code>}</code> you can have an optional list of term variables
+                            and the mandatory term expression that must evaluate to a boolean value. Term variable name must start with
+                            <code>@</code> symbol and be unique within the scope of the current term. All term variables must be defined
+                            and initialized before term expression which must be the last statement in the term:
+                        </p>
+                        <pre class="brush: idl">
                                     term(b)~{
-                                        @a = meta_model('a')
+                                        @a = meta_req('a')
                                         @lst = list(1, 2, 3, 4)
 
                                         has_all(@lst, list(@a, 2))
                                     }
                                 </pre>
-                                <p>
-                                    Term variable initialization expression as well as term's expression follow
-                                    <em>Java-like expression grammar</em> including precedence rules, brackets and logical combinators, as well as
-                                    built-in <a href="#idl_functions">IDL functions</a> calls:
-                                </p>
-                                <pre class="brush: idl">
+                        <p>
+                            Term variable initialization expression as well as term's expression follow
+                            <em>Java-like expression grammar</em> including precedence rules, brackets and logical combinators, as well as
+                            built-in <a href="#idl_functions">IDL functions</a> calls:
+                        </p>
+                        <pre class="brush: idl">
                                     term={true} // Special case of 'constant' term.
                                     term={
                                         // Variable declarations.
                                         @a = round(1.25)
-                                        @b = meta_model('my_prop')
+                                        @b = meta_req('my_prop')
 
                                         // Last expression must evaluate to boolean.
                                         (@a + 2) * @b > 0
                                     }
                                     term={
                                         // Variable declarations.
-                                        @c = meta_tok('prop')
+                                        @c = meta_ent('prop')
                                         @lst = list(1, 2, 3)
 
                                         // Last expression must evaluate to boolean.
                                         abs(@c) > 1 && size(@lst) != 5
                                     }
                                 </pre>
-                                <div class="bq info">
-                                    <p>
-                                        <b>NOTE:</b> while term variable initialization expressions can have any type - the
-                                        term's expression itself, i.e. the last expression in the term's body, <em>must evaluate to a boolean result only.</em>
-                                        Failure to do so will result in a runtime exception during intent evaluation. Note also
-                                        that such errors cannot be detected during intent compilation phase.
-                                    </p>
-                                </div>
-                            </li>
-                            <li>
-                                <p><b>User-Defined Callback</b></p>
-                                <p>
-                                    In this case the term's body is defined as a callback in a form <code>/x.y.z.Cass#method/</code>,
-                                    where <code>x.y.z.Class</code> should be a fully qualified name of the class where callback is defined, and
-                                    <code>method</code> must be the name of the callback method. This method should take one
-                                    parameter of type <code><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCTokenPredicateContext.html">NCTokenPredicateContext</a></code>
-                                    and return an instance of <code><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCTokenPredicateResult.html">NCTokenPredicateResult</a></code>
-                                    as its result:
-                                </p>
-                                <pre class="brush: idl">
-                                    term(a)=/org.mypackage.MyClass#termMethod/?
-                                </pre>
-                                <p>
-                                    Class name is optional in which case the model class will be used by default. Note that if the custom class
-                                    is in fact specified, the instance of this class will be created for each term evaluation.
-                                    This class must have a no-arg constructor to instantiate via standard Java reflection
-                                    and its creation must be as light as possible to avoid performance degradation during its
-                                    instantiation. For this reason it is recommended to have user-defined term callback
-                                    on the model class itself which will avoid instantiating the class on each term evaluation.
-                                </p>
-                            </li>
-                        </ul>
+                        <div class="bq info">
+                            <p>
+                                <b>NOTE:</b> while term variable initialization expressions can have any type - the
+                                term's expression itself, i.e. the last expression in the term's body, <em>must evaluate to a boolean result only.</em>
+                                Failure to do so will result in a runtime exception during intent evaluation. Note also
+                                that such errors cannot be detected during intent compilation phase.
+                            </p>
+                        </div>
                         <p>
                             <code>?</code> and <code>[1,3]</code> define an inclusive quantifier for that term, i.e. how many times
                             the match for this term should found. You can use the following quick abbreviations:
@@ -472,8 +418,8 @@ id: intent_matching
                     fragment=when
                         term(nums)~{
                             // Term variable.
-                            @type = meta_tok('nlpcraft:num:unittype')
-                            @iseq = meta_tok('nlpcraft:num:isequalcondition')
+                            @type = meta_ent('nlpcraft:num:unittype')
+                            @iseq = meta_ent('nlpcraft:num:isequalcondition')
 
                             # == 'nlpcraft:num' && @type == 'datetime' && @iseq == true
                         }[0,7]
@@ -545,20 +491,6 @@ id: intent_matching
             for IDL intents. All found intents are compiled into an internal representation before the data probe
             completes its start up sequence.
         </p>
-        <div class="bq info">
-            <p>
-                <b>
-                    <a href="#binding"><code>@NCModelAddClasses</code></a> and
-                    <a href="#binding"><code>@NCModelAddPackage</code></a> Annotations
-                </b>
-            </p>
-            <p>
-                You can use these annotations to add specified classes and packages to the list of classes that will be
-                scanned when NLPCraft searches for the annotated intent callbacks. By default, only the model class itself and
-                its ancestors are scanned. Larger models can be modularized and
-                split into separate compilation units to simplify their development and maintenance.
-            </p>
-        </div>
         <p>
             Note that not all intents problems can be detected at the compilation phase, and probe can start with intents
             not being completely validated. For example, each term in the intent must evaluate to a boolean result. This can
@@ -567,9 +499,8 @@ id: intent_matching
         </p>
         <p>
             Intents are compiled only once during the data probe start up sequence and cannot be re-compiled
-            without data probe restart. Model logic, however, can affect the intent behavior through <a href="/data-model.html#callbacks">model callbacks</a>,
-            <a target=_ href="/apis/latest/org/apache/nlpcraft/model/NCModelView.html#getMetadata()">model metadata</a>,
-            user and company metadata, as well as request data all of which can change at runtime and
+            without data probe restart. Model logic, however, can affect the intent behavior through
+            {% scaladoc NCModel NCModel %} callback methods and request data all of which can change at runtime and
             are accessible through <a href="#idl_functions">IDL functions.</a>
         </p>
         <h2 id="intent-examples" class="section-sub-title">Intent Examples <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
@@ -582,7 +513,7 @@ id: intent_matching
         <pre class="brush: idl">
         intent=a
             term~{# == 'x:id'}
-            term(nums)~{# == 'nlpcraft:num' && lowercase(meta_tok('nlpcraft:num:unittype')) == 'datetime'}[0,2]
+            term(nums)~{# == 'nlpcraft:num' && lowercase(meta_ent('nlpcraft:num:unittype')) == 'datetime'}[0,2]
         </pre>
         <p><b>NOTES:</b></p>
         <ul>
@@ -600,10 +531,10 @@ id: intent_matching
                 Both terms have to be found in the user input for the intent to match.
             </li>
             <li>
-                First term matches any single token with ID <code>x:id</code>.
+                First term matches any single entity with ID <code>x:id</code>.
             </li>
             <li>
-                Second term can appear zero, once or two times and it matches token with ID <code>nlpcraft:num</code> with
+                Second term can appear zero, once or two times and it matches entity with ID <code>nlpcraft:num</code> with
                 <code>nlpcraft:num:unittype</code> metadata property equal to <code>'datetime'</code> string.
             </li>
             <li>
@@ -621,8 +552,8 @@ id: intent_matching
         <pre class="brush: idl">
         intent=id2
             flow='id1 id2'
-            term={# == 'mytok' && signum(get(meta_tok('score'), 'best')) != -1}
-            term={has_any(tok_groups, list('actors', 'owners')) && size(meta_part('partAlias, 'text')) > 10}
+            term={# == 'mytok' && signum(get(meta_ent('score'), 'best')) != -1}
+            term={has_any(ent_groups, list('actors', 'owners'))}
         </pre>
         <p><b>NOTES:</b></p>
         <ul>
@@ -640,16 +571,13 @@ id: intent_matching
                 Both terms have to be found in the user input for the intent to match.
             </li>
             <li>
-                First term should be a token with ID <code>mytok</code> and have metadata property <code>score</code> of type
+                First term should be a entity with ID <code>mytok</code> and have metadata property <code>score</code> of type
                 map. This map should have a value with the string key <code>'best'</code>. <code>signum</code> of this map value
-                should not equal <code>-1</code>. Note that <code>meta_tok()</code>, <code>get()</code> and
+                should not equal <code>-1</code>. Note that <code>meta_ent()</code>, <code>get()</code> and
                 <code>signum()</code> are all built-in <a href="#idl_functions">IDL functions</a>.
             </li>
             <li>
-                Second term should be a token that belongs to either <code>actors</code> or <code>owners</code> group.
-                It should have a part token whose with alias <code>partAlias</code>. That
-                part token should have metadata property <code>text</code> of type string, list or map. The length of
-                this string, list or map should be greater than <code>10</code>.
+                Second term should be a entity that belongs to either <code>actors</code> or <code>owners</code> group.
             </li>
         </ul>
         <h2 id="syntax_highlighting" class="section-sub-title">Syntax Highlighting <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
@@ -696,7 +624,7 @@ id: intent_matching
         const keywords = 'flow fragment import intent meta options term';
         const literals = 'false null true';
         const symbols =	'[\\[\\]{}*@+?~=]+';
-        const fns = 'abs asin atan atan2 avg cbrt ceil comp_addr comp_city comp_country comp_id comp_name comp_postcode comp_region comp_website concat contains cos cosh count day_of_month day_of_week day_of_year degrees distinct ends_with euler exp expm1 first floor get has has_all has_any hour hypot if index_of is_alpha is_alphanum is_alphanumspace is_alphaspace is_empty is_num is_numspace is_whitespace json keys last length list log log10 log1p lowercase max meta_company meta_conv meta_frag meta_intent meta_model meta_part meta_req meta_sys meta_tok meta_user min minute month non_empty now or_else pi pow quarter radians rand replace req_addr req_agent req_id req_normtext req_tstamp reverse rint round second signum sin sinh size sort split split_trim sqrt square starts_with stdev strip substr tan tanh to_double to_int to_string tok_aliases tok_all tok_all_for_group tok_all_for_id tok_all_for_parent tok_ancestors tok_count tok_end_idx tok_find_part tok_find_parts tok_groups tok_has_part tok_id tok_index tok_is_abstract tok_is_after_group tok_is_after_id tok_is_after_parent tok_is_before_group tok_is_before_id tok_is_before_parent tok_is_bracketed tok_is_direct tok_is_english tok_is_first tok_is_freeword tok_is_last tok_is_permutated tok_is_quoted tok_is_stopword tok_is_swear tok_is_user tok_is_wordnet tok_lemma tok_parent tok_pos tok_sparsity tok_start_idx tok_stem tok_this tok_unid tok_value trim uppercase user_admin user_email user_fname user_id user_lname user_signup_tstamp values week_of_month week_of_year year';
+        const fns = 'abs asin atan atan2 avg cbrt ceil concat contains cos cosh count day_of_month day_of_week day_of_year degrees distinct ends_with ent_id ent_index ent_text ent_groups ent_count ent_all ent_all_for_id ent_all_for_group ent_this ent_is_last ent_is_first ent_is_before_id ent_is_before_group ent_is_after_id ent_is_after_group ent_is_between_ids ent_is_between_groups euler exp expm1 first floor get has has_all has_any hour hypot if index_of is_alpha is_alphanum is_alphanumspace is_alphaspace is_empty is_num is_numspace is_whitespace json keys last length list log log10 log1p lowercase max meta_conv meta_cfg meta_ent meta_frag meta_intent meta_req meta_sys min minute month non_empty now or_else pi pow quarter radians rand replace req_addr req_agent req_id req_text req_tstamp reverse rint round second signum sin sinh size sort split split_trim sqrt square starts_with stdev strip substr tan tanh to_double to_int to_string trim uppercase user_id values week_of_month week_of_year year';
 
         this.regexList = [
             { regex: SyntaxHighlighter.regexLib.singleLineCComments, css: 'comments' },	// One line comments.
@@ -738,7 +666,7 @@ id: intent_matching
         meta={'enabled': true}
         term(a)={month >= 6 && # != "z" && meta_intent('enabled') == true}[1,3]
         term(b)~{
-            @usrTypes = meta_model('user_types')
+            @usrTypes = meta_req('user_types')
 
             (# == 'order' || # == 'order_cancel') && has_all(@usrTypes, list(1, 2, 3))
         }
@@ -750,24 +678,23 @@ id: intent_matching
     <section id="idl_functions" >
         <h2 class="section-title">IDL Functions <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
-            IDL provides over 150 built-in functions that can be used in IDL intent definitions.
+            IDL provides over 100 built-in functions that can be used in IDL intent definitions.
             IDL function call takes on traditional
             <code><b>fun_name</b>(p1, p2, ... pk)</code> syntax form. If function has no parameters, the brackets are optional.
             IDL function operates on stack - its parameters
             are taken from the stack and its result is put back onto stack which in turn can become a parameter for the next function
             call and so on. IDL functions can have zero or more parameters and always have one result value. Some IDL
-            functions support variable number of parameters. Note that you cannot define your own functions in IDL - in such
-            cases you need to use the term with the <a href="#user-defined-callback">user-defined callback</a> method.
+            functions support variable number of parameters.
         </p>
         <div class="bq info">
             <p><b>Special Shorthand <code>#</code></b></p>
             <p>
-                The frequently used IDL function <code>tok_id()</code> has a special shorthand <code>#</code>. For example,
+                The frequently used IDL function <code>ent_id()</code> has a special shorthand <code>#</code>. For example,
                 the following expressions are all equal:
             </p>
             <pre class="brush: idl">
-                tok_id() == 'id'
-                tok_id == 'id' // Remember - empty parens are optional.
+                ent_id() == 'id'
+                ent_id == 'id' // Remember - empty parens are optional.
                 # == 'id'
             </pre>
         </div>
@@ -813,7 +740,7 @@ id: intent_matching
                 <tr><td><code>java.lang.Boolean</code></td><td><code>Boolean</code></td><td>You can use <code><b>true</b></code> or <code><b>false</b></code> literals.</td></tr>
                 <tr><td><code>java.util.List&lt;T&gt;</code></td><td><code>List[T]</code></td><td>Use <code>list(...)</code> IDL function to create new list.</td></tr>
                 <tr><td><code>java.util.Map&lt;K,V&gt;</code></td><td><code>Map[K,V]</code></td><td></td></tr>
-                <tr><td><code><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCToken.html">NCToken</a></code></td><td><code>Token</code></td><td></td></tr>
+                <tr><td><code>{% scaladoc NCEntity NCEntity %}</code></td><td><code>Entity</code></td><td></td></tr>
                 <tr><td><code>java.lang.Object</code></td><td><code>Any</code></td><td>Any of the supported types above. Use <code><b>null</b></code> literal for null value.</td></tr>
             </tbody>
         </table>
@@ -836,7 +763,7 @@ id: intent_matching
         </p>
         <nav>
             <div class="nav nav-tabs" role="tablist">
-                <a class="nav-item nav-link active" data-toggle="tab" id="fn_token_tab" href="#fn_ent" role="tab">Entity</a>
+                <a class="nav-item nav-link active" data-toggle="tab" id="fn_ent_tab" href="#fn_ent" role="tab">Entity</a>
                 <a class="nav-item nav-link" data-toggle="tab" id="fn_text_tab" href="#fn_text" role="tab">Text</a>
                 <a class="nav-item nav-link" data-toggle="tab" id="fn_math_tab" href="#fn_math" role="tab">Math</a>
                 <a class="nav-item nav-link" data-toggle="tab" id="fn_collection_tab" href="#fn_collection" role="tab">Collection</a>
@@ -1081,40 +1008,20 @@ id: intent_matching
         <ul>
             <li>
                 <p>
-                    <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntent.html">@NCIntent</a> annotation
+                    <code>NCIntent</code> java annotation
                     takes a string as its parameter that should be a valid IDL declaration. For example, Scala code snippet:
                 </p>
                 <pre class="brush: scala, highlight: [1, 2]">
                 &#64;NCIntent("import('/opt/myproj/global_fragments.idl')") // Importing.
-                &#64;NCIntent("intent=act term(act)={has(tok_groups, 'act')} fragment(f1)") // Defining in place.
+                &#64;NCIntent("intent=act term(act)={has(ent_groups, 'act')} fragment(f1)") // Defining in place.
                 def onMatch(
-                    &#64;NCIntentTerm("act") actTok: NCToken,
-                    &#64;NCIntentTerm("loc") locToks: List[NCToken]
+                    &#64;NCIntentTerm("act") actEnt: NCEntity,
+                    &#64;NCIntentTerm("loc") locEnts: List[NCEntity]
                 ): NCResult = {
                     ...
                 }
             </pre>
 
-            </li>
-            <li>
-                <p>
-                    External JSON/YAML <a href="/data-model.html#config">data model configuration</a> can provide one or more
-                    IDL declarations in <code>intents</code> field. For example:
-                </p>
-                <pre class="brush: js, highlight: [7]">
-                {
-                    "id": "nlpcraft.alarm.ex",
-                    "name": "Alarm Example Model",
-                    .
-                    .
-                    .
-                    "intents": [
-                        "import('/opt/myproj/global_fragments.idl')", // Importing.
-                        "import('/opt/myproj/my_intents.idl')", // Importing.
-                        "intent=alarm term~{#=='x:alarm'}" // Defining in place.
-                    ]
-                }
-            </pre>
             </li>
             <li>
                 External <code>*.idl</code> files contain IDL declarations and can be imported in any other places where
@@ -1133,8 +1040,8 @@ id: intent_matching
                     fragment=when
                         term(nums)~{
                             // Term variables.
-                            @type = meta_tok('nlpcraft:num:unittype')
-                            @iseq = meta_tok('nlpcraft:num:isequalcondition')
+                            @type = meta_ent('nlpcraft:num:unittype')
+                            @iseq = meta_ent('nlpcraft:num:isequalcondition')
 
                             # == 'nlpcraft:num' && @type != 'datetime' && @iseq == true
                         }[0,7]
@@ -1164,7 +1071,7 @@ id: intent_matching
             </thead>
             <tbody>
                 <tr>
-                    <td><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntent.html">@NCIntent</a></td>
+                    <td><code>@NCIntent</code></td>
                     <td>Callback method or model class</td>
                     <td>
                         <p>
@@ -1172,7 +1079,7 @@ id: intent_matching
                         serving as its callback.
                         This annotation can also be applied to a model's class in which case it will just declare the intent
                         without binding it and the
-                        callback method will need to use <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentRef.html">@NCIntentRef</a> annotation to actually bind it to the
+                        callback method will need to use <code>@NCIntentRef</code>< annotation to actually bind it to the
                         declared intent above. Note that multiple intents can be bound to the same callback method, but only
                         one callback method can be bound with a given intent.
                         </p>
@@ -1186,7 +1093,7 @@ id: intent_matching
                     </td>
                 </tr>
                 <tr>
-                    <td><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentRef.html">@NCIntentRef</a></td>
+                    <td><code>@NCIntentRef</code></td>
                     <td>Callback method</td>
                     <td>
                         This annotation allows to reference an intent defined elsewhere like an external JSON or YAML
@@ -1195,55 +1102,19 @@ id: intent_matching
                     </td>
                 </tr>
                 <tr>
-                    <td><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentTerm.html">@NCIntentTerm</a></td>
+                    <td><code>@NCIntentObject</code></td>
+                    <td>Model class field</td>
+                    <td>
+                        Marker annotation that can be applied to class member of main model.
+                        The fields objects annotated with this annotation are scanned the same way as main model.
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>@NCIntentTerm</code></td>
                     <td>Callback method parameter</td>
                     <td>
-                        This annotation marks a formal callback method parameter to receive term's tokens when the intent
+                        This annotation marks a formal callback method parameter to receive term's entities when the intent
                         to which this term belongs is selected as the best match.
-                    </td>
-                </tr>
-                <tr>
-                    <td><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSample.html">@NCIntentSample</a></td>
-                    <td>Callback method</td>
-                    <td>
-                        Annotation that provides one or more sample of the input that associated intent should match on.
-                        Although this annotation is optional it's <b>highly recommended</b> to provide at least several samples per intent. There's no upper
-                        limit on how many examples can be provided and typically the more examples the better for the built-in tools.
-                        These samples serve documentation purpose as well as used in built-in model <a href="/tools/test_framework.html">auto-validation</a>
-                        and and <a href="/tools/syn_tool.html">synonym suggesting</a> tools.
-                    </td>
-                </tr>
-                <tr>
-                    <td><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentSampleRef.html">@NCIntentSampleRef</a></td>
-                    <td>Callback method</td>
-                    <td>
-                        Annotation that allows to load samples of the input that associated intent should match on from the external
-                        sources like local file, classpath resource or URL.
-                        Although this annotation is optional it's <b>highly recommended</b> to provide at least several samples per intent. There's no upper
-                        limit on how many examples can be provided and typically the more examples the better for the built-in tools.
-                        These samples serve documentation purpose as well as used in built-in model <a href="/tools/test_framework.html">auto-validation</a>
-                        and and <a href="/tools/syn_tool.html">synonym suggesting</a> tools.
-                    </td>
-                </tr>
-                <tr>
-                    <td><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelAddClasses.html">@NCModelAddClasses</a></td>
-                    <td>Model Class</td>
-                    <td>
-                        This annotation allows adding specified classes to the list of classes that NLPCraft will scan when
-                        searching for intent callbacks. By default, only the model class itself and its ancestors are scanned.
-                        Using this annotation, larger models can be modularized and split into different compilation units.
-                        See also <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelAddPackage.html">@NCModelAddPackage</a>.
-                    </td>
-                </tr>
-                <tr>
-                    <td><a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelAddPackage.html">@NCModelAddPackage</a></td>
-                    <td>Model Class</td>
-                    <td>
-                        This annotation allows adding specified packages to the list of classes that NLPCraft will scan when
-                        searching for intent callbacks. All classes in the package will be scanned recursively when searching for annotated
-                        intent callbacks. By default, only the model class itself and its ancestors are scanned. Using this annotation, larger models
-                        can be modularized and split into different compilation units.
-                        See also <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModelAddClasses.html">@NCModelAddClasses</a>.
                     </td>
                 </tr>
             </tbody>
@@ -1253,26 +1124,15 @@ id: intent_matching
         </p>
         <p>
              An intent from
-            <a href="examples/light_switch.html">Light Switch</a> Scala example:
+            <a href="examples/light_switch.html">Light Switch</a> example:
         </p>
         <pre class="brush: scala">
-            &#64;NCIntent("intent=act term(act)={groups @@ 'act'} term(loc)={trim(id) == 'ls:loc'}*")
-            &#64;NCIntentSample(Array(
-                "Turn the lights off in the entire house.",
-                "Switch on the illumination in the master bedroom closet.",
-                "Get the lights on.",
-                "Please, put the light out in the upstairs bedroom.",
-                "Set the lights on in the entire house.",
-                "Turn the lights off in the guest bedroom.",
-                "Could you please switch off all the lights?",
-                "Dial off illumination on the 2nd floor.",
-                "Please, no lights!",
-                "Kill off all the lights now!",
-                "No lights in the bedroom, please."
-            ))
+            &#64;NCIntent("intent=ls term(act)={has(ent_groups, 'act')} term(loc)={# == 'ls:loc'}*")
             def onMatch(
-                &#64;NCIntentTerm("act") actTok: NCToken,
-                &#64;NCIntentTerm("loc") locToks: List[NCToken]
+                &#64;ctx: NCContext,
+                &#64;im: NCIntentMatch,
+                &#64;NCIntentTerm("act") actEnt: NCEntity,
+                &#64;NCIntentTerm("loc") locEnts: List[NCEntity]
             ): NCResult = {
                 ...
             }
@@ -1285,18 +1145,18 @@ id: intent_matching
                 The intent is defined in-place using <code>@NCIntent</code> annotation.
             </li>
             <li>
-                A term match is defined as one or more tokens. Term can be optional if its min quantifier is zero.
+                A term match is defined as one or more entities. Term can be optional if its min quantifier is zero.
             </li>
             <li>
                 An intent <code>act</code> has two non-conversational terms: one mandatory term and another
-                that can match zero or more tokens with method <code>onMatch(...)</code> as its callback.
+                that can match zero or more entities with method <code>onMatch(...)</code> as its callback.
             </li>
             <li>
                 Terms is conversational if it uses <code>'~'</code> and non-conversational if it uses <code>'='</code>
                 symbol in its definition. If term is conversational, the matching algorithm will look into the conversation
-                context short-term-memory (STM) to seek the matching tokens for this term. Note that the terms that were fully or partially matched using tokens from
+                context short-term-memory (STM) to seek the matching entities for this term. Note that the terms that were fully or partially matched using entities from
                 the conversation context will contribute a smaller weight to the overall intent matching weight since these terms are <em>less specific.</em>
-                Non-conversational terms will be matched using tokens found only in the current user input without looking at the conversation context.
+                Non-conversational terms will be matched using entities found only in the current user input without looking at the conversation context.
             </li>
             <li>
                 Method <code>onMatch(...)</code> will be called if and when this intent is selected as the best match.
@@ -1305,72 +1165,42 @@ id: intent_matching
                 Note that terms have <code>min=1, max=1</code> quantifiers by default, i.e. one and only one.
             </li>
             <li>
-                First term defines any single token that belongs to the group <code>act</code>. Note that model elements
+                First term defines any single entity that belongs to the group <code>act</code>. Note that model elements
                 can belong to multiple groups.
             </li>
             <li>
-                Second term would match zero or more tokens with ID <code>ls:loc</code>. Note that we use function <code>trim</code>
-                on the token ID.
-            </li>
-            <li>
                 Note that both terms have IDs (<code>act</code> and <code>loc</code>) that are used in <code>onMatch(...)</code>
-                method parameters to automatically assign terms' tokens to the formal method parameters using <code>@NCIntentTerm</code>
+                method parameters to automatically assign terms' entities to the formal method parameters using <code>@NCIntentTerm</code>
                 annotations.
             </li>
         </ul>
-        <br/>
+
         <p>
-            In the following <a href="examples/alarm_clock.html">Alarm Clock</a> Java example
-            the intent is defined in JSON model definition and referenced in Java code using <code>@NCIntentTerm</code>
+            In the following <a href="examples/time.html">Time</a> example
+            the intent is defined model class and referenced in code using <code>@NCIntentRef</code>
             annotation:
         </p>
-        <pre class="brush: js, highlight: [19]">
-            {
-                "id": "nlpcraft.alarm.ex",
-                "name": "Alarm Example Model",
-                "version": "1.0",
-                "enabledBuiltInTokens": [
-                    "nlpcraft:num"
-                ],
-                "elements": [
-                    {
-                        "id": "x:alarm",
-                        "description": "Alarm token indicator.",
-                        "synonyms": [
-                            "{ping|buzz|wake|call|hit} {me|up|me up|_}",
-                            "{set|_} {my|_} {wake|wake up|_} {alarm|timer|clock|buzzer|call} {up|_}"
-                        ]
-                    }
-                ],
-                "intents": [
-                    "intent=alarm term~{# == 'x:alarm'} term(nums)~{# == 'nlpcraft:num' && meta_tok('nlpcraft:num:unittype') == 'datetime' && meta_tok('nlpcraft:num:isequalcondition') == true}[0,7]"
-                ]
-            }
-        </pre>
-        <pre class="brush: java, highlight: [1]">
-            &#64;NCIntentRef("alarm")
-            &#64;NCIntentSample({
-                "Ping me in 3 minutes",
-                "Buzz me in an hour and 15mins",
-                "Set my alarm for 30s"
-            })
-            private NCResult onMatch(
-               NCIntentMatch ctx,
-               &#64;NCIntentTerm("nums") List&lt;NCToken&gt; numToks
-            ) {
-               ...
-            }
+        <pre class="brush: js, highlight: [2, 5]">
+            @NCIntent("fragment=city term(city)~{# == 'opennlp:location'}")
+            @NCIntent("intent=intent2 term~{# == 'x:time'} fragment(city)")
+            class TimeModel extends NCModel(
+                ...
+                @NCIntentRef("intent2")
+                private def onRemoteMatch(
+                    ctx: NCContext, im: NCIntentMatch, @NCIntentTerm("city") cityEnt: NCEntity
+                ): NCResult =
+                    ...
         </pre>
         <p>
             <b>NOTES:</b>
         </p>
         <ul>
             <li>
-                Intent is defined in the external JSON model declaration (see line 19 in JSON file).
+                Intent is defined in the model, <code>line 2</code>.
             </li>
             <li>
-                This intent is referenced by annotation <code>@NCIntentRef("alarm")</code> with method <code>onMatch(...)</code>
-                as its callback.
+                This intent is referenced by annotation <code>@NCIntentRef("intent2")</code> with method <code>onMatch(...)</code>
+                as its callback, <code>line 5</code>.
             </li>
             <li>
                 This example defines an intent with two conversational terms both of which have to found for the
@@ -1379,9 +1209,9 @@ id: intent_matching
             <li>
                 Terms is conversational if it uses <code>'~'</code> and non-conversational if it uses <code>'='</code>
                 symbol in its definition. If term is conversational, the matching algorithm will look into the conversation
-                context short-term-memory (STM) to seek the matching tokens for this term. Note that the terms that were fully or partially matched using tokens from
+                context short-term-memory (STM) to seek the matching entities for this term. Note that the terms that were fully or partially matched using entities from
                 the conversation context will contribute a smaller weight to the overall intent matching weight since these terms are <em>less specific.</em>
-                Non-conversational terms will be matched using tokens found only in the current user input without looking at the conversation context.
+                Non-conversational terms will be matched using entities found only in the current user input without looking at the conversation context.
             </li>
             <li>
                 Method <code>onMatch(...)</code> will be called when this intent is the best match detected.
@@ -1390,20 +1220,18 @@ id: intent_matching
                 Note that terms have <code>min=1, max=1</code> quantifiers by default.
             </li>
             <li>
-                First term is defined as a single mandatory (<code>min=1, max=1</code>) user token with ID <code>x:alarm</code>
+                First term is defined as a single mandatory (<code>min=1, max=1</code>) entity with ID <code>x:time</code>
                 whose element is defined in the model.
             </li>
             <li>
-                Second term is defined as a zero or up to seven numeric built-in <code>nlpcraft:num</code> tokens that
-                have unit type of <code>datetime</code> and are single numbers. Note that <a href="examples/alarm_clock.html">Alarm Clock</a>
-                model allows zero tokens in this term which would mean the current time.
+                Second term is defined as a single mandatory (<code>min=1, max=1</code>) entity with ID <code>opennlp:location</code>.
             </li>
             <li>
                 Given data model definition above the following sentences will be matched by this intent:
                 <ul>
-                    <li><code>Ping me in 3 minutes</code></li>
-                    <li><code>Buzz me in an hour and 15mins</code></li>
-                    <li><code>Set my alarm for 30s</code></li>
+                    <li><code>What time is it now in New York City?</code></li>
+                    <li><code>Show me time of the day in London.</code></li>
+                    <li><code>Can you please give me the Tokyo's current date and time.</code></li>
                 </ul>
             </li>
         </ul>
@@ -1439,30 +1267,30 @@ id: intent_matching
                 <b>Step: 2</b><br>
                 <p>
                     At this step the server takes one or more sentences from the previous step and tokenizes them. This
-                    process involves converting the text into a sequence of enriched tokens representing named entities.
+                    process involves converting the text into a sequence of enriched entities representing named entities.
                     This step also performs the initial server-side enrichment and detection of the
                     <a href="/data-model.html#builtin">built-in named entities</a>.
                 </p>
                 <p>
                     The result of this step is a sequence of converted sentences, where each element is a sequence
-                    of tokens. These sequences are send down to the data probe that has requested data model deployed.
+                    of entities. These sequences are send down to the data probe that has requested data model deployed.
                 </p>
             </li>
             <li>
                 <b>Step: 3</b><br>
                 <p>
                     This is the first step of the probe-side processing. At this point the data probe receives one or more
-                    sequences of tokens. Probe then takes each sequence and performs the final enrichment by detecting user-defined
-                    elements additionally to the built-in tokens that were detected on the server during step 2 above.
+                    sequences of entities. Probe then takes each sequence and performs the final enrichment by detecting user-defined
+                    elements additionally to the built-in entities that were detected on the server during step 2 above.
                 </p>
             </li>
             <li>
                 <b>Step: 4</b><br>
                 <p>
                     This is an important step for understanding intent matching logic. At this step the data probe
-                    takes sequences of tokens generated at the last step and comes up with one or more parsing
-                    variants. A parsing variant is a sequence of tokens that is free from token overlapping and other parsing
-                    ambiguities. Typically, a single sequence of tokens can produce one (always) or more parsing variants.
+                    takes sequences of entities generated at the last step and comes up with one or more parsing
+                    variants. A parsing variant is a sequence of entities that is free from entity overlapping and other parsing
+                    ambiguities. Typically, a single sequence of entities can produce one (always) or more parsing variants.
                 </p>
                 <p>
                     Let's consider the input text <code>'A B C D'</code> and the following elements defined in our model:
@@ -1515,16 +1343,16 @@ id: intent_matching
                 </p>
                 <ul>
                     <li>
-                        A match that captures more tokens has more weight than a match with less tokens. As a corollary, the match
+                        A match that captures more entities has more weight than a match with less entities. As a corollary, the match
                         with less free words (i.e. unused words) has bigger weight than a match with more free words.
                     </li>
                     <li>
-                        Tokens for user-defined elements are more important than built-in tokens.
+                        Entities for user-defined elements are more important than built-in entities.
                     </li>
                     <li>
-                        A more specific match has bigger weight. In other words, a match that uses a token from the conversation
-                        context (i.e short-term-memory) has less weight than a match that only uses tokens from the current request. In the same
-                        way older tokens from the conversation give less weight than the more recent ones.
+                        A more specific match has bigger weight. In other words, a match that uses an entity from the conversation
+                        context (i.e short-term-memory) has less weight than a match that only uses entities from the current request. In the same
+                        way older entities from the conversation give less weight than the more recent ones.
                     </li>
                 </ul>
             </li>
@@ -1538,23 +1366,23 @@ id: intent_matching
         </p>
         <ul>
             <li>
-                Callback can only be an instance method on the class implementing <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModel.html">NCModel</a>
-                interface.
+                Callback can only be an instance method on the class implementing {% scaladoc NCModel NCModel %}
+                trait.
             </li>
             <li>
-                Method must have return type of <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCResult.html">NCResult</a>.
+                Method must have return type of {% scaladoc NCResult NCResult %}.
             </li>
             <li>
-                Method can have zero or more parameters:
+                Method should have at least two parameters:
                 <ul>
                     <li>
-                        Parameter of type <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentMatch.html">NCIntentMatch</a>,
-                        if present, must be first.
+                        Parameter of type {% scaladoc NCContext NCContext %} must be first.
                     </li>
                     <li>
-                        Any other parameters (other than the first optional
-                        <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentMatch.html">NCIntentMatch</a>) must
-                        have <code>@NCIntentTerm</code> annotation.
+                        Parameter of type {% scaladoc NCIntentMatch NCIntentMatch %} must be second.
+                    </li>
+                    <li>
+                        Any other parameters must have <code>@NCIntentTerm</code> annotation.
                     </li>
                 </ul>
             </li>
@@ -1563,10 +1391,10 @@ id: intent_matching
             </li>
         </ul>
         <p>
-            <code>@NCIntentTerm</code> annotation marks callback parameter to receive term's tokens. This annotations can
+            <code>@NCIntentTerm</code> annotation marks callback parameter to receive term's entities. This annotations can
             only be used for the parameters of the callbacks, i.e. methods that are annotated with <code>@NCIntnet</code> or
             <code>@NCIntentRef</code>. <code>@NCIntentTerm</code> takes a term ID as its only mandatory parameter and
-            should be applied to callback method parameters to get the tokens associated with that term (if and when
+            should be applied to callback method parameters to get the entities associated with that term (if and when
             the intent was matched and that callback was invoked).
         </p>
         <p>
@@ -1576,25 +1404,21 @@ id: intent_matching
             <thead>
             <tr>
                 <th>Quantifier</th>
-                <th>Java Type</th>
                 <th>Scala Type</th>
             </tr>
             </thead>
             <tbody>
                 <tr>
                     <td><code>[1,1]</code></td>
-                    <td><code>NCToken</code></td>
-                    <td><code>NCToken</code></td>
+                    <td><code>NCEntity</code></td>
                 </tr>
                 <tr>
                     <td><code>[0,1]</code></td>
-                    <td><code>Optional&lt;NCToken&gt;</code></td>
-                    <td><code>Option[NCToken]</code></td>
+                    <td><code>Option[NCEntity]</code></td>
                 </tr>
                 <tr>
                     <td><code>[1,∞]</code> or <code>[0,∞]</code></td>
-                    <td><code>java.util.List&lt;NCToken&gt;</code></td>
-                    <td><code>List[NCToken]</code></td>
+                    <td><code>List[NCEntity]</code></td>
                 </tr>
             </tbody>
         </table>
@@ -1602,10 +1426,12 @@ id: intent_matching
             For example:
         </p>
         <pre class="brush: java">
-            &#64;NCIntent("intent=id term(termId)~{# == 'my_token'}?")
-            private NCResult onMatch(
-               &#64;NCIntentTerm("termId") Optional&lt;NCToken&gt; myTok
-            ) {
+            NCIntent("intent=id term(termId)~{# == 'my_ent'}?")
+            private def onMatch(
+                ctx: NCContext,
+                im: NCIntentMatch,
+                @NCIntentTerm("termId") myTok: Option[NCEntity]
+            ): NCResult = {
                ...
             }
         </pre>
@@ -1615,12 +1441,8 @@ id: intent_matching
                 Conversational term <code>termId</code> has <code>[0,1]</code> quantifier (it's optional).
             </li>
             <li>
-                The formal parameter on the callback has a type of <code>Optional&lt;NCToken&gt;</code> because the
+                The formal parameter on the callback has a type of <code>Option[NCEntity]</code> because the
                 term's quantifier is <code>[0,1]</code>.
-            </li>
-            <li>
-                Note that callback doesn't have an optional <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentMatch.html">NCIntentMatch</a>
-                parameter.
             </li>
         </ul>
         <h2 class="section-sub-title"><code>NCRejection</code> and <code>NCIntentSkip</code> Exceptions <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
@@ -1628,14 +1450,14 @@ id: intent_matching
             There are two exceptions that can be used by intent callback logic to control intent matching process.
         </p>
         <p>
-            When <a href="/apis/latest/org/apache/nlpcraft/model/NCRejection.html">NCRejection</a> exception is thrown by the callback it indicates that user input cannot
+            When {% scaladoc NCRejection NCRejection %} exception is thrown by the callback it indicates that user input cannot
             be processed as is.  This exception typically indicates that user has not provided enough information in
             the input string to have it processed automatically. In most cases this means that the user's input is
             either too short or too simple, too long or too complex, missing required context, or is unrelated to the
             requested data model.
         </p>
         <p>
-            <a href="/apis/latest/org/apache/nlpcraft/model/NCIntentSkip.html">NCIntentSkip</a> is a control flow exception to
+            {% scaladoc NCIntentSkip NCIntentSkip %} is a control flow exception to
             skip current intent. This exception can be thrown by the intent callback to indicate that current intent
             should be skipped (even though it was matched and its callback was called). If there's more than one intent
             matched the next best matching intent will be selected and its callback will be called.
@@ -1647,8 +1469,8 @@ id: intent_matching
             not match then throwing this exception allows to try next best matching intent, if any.
         </p>
         <p>
-            Note that there's a significant difference between <a href="/apis/latest/org/apache/nlpcraft/model/NCIntentSkip.html">NCIntentSkip</a>
-            exception and model's <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCModel.html">onMatchedIntent(...)</a>
+            Note that there's a significant difference between {% scaladoc NCIntentSkip NCIntentSkip %}
+            exception and model's {% scaladoc NCModel#onMatchedIntent-946 NCModel#onMatchedIntent %}
             callback. Unlike this callback, the exception does not force re-matching of all intents, it simply
             picks the next best intent from the list of already matched ones. The model's callback can force
             a full reevaluation of all intents against the user input.
@@ -1673,12 +1495,17 @@ id: intent_matching
                 that type of matching.
             </p>
         </div>
-        <h2 class="section-sub-title"><code>NCIntentMatch</code> Interface <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <h2 class="section-sub-title"><code>NCContext</code> Trait <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
-            <a target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCIntentMatch.html">NCIntentMatch</a> interface
-            can be passed into intent callback as its first parameter. This interface provide runtime information
-            about the intent that was matched (i.e. the intent with which this callback was annotated with). Note also that
-            intent context can only be the 1st parameter in the callback, and if not declared as such - it won't be passed in.
+            {% scaladoc NCContext NCContext %} trait
+            passed into intent callback as its first parameter. This trait provide runtime information
+            about the model configuration, request, extracted tokens and all entities variants, conversation control trait {% scaladoc NCConversation NCConversation %}.
+        </p>
+        <h2 class="section-sub-title"><code>NCIntentMatch</code> Trait <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
+        <p>
+            {% scaladoc NCIntentMatch NCIntentMatch %} trait
+            passed into intent callback as its second parameter. This trait provide runtime information
+            about the intent that was matched (i.e. the intent with which this callback was annotated with).
         </p>
     </section>
 </div>
@@ -1691,7 +1518,7 @@ id: intent_matching
         <li><a class="toc2" href="#intent-examples">Intent Examples</a></li>
         <li><a class="toc2" href="#syntax_highlighting">Syntax Highlighting</a></li>
         <li><a href="#idl_functions">IDL Functions</a></li>
-        <li><a class="toc2" onclick="$('#fn_ent_tab').trigger('click')" href="#fn-list"><code><b>Token</b></code> Functions</a></li>
+        <li><a class="toc2" onclick="$('#fn_ent_tab').trigger('click')" href="#fn-list"><code><b>Entity</b></code> Functions</a></li>
         <li><a class="toc2" onclick="$('#fn_text_tab').trigger('click')" href="#fn-list"><code><b>Text</b></code> Functions</a></li>
         <li><a class="toc2" onclick="$('#fn_math_tab').trigger('click')" href="#fn-list"><code><b>Math</b></code> Functions</a></li>
         <li><a class="toc2" onclick="$('#fn_collection_tab').trigger('click')" href="#fn-list"><code><b>Collection</b></code> Functions</a></li>
