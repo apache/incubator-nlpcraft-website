@@ -70,8 +70,8 @@ id: intent_matching
             IDL intent defines a match between the parsed user input represented as the collection of
             {% scaladoc NCEntity entities %},
             and the user-define callback method. IDL intents are <a href="#binding">bound</a> to their callbacks via
-            <a href="#binding">Java annotation</a> and can be <a href="#idl_location">located</a> in the same Java annotations or placed in model YAML/JSON file
-            as well as in external <code>*.idl</code> files.
+            <a href="#binding">Java annotation</a> and can be <a href="#idl_location">located</a> in the same Java annotations or
+            in external <code>*.idl</code> files.
         </p>
         <p>
             You can review the formal
@@ -89,7 +89,7 @@ id: intent_matching
                 IDL supports Java-style comments, both single line <code>// Comment.</code> as well as multi-line <code>/* Comment. */</code>.
             </li>
             <li>
-                String literals can use either single quotes (<code>'text'</code>) or double quotes (<code>"text"</code>) simplifying IDL usage in JSON or Java languages - you
+                String literals can use either single quotes (<code>'text'</code>) or double quotes (<code>"text"</code>) simplifying IDL usage in Scala - you
                 don't have to escape double quotes. Both quotes can be escaped in string, i.e. <code>"text with \" quote"</code> or
                 <code>'text with \' quote'</code>
             </li>
@@ -112,7 +112,7 @@ id: intent_matching
                 Identifiers and literals can use the same Unicode space as Java.
             </li>
             <li>
-                IDL provides over 150 <a href="#idl_functions">built-in functions</a> to aid in intent matching. IDL functions are pure immutable mathematical functions
+                IDL provides over 100 <a href="#idl_functions">built-in functions</a> to aid in intent matching. IDL functions are pure immutable mathematical functions
                 that work on a runtime stack. In other words, they look like Python functions: IDL <code>length(trim(" text "))</code> vs.
                 OOP-style <code>" text ".trim().length()</code>.
             </li>
@@ -391,7 +391,7 @@ id: intent_matching
                         </p>
                     </dd>
                     <dt>
-                        <code>fragment(frag, {'p1': 25, 'p2': {'a': false}})</code> <sup><small>line 22 </small></sup><br>
+                        <code>fragment(frag, {'p1': 25, 'p2': {'a': false}})</code> <sup><small>line 19 </small></sup><br>
                     </dt>
                     <dd>
                         <p>
@@ -486,20 +486,19 @@ id: intent_matching
         </ul>
         <h2 id="intent-lifecycle" class="section-sub-title">Intent Lifecycle <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
-            During NLPCraft data probe start it scans the models provided in its configuration for the intents. The
-            scanning process goes through JSON/YAML external configurations as well as model classes when looking
-            for IDL intents. All found intents are compiled into an internal representation before the data probe
-            completes its start up sequence.
+            During {% scaladoc NCModelClient NCModelClient %} start it scans the provided model class for the intents.
+            All found intents are compiled into an internal representation.
         </p>
         <p>
-            Note that not all intents problems can be detected at the compilation phase, and probe can start with intents
+            Note that not all intents problems can be detected at the compilation phase,
+            and {% scaladoc NCModelClient NCModelClient %} can be initialized with intents
             not being completely validated. For example, each term in the intent must evaluate to a boolean result. This can
             only be checked at runtime. Another example is the number and the types of parameters passed into IDL function
             which is only checked at runtime as well.
         </p>
         <p>
-            Intents are compiled only once during the data probe start up sequence and cannot be re-compiled
-            without data probe restart. Model logic, however, can affect the intent behavior through
+            Intents are compiled only once during the {% scaladoc NCModelClient NCModelClient %} initialization and
+            cannot be re-compiled. Model logic, however, can affect the intent behavior through
             {% scaladoc NCModel NCModel %} callback methods and request data all of which can change at runtime and
             are accessible through <a href="#idl_functions">IDL functions.</a>
         </p>
@@ -660,8 +659,9 @@ id: intent_matching
             <p><b>Unsupported Types</b></p>
             <p>
                 Detection of the unsupported types by IDL functions cannot be done during IDL compilation and
-                can <em>only be done during runtime execution</em>. This means that even though the data probe compiles IDL
-                intents and starts successfully - it does not guarantee that intents will operate correctly.
+                can <em>only be done during runtime execution</em>.
+                This means that even though the model compiles IDL
+                intents and {% scaladoc NCModelClient NCModelClient %} starts successfully - it does not guarantee that intents will operate correctly.
             </p>
         </div>
         <p id="fn-list">
@@ -985,16 +985,16 @@ id: intent_matching
                         serving as its callback.
                         This annotation can also be applied to a model's class in which case it will just declare the intent
                         without binding it and the
-                        callback method will need to use <code>@NCIntentRef</code>< annotation to actually bind it to the
+                        callback method will need to use <code>@NCIntentRef</code> annotation to actually bind it to the
                         declared intent above. Note that multiple intents can be bound to the same callback method, but only
                         one callback method can be bound with a given intent.
                         </p>
                         <p>
                             This method is ideal for simple intents and quick declaration right in the source code and has
                             all the benefits of having IDL to be part of the source code. However, multi-line IDL declaration can be awkward
-                            to add and maintain depending on JVM language, i.e. multi-line string literal support. In such
+                            to add and maintain depending on Scala language, i.e. multi-line string literal support. In such
                             cases it is advisable to move IDL declarations into separate <code>*.idl</code> file or files
-                            and import them either in the JSON/YAML model or at the model class level.
+                            and import them at the model class level.
                         </p>
                     </td>
                 </tr>
@@ -1002,8 +1002,8 @@ id: intent_matching
                     <td><code>@NCIntentRef</code></td>
                     <td>Callback method</td>
                     <td>
-                        This annotation allows to reference an intent defined elsewhere like an external JSON or YAML
-                        model definition, <code>*.idl</code> file, or other <code>@NCIntent</code> annotations. In real
+                        This annotation allows to reference an intent defined elsewhere like an external <code>*.idl</code> file,
+                        or other <code>@NCIntent</code> annotations. In real
                         applications, this is a most common way to bound an externally defined intent to its callback method.
                     </td>
                 </tr>
