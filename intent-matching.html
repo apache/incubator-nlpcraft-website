@@ -25,16 +25,17 @@ id: intent_matching
     <section>
         <h2 class="section-title">Overview <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
-            {% scaladoc NCModel NCModel %} processing logic is defined as a collection of one or more intents. The sections
+            {% scaladoc NCModel NCModel %} processing logic is defined as a <a href="/pipeline-components.html">pipeline</a> and the
+            collection of one or more intents to be matched on. The sections
             below explain what intent is, how to define it in your model, and how it works.
         </p>
     </section>
     <section id="intent">
         <h2 class="section-title">Intent <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
-            The goal of the data model implementation is to take the user input text and
-            match it to a specific user-defined code that will execute for that input. The mechanism that
-            provides this matching is called an <em>intent</em>.
+            The goal of the data model implementation is to take the user input text, pass it through processing
+            <a href="/pipeline-components.html">pipeline</a> and match the resulting variants to a specific user-defined
+            code that will execute for that input. The mechanism that provides this matching is called an <em>intent</em>.
         </p>
         <p>
             The intent generally refers to the goal that the end-user had in mind when speaking or typing the input utterance.
@@ -62,13 +63,14 @@ id: intent_matching
             here's a simple intent <code>x</code> with two terms <code>a</code> and <code>b</code>:
         </p>
         <pre class="brush: idl">
+            /* Intent 'x' definition. */
             intent=x
-                term(a)~{# == 'my_elm'}
-                term(b)={has(ent_groups, "my_group")}
+                term(a)~{# == 'my_elm'} // Term 'a'.
+                term(b)={has(ent_groups, "my_group")} // Term 'b'.
         </pre>
         <p>
             IDL intent defines a match between the parsed user input represented as the collection of
-            {% scaladoc NCEntity entities %},
+            {% scaladoc2 NCEntity entities %},
             and the user-define callback method. IDL intents are <a href="#binding">bound</a> to their callbacks via
             <a href="#binding">Java annotation</a> and can be <a href="#idl_location">located</a> in the same Java annotations or
             in external <code>*.idl</code> files.
@@ -327,9 +329,6 @@ id: intent_matching
                             the same lexical rules as intent ID.
                         </p>
                         <p>
-                            Term's body can be defined via <b>IDL Expression</b>:
-                        </p>
-                        <p>
                             Inside of curly brackets <code>{</code> <code>}</code> you can have an optional list of term variables
                             and the mandatory term expression that must evaluate to a boolean value. Term variable name must start with
                             <code>@</code> symbol and be unique within the scope of the current term. All term variables must be defined
@@ -486,11 +485,11 @@ id: intent_matching
         </ul>
         <h2 id="intent-lifecycle" class="section-sub-title">Intent Lifecycle <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
-            During {% scaladoc NCModelClient NCModelClient %} start it scans the provided model class for the intents.
+            During {% scaladoc NCModelClient NCModelClient %} initialization it scans the provided model class for the intents.
             All found intents are compiled into an internal representation.
         </p>
         <p>
-            Note that not all intents problems can be detected at the compilation phase,
+            Note that not all intent-related problems can be detected at the compilation phase,
             and {% scaladoc NCModelClient NCModelClient %} can be initialized with intents
             not being completely validated. For example, each term in the intent must evaluate to a boolean result. This can
             only be checked at runtime. Another example is the number and the types of parameters passed into IDL function
@@ -499,7 +498,7 @@ id: intent_matching
         <p>
             Intents are compiled only once during the {% scaladoc NCModelClient NCModelClient %} initialization and
             cannot be re-compiled. Model logic, however, can affect the intent behavior through
-            {% scaladoc NCModel NCModel %} callback methods and request data all of which can change at runtime and
+            {% scaladoc NCModel NCModel %} callback methods and metadata all of which can change at runtime and
             are accessible through <a href="#idl_functions">IDL functions.</a>
         </p>
         <h2 id="intent-examples" class="section-sub-title">Intent Examples <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
