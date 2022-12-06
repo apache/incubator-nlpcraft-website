@@ -1144,123 +1144,62 @@ id: intent_matching
     </section>
     <section id="logic">
         <h2 class="section-title">Intent Matching Logic <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
-        <p>
-            In order to understand the intent matching logic lets review the overall user request processing workflow:
-        </p>
-        <figure>
-            <img class="img-fluid" style="border: none; padding: 0;" src="/images/intent_matching1.png" alt="">
-            <figcaption><b>Fig. 1</b> User Request Workflow</figcaption>
-        </figure>
-        <ul>
-            <li>
-                <b>Step: 0</b><br>
-                <p>
-                    Server receives REST call <code>/ask</code> or <code>/ask/sync</code> that contains the text
-                    of the sentence that needs to be processed.
-                </p>
-            </li>
-            <li>
-                <b>Step: 1</b><br>
-                <p>
-                    At this step the server attempts to find additional variations of the input sentence by substituting
-                    certain words in the original text with synonyms from Google's BERT dataset. Note that server will not use the synonyms that
-                    are already defined in the model itself - it only tries to compensate for the potential incompleteness
-                    of the model. The result of this step is one or more sentences that all have the same meaning as the
-                    original text.
-                </p>
-            </li>
-            <li>
-                <b>Step: 2</b><br>
-                <p>
-                    At this step the server takes one or more sentences from the previous step and tokenizes them. This
-                    process involves converting the text into a sequence of enriched entities representing named entities.
-                    This step also performs the initial server-side enrichment and detection of the
-                    <a href="/data-model.html#builtin">built-in named entities</a>.
-                </p>
-                <p>
-                    The result of this step is a sequence of converted sentences, where each element is a sequence
-                    of entities. These sequences are send down to the data probe that has requested data model deployed.
-                </p>
-            </li>
-            <li>
-                <b>Step: 3</b><br>
-                <p>
-                    This is the first step of the probe-side processing. At this point the data probe receives one or more
-                    sequences of entities. Probe then takes each sequence and performs the final enrichment by detecting user-defined
-                    elements additionally to the built-in entities that were detected on the server during step 2 above.
-                </p>
-            </li>
-            <li>
-                <b>Step: 4</b><br>
-                <p>
-                    This is an important step for understanding intent matching logic. At this step the data probe
-                    takes sequences of entities generated at the last step and comes up with one or more parsing
-                    variants. A parsing variant is a sequence of entities that is free from entity overlapping and other parsing
-                    ambiguities. Typically, a single sequence of entities can produce one (always) or more parsing variants.
-                </p>
-                <p>
-                    Let's consider the input text <code>'A B C D'</code> and the following elements defined in our model:
-                </p>
-                <pre class="brush: js">
-                "elements": [
-                    {
-                        "id": "elm1",
-                        "synonyms": ["A B"]
-                    },
-                    {
-                        "id": "elm2",
-                        "synonyms": ["B C"]
-                    },
-                    {
-                        "id": "elm3",
-                        "synonyms": ["D"]
-                    }
-                ],
-                </pre>
-                <p>
-                    All of these elements will be detected but since two of them are overlapping (<code>elm1</code> and
-                    <code>elm2</code>) there should be <b>two</b> parsing variants at the output of this step:
-                </p>
+            <p>
+                {% scaladoc NCPipeline NCPipeline %} processing result is collection of {% scaladoc NCVariant NCVariant %} instances.
+                As example let's consider the input text <code>'A B C D'</code> and the following elements defined in our model:
+            </p>
+            <pre class="brush: js">
+            "elements": [
+                {
+                    "id": "elm1",
+                    "synonyms": ["A B"]
+                },
+                {
+                    "id": "elm2",
+                    "synonyms": ["B C"]
+                },
+                {
+                    "id": "elm3",
+                    "synonyms": ["D"]
+                }
+            ],
+            </pre>
+            <p>
+                All of these elements will be detected but since two of them are overlapping (<code>elm1</code> and
+                <code>elm2</code>) there should be <b>two</b> parsing variants at the output of this step:
+            </p>
                 <ol>
                     <li><code>elm1</code>('A', 'B') <code>freeword</code>('C') <code>elm3</code>('D')</li>
                     <li><code>freeword</code>('A') <code>elm2</code>('B', 'C') <code>elm3</code>('D')</li>
                 </ol>
                 <p></p>
                 <p>
-                    Note that at this point the <em>system cannot determine which of these variants is the best one
+                    Note that initially the <em>system cannot determine which of these variants is the best one
                     for matching - there's simply not enough information at this stage</em>. It can only be determined
-                    when each variant is matched against model's intents - which happens in the next step.
-                </p>
-            </li>
-            <li>
-                <b>Step: 5</b><br>
-                <p>
-                    At this step the actual matching between intents and variants happens. Each parsing variant from the previous
-                    step is matched against each intent. Each matching pair of a variant and an intent produce a match with a
+                    when each variant is matched against model's intents.
+                    So, each parsing variant is matched against each intent. Each matching pair of a variant and an intent produce a match with a
                     <em>certain weight</em>. If there are no matches at all - an error is returned. If matches were found, the match
                     with the biggest weight is selected as a winning match. If multiple matches have the same weight, their
                     respective variants' weights will be used to further sort them out. Finally, the intent's callback from the winning match is
                     called.
                 </p>
-                <p>
-                    Although details on exact algorithm on weight calculation are too complex, here's the general guidelines
-                    on what determines the weight of the match between a parsing variant and the intent. Note that these rules
-                    coalesce around the principle idea that the <b>more specific match always wins</b>:
-                </p>
-                <ul>
-                    <li>
-                        A match that captures more entities has more weight than a match with less entities. As a corollary, the match
-                        with less free words (i.e. unused words) has bigger weight than a match with more free words.
-                    </li>
-                    <li>
-                        Entities for user-defined elements are more important than built-in entities.
-                    </li>
-                    <li>
-                        A more specific match has bigger weight. In other words, a match that uses an entity from the conversation
-                        context (i.e short-term-memory) has less weight than a match that only uses entities from the current request. In the same
-                        way older entities from the conversation give less weight than the more recent ones.
-                    </li>
-                </ul>
+        <p>
+            Although details on exact algorithm on weight calculation are too complex, here's the general guidelines
+            on what determines the weight of the match between a parsing variant and the intent. Note that these rules
+            coalesce around the principle idea that the <b>more specific match always wins</b>:
+        </p>
+        <ul>
+            <li>
+                A match that captures more entities has more weight than a match with less entities. As a corollary, the match
+                with less free words (i.e. unused words) has bigger weight than a match with more free words.
+            </li>
+            <li>
+                Entities for user-defined elements are more important than built-in entities.
+            </li>
+            <li>
+                A more specific match has bigger weight. In other words, a match that uses an entity from the conversation
+                context (i.e short-term-memory) has less weight than a match that only uses entities from the current request. In the same
+                way older entities from the conversation give less weight than the more recent ones.
             </li>
         </ul>
     </section>

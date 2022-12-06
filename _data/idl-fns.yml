@@ -23,9 +23,9 @@ fn-ent:
   - name: ent_id
     sig: |
       <b>ent_id</b>(t: Entity<em><sub>opt</sub></em>) ⇒ String, # ⇒ String
-    synopsis: Returns {% scaladoc NCEntity.html#getId-0 entity ID() %}
+    synopsis: Returns <a href="/apis/latest/org/apache/nlpcraft/NCEntity.html#getId-0">entity ID</a>
     desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCEntity.html#getId()">entity ID</a>
+      Returns <a href="/apis/latest/org/apache/nlpcraft/NCEntity.html#getId-0">entity ID</a>
       for the current entity (default) or the provided one by the optional parameter <code><b>t</b></code>. Note that this
       functions has a special shorthand <code><b>#</b></code>.
     usage: |
@@ -38,9 +38,9 @@ fn-ent:
   - name: ent_groups
     sig: |
       <b>ent_groups</b>(t: Entity<em><sub>opt</sub></em>) ⇒ List[String]
-    synopsis: Gets the list of <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCEntity.html#getGroups()">groups</a> this entity belongs to
+    synopsis: Gets the list of <a class="not-code" href="/apis/latest/org/apache/nlpcraft/NCEntity.html#getGroups-0">groups</a> this entity belongs to
     desc: |
-      Gets the list of <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCEntity.html#getGroups()">groups</a>
+      Gets the list of <a class="not-code" href="/apis/latest/org/apache/nlpcraft/NCEntity.html#getGroups-0">groups</a>
       the current entity (default) or the provided one by the optional parameter <code><b>t</b></code> belongs to. Note that,
       by default, if not specified explicitly, entity always belongs to one group with ID equal to entity ID.
       May return an empty list but never a <code>null</code>.
@@ -64,7 +64,7 @@ fn-ent:
       <b>ent_text</b>(t: Entity<em><sub>opt</sub></em>) ⇒ String
     synopsis: Returns entity's original text
     desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCEntity.html#getOriginalText()">entity's original text</a>.
+      Returns <a class="not-code" href="/apis/latest/org/apache/nlpcraft/NCEntity.html#mkText-0">entity's original text</a>.
       If <code>t</code> is not provided the current entity is assumed.
     usage: |
       // Result: entity original input text.
@@ -75,7 +75,7 @@ fn-ent:
       <b>ent_index</b>(t: Entity<em><sub>opt</sub></em>) ⇒ Long
     synopsis: Returns entity's index in the original input
     desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCEntity.html#getIndex()">entity's index</a> in the original input. Note that this is an index of the entity and not of the character.
+      Returns entity's index in the original input. Note that this is an index of the entity and not of the character.
       If <code>t</code> is not provided the current entity is assumed.
     usage: |
       // Result: 'true' if index of this entity in the original input is equal to 1.
@@ -151,11 +151,11 @@ fn-ent:
       <b>ent_is_before_group</b>(grp: String) ⇒ Boolean
     synopsis: |
       Returns <code>true</code> if there is a entity that belongs to the
-      <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCEntity.html#getGroups()">group</a>
+      <a class="not-code" href="/apis/latest/org/apache/nlpcraft/NCEntity.html#getGroups-0">group</a>
       <code>grp</code> after this entity
     desc: |
       Returns <code>true</code> if there is a entity that belongs to the
-      <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCEntity.html#getGroups()">group</a>
+      <a class="not-code" href="/apis/latest/org/apache/nlpcraft/NCEntity.html#getGroups-0">group</a>
       <code>grp</code> after this entity.
     usage: |
       // Result: 'true' if there is a entity that belongs to the group 'grp' after this entity.
@@ -166,11 +166,11 @@ fn-ent:
       <b>ent_is_after_group</b>(grp: String) ⇒ Boolean
     synopsis: |
       Returns <code>true</code> if there is a entity that belongs to the
-      <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCEntity.html#getGroups()">group</a>
+      <a class="not-code" href="/apis/latest/org/apache/nlpcraft/NCEntity.html#getGroups-0">group</a>
       <code>grp</code> before this entity
     desc: |
       Returns <code>true</code> if there is a entity that belongs to the
-      <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCEntity.html#getGroups()">group</a>
+      <a class="not-code" href="/apis/latest/org/apache/nlpcraft/NCEntity.html#getGroups-0">group</a>
       <code>grp</code> before this entity.
     usage: |
       // Result: 'true' if there is a entity that belongs to the group 'grp' before this entity.
@@ -357,19 +357,19 @@ fn-req:
   - name: req_id
     sig: |
       <b>req_id</b> ⇒ String
-    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getServerRequestId()">server request ID</a>
+    synopsis: Returns <a class="not-code" href="/apis/latest/org/apache/nlpcraft/NCRequest.html#getRequestId-0">request ID</a>
     desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getServerRequestId()">server request ID</a>.
+      Returns <a class="not-code" href="/apis/latest/org/apache/nlpcraft/NCRequest.html#getRequestId-0">request ID</a>.
     usage: |
-      // Result: server request ID.
+      // Result: request ID.
       req_id
 
   - name: req_text
     sig: |
       <b>req_text</b> ⇒ String
-    synopsis: Returns request <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getNormalizedText()">normalied text</a>
+    synopsis: Returns request <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/NCRequest.html#getText-0">text</a>
     desc: |
-      Returns request <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getNormalizedText()">normalized text</a>.
+      Returns request <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/NCRequest.html#getText-0">text</a>.
     usage: |
       // Result: request text.
       req_text
@@ -377,9 +377,9 @@ fn-req:
   - name: req_tstamp
     sig: |
       <b>req_tstamp</b> ⇒ Long
-    synopsis: Gets UTC/GMT receive <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getNormalizedText()">timestamp</a>
+    synopsis: Gets UTC/GMT receive <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/NCRequest.html#getReceiveTimestamp-0">timestamp</a>
     desc: |
-      Gets UTC/GMT <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCRequest.html#getNormalizedText()">timestamp</a>
+      Gets UTC/GMT <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/NCRequest.html#getReceiveTimestamp-0">timestamp</a>
       in ms when user input was received.
     usage: |
       // Result: input receive timsstamp in ms.
@@ -388,9 +388,9 @@ fn-req:
   - name: user_id
     sig: |
       <b>user_id</b> ⇒ String
-    synopsis: Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getId()">user ID</a>
+    synopsis: Returns <code>user ID</code>
     desc: |
-      Returns <a class="not-code" target="javadoc" href="/apis/latest/org/apache/nlpcraft/model/NCUser.html#getId()">user ID</a>.
+      Returns <code>user ID</code>
     usage: |
       // Result: user ID.
       user_id      
@@ -897,8 +897,7 @@ fn-metadata:
       <b>meta_ent</b>(p: String) ⇒ Any
     synopsis: Gets entity metadata property <code><b>p</b></code>
     desc: |
-      Gets entity metadata property <code><b>p</b></code>. See
-      <a href="/data-model.html#meta">entity metadata</a> for more information.
+      Gets entity metadata property <code><b>p</b></code>.
     usage: |
       // Result: 'nlp:token:text' entity metadata property.
       meta_ent('nlp:token:text')
