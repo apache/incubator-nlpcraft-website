@@ -233,9 +233,11 @@ id: built-in-entity-parser
                 would require pre-existing marked up data sets and extensive training. For each semantic element you can either provide a
                 set of synonyms to match on or specify a piece of code that would be responsible for detecting that named
                 entity (discussed below). A synonym can have one or more individual words. Note that element's ID is its
-                implicit synonym so that even if no additional synonyms are defined at least one synonym always exists. Note
-                also that synonym matching is performed on <em>normalized</em> and <em>stemmatized</em> forms of both
-                a synonym and user input.
+                implicit synonym so that even if no additional synonyms are defined at least one synonym always exists.
+                Note also that synonym matching is performed on <em>normalized</em> and <em>stemmatized</em> forms of both
+                a synonym and user input on first phase and if first attempt is not successful, it tries to match <em>stemmatized</em> forms
+                of synonyms with <em>stemmatized</em> forms of user input which were <em>lemmatized</em> preliminarily.
+                This approach allows to provide more accurate matching and doesn't force users to prepare synonyms in initial words form. .
             </p>
 
             <p>
