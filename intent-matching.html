@@ -212,11 +212,11 @@ id: intent_matching
                                             <li><code>ent_count()</code></li>
                                             <li><code>ent_is_last()</code></li>
                                             <li><code>ent_is_first()</code></li>
-                                            <li><code>ent_is_before_id()</code></li>
+                                            <li><code>ent_is_before_type()</code></li>
                                             <li><code>ent_is_before_group()</code></li>
-                                            <li><code>ent_is_between_ids()</code></li>
+                                            <li><code>ent_is_between_types()</code></li>
                                             <li><code>ent_is_between_groups()</code></li>
-                                            <li><code>ent_is_after_id()</code></li>
+                                            <li><code>ent_is_after_type()</code></li>
                                             <li><code>ent_is_after_group()</code></li>
                                         </ul>
                                     </td>
@@ -510,7 +510,7 @@ id: intent_matching
         </p>
         <pre class="brush: idl">
         intent=a
-            term~{# == 'x:id'}
+            term~{# == 'x:type'}
             term(nums)~{# == 'num' && lowercase(meta_ent('num:unittype')) == 'datetime'}[0,2]
         </pre>
         <p><b>NOTES:</b></p>
@@ -529,7 +529,7 @@ id: intent_matching
                 Both terms have to be found in the user input for the intent to match.
             </li>
             <li>
-                First term matches any single entity with ID <code>x:id</code>.
+                First term matches any single entity with type <code>x:type</code>.
             </li>
             <li>
                 Second term can appear zero, once or two times and it matches entity with ID <code>num</code> with
@@ -593,13 +593,13 @@ id: intent_matching
         <div class="bq info">
             <p><b>Special Shorthand <code>#</code></b></p>
             <p>
-                The frequently used IDL function <code>ent_id()</code> has a special shorthand <code>#</code>. For example,
+                The frequently used IDL function <code>ent_type()</code> has a special shorthand <code>#</code>. For example,
                 the following expressions are all equal:
             </p>
             <pre class="brush: idl">
-                ent_id() == 'id'
-                ent_id == 'id' // Remember - empty parens are optional.
-                # == 'id'
+                ent_type() == 'type'
+                ent_type == 'type' // Remember - empty parens are optional.
+                # == 'type'
             </pre>
         </div>
         <p>
@@ -1129,7 +1129,7 @@ id: intent_matching
                 whose element is defined in the model.
             </li>
             <li>
-                Second term is defined as a single mandatory (<code>min=1, max=1</code>) entity with ID <code>opennlp:location</code>.
+                Second term is defined as a single mandatory (<code>min=1, max=1</code>) entity with entity<code>opennlp:location</code>.
             </li>
             <li>
                 Given data model definition above the following sentences will be matched by this intent:

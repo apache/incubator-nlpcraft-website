@@ -20,20 +20,20 @@
 #
 
 fn-ent:
-  - name: ent_id
+  - name: ent_type
     sig: |
-      <b>ent_id</b>(t: Entity<em><sub>opt</sub></em>) ⇒ String, # ⇒ String
-    synopsis: Returns <a href="/apis/latest/org/apache/nlpcraft/NCEntity.html#getId-0">entity ID</a>
+      <b>ent_type</b>(t: Entity<em><sub>opt</sub></em>) ⇒ String, # ⇒ String
+    synopsis: Returns <a href="/apis/latest/org/apache/nlpcraft/NCEntity.html#getType-0">entity type</a>
     desc: |
-      Returns <a href="/apis/latest/org/apache/nlpcraft/NCEntity.html#getId-0">entity ID</a>
+      Returns <a href="/apis/latest/org/apache/nlpcraft/NCEntity.html#getType-0">entity type</a>
       for the current entity (default) or the provided one by the optional parameter <code><b>t</b></code>. Note that this
       functions has a special shorthand <code><b>#</b></code>.
     usage: |
-      // Result: 'true' if the current entity ID is equal to 'my_id'.
-      ent_id == 'my_id'
-      # == 'my_id'
-      ent_id(ent_this) == 'my_id'
-      #(ent_this) == 'my_id'
+      // Result: 'true' if the current entity type is equal to 'my_type'.
+      ent_type == 'my_type'
+      # == 'my_type'
+      ent_type(ent_this) == 'my_type'
+      #(ent_this) == 'my_type'
 
   - name: ent_groups
     sig: |
@@ -42,7 +42,7 @@ fn-ent:
     desc: |
       Gets the list of <a class="not-code" href="/apis/latest/org/apache/nlpcraft/NCEntity.html#getGroups-0">groups</a>
       the current entity (default) or the provided one by the optional parameter <code><b>t</b></code> belongs to. Note that,
-      by default, if not specified explicitly, entity always belongs to one group with ID equal to entity ID.
+      by default, if not specified explicitly, entity always belongs to one group with type equal to entity type.
       May return an empty list but never a <code>null</code>.
     usage: |
       // Result: list of groups this entity belongs to.
@@ -106,35 +106,35 @@ fn-ent:
       ent_is_last
       ent_is_last(ent_this)
 
-  - name: ent_is_before_id
+  - name: ent_is_before_type
     sig: |
-      <b>ent_is_before_id</b>(id: String) ⇒ Boolean
-    synopsis: Returns <code>true</code> if there is a entity with ID <code>id</code> after this entity
+      <b>ent_is_before_type</b>(type: String) ⇒ Boolean
+    synopsis: Returns <code>true</code> if there is a entity with type <code>type</code> after this entity
     desc: |
-      Returns <code>true</code> if there is a entity with ID <code>id</code> after this entity.
+      Returns <code>true</code> if there is a entity with type <code>type</code> after this entity.
     usage: |
-      // Result: 'true' if there is a entity with ID 'a' after this entity.
-      ent_is_before_id('a')
+      // Result: 'true' if there is a entity with type 'a' after this entity.
+      ent_is_before_type('a')
 
-  - name: ent_is_after_id
+  - name: ent_is_after_type
     sig: |
-      <b>ent_is_after_id</b>(id: String) ⇒ Boolean
-    synopsis: Returns <code>true</code> if there is a entity with ID <code>id</code> before this entity
+      <b>ent_is_after_type</b>(type: String) ⇒ Boolean
+    synopsis: Returns <code>true</code> if there is a entity with type <code>type</code> before this entity
     desc: |
-      Returns <code>true</code> if there is a entity with ID <code>id</code> before this entity.
+      Returns <code>true</code> if there is a entity with type <code>type</code> before this entity.
     usage: |
-      // Result: 'true' if there is a entity with ID 'a' before this entity.
-      ent_is_after_id('a')
+      // Result: 'true' if there is a entity with type 'a' before this entity.
+      ent_is_after_type('a')
 
-  - name: ent_is_between_ids
+  - name: ent_is_between_types
     sig: |
-      <b>ent_is_between_ids</b>(id1: String, id2: String) ⇒ Boolean
-    synopsis: Returns <code>true</code> if this entity is located between entities with IDs <code>id1</code> and <code>id2</code>
+      <b>ent_is_between_types</b>(type1: String, type2: String) ⇒ Boolean
+    synopsis: Returns <code>true</code> if this entity is located between entities with types <code>type1</code> and <code>type2</code>
     desc: |
-      Returns <code>true</code> if this entity is located between entities with IDs <code>id1</code> and <code>id2</code>.
+      Returns <code>true</code> if this entity is located between entities with types <code>type1</code> and <code>type2</code>.
     usage: |
-      // Result: 'true' if this entity is located after entity with ID 'before' and before the entity with ID 'after'.
-      ent_is_between_ids('before', 'after')
+      // Result: 'true' if this entity is located after entity with type 'before' and before the entity with type 'after'.
+      ent_is_between_types('before', 'after')
 
   - name: ent_is_between_groups
     sig: |
@@ -199,16 +199,16 @@ fn-ent:
       // Result: number of all entities for the original input.
       ent_count
 
-  - name: ent_all_for_id
+  - name: ent_all_for_type
     sig: |
-      <b>ent_all_for_id</b>(id: String) ⇒ List[Entity]
+      <b>ent_all_for_type</b>(type: String) ⇒ List[Entity]
     synopsis: |
-      Returns list of entities from the original input with ID <code>id</code>
+      Returns list of entities from the original input with type <code>type</code>
     desc: |
-      Returns list of entities from the original input with ID <code>id</code>.
+      Returns list of entities from the original input with type <code>type</code>.
     usage: |
-      // Result: list of entities for the original input that have ID 'id'.
-      ent_all_for_id('id')
+      // Result: list of entities for the original input that have type 'type'.
+      ent_all_for_type('type')
 
   - name: ent_all_for_group
     sig: |
