@@ -82,13 +82,13 @@ id: built-in-entity-parser
         <h2 class="section-title">NLP Parser<a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
 
         <p>
-            {% scaladoc nlp/parsers/NCOpenNLPTokenParser NCOpenNLPTokenParser %} converts NLP tokens into entities with four mandatory properties:
-            <code>nlp:token:text</code>, <code>nlp:token:index</code>, <code>nlp:token:startCharIndex</code> and
-            <code>nlp:token:endCharIndex</code>.
+            {% scaladoc nlp/parsers/NCNLPEntityParser NCNLPEntityParser %} converts NLP tokens into entities with four mandatory properties:
+            <code>nlp:entity:text</code>, <code>nlp:entity:index</code>, <code>nlp:entity:startCharIndex</code> and
+            <code>nlp:entity:endCharIndex</code>.
             However, if any other {% scaladoc NCTokenEnricher NCTokenEnricher %} components
             are registered in the {% scaladoc NCPipeline NCPipeline %}
             and they add other properties into the tokens,
-            these properties also will be copied with names prefixed with <code>nlp:token:</code>.
+            these properties also will be copied with names prefixed with <code>nlp:entity:</code>.
             It is language independent component.
             Note that converted tokens set can be restricted by predicate.
         </p>
