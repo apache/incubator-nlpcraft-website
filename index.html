@@ -26,7 +26,7 @@ layout: default
             <div id="nat-lang-itf">Apache NLPCraft</div>
             <h1 id="banner-sub-title">An API to convert natural language into actions</h1>
             <div>
-                <a id="get-started-btn" role="button" href="docs.html" class="btn mt-5"> GET STARTED </a>
+                <a id="get-started-btn" role="button" href="docs.html" class="btn mt-5"> GET STARTED <i class="fas fa-fw fa-book"></i></a>
             </div>
         </div>
     </div>
@@ -43,16 +43,10 @@ layout: default
                         to modern applications. It enables people to interact with your products using voice
                         or text.
                     </p>
-                    <div class="quick-link">
-                        <img alt="" class="quick-link-img" src="/images/apache_20_logo2-h32.png">
-                        <a target="asf" href="https://www.apache.org/licenses/">License</a>
-                        <span class="sep">•</span>
-                        <a target="asf" href="https://www.apache.org/security">Security</a>
-                        <span class="sep">•</span>
-                        <a target="asf" href="https://www.apache.org/foundation/thanks.html">Thanks</a>
-                        <span class="sep">•</span>
-                        <a target="asf" href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a>
-                    </div>
+                    <p>
+                        Based on fully deterministic semantic-based intent comprehension NLPCraft provides fully trackable
+                        natural language-to-action converter in an easy to use and simple to deploy library.
+                    </p>
                     <div class="learn-more">
                         <a href="docs.html">Learn more <i class="align-text-bottom fas fa-angle-right"></i></a>
                     </div>
@@ -64,7 +58,10 @@ layout: default
                     <p>
                         Natural Language Interface enables users to interact with any type of products
                         using natural language augmenting existing UI/UX with fidelity
-                        and simplicity of a familiar spoken language. Natural Language has no learning curve, no
+                        and simplicity of a familiar spoken language.
+                    </p>
+                    <p>
+                        Natural Language has no learning curve, no
                         special rules or cumbersome syntax to master - it's a natural interface that your users <em>already know</em>.
                     </p>
                 </section>
@@ -97,6 +94,16 @@ layout: default
                         <i style="font-size: 150%" class="fas fa-fw fa-book mr-2"></i><a target="_" href="/apis/latest/index.html">{{site.latest_version}} Scaladoc</a>
                         <i style="font-size: 150%; margin-left: 15px" class="fas fa-fw fa-cog mr-2"></i><a href="/installation.html">Installation</a>
                     </div>
+                    <div class="quick-link">
+                        <img alt="" class="quick-link-img" src="/images/apache_20_logo2-h32.png">
+                        <a target="asf" href="https://www.apache.org/licenses/">License</a>
+                        <span class="sep">•</span>
+                        <a target="asf" href="https://www.apache.org/security">Security</a>
+                        <span class="sep">•</span>
+                        <a target="asf" href="https://www.apache.org/foundation/thanks.html">Thanks</a>
+                        <span class="sep">•</span>
+                        <a target="asf" href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a>
+                    </div>
                 </section>
             </div>
         </div>
@@ -107,42 +114,7 @@ layout: default
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
-                <h2 class="section-title">NLPCraft <span>Events</span></h2>
-            </div>
-        </div>
-        <div id="event-container" class="row">
-            {% for event in site.data.events  limit:4%}
-            <div class="col-4">
-                <div class="event-logo">
-                    <img class="event-logo" src="{{ event.event_logo_url | relative_url}}" alt="">
-                </div>
-                <div class="event-name">
-                    <a href="{{ event.event_url }}" target=_new>{{ event.event_name }}</a>
-                    {% if event.event_twitter_id %}<a target="twitter" href="https://twitter.com/{{ event.event_twitter_id}}"><i class="fab fa-fw fa-twitter"></i></a>{% endif %}
-                </div>
-                <div class="event-loc">
-                    Location: {{ event.event_loc }}
-                </div>
-                <div class="event-date">
-                    Dates: {{ event.event_date }}
-                </div>
-                <div class="event-link">
-                    URL: <a href="{{ event.event_url }}" target=_new>{{ event.event_url }}</a>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-        <div class="learn-more">
-            <a href="resources.html">Learn More <i class="align-text-bottom fas fa-angle-right"></i></a>
-        </div>
-    </div>
-</div>
-
-<div id="features" class="bottom-arrow main-section">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <h2 class="section-title">Key <span>Features</span></h2>
+                <h2 class="section-title">Key <span>Features</span> <i class="fas fa-cube"></i></h2>
             </div>
         </div>
         <div class="row">
@@ -194,7 +166,7 @@ layout: default
                 </section>
             </div>
             <div class="col-4">
-                <h3 class="sub-section-title">Scala3</h3>
+                <h3 class="sub-section-title">Scala3 <img style="height: 32px; vertical-align: sub" src="images/scala-swoosh.png"></h3>
                 <section>
                     <p>
                         NLPCraft is built natively in Scala3 supporting all the latest Scala ecosystem of tools and
@@ -207,6 +179,38 @@ layout: default
             <a href="docs.html">Learn more <i class="align-text-bottom fas fa-angle-right"></i></a>
         </div>
     </div>
+<!--    <div class="container-fluid">-->
+<!--        <div class="row">-->
+<!--            <div class="col-12">-->
+<!--                <h2 class="section-title">NLPCraft <span>Events</span></h2>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div id="event-container" class="row">-->
+<!--            {% for event in site.data.events  limit:4%}-->
+<!--            <div class="col-4">-->
+<!--                <div class="event-logo">-->
+<!--                    <img class="event-logo" src="{{ event.event_logo_url | relative_url}}" alt="">-->
+<!--                </div>-->
+<!--                <div class="event-name">-->
+<!--                    <a href="{{ event.event_url }}" target=_new>{{ event.event_name }}</a>-->
+<!--                    {% if event.event_twitter_id %}<a target="twitter" href="https://twitter.com/{{ event.event_twitter_id}}"><i class="fab fa-fw fa-twitter"></i></a>{% endif %}-->
+<!--                </div>-->
+<!--                <div class="event-loc">-->
+<!--                    Location: {{ event.event_loc }}-->
+<!--                </div>-->
+<!--                <div class="event-date">-->
+<!--                    Dates: {{ event.event_date }}-->
+<!--                </div>-->
+<!--                <div class="event-link">-->
+<!--                    URL: <a href="{{ event.event_url }}" target=_new>{{ event.event_url }}</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            {% endfor %}-->
+<!--        </div>-->
+<!--        <div class="learn-more">-->
+<!--            <a href="resources.html">Learn More <i class="align-text-bottom fas fa-angle-right"></i></a>-->
+<!--        </div>-->
+<!--    </div>-->
 </div>
 
 <div id="news" class="bottom-arrow main-section">
@@ -271,6 +275,7 @@ layout: default
                    data-theme="light"
                    data-cards="hidden"
                    href="https://twitter.com/ApacheNLPCraft">Tweets by ApacheNLPCraft</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                <p></p>
                 <a href="https://twitter.com/apachenlpcraft"
                    class="twitter-follow-button" data-size="large" data-show-count="false">Follow @apachenlpcraft</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
             </div>

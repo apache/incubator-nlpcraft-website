@@ -107,9 +107,11 @@
         letter-spacing: 0.02em;
         font-weight: 200;
         display: block;
+        color: $color-slack2;
 
         span {
-            font-weight: 500;
+            font-weight: 700;
+            color: $color-slack;
         }
     }
 
