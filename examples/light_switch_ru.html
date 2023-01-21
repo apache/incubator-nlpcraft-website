@@ -45,16 +45,16 @@ fa_icon: fa-cube
         </p>
         <pre class="brush: js, highlight: [7, 8, 9, 10]">
             ThisBuild / version := "0.1.0-SNAPSHOT"
-            ThisBuild / scalaVersion := "3.1.3"
+            ThisBuild / scalaVersion := "3.2.2"
             lazy val root = (project in file("."))
               .settings(
                 name := "NLPCraft LightSwitch RU Example",
                 version := "{{site.latest_version}}",
                 libraryDependencies += "org.apache.nlpcraft" % "nlpcraft" % "{{site.latest_version}}",
                 libraryDependencies += "org.apache.lucene" % "lucene-analyzers-common" % "8.11.2",
-                libraryDependencies += "org.languagetool" % "languagetool-core" % "5.9",
-                libraryDependencies += "org.languagetool" % "language-ru" % "5.9",
-                libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.14" % "test"
+                libraryDependencies += "org.languagetool" % "languagetool-core" % "6.0",
+                libraryDependencies += "org.languagetool" % "language-ru" % "6.0",
+                libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.15" % "test"
               )
         </pre>
 
@@ -132,12 +132,12 @@ fa_icon: fa-cube
               "&lt;LIGHT_OPT&gt;" : "{это|лампа|бра|люстра|светильник|лампочка|лампа|освещение|свет|электричество|электрика|_}"
 
             elements:
-              - id: "ls:loc"
+              - type: "ls:loc"
                 description: "Location of lights."
                 synonyms:
                   - "&lt;ENTIRE_OPT&gt; {здание|помещение|дом|кухня|детская|кабинет|гостиная|спальня|ванная|туалет|{большая|обеденная|ванная|детская|туалетная} комната}"
 
-              - id: "ls:on"
+              - type: "ls:on"
                 groups:
                   - "act"
                 description: "Light switch ON action."
@@ -145,7 +145,7 @@ fa_icon: fa-cube
                   - "&lt;LIGHT_OPT&gt; &lt;ENTIRE_OPT&gt; &lt;TURN_ON&gt;"
                   - "&lt;TURN_ON&gt; &lt;ENTIRE_OPT&gt; &lt;LIGHT_OPT&gt;"
 
-              - id: "ls:off"
+              - type: "ls:off"
                 groups:
                   - "act"
                 description: "Light switch OFF action."
@@ -209,7 +209,7 @@ fa_icon: fa-cube
                     @NCIntentTerm("act") actEnt: NCEntity,
                     @NCIntentTerm("loc") locEnts: List[NCEntity]
                 ): NCResult =
-                    val action = if actEnt.getId == "ls:on" then "включить" else "выключить"
+                    val action = if actEnt.getType == "ls:on" then "включить" else "выключить"
                     val locations = if locEnts.isEmpty then "весь дом" else locEnts.map(_.mkText).mkString(", ")
 
                     // Add HomeKit, Arduino or other integration here.
@@ -400,20 +400,21 @@ fa_icon: fa-cube
             import opennlp.tools.stemmer.snowball.SnowballStemmer
             import demo.nlp.token.parser.NCRuTokenParser
             import org.apache.nlpcraft.nlp.parsers.*
+            import org.apache.nlpcraft.nlp.stemmer.NCStemmer
 
             class NCRuSemanticEntityParser(src: String) extends NCSemanticEntityParser(
-                new NCSemanticStemmer:
+                new NCStemmer:
                     private val stemmer = new SnowballStemmer(SnowballStemmer.ALGORITHM.RUSSIAN)
                     override def stem(txt: String): String = stemmer.synchronized { stemmer.stem(txt.toLowerCase).toString }
                 ,
                 new NCRuTokenParser(),
-                mdlSrcOpt = Option(src)
+                src
             )
         </pre>
 
         <ul>
             <li>
-                <code>NCRuSemanticEntityParser</code> extends <code>NCSemanticEntityParser</code>.
+                <code>NCRuSemanticEntityParser</code> extends {% scaladoc nlp/parsers/NCSemanticEntityParser NCSemanticEntityParser %}.
                 It uses stemmer implementation from <a href="https://opennlp.apache.org/">Apache OpenNLP</a> project.
             </li>
         </ul>        

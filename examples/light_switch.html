@@ -45,13 +45,13 @@ fa_icon: fa-cube
         </p>
         <pre class="brush: js, highlight: [7]">
             ThisBuild / version := "0.1.0-SNAPSHOT"
-            ThisBuild / scalaVersion := "3.1.3"
+            ThisBuild / scalaVersion := "3.2.2"
             lazy val root = (project in file("."))
               .settings(
                 name := "NLPCraft LightSwitch Example",
                 version := "{{site.latest_version}}",
                 libraryDependencies += "org.apache.nlpcraft" % "nlpcraft" % "{{site.latest_version}}",
-                libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.14" % "test"
+                libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.15" % "test"
               )
         </pre>
         <p><b>NOTE: </b>use the latest versions of Scala and ScalaTest.</p>
@@ -83,7 +83,7 @@ fa_icon: fa-cube
         <p>
             We are going to start with declaring the static part of our model using YAML which we will later load
             in our Scala-based model implementation.
-            Open <code>src/main/resources/<b>light_switch.yaml</b></code>
+            Open <code>src/main/resources/<b>lightswitch_model.yaml</b></code>
             file and replace its content with the following YAML:
         </p>
         <pre class="brush: js, highlight: [1, 10, 17, 25]">
@@ -96,14 +96,14 @@ fa_icon: fa-cube
               "&lt;LIGHT&gt;" : "{all|_} {it|them|light|illumination|lamp|lamplight}"
 
             elements:
-              - id: "ls:loc"
+              - type: "ls:loc"
                 description: "Location of lights."
                 synonyms:
                   - "&lt;ENTIRE_OPT&gt; &lt;FLOOR_OPT&gt; {kitchen|library|closet|garage|office|playroom|{dinning|laundry|play} &lt;TYPE&gt;}"
                   - "&lt;ENTIRE_OPT&gt; &lt;FLOOR_OPT&gt; {master|kid|children|child|guest|_} {bedroom|bathroom|washroom|storage} {&lt;TYPE&gt;|_}"
                   - "&lt;ENTIRE_OPT&gt; {house|home|building|{1st|first} floor|{2nd|second} floor}"
 
-              - id: "ls:on"
+              - type: "ls:on"
                 groups:
                   - "act"
                 description: "Light switch ON action."
@@ -111,7 +111,7 @@ fa_icon: fa-cube
                   - "&lt;ACTION&gt; {on|up|_} &lt;LIGHT&gt; {on|up|_}"
                   - "&lt;LIGHT&gt; {on|up}"
 
-              - id: "ls:off"
+              - type: "ls:off"
                 groups:
                   - "act"
                 description: "Light switch OFF action."
@@ -167,7 +167,7 @@ fa_icon: fa-cube
                     @NCIntentTerm("act") actEnt: NCEntity,
                     @NCIntentTerm("loc") locEnts: List[NCEntity]
                 ): NCResult =
-                    val status = if actEnt.getId == "ls:on" then "on" else "off"
+                    val status = if actEnt.getType == "ls:on" then "on" else "off"
                     val locations = if locEnts.isEmpty then "entire house" else locEnts.map(_.mkText).mkString(", ")
 
                     // Add HomeKit, Arduino or other integration here.=
