@@ -9,4 +9,6 @@ target
 out
 Gemfile.lock
 vendor/
+.DS_Store
+.DS_Store?
 
