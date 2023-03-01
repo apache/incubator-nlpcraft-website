@@ -1,0 +1,12 @@
+.jekyll-metadata
+**/*.iml
+*.iml
+.idea/
+_site/
+.sass-cache/
+.jekyll-cache/
+target
+out
+Gemfile.lock
+vendor/
+
