@@ -26,42 +26,27 @@ id: installation
     <section id="maven">
         <h2 class="section-title">Maven/Sbt <a href="#"><i class="top-link fas fa-fw fa-angle-double-up"></i></a></h2>
         <p>
-            The easiest way to start using NLPCraft is to add Maven dependency (Grape, SBT, etc.) to your
-            project:
+            The easiest way to start using NLPCraft is to add SBT dependency to your project:
         </p>
         <nav>
             <div class="nav nav-tabs" role="tablist">
-                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-maven" role="tab">Maven <img src="/images/java2-h20.png" alt=""></a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-grape" role="tab">Grape <img src="/images/groovy-h18.png" alt=""></a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-gradle" role="tab">Gradle <img src="/images/kotlin-h18.png" alt=""></a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-sbt" role="tab">SBT <img src="/images/scala-logo-h16.png" alt=""></a>
+                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-sbt" role="tab">SBT <img src="/images/scala-logo-h16.png" alt=""></a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-maven" role="tab">Maven <img src="/images/java2-h20.png" alt=""></a>
             </div>
         </nav>
         <div class="tab-content">
-            <div class="tab-pane fade show active" id="nav-maven" role="tabpanel">
+            <div class="tab-pane fade show active" id="nav-sbt" role="tabpanel">
+                    <pre class="brush: scala">
+                    libraryDependencies += "org.apache.nlpcraft" % "nlpcraft" % "{{site.latest_version}}"
+                    </pre>
+            </div>
+            <div class="tab-pane fade" id="nav-maven" role="tabpanel">
                     <pre class="brush: xml">
                     &lt;dependency&gt;
                         &lt;groupId&gt;org.apache.nlpcraft&lt;/groupId&gt;
                         &lt;artifactId&gt;nlpcraft&lt;/artifactId&gt;
                         &lt;version&gt;{{site.latest_version}}&lt;/version&gt;
                     &lt;/dependency&gt;
-                    </pre>
-            </div>
-            <div class="tab-pane fade" id="nav-grape" role="tabpanel">
-                    <pre class="brush: java">
-                    @Grab ('org.apache.nlpcraft:nlpcraft:{{site.latest_version}}')
-                    </pre>
-            </div>
-            <div class="tab-pane fade" id="nav-gradle" role="tabpanel">
-                    <pre class="brush: java">
-                    dependencies {
-                        runtime group: 'org.apache.nlpcraft', name: 'nlpcraft', version: '{{site.latest_version}}'
-                    }
-                    </pre>
-            </div>
-            <div class="tab-pane fade" id="nav-sbt" role="tabpanel">
-                    <pre class="brush: scala">
-                    libraryDependencies += "org.apache.nlpcraft" % "nlpcraft" % "{{site.latest_version}}"
                     </pre>
             </div>
         </div>
@@ -83,7 +68,7 @@ id: installation
                 If you <a href="/download.html">cloned</a> GitHub repository or downloaded source archive compile
                 it via:
                 <ul>
-                    <li><code>sbt</code>: <code class="script">$ sbt clean compile</code></li>
+                    <li><code>sbt</code>: <code class="script">$ sbt clean package</code></li>
                     <li><code>maven</code>: <code class="script">$ mvn -B clean package -P stanford-core,examples</code></li>
                 </ul>
             </li>
